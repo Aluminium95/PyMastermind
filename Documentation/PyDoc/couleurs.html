@@ -1,0 +1,94 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module couleurs</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>couleurs</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/aluminium95/Documents/Test/terminale/ISN/Code/Devoirs/Projet/couleurs.py">/home/aluminium95/Documents/Test/terminale/ISN/Code/Devoirs/Projet/couleurs.py</a></font></td></tr></table>
+    <p><tt>#-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
+#<br>
+#&nbsp;Lopez&nbsp;Aliaume<br>
+#<br>
+#&nbsp;18:55<br>
+#&nbsp;26&nbsp;mars&nbsp;2013<br>
+#<br>
+#&nbsp;Ce&nbsp;module&nbsp;sert&nbsp;à&nbsp;gérer&nbsp;les&nbsp;<br>
+#&nbsp;couleurs&nbsp;...&nbsp;<br>
+#<br>
+#<br>
+#<br>
+#&nbsp;Le&nbsp;concept&nbsp;est&nbsp;simple,&nbsp;on&nbsp;a&nbsp;deux<br>
+#&nbsp;représentations,&nbsp;on&nbsp;les&nbsp;définit&nbsp;par&nbsp;des&nbsp;<br>
+#&nbsp;fonctions&nbsp;d'identité&nbsp;:&nbsp;is_hexa&nbsp;et&nbsp;is_string<br>
+#&nbsp;de&nbsp;manière&nbsp;à&nbsp;les&nbsp;différencier.<br>
+#<br>
+#&nbsp;Ensuite&nbsp;on&nbsp;permet&nbsp;la&nbsp;conversion,&nbsp;retournant<br>
+#&nbsp;«&nbsp;False&nbsp;»&nbsp;si&nbsp;c'est&nbsp;mauvais&nbsp;...<br>
+#<br>
+#&nbsp;Le&nbsp;tout&nbsp;a&nbsp;la&nbsp;particularité&nbsp;de&nbsp;fonctionner&nbsp;<br>
+#&nbsp;avec&nbsp;le&nbsp;module&nbsp;«&nbsp;persistance&nbsp;».&nbsp;En&nbsp;effet<br>
+#&nbsp;la&nbsp;«&nbsp;table&nbsp;de&nbsp;conversion&nbsp;»&nbsp;est&nbsp;un&nbsp;fichier<br>
+#&nbsp;de&nbsp;configuration.<br>
+#<br>
+#&nbsp;Cela&nbsp;permet&nbsp;aussi&nbsp;de&nbsp;dresser&nbsp;simplement<br>
+#&nbsp;la&nbsp;liste&nbsp;des&nbsp;valeurs&nbsp;possibles,&nbsp;en&nbsp;lisant&nbsp;<br>
+#&nbsp;le&nbsp;fichier&nbsp;et&nbsp;créeant&nbsp;une&nbsp;liste&nbsp;(dans&nbsp;«&nbsp;init&nbsp;()&nbsp;»)<br>
+#&nbsp;<br>
+#&nbsp;Ce&nbsp;code&nbsp;est&nbsp;fonctionnel&nbsp;!&nbsp;Bien&nbsp;que&nbsp;parfois&nbsp;<br>
+#&nbsp;peu&nbsp;efficace&nbsp;...&nbsp;mais&nbsp;ça&nbsp;ne&nbsp;devrait&nbsp;pas&nbsp;<br>
+#&nbsp;poser&nbsp;de&nbsp;problèmes&nbsp;:-)<br>
+#</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="persistance.html">persistance</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-hexa_to_string"><strong>hexa_to_string</strong></a>(hexa)</dt><dd><tt>Retourne&nbsp;la&nbsp;valeur&nbsp;String&nbsp;de&nbsp;la&nbsp;couleur&nbsp;en&nbsp;Hexa<br>
+&nbsp;<br>
+@hexa&nbsp;:&nbsp;string&nbsp;=&nbsp;hexa&nbsp;à&nbsp;convertir<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;string&nbsp;|&nbsp;False</tt></dd></dl>
+ <dl><dt><a name="-init"><strong>init</strong></a>()</dt><dd><tt>Initialise&nbsp;le&nbsp;module&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-is_hexa"><strong>is_hexa</strong></a>(couleur)</dt><dd><tt>Dit&nbsp;si&nbsp;la&nbsp;couleur&nbsp;est&nbsp;sous&nbsp;forme&nbsp;hexadécimale<br>
+&nbsp;<br>
+@couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;élément&nbsp;à&nbsp;tester<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool</tt></dd></dl>
+ <dl><dt><a name="-is_string"><strong>is_string</strong></a>(couleur)</dt><dd><tt>Dit&nbsp;si&nbsp;la&nbsp;couleur&nbsp;est&nbsp;sous&nbsp;forme&nbsp;de&nbsp;chaine<br>
+&nbsp;<br>
+@couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;élément&nbsp;à&nbsp;tester<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool</tt></dd></dl>
+ <dl><dt><a name="-liste_couleurs"><strong>liste_couleurs</strong></a>()</dt><dd><tt>Retourne&nbsp;la&nbsp;liste&nbsp;des&nbsp;couleurs&nbsp;(en&nbsp;hexa)<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;[string&nbsp;...]</tt></dd></dl>
+ <dl><dt><a name="-string_to_hexa"><strong>string_to_hexa</strong></a>(couleur)</dt><dd><tt>Retourne&nbsp;la&nbsp;valeur&nbsp;Hexa&nbsp;de&nbsp;la&nbsp;couleur<br>
+&nbsp;<br>
+@couleur&nbsp;:&nbsp;string&nbsp;=&nbsp;couleur&nbsp;à&nbsp;convertir<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;string&nbsp;|&nbsp;False</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>couleurs</strong> = []</td></tr></table>
+</body></html>

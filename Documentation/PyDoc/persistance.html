@@ -1,0 +1,98 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module persistance</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>persistance</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/aluminium95/Documents/Test/terminale/ISN/Code/Devoirs/Projet/persistance.py">/home/aluminium95/Documents/Test/terminale/ISN/Code/Devoirs/Projet/persistance.py</a></font></td></tr></table>
+    <p><tt>#-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
+#<br>
+#&nbsp;Lopez&nbsp;Aliaume<br>
+#&nbsp;30/03/2013<br>
+#&nbsp;<br>
+#&nbsp;Fichier&nbsp;gérant&nbsp;tout&nbsp;ce&nbsp;qui&nbsp;est&nbsp;persistance&nbsp;<br>
+#&nbsp;des&nbsp;informations&nbsp;dans&nbsp;une&nbsp;sorte&nbsp;de&nbsp;BDD<br>
+#&nbsp;<br>
+#&nbsp;<br>
+#&nbsp;L'API&nbsp;est&nbsp;orientée&nbsp;vers&nbsp;les&nbsp;clé&nbsp;=&gt;&nbsp;valeur<br>
+#&nbsp;et&nbsp;laisse&nbsp;le&nbsp;soin&nbsp;à&nbsp;l'utilisateur&nbsp;de&nbsp;définir<br>
+#&nbsp;son&nbsp;propre&nbsp;fonctionnement&nbsp;:&nbsp;il&nbsp;n'y&nbsp;a&nbsp;pas&nbsp;<br>
+#&nbsp;de&nbsp;schémas&nbsp;prédéfinis&nbsp;d'utilisation&nbsp;!<br>
+#<br>
+#<br>
+#&nbsp;BDD&nbsp;:<br>
+#&nbsp;[&nbsp;<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;["fichier1",&nbsp;["variable1",&nbsp;"valeur1"],&nbsp;...&nbsp;,&nbsp;["variableN","valeurN"]],<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;["fichierN",&nbsp;["variable1",&nbsp;"valeur1"],&nbsp;...&nbsp;,&nbsp;["variableN","valeurN"]]<br>
+#&nbsp;]</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-add_propriete"><strong>add_propriete</strong></a>(chemin, nom, val)</dt><dd><tt>Ajoute&nbsp;une&nbsp;propriété,&nbsp;même&nbsp;si&nbsp;elle&nbsp;existe&nbsp;déjà<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
+@nom&nbsp;:&nbsp;string&nbsp;=&nbsp;nom&nbsp;de&nbsp;la&nbsp;propriété<br>
+@val&nbsp;:&nbsp;string&nbsp;=&nbsp;valeur&nbsp;de&nbsp;la&nbsp;propriété&nbsp;&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;ça&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+ <dl><dt><a name="-charger_fichier"><strong>charger_fichier</strong></a>(chemin)</dt><dd><tt>Charge&nbsp;un&nbsp;fichier&nbsp;de&nbsp;configuration<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;à&nbsp;charger<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;ça&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+ <dl><dt><a name="-get_by_value"><strong>get_by_value</strong></a>(chemin, val)</dt><dd><tt>Récupère&nbsp;le&nbsp;nom&nbsp;de&nbsp;la&nbsp;propriété&nbsp;contenant&nbsp;la&nbsp;valeur&nbsp;@val<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
+@val&nbsp;:&nbsp;string&nbsp;=&nbsp;valeur&nbsp;de&nbsp;la&nbsp;propriété<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;string&nbsp;|&nbsp;False</tt></dd></dl>
+ <dl><dt><a name="-get_propriete"><strong>get_propriete</strong></a>(chemin, nom)</dt><dd><tt>Récupère&nbsp;une&nbsp;propriété<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
+@nom&nbsp;:&nbsp;string&nbsp;=&nbsp;nom&nbsp;de&nbsp;la&nbsp;propriété&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;string&nbsp;|&nbsp;False</tt></dd></dl>
+ <dl><dt><a name="-init"><strong>init</strong></a>()</dt><dd><tt>fonction&nbsp;d'initialisation&nbsp;du&nbsp;module<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-liste_fichiers"><strong>liste_fichiers</strong></a>()</dt><dd><tt>Retourne&nbsp;les&nbsp;fichiers&nbsp;chargés<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;[string&nbsp;...]</tt></dd></dl>
+ <dl><dt><a name="-liste_variables"><strong>liste_variables</strong></a>(fichier)</dt><dd><tt>Retourne&nbsp;toutes&nbsp;les&nbsp;variables&nbsp;dans&nbsp;un&nbsp;fichier<br>
+&nbsp;<br>
+@fichier&nbsp;:&nbsp;string&nbsp;=&nbsp;nom&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;chercher&nbsp;les&nbsp;variables<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;[string&nbsp;...]</tt></dd></dl>
+ <dl><dt><a name="-new_file"><strong>new_file</strong></a>(chemin)</dt><dd><tt>Ajoute&nbsp;un&nbsp;fichier&nbsp;virtuel&nbsp;(enregistré&nbsp;plus&nbsp;tard)<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;à&nbsp;créer&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-save"><strong>save</strong></a>()</dt><dd><tt>Enregistre&nbsp;les&nbsp;modifications&nbsp;dans&nbsp;les&nbsp;fichiers<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;ça&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+ <dl><dt><a name="-set_propriete"><strong>set_propriete</strong></a>(chemin, nom, val)</dt><dd><tt>Définit&nbsp;une&nbsp;propriété,&nbsp;et&nbsp;la&nbsp;crée&nbsp;si&nbsp;elle&nbsp;n'existe&nbsp;pas&nbsp;<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
+@nom&nbsp;:&nbsp;string&nbsp;=&nbsp;nom&nbsp;de&nbsp;la&nbsp;propriété<br>
+@val&nbsp;:&nbsp;string&nbsp;=&nbsp;valeur&nbsp;de&nbsp;la&nbsp;propriété&nbsp;&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;ça&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>persistant</strong> = []</td></tr></table>
+</body></html>
