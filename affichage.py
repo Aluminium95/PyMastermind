@@ -42,7 +42,6 @@ def dessiner_answer(answer):
 	
 		@return : None
 	"""
-	#fonction permettant de dessiner la réponse au joueur à partir du code secret, le nombre de couleurs à la bonne place et le nombre de couleurs présentes dans le code mais pas à la bonne place et envoyé via le tuple "answer".
 	up ()
 	fd(10)
 	a,b=answer
@@ -103,16 +102,22 @@ def reset():
 
     
 
-def win(couleur):
+def win():
 	""" Affiche l'écran de victoire
 		
 		@return : None 
 	"""
-	color(couleur)
-	text="YOU WIN !!!!!"
 	reset()
-	goto(0,0)
-	write(text, move=False, align="center", font=("French Script",48,"normal"))
+	#bgpic(fondMarie.Gagner)
+	
+def loose():
+	""" Affiche l'écran de défaite
+	
+		@return : None
+	"""
+	reset()
+	#bgpic(fondMarie.Perdre)
+
 
             
 def afficher_couleurs(nbr_case,couleurs,answer):
@@ -135,6 +140,5 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		i=i+1
 	dessiner_answer(answer)
 	up ()
-	seth (0)
 
 	y = y - 60
