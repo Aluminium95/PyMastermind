@@ -1,0 +1,4 @@
+PyMastermind
+============
+
+Isn terminale mastermind
