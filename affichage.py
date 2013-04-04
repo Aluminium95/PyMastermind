@@ -140,5 +140,7 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		i=i+1
 	dessiner_answer(answer)
 	up ()
+	
+	seth (0) # remet la tortue à un angle absolu de zéro !
 
 	y = y - 60
