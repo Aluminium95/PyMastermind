@@ -113,7 +113,12 @@ def init ():
 		l.append (i)
 	print l
 	couleurs = l # Sauvegarde
+
+def everything_to_hexa(couleur):
+	""" Permet de tester une variable pour savoir si elle est une couleur hexa ou en français et convertir en hexa
 	
+	"""
+
 
 # Test
 if __name__ == '__main__':
