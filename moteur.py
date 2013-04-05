@@ -12,10 +12,10 @@ mode = "moyen"
 restant = persistance.get_propriete ("config","coups:facile")
 liste_mode = ["facile","moyen","difficile"]
 
-def get_mode ():
+def get_mode (): #retourne le mode de jeu actuel (facile, moyen ou difficile)
 	return mode
 
-def set_mode (m):
+def set_mode (m): #fonction permettant de changer le mode de jeu par m (facile moyen ou diffiile)
 	global mode,restant
 	
 	if m in liste_modes:
@@ -25,10 +25,10 @@ def set_mode (m):
 	else:
 		return False
 
-def get_restant ():
+def get_restant (): #fonction retournant le nombre de coups restants disponibles pour la partie en cours.
     return restant
 
-def double_couleur (test):
+def double_couleur (test): #fonction permettant de vérifier qu'il n'y a pas deux couleurs identiques dans la liste test
 	liste_test = []
 	for i in test:
 		if i in liste_test:
@@ -37,7 +37,7 @@ def double_couleur (test):
 			liste_test.append(i)
 	return True
 
-def definir_code (tableau):
+def definir_code (tableau): #fonction vérifiant que le code secret (de départ) est juste.
                         
 	global code_secret
 	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
@@ -49,7 +49,10 @@ def definir_code (tableau):
 	else:
 		return False
 
-def proposer_solution (proposition):
+def proposer_solution (proposition): 
+	#fonction retournant le nombre de couleurs justes et bien placées (a), et justes et
+	#mal placées (b), de proposition, par rapport a solution
+	
 	global restant
 
 	# couleurs.is_string (c) 
@@ -61,7 +64,7 @@ def proposer_solution (proposition):
 
 	solution = list (code_secret)
 
-	while i < len (code_secret):
+	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
 		if solution[i] == proposition[i]:
 			a = a+1
 			solution[i] = "*"
@@ -70,7 +73,7 @@ def proposer_solution (proposition):
 
 	while i < len (code_secret):
 		j = 0
-		while j < len (solution):
+		while j < len (solution): #cherche les bonnes couleurs mal placées
 			if solution[j] != "*" and solution[j] == proposition[i]:
 				b = b+1
 				solution[j] = "*"
@@ -79,11 +82,11 @@ def proposer_solution (proposition):
 		i = i+1
 
 	restant -= 1
-	if a == 4:
-		affichage.win ("red")
+	if a == 4: #si proposition est identique àsolution
+		affichage.win ("red") 
 		return "gagne"
-	elif restant == 0:
-		affichage.perdu ()
+	elif restant == 0: #si le nombre de coups restants est de 0
+		affichage.perdu () 
 		return "perdu"
 	else:
 		l = []
@@ -91,5 +94,5 @@ def proposer_solution (proposition):
 			l.append (couleurs.string_to_hexa (i))
 		
 		affichage.afficher_couleurs (4,l,(a,b))
-		return (a,b)
+		return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
