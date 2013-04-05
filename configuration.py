@@ -33,73 +33,115 @@
 #	outil adapté, qui empêche de faire n'importe quoi
 
 import persistance
-# import iconsole
+import iconsole
+import fsm
 
 
-# On se demande comment gérer la navigation parmis 
-# les différents fichiers de configuration ...
-# on fait ainsi une fonction qui permet de choisir un
-# fichier ...
+"""
+	Une FSM :
+		Variables:
+			- fichier
+		
+		États:
+			- sélection fichier
+			- sélection variable
+				+ sélection fichier : « up »
+				+ sélection variable :
+					* « éditer »
+					* « liste »
+"""
 
-def selection_fichier ():
-	continuer = True
-	while continuer:
-		# On demande un fichier ...
-		fichier = iconsole.demander ("selection fichier","Fichier ou « list »")
+def fichier_variable (m):
+	""" Éffectue la transition 
+		de la sélection du fichier vers la 
+		sélection de la variable 
+	"""
+	# On prend le fichier sélectionné
+	f = fsm.get_state_property (m,"fichier")
+	
+	iconsole.afficher ("Main","Vous avez sélectionné le fichier " + f)
+	iconsole.afficher ("Main","Vous êtes maintenant dans le menu « variable »")
+	
+	# Et on le définit comme le seul et l'unique !
+	fsm.set_special_property (m,"fichier",f)
+	
+def variable_fichier (m):
+	""" Effectue la transition de
+		la sélection des variables à
+		la sélection des fichiers 
+	"""
+	iconsole.afficher ("Main","Vous êtes maintenant dans le menu « fichier »")
 
-		if fichier == "list": # Si l'utilisateur demande une liste !
-			print persistance.liste_fichiers ()
-		else: 
-			# Ici, il faudrait par exemple utiliser la fonction 
-			# « persistance.new_file » qui crée un nouveau fichier 
-			# s'il n'existe pas ... 
-			return fichier # Sinon on suppose que c'est un fichier ...
+if __name__ == '__main__':
+
+	# On initalise la persistance, pour 
+	# avoir accès et charger les fichiers 
+	persistance.init ()
+
+	# On crée une machine comme définit en début de fichier 
+	machine = fsm.new ()
+
+	fsm.set_transition (machine, "menu-fichier","menu-variable", fichier_variable)
+	fsm.set_transition (machine, "menu-variable","menu-fichier", variable_fichier)
+	
+	# On définit l'état de départ !
+	fsm.transition (machine, "menu-fichier")
+	
+	# La boucle infinie ... moche !
+	while True:
+		# On actualise l'état courant à chaque
+		# tour de boucle ... 
+		
+		st = fsm.get_state (machine)
+		
+		# Un prompt personnalisé, demande une commande 
+		req = iconsole.demander (st, "Commande : ")
+		
+		# Ici on fait un switch entre les états 
+		# C'est là que se déroule toutes les 
+		# redirections ... Je ne sais pas trop comment 
+		# faire cela autrement :-)
+		
+		# Quelque soit l'état ... on peut quitter ! :-)
+		if req == "quit":
+			break # On sort de la boucle, sauve, et quitte le programme 
+		
+	
+		if st == "menu-fichier": # Si on est dans le menu-fichier les commandes sont 
+			if req == "list":
+				iconsole.afficher (st, persistance.liste_fichiers ())
+			elif req == "entrer":
+				# Yop, on transite 
+				fsm.transition (machine,"menu-variable")
+			elif req == "help":
+				iconsole.afficher (st, "Les commandes sont : « quit », « list », « entrer », « help » et @Fichier")
+			else: # C'est un nom de fichier 
+				fsm.set_state_property (machine,"fichier",req)
+				iconsole.afficher (st,"Vous avez sélectionné " + req)
+				
+		else: # il n'existe que deux états, celui là est donc menu-variable
+			# On a forcément définit un fichier,
+			# vu que l'on ne peut être arrivé à cet état 
+			# QUE par une transition !
 			
-# Lance ce bout de code Si et Seulement Si
-# le fichier est lancé par l'utilisateur !
-# exemple : quand on génère la doc, ça ne compte pas !
-if __name__ == "__main__":
-	# Il est nécessaire d'initialiser persistance
-	# une seule et unique fois par programme ...
-	# or ceci est un programme indépendant, il faut 
-	# donc initialiser persistance avec la fonction :
+			# On récupère le fichier à éditer ... 
 
-	persistance.init () # initialise la configuration 
-	# On part avec un fichier demandé à l'utilisateur 
-	f = selection_fichier ()
-	continuer = "o" # Tant que l'on doit continuer 
-	while continuer == "o":
+			f = fsm.get_special_property (machine, "fichier")
+			if req == "list":
+				iconsole.afficher (st, persistance.liste_variables (f))
+			elif req == "up":
+				fsm.transition (machine,"menu-fichier")
+			elif req == "ou":
+				iconsole.afficher (st, "Le fichier courant est : "+ f)
+			elif req == "help":
+				iconsole.afficher (st, "Les commandes sont : « quit », « ou », « list », « help », « up » et @Variable")
+			else: # C'est une variable 
+				iconsole.afficher (st, "Valeur actuelle : " + persistance.get_propriete (f,req))
+				
+				val = iconsole.demander (st,"Nouvelle valeur : ")
+				persistance.set_propriete (f,variable,val)
+				iconsole.afficher (st,"Bien modifié !")
 	
-		c = True
-		variable = ""
-		while c:
-			# On demande quelle variable sélectionner 
-			variable = iconsole.demander ("selection variable","Variable, « list » ou « up »")
-		
-			# On peut afficher la liste des variables 
-			# du fichier courant 
-			if variable == "list":
-				print persistance.liste_variables (f)
-			elif variable == "up":
-				# sélectionner un nouveau fichier 
-				f = selection_fichier ()
-			else:
-				# où alors, c'est bel et bien une variable ... 
-				c = False
-		
-		# On doit afficher la valeur actuelle ... au cas où
-		print "Valeur actuelle : ", persistance.get_propriete (f,variable)
-	
-		# Et définir une nouvelle valeur de remplacement
-		val = iconsole.demander ("selection valeur","Nouvelle valeur : ")
-	
-		# Définir
-		persistance.set_propriete (f,variable,val)
-	
-		# Demander si on veut réitérer l'opération 
-		continuer = iconsole.demander ("main","Continuer (o|n) : ")
-
-	# IMPORTANT : on sauvegarde les modifications faites 
-	# VIRTUELLEMENT sur les fichiers sur le disque dur 
-	# avec la fonction « save »
+	# Une fois la boucle terminée, on doit 
+	# sauver les modifications (sinon c'est con nan ?)
 	persistance.save ()
