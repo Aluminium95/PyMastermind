@@ -5,11 +5,10 @@
 # Description:
 
 from turtle import *
+from couleur import *
 
 y = 120
-couleurs=["red","yellow","purple","green","black"]#une petite liste pour tester ma fonction
 
-a=(3,1)#un petit tuple pour tester une autre fonction
 
 def init ():
 	up ()
