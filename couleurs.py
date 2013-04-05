@@ -116,9 +116,15 @@ def init ():
 
 def everything_to_hexa(couleur):
 	""" Permet de tester une variable pour savoir si elle est une couleur hexa ou en français et convertir en hexa
-	
+		
+		@couleur : ? = le truc 
+		
+		@return : string (hexa) | False
 	"""
-
+	if is_hexa (couleur):
+		return couleur
+	else:
+		return string_to_hexa (couleur)
 
 # Test
 if __name__ == '__main__':
