@@ -5,7 +5,7 @@
 # Description:
 
 from turtle import *
-from couleur import *
+from couleurs import *
 
 y = 120
 
