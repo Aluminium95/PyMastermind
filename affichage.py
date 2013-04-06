@@ -6,14 +6,20 @@
 
 from turtle import *
 from couleurs import *
+import persistance
 
 y = 120
 
 
-def init ():
+def init (theme):
+	""" Initialise la fonction, affiche le fond sélectionné
+	
+		@thème : str
+		@return : None
+	"""
 	up ()
-	# bgpic ...
-	# etc ...
+	selected_theme = persistance.get_propriete ("background",theme)
+	bgpic(picname = selected_theme)
 	
 
 def dessiner_carre (taille,couleur):
@@ -101,21 +107,25 @@ def reset():
 
     
 
-def win():
-	""" Affiche l'écran de victoire
+def win(bg):
+	""" Affiche l'écran de victoire (fond choisi)
 		
+		@bg : str
 		@return : None 
 	"""
 	reset()
-	#bgpic(fondMarie.Gagner)
+	selected_bg = persistance.get_propriete ("background",bg)
+	bgpic(picname = selected_bg)
 	
-def loose():
+def loose(bg):
 	""" Affiche l'écran de défaite
-	
+		
+		@bg : str
 		@return : None
 	"""
 	reset()
-	#bgpic(fondMarie.Perdre)
+	selected_bg = persistance.get_propriete ("background",bg)
+	bgpic(picname = selected_bg)
 
 
             
@@ -127,7 +137,7 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		@couleurs : list de string = liste des couleurs proposées en hexadécimal
 		@answer : tuple (a,b) = couple de nombre, proposition exacte et couleurs uniquement exacte.
 		
-        @return : None
+        	@return : None
     """
 	global y
 	up ()

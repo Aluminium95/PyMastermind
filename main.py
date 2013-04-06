@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
 	continuer = True
 	while continuer == True:
-		jcode = iconsole.demander ("main","Tu veux decider du code ?")
+		jcode = iconsole.demander ("main","Tu veux decider du code ? ")
 		jcode = misc.question_fermee (jcode)
 
 		if jcode == True:
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
 		joueur.jouer ()
 
-		rep = iconsole.demander ("main","Tu veux rejouer ?")
+		rep = iconsole.demander ("main","Tu veux rejouer ? ")
 		continuer = misc.question_fermee (jcode)
 		affichage.reset ()
 

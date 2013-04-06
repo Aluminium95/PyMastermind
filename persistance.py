@@ -212,3 +212,6 @@ def init ():
 	
 	# fichier des couleurs
 	charger_fichier ("couleurs")
+	
+	# fichier des fonds
+	charger_fichier("backgrounds")
