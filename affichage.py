@@ -107,21 +107,25 @@ def reset():
 
     
 
-def win():
-	""" Affiche l'écran de victoire
+def win(bg):
+	""" Affiche l'écran de victoire (fond choisi)
 		
+		@theme : str
 		@return : None 
 	"""
 	reset()
-	#bgpic(fondMarie.Gagner)
+	selected_bg = persistance.get_propriete ("background",bg)
+	bgpic(picname = selected_bg)
 	
-def loose():
+def loose(theme):
 	""" Affiche l'écran de défaite
-	
+		
+		@theme : str
 		@return : None
 	"""
 	reset()
-	#bgpic(fondMarie.Perdre)
+	selected_bg = persistance.get_propriete ("background",bg)
+	bgpic(picname = selected_bg)
 
 
             
@@ -133,7 +137,7 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		@couleurs : list de string = liste des couleurs proposées en hexadécimal
 		@answer : tuple (a,b) = couple de nombre, proposition exacte et couleurs uniquement exacte.
 		
-        @return : None
+        	@return : None
     """
 	global y
 	up ()
