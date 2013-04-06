@@ -6,14 +6,20 @@
 
 from turtle import *
 from couleurs import *
+import persistance
 
 y = 120
 
 
-def init ():
+def init (theme):
+	""" Initialise la fonction, affiche le fond sélectionné
+	
+		@thème : str
+		@return : None
+	"""
 	up ()
-	# bgpic ...
-	# etc ...
+	selected_theme = persistance.get_propriete ("background",theme)
+	bgpic(picname = selected_theme)
 	
 
 def dessiner_carre (taille,couleur):
