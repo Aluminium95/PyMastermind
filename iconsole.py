@@ -4,7 +4,7 @@
 
 
 
-def afficher(acteur,dialogue):
+def afficher(acteur,dialogue,t=0):
 	""" Affiche une information à l'utilisateur 
 	
 		@acteur : string = qui parle 
@@ -12,9 +12,10 @@ def afficher(acteur,dialogue):
 		
 		@return : None
 	"""
-	print acteur,":",dialogue
+	formattage = "\t" * t + "- [{0}] : {1}"
+	print formattage.format (acteur,dialogue)
 
-def demander(acteur,dialogue):
+def demander(acteur,dialogue,t=0):
 	""" Demande une information à l'utilisateur 
 		
 		@acteur : string = qui demande
@@ -22,22 +23,18 @@ def demander(acteur,dialogue):
 		
 		@return : string = l'information 
 	"""
-	return raw_input("[" + acteur + "]" +" - "+dialogue)
+	formattage = "\t" * t + "# [{0}] ? {1}"
+	return raw_input (formattage.format (acteur,dialogue))
 
 
 def demander_tableau ():
 	""" Demande un tableau """
-	i=0
-	Li=[]
-	afficher ("DEBUG","Début du tableau...")
+	i = 0
+	Li = []
+	afficher ("Entrée tableau","Début du tableau...",1)
 	while i<4:
-		x=demander("jeu","entrez une couleur: ")
+		x = demander("Entée Tableau","entrez une couleur: ",2)
 		Li.append(x)
-		i=i+1
-	afficher ("DEBUG","Fin du tableau...")
-	return Li
-
-
-
-
-                
+		i = i+1
+	afficher ("Entrée tableau","Fin du tableau...",1)
+	return Li 
