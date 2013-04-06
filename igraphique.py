@@ -8,6 +8,7 @@ import fsm
 
 def init ():
 	# some initialisation here
+	affichage.truc ()
 
 def to_menu ():
 	affichage.afficher_menu ()

@@ -12,7 +12,7 @@ import misc
 if __name__ == '__main__':
 	persistance.init ()
 	couleurs.init ()
-	# affichage.init ()
+	affichage.init ()
 
 	continuer = True
 	while continuer == True:
