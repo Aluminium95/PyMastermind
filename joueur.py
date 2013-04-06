@@ -12,10 +12,10 @@ def choisir_code ():
 		t = iconsole.demander_tableau ()
 		c = moteur.definir_code (t)
 		if c == False:
-			iconsole.afficher ("Joueur","Le moteur a refusé ...")
+			iconsole.afficher ("Joueur","Le moteur a refusé votre proposition ...")
 			
 def jouer():
-	iconsole.afficher ('Joueur',"Devines le code !!!")
+	iconsole.afficher ('Mastermind',"Joueur devine le code ...")
 	Li = []
 	rep = 0
 	while True:
@@ -29,10 +29,10 @@ def jouer():
 			break
 		else:
 			a,b = rep
-			print("___________________________________________________")
+			print("_" * 25)
 			iconsole.afficher("Mastermind",str(a)+" bonne(s) couleur(s) et bonne place(s)")
 			iconsole.afficher("Mastermind",str(b)+" bonne(s) couleur(s) et mauvaise place(s)")
 			iconsole.afficher("Mastermind"," Voulez-vous rejouer ?")
-			print("___________________________________________________")
+			print("_" * 25)
 				    
 
