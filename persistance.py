@@ -174,24 +174,41 @@ def save ():
 			f.close ()
 	except:
 		return False
-		
+
+def set_default_value (chemin,variable,valeur):
+	""" Définit une valeur par défaut pour la variable
+		qui sera utilisée si elle n'est pas encore définie
+
+		@chemin : string = chemin du fichier 
+		@variable : string = nom de la variable
+		@valeur : string = valeur de la variable 
+
+		@return : None
+	"""
+	try:
+		for p in persistant:
+			if p[0] == chemin:
+				for prop in p[1:]:
+					if prop[0] == variable:
+						return True
+				p.append ([variable,valeur])
+				return True
+	except:
+		return False
+
 def init ():
 	""" fonction d'initialisation du module
 	
 		@return : None 
 	"""
 	
+	charger_fichier ("cacaprout")
+
 	# fichier de configuration globale
-	a = charger_fichier ("config")
+	charger_fichier ("config")
 	
 	# fichier des scores 
-	b = charger_fichier ("scores")
+	charger_fichier ("scores")
 	
 	# fichier des couleurs
-	c = charger_fichier ("couleurs")
-	
-	if a and b and c: # si les trois ont été chargés 
-		return True
-	else:
-		return False
-		
+	charger_fichier ("couleurs")
