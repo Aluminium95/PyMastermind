@@ -5,6 +5,7 @@ import persistance
 import affichage
 import moteur
 import iconsole
+import joueur
 import couleurs
 import misc
 
@@ -19,11 +20,11 @@ if __name__ == '__main__':
 		jcode = misc.question_fermee (jcode)
 
 		if jcode == True:
-		    iconsole.choisir_code ()
+		    joueur.choisir_code ()
 		else:
-		    iconsole.choisir_code ()
+		    joueur.choisir_code ()
 
-		iconsole.jouer ()
+		joueur.jouer ()
 
 		rep = iconsole.demander ("main","Tu veux rejouer ?")
 		continuer = misc.question_fermee (jcode)
