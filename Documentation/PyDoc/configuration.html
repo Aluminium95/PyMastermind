@@ -12,17 +12,10 @@
     <p><tt>#-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
 #<br>
 #&nbsp;Lopez&nbsp;Aliaume<br>
-#&nbsp;30/03/2013<br>
+#&nbsp;06/04/2013<br>
 #<br>
 #&nbsp;Un&nbsp;utilitaire&nbsp;de&nbsp;modification<br>
 #&nbsp;des&nbsp;fichiers&nbsp;de&nbsp;configuration<br>
-#<br>
-#&nbsp;TODO:<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;utilisation&nbsp;du&nbsp;module&nbsp;fsm&nbsp;<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Démonstration&nbsp;de&nbsp;l'utilisation&nbsp;du&nbsp;module&nbsp;FSM<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;création&nbsp;des&nbsp;états&nbsp;<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;des&nbsp;variables&nbsp;globales<br>
-#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;des&nbsp;transitions<br>
 #<br>
 #<br>
 #&nbsp;Ce&nbsp;code&nbsp;a&nbsp;pour&nbsp;vocation&nbsp;d'être&nbsp;simple&nbsp;<br>
@@ -60,9 +53,17 @@
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt><a name="-fichier_variable"><strong>fichier_variable</strong></a>(m)</dt><dd><tt>Éffectue&nbsp;la&nbsp;transition&nbsp;<br>
 de&nbsp;la&nbsp;sélection&nbsp;du&nbsp;fichier&nbsp;vers&nbsp;la&nbsp;<br>
-sélection&nbsp;de&nbsp;la&nbsp;variable</tt></dd></dl>
+sélection&nbsp;de&nbsp;la&nbsp;variable&nbsp;<br>
+&nbsp;<br>
+@m&nbsp;:&nbsp;fsm&nbsp;=&nbsp;la&nbsp;machine&nbsp;qui&nbsp;effectue&nbsp;la&nbsp;transition<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
  <dl><dt><a name="-variable_fichier"><strong>variable_fichier</strong></a>(m)</dt><dd><tt>Effectue&nbsp;la&nbsp;transition&nbsp;de<br>
 la&nbsp;sélection&nbsp;des&nbsp;variables&nbsp;à<br>
-la&nbsp;sélection&nbsp;des&nbsp;fichiers</tt></dd></dl>
+la&nbsp;sélection&nbsp;des&nbsp;fichiers<br>
+&nbsp;<br>
+@m&nbsp;:&nbsp;fsm&nbsp;=&nbsp;la&nbsp;machine&nbsp;qui&nbsp;effectue&nbsp;la&nbsp;transition<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
 </td></tr></table>
 </body></html>

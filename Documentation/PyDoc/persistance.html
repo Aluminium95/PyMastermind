@@ -48,7 +48,7 @@
 &nbsp;<br>
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;à&nbsp;charger<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;ça&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+@return&nbsp;:&nbsp;"chargement"&nbsp;|&nbsp;"creation"</tt></dd></dl>
  <dl><dt><a name="-get_by_value"><strong>get_by_value</strong></a>(chemin, val)</dt><dd><tt>Récupère&nbsp;le&nbsp;nom&nbsp;de&nbsp;la&nbsp;propriété&nbsp;contenant&nbsp;la&nbsp;valeur&nbsp;@val<br>
 &nbsp;<br>
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
@@ -80,6 +80,14 @@
  <dl><dt><a name="-save"><strong>save</strong></a>()</dt><dd><tt>Enregistre&nbsp;les&nbsp;modifications&nbsp;dans&nbsp;les&nbsp;fichiers<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;ça&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+ <dl><dt><a name="-set_default_value"><strong>set_default_value</strong></a>(chemin, variable, valeur)</dt><dd><tt>Définit&nbsp;une&nbsp;valeur&nbsp;par&nbsp;défaut&nbsp;pour&nbsp;la&nbsp;variable<br>
+qui&nbsp;sera&nbsp;utilisée&nbsp;si&nbsp;elle&nbsp;n'est&nbsp;pas&nbsp;encore&nbsp;définie<br>
+&nbsp;<br>
+@chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;<br>
+@variable&nbsp;:&nbsp;string&nbsp;=&nbsp;nom&nbsp;de&nbsp;la&nbsp;variable<br>
+@valeur&nbsp;:&nbsp;string&nbsp;=&nbsp;valeur&nbsp;de&nbsp;la&nbsp;variable&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
  <dl><dt><a name="-set_propriete"><strong>set_propriete</strong></a>(chemin, nom, val)</dt><dd><tt>Définit&nbsp;une&nbsp;propriété,&nbsp;et&nbsp;la&nbsp;crée&nbsp;si&nbsp;elle&nbsp;n'existe&nbsp;pas&nbsp;<br>
 &nbsp;<br>
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
