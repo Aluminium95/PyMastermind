@@ -126,6 +126,19 @@ def everything_to_hexa(couleur):
 	else:
 		return string_to_hexa (couleur)
 
+def everything_to_string (couleur):
+	""" Permet de tester une variable pour savoir si elle est une couleur 
+		en string ou en hexa et convertir en string si nécessaire (français)
+
+		@couleur : ? = le truc à convertir
+
+		@return : string (français) | False
+	"""
+	if is_string (couleur):
+		return couleur
+	else:
+		return hexa_to_string (couleur)
+
 # Test
 if __name__ == '__main__':
 	persistance.init () # Charge les fichiers
