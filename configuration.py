@@ -178,10 +178,10 @@ if __name__ == '__main__':
 				# On suppose que si ce n'est pas une commande c'est une variable 
 				# à modifier ... Donc on demande la nouvelle valeur 
 				# et on modifie ... 
-				iconsole.afficher (st, "Valeur actuelle : " + persistance.get_propriete (f,req))
+				iconsole.afficher (st, "Valeur actuelle : " + str (persistance.get_propriete (f,req)))
 				
 				val = iconsole.demander (st,"Nouvelle valeur : ")
-				persistance.set_propriete (f,variable,val)
+				persistance.set_propriete (f,req,val)
 				iconsole.afficher (st,"Bien modifié !")
 	
 	# Une fois la boucle terminée, on doit 
