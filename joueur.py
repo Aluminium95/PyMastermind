@@ -6,33 +6,33 @@ import iconsole
 
 
 def choisir_code ():
-	iconsole.afficher ("Jeu","Choisir le code ...")
+	iconsole.afficher ("Mastermind","Le joueur doit choisir le code ...")
 	c = False
 	while c == False:
 		t = iconsole.demander_tableau ()
 		c = moteur.definir_code (t)
 		if c == False:
-			iconsole.afficher ("Jeu","Le moteur a refusé ...")
+			iconsole.afficher ("Joueur","Le moteur a refusé ...")
 			
 def jouer():
-	iconsole.afficher ('Jeu',"Devines le code !!!")
-	Li=[]
-	rep=0
+	iconsole.afficher ('Joueur',"Devines le code !!!")
+	Li = []
+	rep = 0
 	while True:
-		Li= iconsole.demander_tableau()
-		rep=moteur.proposer_solution(Li)
-		if rep=="gagne":
-			iconsole.afficher("Jeu:", " Vous avez gagnez !!!")
+		Li = iconsole.demander_tableau()
+		rep = moteur.proposer_solution(Li)
+		if rep == "gagne":
+			iconsole.afficher("Mastermind", "Vous avez gagné !!!")
 			break
-		elif rep=="perdu":
-			iconsole.afficher("Jeu:","Vous avez perdu !!!")
+		elif rep == "perdu":
+			iconsole.afficher("Mastermind","Vous avez perdu !!!")
 			break
 		else:
 			a,b = rep
 			print("___________________________________________________")
-			iconsole.afficher("Jeu:",str(a)+" bonne(s) couleur(s) et bonne place(s)")
-			iconsole.afficher("Jeu:",str(b)+" bonne(s) couleur(s) et mauvaise place(s)")
-			iconsole.afficher("Jeu:"," Voulez-vous rejouer ?")
+			iconsole.afficher("Mastermind",str(a)+" bonne(s) couleur(s) et bonne place(s)")
+			iconsole.afficher("Mastermind",str(b)+" bonne(s) couleur(s) et mauvaise place(s)")
+			iconsole.afficher("Mastermind"," Voulez-vous rejouer ?")
 			print("___________________________________________________")
 				    
 
