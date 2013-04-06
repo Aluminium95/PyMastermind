@@ -110,17 +110,17 @@ def reset():
 def win(bg):
 	""" Affiche l'écran de victoire (fond choisi)
 		
-		@theme : str
+		@bg : str
 		@return : None 
 	"""
 	reset()
 	selected_bg = persistance.get_propriete ("background",bg)
 	bgpic(picname = selected_bg)
 	
-def loose(theme):
+def loose(bg):
 	""" Affiche l'écran de défaite
 		
-		@theme : str
+		@bg : str
 		@return : None
 	"""
 	reset()
