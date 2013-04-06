@@ -1,0 +1,3 @@
+#-*- coding: utf-8 -*-
+# Les fonctions de l'ia
+# ...
