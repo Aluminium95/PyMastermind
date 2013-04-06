@@ -57,7 +57,7 @@ def charger_fichier (chemin):
 		
 		@chemin : string = chemin du fichier à charger
 		
-		@return : bool = si ça s'est bien passé 
+		@return : "chargement" | "creation"
 	"""
 	global persistant 
 	try:
@@ -70,9 +70,11 @@ def charger_fichier (chemin):
 				newlist.append (s)
 		
 		persistant.append (newlist)
-		return True
+		return "chargement"
 	except:
-		return False
+		new_file (chemin)
+		return "creation"
+		
 	
 def get_propriete (chemin,nom):
 	""" Récupère une propriété
@@ -115,10 +117,11 @@ def new_file (chemin):
 		@return : None
 	"""
 	global persitant
-	# TODO:
-	# vérification de la préexistance du fichier ... 
-	persistant.append ([chemin])
-	
+
+	l = liste_fichiers ()
+	if chemin not in l:
+		persistant.append ([chemin])
+
 def add_propriete (chemin,nom,val):
 	""" Ajoute une propriété, même si elle existe déjà
 		
