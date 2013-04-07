@@ -1,3 +1,9 @@
-theme1_gagne  |=> Images/Theme1/fond.gif
+theme1_gagne  |=> Images/Theme1/gagne.gif
 theme1_perdu  |=> Images/Theme1/perdu.gif
-theme1_bg  |=> Images/Theme1/perdu.gif
+theme1_bg  |=> Images/Theme1/fond.gif
+theme:courant |=> 1
+theme:max |=> 2
+theme:1:xi |=> -125
+theme:1:yi |=> 245
+theme:2:xi |=> -125
+theme:2:yi |=> 245
