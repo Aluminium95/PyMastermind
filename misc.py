@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-#ensemble de fonctions...
-#03/04/2013
-#prend une chaine de caractère et le traduit str à bool.
+# ensemble de fonctions...
+# 03/04/2013
+# prend une chaine de caractère et le traduit str à bool.
 
 def question_fermee (chaine):
 	""" Dit si la réponse à une question fermée 

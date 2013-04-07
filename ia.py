@@ -8,7 +8,7 @@ import persistance
 from random import choice # faire un choix aléatoire dans une liste 
 
 def generer_couleurs_aleatoires ():
-	""" Génère un code aléatoire, complètement
+	""" Génère un code aléatoire de couleurs, complètement !
 
 		@return : list of couleurs (Français)
 	"""
@@ -34,7 +34,12 @@ def choisir_code (mode="aleatoire"):
 		@return : None
 	"""
 	# BRUTE FORCE !!!!
+	# On crée des listes aléatoires 
+	# et on teste, jusqu'au jour où
+	# le code secret proposé est valide 
+	# par rapport à la difficulté 
 	condition = True
+
 	while condition:
 		r = moteur.definir_code (generer_couleurs_aleatoires ())
 		if r != False:
@@ -53,8 +58,11 @@ def jouer (mode = "aleatoire"):
 	while True:
 		prop = generer_couleurs_aleatoires ()
 		r = moteur.proposer_solution (prop)
-		
-		print r
+	
+		# On affiche que si le coup était valide
+		# (sinon on a plein de trucs nuls :-P)
+		if r != False:
+			iconsole.afficher ("IA", "Joue {0} -> {1}".format (prop,r)
 
 		if r == "perdu" or r == "gagne":
 			return

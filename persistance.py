@@ -31,9 +31,9 @@ def liste_fichiers ():
 		
 		@return : [string ...]
 	"""
-	l = []
-	for i in persistant:
-		l.append (i[0])
+	l = [] # La liste de sortie 
+	for i in persistant: # pour chaque fichier chargé
+		l.append (i[0]) # On ajoute le nom du fichier 
 	return l
 	
 def liste_variables (fichier):
@@ -44,13 +44,13 @@ def liste_variables (fichier):
 		@return : [string ...]
 	"""
 	l = False
-	for i in persistant:
-		if i[0] == fichier:
-			l = []
-			for j in i[1:]:
-				l.append (j[0])
-			break
-	return l
+	for i in persistant: # Pour chaque fichier 
+		if i[0] == fichier: # Si le nom du fichier correspond
+			l = [] # On crée une liste 
+			for j in i[1:]: # On prend tous les éléments du fichier 
+				l.append (j[0]) # On récupère seulement les noms de ceux-ci
+			break # On casse la boucle 
+	return l # On retourne la liste générée (ou False ...)
 
 def charger_fichier (chemin):
 	""" Charge un fichier de configuration
@@ -60,19 +60,19 @@ def charger_fichier (chemin):
 		@return : "chargement" | "creation"
 	"""
 	global persistant 
-	try:
-		f = open (chemin,"r")
-		newlist = [chemin]
+	try: # Cette partie est suceptible de planter 
+		f = open (chemin,"r") # On ouvre le fichier en lecture seule
+		newlist = [chemin] # On crée la liste du fichier 
 	
-		for line in f:
-			if line != "\n" and line[0] != "#":
-				s = line[:-1].replace ("\\n","\n").split (" |=> ")
-				newlist.append (s)
+		for line in f: # Pour chaque ligne du fichier 
+			if line != "\n" and line[0] != "#": # On vérifie que la ligne doit être prise en compte 
+				s = line[:-1].replace ("\\n","\n").split (" |=> ") # On découpe en deux
+				newlist.append (s) # On a le tableau [clé,valeur] d'un élément !
 		
-		persistant.append (newlist)
-		return "chargement"
-	except:
-		new_file (chemin)
+		persistant.append (newlist) # On ajoute le fichier 
+		return "chargement" 
+	except: # Si elle plante 
+		new_file (chemin) # On crée un fichier « virtuel » vide 
 		return "creation"
 		
 	
@@ -84,14 +84,14 @@ def get_propriete (chemin,nom):
 		
 		@return : string | False
 	"""
-	for p in persistant:
-		if p[0] == chemin:
-			for i in p[1:]:
-				if i[0] == nom:
-					return i[1]
-			break
+	for p in persistant: # Pour chaque fichier 
+		if p[0] == chemin: # Si le nom correspond 
+			for i in p[1:]: # On regarde les éléments du fichier 
+				if i[0] == nom: # Si le nom correspond 
+					return i[1] # On retourne la valeur !
+			break # Si le nom n'existe pas, pas la peine d'aller plus loin ...
 	
-	return False
+	return False 
 
 def get_by_value (chemin,val):
 	""" Récupère le nom de la propriété contenant la valeur @val
@@ -101,12 +101,12 @@ def get_by_value (chemin,val):
 		
 		@return : string | False
 	"""
-	for p in persistant:
-		if p[0] == chemin :
-			for i in p[1:]:
-				if i[1] == val:
-					return i[0]
-			break
+	for p in persistant: # Pour chaque fichier 
+		if p[0] == chemin: # si le chemin correspond 
+			for i in p[1:]: # On regarde chaque élément
+				if i[1] == val: # Si la valeur correspond 
+					return i[0] # On retourne la clé 
+			break # Si la valeur n'existe pas, pas la peine d'aller plus loin 
 	return False
 	
 def new_file (chemin):
@@ -118,9 +118,9 @@ def new_file (chemin):
 	"""
 	global persitant
 
-	l = liste_fichiers ()
-	if chemin not in l:
-		persistant.append ([chemin])
+	l = liste_fichiers () # On récupère la liste des fichiers déjà chargés
+	if chemin not in l: # Si le fichier n'est pas dedans
+		persistant.append ([chemin]) # On le crée (virtuellement) 
 
 def add_propriete (chemin,nom,val):
 	""" Ajoute une propriété, même si elle existe déjà
@@ -133,9 +133,9 @@ def add_propriete (chemin,nom,val):
 	"""
 	global persistant 
 	
-	for p in persistant:
-		if p[0] == chemin:
-			p.append ([nom,val])
+	for p in persistant: # Pour chaque fichier 
+		if p[0] == chemin: # Si le nom correspond
+			p.append ([nom,val]) # On ajoute à la fin le coupe [clé,valeur]
 			return True
 	return False
 
@@ -150,13 +150,13 @@ def set_propriete (chemin,nom,val):
 	"""
 	global persistant
 	
-	for p in persistant:
-		if p[0] == chemin:
-			for i in p[1:]:
-				if i[0] == nom:
-					i[1] = val
+	for p in persistant: # Pour chaque fichier 
+		if p[0] == chemin: # Si le nom correspond 
+			for i in p[1:]: # On regarde pour chaque élément
+				if i[0] == nom: # Si l'élément a le bon nom
+					i[1] = val # On définit sa valeur 
 					return True
-			p.append ([nom,val])
+			p.append ([nom,val]) # Sinon on ajoute à la fin [clé,valeur]
 			return True
 	return False
 	
@@ -166,12 +166,13 @@ def save ():
 		@return : bool = si ça s'est bien passé 
 	"""
 	try:
-		for p in persistant:
-			f = open (p[0],"w")
-			for prop in p[1:]:
+		for p in persistant: # Pour chaque fichier 
+			f = open (p[0],"w") # On ouvre un fichier de son nom en écriture 
+			for prop in p[1:]: # Pour chaque propriété 
+				# on écrit la ligne correspondante 
 				f.write (prop[0] + " |=> " + prop[1].replace ("\n","\\n"))
-				f.write ("\n")
-			f.close ()
+				f.write ("\n") # Avec un saut de ligne 
+			f.close () # Et on ferme le fichier 
 	except:
 		return False
 
@@ -185,13 +186,13 @@ def set_default_value (chemin,variable,valeur):
 
 		@return : None
 	"""
-	try:
-		for p in persistant:
-			if p[0] == chemin:
-				for prop in p[1:]:
-					if prop[0] == variable:
-						return True
-				p.append ([variable,valeur])
+	try: # Cette fonction peut échouer ...
+		for p in persistant: # Pour chaque fichier 
+			if p[0] == chemin: # Si le nom correspond
+				for prop in p[1:]: # On regarde chaque élément
+					if prop[0] == variable: # Si le nom correspond
+						return True # On retourne Vrai (exsite déjà)
+				p.append ([variable,valeur]) # S'il n'exsiste pas, on crée le couple [clé,valeur]
 				return True
 	except:
 		return False
