@@ -4,7 +4,6 @@
 import moteur
 import iconsole 
 
-
 def choisir_code ():
 	iconsole.afficher ("Mastermind","Le joueur doit choisir le code ...")
 	c = False
