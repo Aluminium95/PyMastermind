@@ -8,18 +8,19 @@ from turtle import *
 from couleurs import *
 import persistance
 
-y = 120
+y = 245
 
 
-def init (theme):
+def init (theme = ""):
 	""" Initialise la fonction, affiche le fond sélectionné
 	
 		@thème : str
 		@return : None
 	"""
+	# yop ... ça plante --"
 	up ()
-	selected_theme = persistance.get_propriete ("background",theme)
-	bgpic(picname = selected_theme)
+	# selected_theme = persistance.get_propriete ("background",theme)
+	# bgpic(picname = selected_theme)
 	
 
 def dessiner_carre (taille,couleur):
