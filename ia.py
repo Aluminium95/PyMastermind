@@ -62,8 +62,8 @@ def jouer (mode = "aleatoire"):
 	
 		# On affiche que si le coup était valide
 		# (sinon on a plein de trucs nuls :-P)
-		#if r != False:
-			#iconsole.afficher ("IA", "Joue {0} -> {1}".format (prop,r)
+		if r != False:
+			iconsole.afficher ("IA", "Joue {0} -> {1}".format (prop,r))
 
 		if r == "perdu" or r == "gagne":
 			return
