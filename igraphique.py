@@ -7,6 +7,18 @@ import fsm
 
 from turtle import *
 
+# Boutons sous la forme 
+#
+# [nom, x, y, l, c, t]
+#
+# @nom : le nom 
+# @(x,y) : la position 
+# l : taille du côté du carré 
+# c : couleur du carré 
+# t : le texte à afficher 
+
+
+
 # La machine est par défaut : False
 machine = False
 
@@ -18,12 +30,21 @@ boutons_difficulte = []
 boutons_actuels = boutons_menu
 
 def to_menu (m):
+	affichage.reset ()
+	boutons_actuels = boutons_menu
+	afficher_boutons (boutons_actuels)
 	print "to menu"
 
 def to_choix_code (m):
+	affichage.reset ()
+	boutons_actuels = boutons_couleurs
+	afficher_boutons (boutons_actuels)
 	print "to choix code"
 
 def to_jeu (m):
+	affichage.reset ()
+	boutons_actuels = boutons_couleurs
+	afficher_boutons (boutons_actuels)
 	print "to jeu"
 
 
@@ -48,7 +69,7 @@ def init ():
 
 	# Génération des boutons correspondant 
 	# aux différents états ..
-	quitter = ["quitter", 0,0, 50, "red", "quitter"]
+	quitter = ["quitter", 120,245, 50, "red", "quitter"]
 	boutons_menu.append (quitter)
 	boutons_couleurs.append (quitter)
 	boutons_difficulte.append (quitter)
@@ -76,7 +97,7 @@ def get_button (x,y):
 	# On regarde dans les boutons actifs 
 	# s'il y en a un qui correspond
 	for b in boutons_actuels:
-		if b[1] < x < b[1] + b[3] or b[2] < y < b[2] + b[3]:
+		if b[1] < x < b[1] + b[3] and b[2] < y < b[2] + b[3]:
 			return b[0]
 	return False
 
@@ -91,21 +112,25 @@ def dispatcher (x,y):
 	"""
 	global machine 
 	
-	print x,y
-	
 	st = fsm.get_state (machine) # État courant 
 	
 	# On récupère le bouton sur lequel on a cliqué 
 	bt = get_button (x,y)
 	
-	if bt == "quitter":
+	# ICI se trouve le gros switch !!!!
+	# C'est là que se trouve TOUT le gros du code 
+	# Il faut NÉCESSAIREMENT comprendre ce qui se passe ici
+	if bt == "quitter": # on quitte 
 		print "On se casseeeeeeee"
 	
-	if st == 'menu':
+	# Les autres évènements dépendent 
+	# de l'état dans lequel on est ...
+	if st == 'menu': # Menu a des boutons différents
 		fsm.transition (machine, 'choix-code')
-	elif st == 'choix-code':
+	elif st == 'choix-code' or st == 'jeu': # là, les boutons sont les mêmes !
+
 		fsm.transition (machine, 'jeu')
-	elif st == 'jeu':
+	elif st == 'choix-difficulte': # boutons différents 
 		fsm.transition (machine, 'menu')
 
 def run ():

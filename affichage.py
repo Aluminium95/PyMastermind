@@ -171,7 +171,7 @@ def creer_bouton (x,y,l,couleur,texte):
 	down ()
 	dessiner_carre (l,couleur)
 	up ()
-	goto ( x + l + 20, (y - l) / 2)
+	goto ( x + l + 20, y - (l / 2))
 	down ()
 	write (texte)
 	up ()
