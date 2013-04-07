@@ -202,8 +202,6 @@ def init ():
 		@return : None 
 	"""
 	
-	charger_fichier ("cacaprout")
-
 	# fichier de configuration globale
 	charger_fichier ("config")
 	
