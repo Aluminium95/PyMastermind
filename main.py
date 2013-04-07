@@ -35,7 +35,7 @@ if __name__ == '__main__':
 			ia.jouer ()
 
 		rep = iconsole.demander ("main","Tu veux rejouer ?")
-		continuer = misc.question_fermee (jcode)
+		continuer = misc.question_fermee (rep)
 		affichage.reset ()
 
 	persistance.save ()

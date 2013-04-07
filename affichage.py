@@ -115,8 +115,8 @@ def win(bg):
 		@return : None 
 	"""
 	reset()
-	selected_bg = persistance.get_propriete ("background",bg)
-	bgpic(picname = selected_bg)
+	#selected_bg = persistance.get_propriete ("background",bg)
+	#bgpic(picname = selected_bg)
 	
 def loose(bg):
 	""" Affiche l'écran de défaite
@@ -125,8 +125,8 @@ def loose(bg):
 		@return : None
 	"""
 	reset()
-	selected_bg = persistance.get_propriete ("background",bg)
-	bgpic(picname = selected_bg)
+	#selected_bg = persistance.get_propriete ("background",bg)
+	#bgpic(picname = selected_bg)
 
 
             

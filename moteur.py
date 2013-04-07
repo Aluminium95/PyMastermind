@@ -90,7 +90,7 @@ def proposer_solution (proposition):
 	if a == 4: #si proposition est identique àsolution
 		affichage.win ("red") 
 		return "gagne"
-	elif restant <= 0: #si le nombre de coups restants est de 0
+	elif restant <= -1: #si le nombre de coups restants est de 0
 		affichage.loose ("red") 
 		return "perdu"
 	else:

@@ -28,10 +28,10 @@ def jouer():
 			break
 		else:
 			a,b = rep
-			print("_" * 25)
+			print("_" * 50)
 			iconsole.afficher("Mastermind",str(a)+" bonne(s) couleur(s) et bonne place(s)")
 			iconsole.afficher("Mastermind",str(b)+" bonne(s) couleur(s) et mauvaise place(s)")
 			iconsole.afficher("Mastermind"," Voulez-vous rejouer ?")
-			print("_" * 25)
+			print("_" * 50)
 				    
 
