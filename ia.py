@@ -54,5 +54,7 @@ def jouer (mode = "aleatoire"):
 		prop = generer_couleurs_aleatoires ()
 		r = moteur.proposer_solution (prop)
 		
+		print r
+
 		if r == "perdu" or r == "gagne":
 			return

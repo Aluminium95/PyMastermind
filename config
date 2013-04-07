@@ -1,4 +1,5 @@
 nombre_cases |=> 4
+coups:moyen |=> 10
 theme |=> 1
 theme:1:xi |=> -120
 theme:1:yi |=> 245

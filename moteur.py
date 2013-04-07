@@ -9,8 +9,13 @@ import affichage
 
 code_secret = False
 mode = "moyen"
-restant = persistance.get_propriete ("config","coups:facile")
+restant = 10 
 liste_mode = ["facile","moyen","difficile"]
+
+def init ():
+	global restant
+	restant = persistance.get_propriete ("config","coups:" + mode)
+	restant = int (restant)
 
 def get_mode (): #retourne le mode de jeu actuel (facile, moyen ou difficile)
 	return mode
@@ -54,7 +59,7 @@ def proposer_solution (proposition):
 	#mal placées (b), de proposition, par rapport a solution
 	
 	global restant
-
+	
 	# couleurs.is_string (c) 
 	# il faut verifier que la couleur est valide 
 
@@ -85,8 +90,8 @@ def proposer_solution (proposition):
 	if a == 4: #si proposition est identique àsolution
 		affichage.win ("red") 
 		return "gagne"
-	elif restant == 0: #si le nombre de coups restants est de 0
-		affichage.perdu () 
+	elif restant <= 0: #si le nombre de coups restants est de 0
+		affichage.loose ("red") 
 		return "perdu"
 	else:
 		l = []
