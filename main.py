@@ -9,33 +9,42 @@ import joueur
 import ia
 import couleurs
 import misc
+import fsm
 
 if __name__ == '__main__':
+	# Initialisations des modules dans le bon ordre !
 	persistance.init ()
 	couleurs.init ()
 	affichage.init ()
 	moteur.init ()
+	
+	code_defini = False
 
 	continuer = True
 	while continuer == True:
-		jcode = iconsole.demander ("main","Tu veux decider du code ?")
-		jcode = misc.question_fermee (jcode)
-
-		if jcode == True:
-		    joueur.choisir_code ()
-		else:
-		    ia.choisir_code ()
-
-		jjoue = iconsole.demander ("main","Tu veux jouer ?")
-		jjoue = misc.question_fermee (jjoue)
-
-		if jjoue == True:
+		# Les commandes sont 
+		# help, humain-code, humain-joue, quit, ia-joue, ia-code
+		rep = iconsole.demander ("Menu","Commande :")
+		
+		if rep == "help":
+			iconsole.afficher ("Menu:help","Les commandes sont : « help », « humain-code », « humain-joue », « quit », « ia-code » et « ia-joue »")
+		elif rep == "quit":
+			continuer = False
+		elif rep == "ia-code":
+			ia.choisir_code ()
+			code_defini = True
+		elif rep == "humain-code":
+			joueur.choisir_code ()
+			code_defini = True
+		elif rep == "humain-joue" and code_defini == True:
 			joueur.jouer ()
-		else:
+			moteur.restant = 10 # Moche !
+			affichage.reset ()
+		elif rep == "ia-joue" and code_defini == True:
 			ia.jouer ()
-
-		rep = iconsole.demander ("main","Tu veux rejouer ?")
-		continuer = misc.question_fermee (rep)
-		affichage.reset ()
+			moteur.restant = 10 # Moche !
+			affichage.reset ()
+		else:
+			iconsole.afficher ("Menu","Cette requête est invalide ...")
 
 	persistance.save ()
