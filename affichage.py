@@ -154,3 +154,24 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 	seth (0) # remet la tortue à un angle absolu de zéro !
 
 	y = y - 60
+
+def creer_bouton (x,y,l,couleur,texte):
+	""" Crée un bouton de couleur avec du texte à côté
+		
+		@x : int = position x
+		@y : int = position y
+		@l : int = taille du côté
+		@couleur : string = la couleur en hexa ou en français
+		@texte : string = le texte descriptif 
+
+		@return : None
+	"""
+	up ()
+	goto (x,y)
+	down ()
+	dessiner_carre (l,couleur)
+	up ()
+	goto ( x + l + 20, (y - l) / 2)
+	down ()
+	write (texte)
+	up ()
