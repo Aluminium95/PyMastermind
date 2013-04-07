@@ -23,7 +23,7 @@ def demander(acteur,dialogue,t=0):
 		
 		@return : string = l'information 
 	"""
-	formattage = "\t" * t + "# [{0}] ? {1}"
+	formattage = "\t" * t + "# [{0}] ? {1}  "
 	return raw_input (formattage.format (acteur,dialogue))
 
 
