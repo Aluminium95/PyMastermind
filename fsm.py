@@ -19,14 +19,33 @@ def new ():
 		
 		@return : fsm
 	"""
+	# Création d'un dictionnaire
 	m = {}
 	
+	# L'état par défaut est « None »
 	m["state"] = None
 	
+
+	"""
+		Le dictionnaire des états (de leurs propriétés 
+		internes)
+
+		states :
+			- None :
+			- Example :
+				+ variable1 = valeur1
+				+ variable2 = valeur2
+	"""
+	# Le dictionnaire des états 
 	m["states"] = {}
+	# Le dictionnaire des variables d'état de None
 	m["states"][None] = {}
 	
+	# Le dictionnaire des transitions entre 
+	# les différents états 
 	m["transitions"] = {}
+
+	# Le dictionnaire des propriétés globales 
 	m["proprietes"] = {}
 	
 	return m
@@ -51,9 +70,11 @@ def add_state (machine,name):
 		
 		@return : None
 	"""
+	# Ajoute un état à la machine, mais doit avant tout 
+	# vérifier que l'état n'existe pas ...
 	if name not in machine["states"]:
-		machine["states"][name] = {} # crée l'état
-		machine["transitions"][name] = {} # crée les transitions 
+		machine["states"][name] = {} # crée l'état (le dico des propriétés internes)
+		machine["transitions"][name] = {} # crée le tableau de transition pour cet état 
 		
 def set_transition (machine,depart,arrivee,func):
 	""" Ajoute une transition 
@@ -65,9 +86,13 @@ def set_transition (machine,depart,arrivee,func):
 			
 		@return : None
 	"""
+	# On crée les états, s'ils existent déjà, cela ne fait rien
+	# sinon, cela les crée !
 	add_state (machine, depart)
 	add_state (machine, arrivee)
 	
+	# On crée la transition de départ vers arrivée uniquement
+	# Elle n'est pas bidirectionnelle !!!
 	machine["transitions"][depart][arrivee] = func
 	
 def transition (machine,arrivee):
@@ -77,18 +102,20 @@ def transition (machine,arrivee):
 		
 		@return : bool = si cela s'est bien passé 
 	"""
+	# Si l'état courant est None, alors il n'y a rien à faire !
 	if get_state (machine) == None:
-		machine["state"] = arrivee
+		machine["state"] = arrivee # On change d'état direct
 	else:
 		try:
+			# On essaye de changer d'état ...
 			prec = get_state (machine)
 			machine["transitions"][prec][arrivee] (machine) # on prend la machine en argument
 			machine["state"] = arrivee
 			machine["states"][prec] = {} # supprime les variables d'état
 		except:
-			return False
+			return False # Si ça ne fonctionne pas ... on retourne faux
 			
-	return True
+	return True # Si tout fonctionne ... on retourne Vrai
 
 ## Accesseurs des propriétés 
 def set_special_property (machine,prop,value):
@@ -134,7 +161,6 @@ def set_state_property (machine, prop, value):
 		
 		@return : None
 	"""
-		
 	machine["states"][get_state (machine)][prop] = value
 	
 ### EXAMPLE :
