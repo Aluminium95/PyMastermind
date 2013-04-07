@@ -9,6 +9,16 @@ from turtle import *
 
 machine = False
 
+def to_menu (m):
+	print "to menu"
+
+def to_choix_code (m):
+	print "to choix code"
+
+def to_jeu (m):
+	print "to jeu"
+
+
 def init ():
 	global machine 
 	
@@ -21,14 +31,7 @@ def init ():
 	fsm.set_transition (machine, "choix-code", "jeu", to_jeu)
 	fsm.set_transition (machine, "jeu", "menu", to_menu)
 
-def to_menu (m):
-	print "to menu"
-
-def to_choix_code (m):
-	print "to choix code"
-
-def to_jeu (m):
-	print "to jeu"
+	fsm.transition (machine, 'menu')
 
 def dispatcher (x,y):
 	""" Fonction qui récupère les clics turtle 
@@ -42,6 +45,15 @@ def dispatcher (x,y):
 	global machine 
 	
 	print x,y
+	
+	st = fsm.get_state (machine) # État courant 
+	if st == 'menu':
+		fsm.transition (machine, 'choix-code')
+	elif st == 'choix-code':
+		fsm.transition (machine, 'jeu')
+	elif st == 'jeu':
+		fsm.transition (machine, 'menu')
+
 def run ():
 
 	sc = getscreen ()
