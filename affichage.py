@@ -9,7 +9,7 @@ from couleurs import *
 import persistance
 
 y = 245
-
+x = -125
 
 def init (theme = ""):
 	""" Initialise la fonction, affiche le fond sélectionné
@@ -19,8 +19,9 @@ def init (theme = ""):
 	"""
 	# yop ... ça plante --"
 	up ()
-	# selected_theme = persistance.get_propriete ("background",theme)
-	# bgpic(picname = selected_theme)
+	
+	
+	reset () 
 	
 
 def dessiner_carre (taille,couleur):
@@ -96,37 +97,49 @@ def dessiner_answer(answer):
 	else:
 		return
     
-def reset():
-	""" Remet à zéro !
+def reset ():
+	""" Remet à zéro : un nouveau jeu peut commencer 
 		
 		@return : None
 	"""
-	global y
+	global y,x
+
 	clear()
-	y=120
-	goto(-125,y)
+	
+	th = persistance.get_propriete ("backgrounds","theme:courant")
+
+	path = "Images/Theme" + th + "/fond.gif"
+	bgpic (path)
+	
+	y = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":yi"))
+	x = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":xi"))
+	
+	
+	goto(x,y)
 
     
 
-def win(bg):
+def win(bg=''):
 	""" Affiche l'écran de victoire (fond choisi)
 		
 		@bg : str
 		@return : None 
 	"""
-	reset()
-	#selected_bg = persistance.get_propriete ("background",bg)
-	#bgpic(picname = selected_bg)
-	
-def loose(bg):
+	#reset() - On peut laisser le plateau ! 
+	th = persistance.get_propriete ("backgrounds", "theme:courant")
+	path = "Images/Theme" + th + "/perdu.gif"
+	bgpic(path)
+
+def loose(bg=''):
 	""" Affiche l'écran de défaite
 		
 		@bg : str
 		@return : None
 	"""
-	reset()
-	#selected_bg = persistance.get_propriete ("background",bg)
-	#bgpic(picname = selected_bg)
+	#reset() - On peut laisser le plateau !
+	th = persistance.get_propriete ("backgrounds","theme:courant")
+	path = "Images/Theme" + th + "/perdu.gif"
+	bgpic(path)
 
 
             
@@ -140,9 +153,9 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		
         	@return : None
     """
-	global y
+	global y,x
 	up ()
-	goto(-125,y)
+	goto(x,y)
 	i=0
 	while i<nbr_case:
 		dessiner_carre(40,couleurs[i])
@@ -153,7 +166,7 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 	
 	seth (0) # remet la tortue à un angle absolu de zéro !
 
-	y = y - 60
+	y = y - 50
 
 def creer_bouton (x,y,l,couleur,texte):
 	""" Crée un bouton de couleur avec du texte à côté

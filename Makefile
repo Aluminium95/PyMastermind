@@ -1,5 +1,5 @@
 PY = python2
-MAIN = "main" 
+MAIN = main
 DOCDIR = ./Documentation/PyDoc/
 
 .PHONY: all clean doc

@@ -37,13 +37,13 @@ if __name__ == '__main__':
 			joueur.choisir_code ()
 			code_defini = True
 		elif rep == "humain-joue" and code_defini == True:
+			affichage.reset ()
 			joueur.jouer ()
 			moteur.restant = 10 # Moche !
-			affichage.reset ()
 		elif rep == "ia-joue" and code_defini == True:
+			affichage.reset ()
 			ia.jouer ()
 			moteur.restant = 10 # Moche !
-			affichage.reset ()
 		else:
 			iconsole.afficher ("Menu","Cette requête est invalide ...")
 
