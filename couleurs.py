@@ -114,7 +114,7 @@ def init ():
 	print l
 	couleurs = l # Sauvegarde
 
-def everything_to_hexa(couleur):
+def couleur_to_hexa(couleur):
 	""" Permet de tester une variable pour savoir si elle est une couleur hexa ou en français et convertir en hexa
 		
 		@couleur : ? = le truc 
@@ -126,7 +126,7 @@ def everything_to_hexa(couleur):
 	else:
 		return string_to_hexa (couleur)
 
-def everything_to_string (couleur):
+def couleur_to_string (couleur):
 	""" Permet de tester une variable pour savoir si elle est une couleur 
 		en string ou en hexa et convertir en string si nécessaire (français)
 
