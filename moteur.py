@@ -73,6 +73,7 @@ def proposer_solution (proposition):
 		if solution[i] == proposition[i]:
 			a = a+1
 			solution[i] = "*"
+			proposition[i] = "*"
 		i = i+1
 	i = 0
 
@@ -82,6 +83,7 @@ def proposer_solution (proposition):
 			if solution[j] != "*" and solution[j] == proposition[i]:
 				b = b+1
 				solution[j] = "*"
+				proposition[i] = "*"
 				break
 			j = j + 1
 		i = i+1
