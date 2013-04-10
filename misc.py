@@ -20,4 +20,25 @@ def question_fermee (chaine):
 	else:
 		return False
 
+def decouper_en_tableau (chaine,sep):
+	""" Découpe la chaine en tableau, en fonction du séparateur 
+		spécifié, le séparateur est supprimé 
 
+		@chaine : str = la chaine à découper
+		@sep : str = séparateur de « découpage »
+
+		@return : [str ...] = le tableau
+	"""
+
+	t = []
+	buf = ""
+	for i in chaine:
+		if i == sep:
+			t.append (buf)
+			buf == ""
+		else:
+			buf += i
+	if buf != ""
+		t.append (buf)
+
+	return t
