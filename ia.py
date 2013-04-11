@@ -7,7 +7,6 @@ import moteur
 import iconsole
 import persistance
 from random import choice # faire un choix aléatoire dans une liste 
-from random import * #j'ai besoin de randint() !
 
 def generer_couleurs_aleatoires ():
 	""" Génère un code aléatoire de couleurs, complètement !
@@ -29,13 +28,6 @@ def generer_couleurs_aleatoires ():
 	
 	return sortie
 	
-def random_choice(S):
-	""" fonction qui permet de choisir une code dans la liste des possibilités générés
-		Je sais pas si generer_couleurs_aleatoires fait la même chose...
-	"""
-    a = randint(0,len(S)-1)
-    return S[a]
-
 def create_list(S):
     """Créé une liste de toutes les combinaison possibles des objets dans S (une même couleur peux se retrouver plusieurs fois)
         len(li) = n^(4) à l'issue de cette fonction (où n est len(S))
@@ -44,18 +36,18 @@ def create_list(S):
         @return : list = li la liste de toutes les combinaison
 
     """
-    li=[]
-    for i in S:
-        temp = [0,0,0,0]
-        temp[0] = i
-        for j in S:
-            temp[1] = j
-            for k in S:
-                temp[2] = k
-                for l in S:
-                    temp[3] = l
-                    li.append(list(temp))
-    return li
+	li=[]
+	for i in S:
+		temp = [0,0,0,0]
+		temp[0] = i
+		for j in S:
+			temp[1] = j
+			for k in S:
+				temp[2] = k
+				for l in S:
+					temp[3] = l
+					li.append(list(temp))
+	return li
 
 # L'IA définit le code 
 def choisir_code (mode="aleatoire"):
@@ -112,25 +104,29 @@ def jouer (mode = "aleatoire"):
 	
 			if r == "perdu" or r == "gagne":
 				return
-	def ia_knuth(S):
-    		li = create_list(S)
-    		proposition = random_choice(li)
-   		sol = moteur.proposer_solution(proposition)
-    		if sol == False:
-			return False
-    		if sol == "gagne":
-        		return "gagne"
-    		if sol == "perdu":
-        		return "perdu"
-#Autant prévenir à partir de là ça par en couille, j'ai juste essayer de faire au plus réutilisable...
-    		else:
-        		for i in li:
-           			temp = moteur.proposer_solution(i)
-            """Ou une autre punaise de fonction qui serait plus appropriée...
-                Dans l'idéal un truc qui me permet de mettre en argument le code et la proposition et qui retourne un tuple uniquement"""
-           			 if type(temp) == tuple:
-                			if temp == sol:
-                				li.remove(i)
+
+
+	def ia_knuth ():
+		univers = couleurs.liste_couleurs ()[0:8] # Prend les 8 premières couleurs 
+		li = create_list (univers) # Crée la liste de toutes les possibilités 
+		
+		while True: # On boucle ! Youhou 
+			proposition = choice (li) # On propose un truc de la liste 
+			li.remove (proposition) # Retire la proposition de la liste 
+
+			reponse = moteur.proposer_solution (proposition) # Et récupère la réponse du moteur 
+			
+			if reponse == False: # Si la solution est « faux » ... l'univers est corrompu !
+				return False # On quitte !
+			if reponse == "gagne": # Si la solution est « gagne » ... fin
+				return "gagne" 
+			if reponse == "perdu": # Si la solution est « perdu » ... idem 
+				return "perdu"
+			else: # Sinon, c'est un tuple (a,b) (par définition de la fonction)
+				for i in li: # Pour chaque élément de la liste 
+					reponse_tmp = moteur.proposer_solution_ia (proposition, i)
+					if reponse_tmp != reponse: # Si l'élément « i » ne donne pas le même résultat ...
+						li.remove (i) # On le supprime ! Il ne peut être un code valide !
                     
 
 	if mode == "aleatoire":
