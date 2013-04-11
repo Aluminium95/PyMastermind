@@ -17,11 +17,11 @@ def init (theme = ""):
 		@thème : str
 		@return : None
 	"""
-	# yop ... ça plante --"
+	# On lève le crayon ! Ça affiche l'écran ... --'
 	up ()
 	
 	
-	reset () 
+	reset () # Reset () -> met l'affichage de « jeu »
 	
 
 def dessiner_carre (taille,couleur):
