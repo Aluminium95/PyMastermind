@@ -40,10 +40,12 @@ def jouer ():
 			break
 		else:
 			a,b = rep
-			print("_" * 50)
-			iconsole.afficher("Mastermind",str(a)+" bonne(s) couleur(s) et bonne place(s)")
-			iconsole.afficher("Mastermind",str(b)+" bonne(s) couleur(s) et mauvaise place(s)")
+			print ("_" * 50) # Afficher à la main ?
+			# On peut rafiner en mettant les s si besoin seulement, et ne pas afficher 
+			# le texte si la valeur est 0 ...
+			iconsole.afficher("Mastermind","Il y a " + str(a) + " bonne(s) couleur(s) et bonne place(s)")
+			iconsole.afficher("Mastermind","Il y a " + str(b) + " bonne(s) couleur(s) et mauvaise place(s)")
 			iconsole.afficher("Mastermind"," Voulez-vous rejouer ?")
-			print("_" * 50)
+			print ("_" * 50) # Idem ? ...
 				    
 
