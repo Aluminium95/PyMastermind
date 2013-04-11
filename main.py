@@ -42,7 +42,7 @@ if __name__ == '__main__':
 			moteur.restant = 10 # Moche !
 		elif rep == "ia-joue" and code_defini == True:
 			affichage.reset ()
-			ia.jouer ()
+			ia.jouer ("knuth")
 			moteur.restant = 10 # Moche !
 		else:
 			iconsole.afficher ("Menu","Cette requête est invalide ...")

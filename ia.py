@@ -29,13 +29,12 @@ def generer_couleurs_aleatoires ():
 	return sortie
 	
 def create_list(S):
-    """Créé une liste de toutes les combinaison possibles des objets dans S (une même couleur peux se retrouver plusieurs fois)
-        len(li) = n^(4) à l'issue de cette fonction (où n est len(S))
-
-        @S : list = L'univers, l'ensemble des possibilités, pour le mastermind, le nombre de couleurs
-        @return : list = li la liste de toutes les combinaison
-
-    """
+	"""Créé une liste de toutes les combinaison possibles des objets dans S (une même couleur peux se retrouver plusieurs fois)
+		len(li) = n^(4) à l'issue de cette fonction (où n est len(S))
+		
+		@S : list = L'univers, l'ensemble des possibilités, pour le mastermind, le nombre de couleurs
+		@return : list = li la liste de toutes les combinaison
+	"""
 	li=[]
 	for i in S:
 		temp = [0,0,0,0]
@@ -110,7 +109,7 @@ def jouer (mode = "aleatoire"):
 		univers = couleurs.liste_couleurs ()[0:8] # Prend les 8 premières couleurs 
 		li = create_list (univers) # Crée la liste de toutes les possibilités 
 		
-		while True: # On boucle ! Youhou 
+		while True: # On boucle ! Youhou ...
 			proposition = choice (li) # On propose un truc de la liste 
 			li.remove (proposition) # Retire la proposition de la liste 
 
@@ -123,15 +122,18 @@ def jouer (mode = "aleatoire"):
 			if reponse == "perdu": # Si la solution est « perdu » ... idem 
 				return "perdu"
 			else: # Sinon, c'est un tuple (a,b) (par définition de la fonction)
+				nli = []
 				for i in li: # Pour chaque élément de la liste 
-					reponse_tmp = moteur.proposer_solution_ia (proposition, i)
-					if reponse_tmp != reponse: # Si l'élément « i » ne donne pas le même résultat ...
-						li.remove (i) # On le supprime ! Il ne peut être un code valide !
-                    
-
+					reponse_tmp = moteur.proposition_ia (proposition, i)
+					if reponse_tmp == reponse: # Si l'élément « i » donne bien le même résultat
+						nli.append (i) # On le garde ... sinon on le laisse 
+				li = nli # On remplace l'ancienne liste 
+	ia_knuth ()
+	"""
 	if mode == "aleatoire":
 		ia_alea ()
 	elif mode == "knuth":
 		ia_knuth ()
 	else:
 		return False
+	"""

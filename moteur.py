@@ -109,13 +109,6 @@ def proposer_solution (proposition):
 	
 	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
 	
-	""" Le code ici est un peu « barbare » 
-	while i < len(proposition):
-		proposition_copie.append(proposition[i])
-		i = i+1
-	
-	i = 0
-	"""
 
 	solution = list (code_secret) # Création d'une copie de la liste :-) 
 
@@ -130,7 +123,7 @@ def proposer_solution (proposition):
 	while i < len (code_secret):
 		j = 0
 		while j < len (solution): #cherche les bonnes couleurs mal placées
-			if solution[j] != "*" and solution[j] == proposition[i]:
+			if solution[j] != "*" and solution[j] == proposition_copie[i]:
 				b = b+1
 				solution[j] = "*"
 				proposition_copie[i] = "*"
@@ -149,7 +142,7 @@ def proposer_solution (proposition):
 		return "perdu"
 	else:
 		l = []
-		for i in proposition_copie:
+		for i in proposition: # alala, c'est trop con sinon 
 			l.append (couleurs.string_to_hexa (i))
 		
 		affichage.afficher_couleurs (4,l,(a,b))
@@ -177,14 +170,6 @@ def proposition_ia (proposition, code_secret):
 	
 	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
 	
-	""" Le code ici est un peu « barbare » 
-	while i < len(proposition):
-		proposition_copie.append(proposition[i])
-		i = i+1
-	
-	i = 0
-	"""
-
 	solution = list (code_secret) # Création d'une copie de la liste :-) 
 
 	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
@@ -198,7 +183,7 @@ def proposition_ia (proposition, code_secret):
 	while i < len (code_secret):
 		j = 0
 		while j < len (solution): #cherche les bonnes couleurs mal placées
-			if solution[j] != "*" and solution[j] == proposition[i]:
+			if solution[j] != "*" and solution[j] == proposition_copie[i]:
 				b = b+1
 				solution[j] = "*"
 				proposition_copie[i] = "*"
