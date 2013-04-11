@@ -71,13 +71,17 @@ def proposer_solution (proposition):
 	b = 0
 	i = 0
 	
-	while i < len(proposition):
-		proposition_copie.append(proposition[i]
-		i = i+1
-		
-	i = 0
+	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
 	
-	solution = list (code_secret)
+	""" Le code ici est un peu « barbare » 
+	while i < len(proposition):
+		proposition_copie.append(proposition[i])
+		i = i+1
+	
+	i = 0
+	"""
+
+	solution = list (code_secret) # Création d'une copie de la liste :-) 
 
 	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
 		if solution[i] == proposition_copie[i]:
