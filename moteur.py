@@ -9,7 +9,7 @@ import affichage
 
 code_secret = False
 mode = "moyen"
-restant = 10 
+restant = 10
 liste_mode = ["facile","moyen","difficile"]
 
 def init ():
