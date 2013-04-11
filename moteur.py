@@ -18,10 +18,20 @@ def init ():
 	restant = persistance.get_propriete ("config","coups:" + mode)
 	restant = int (restant)
 
-def get_mode (): #retourne le mode de jeu actuel (facile, moyen ou difficile)
+def get_mode ():
+	""" Retourne le mode de jeu actuel 
+		
+		@return : str (facile | moyen | difficile)
+	"""
 	return mode
 
-def set_mode (m): #fonction permettant de changer le mode de jeu par m (facile moyen ou diffiile)
+def set_mode (m): 
+	""" Change le mode de jeu 
+		
+		@m : str (facile | moyen | difficile) = Le nouveau mode de jeu 
+
+		@return : bool = si c'est bon 
+	"""
 	global mode,restant
 	
 	if m in liste_modes:
@@ -34,10 +44,20 @@ def set_mode (m): #fonction permettant de changer le mode de jeu par m (facile m
 def get_historique():
 	return historique
 
-def get_restant (): #fonction retournant le nombre de coups restants disponibles pour la partie en cours.
-    	return restant
+def get_restant (): 
+	""" Retourne le nombre de coups restants 
+		
+		@return : int
+	"""
+    return restant
 
-def double_couleur (test): #fonction permettant de vérifier qu'il n'y a pas deux couleurs identiques dans la liste test
+def double_couleur (test):
+	""" Vérifie si une liste contient deux fois un élément identique
+		
+		@test : [? ...] = la liste à tester
+
+		@return : bool 
+	"""
 	liste_test = []
 	for i in test:
 		if i in liste_test:
@@ -46,8 +66,13 @@ def double_couleur (test): #fonction permettant de vérifier qu'il n'y a pas deu
 			liste_test.append(i)
 	return True
 
-def definir_code (tableau): #fonction vérifiant que le code secret (de départ) est juste.
-                        
+def definir_code (tableau): 
+	""" Définit le code à trouver pour la partie !
+		
+		@tableau : [couleurs (français) ...] = le code à trouver
+
+		@return : bool = si tout s'est bien passé
+	"""
 	global code_secret
 	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
 		for i in tableau:
@@ -59,11 +84,22 @@ def definir_code (tableau): #fonction vérifiant que le code secret (de départ)
 		return False
 
 def proposer_solution (proposition): 
-	#fonction retournant le nombre de couleurs justes et bien placées (a), et justes et
-	#mal placées (b), de proposition, par rapport a solution
+	""" Fonction qui effectue un coup du joueur !
+		Si le coup est invalide, on n'enlève pas de vie ni ne diminue 
+		le score !
+
+		@proposition : [couleur (français) ...] = la proposition du joueur
+
+		@return : False | "gagne" | "perdu" | (a,b)
+			- False : il y a eu un problème dans le code proposé
+			- "gagne" : l'utilisateur a gagné la partie
+			- "perdu" : l'utilisateur a perdu la partie
+			- (a,b) : a couleurs justes et bien placées, b couleurs justes et mal placées 
+	"""
 	
 	global restant
 	
+
 	# couleurs.is_string (c) 
 	# il faut verifier que la couleur est valide 
 
