@@ -49,7 +49,7 @@ def get_restant ():
 		
 		@return : int
 	"""
-    return restant
+	return restant
 
 def double_couleur (test):
 	""" Vérifie si une liste contient deux fois un élément identique

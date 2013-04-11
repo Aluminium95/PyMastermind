@@ -38,7 +38,8 @@ def decouper_en_tableau (chaine,sep):
 			buf == ""
 		else:
 			buf += i
-	if buf != ""
+	
+	if buf != "":
 		t.append (buf)
 
 	return t
