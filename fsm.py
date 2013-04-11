@@ -3,10 +3,6 @@
 #
 # Lopez Aliaume
 # 
-# 30 mars 2013
-# 15:18
-#
-#
 # Ce module sert à créer des 
 # FSM de manière simple et efficace,
 # en permettant une programmation 
@@ -37,9 +33,9 @@ def new ():
 				+ variable2 = valeur2
 	"""
 	# Le dictionnaire des états 
-	m["states"] = {}
+	m["states-vars"] = {}
 	# Le dictionnaire des variables d'état de None
-	m["states"][None] = {}
+	m["states-vars"][None] = {}
 	
 	# Le dictionnaire des transitions entre 
 	# les différents états 
@@ -72,8 +68,8 @@ def add_state (machine,name):
 	"""
 	# Ajoute un état à la machine, mais doit avant tout 
 	# vérifier que l'état n'existe pas ...
-	if name not in machine["states"]:
-		machine["states"][name] = {} # crée l'état (le dico des propriétés internes)
+	if name not in machine["states-vars"]:
+		machine["states-vars"][name] = {} # crée l'état (le dico des propriétés internes)
 		machine["transitions"][name] = {} # crée le tableau de transition pour cet état 
 		
 def set_transition (machine,depart,arrivee,func):
@@ -111,7 +107,7 @@ def transition (machine,arrivee):
 			prec = get_state (machine)
 			machine["transitions"][prec][arrivee] (machine) # on prend la machine en argument
 			machine["state"] = arrivee
-			machine["states"][prec] = {} # supprime les variables d'état
+			machine["states-vars"][prec] = {} # supprime les variables d'état
 		except:
 			return False # Si ça ne fonctionne pas ... on retourne faux
 			
@@ -149,7 +145,7 @@ def get_state_property (machine, prop):
 		
 		@return : ? = la valeur de la propriété 
 	"""
-	return machine["states"][get_state (machine)][prop]
+	return machine["states-vars"][get_state (machine)][prop]
 
 def set_state_property (machine, prop, value):
 	""" Définit une propriété spécifique à l'état courant
@@ -161,7 +157,7 @@ def set_state_property (machine, prop, value):
 		
 		@return : None
 	"""
-	machine["states"][get_state (machine)][prop] = value
+	machine["states-vars"][get_state (machine)][prop] = value
 	
 ### EXAMPLE :
 
