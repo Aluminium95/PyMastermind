@@ -2,7 +2,6 @@
 #-*- coding: utf-8 -*-
 #
 # Lopez Aliaume
-# 30/03/2013
 # 
 # Fichier gérant tout ce qui est persistance 
 # des informations dans une sorte de BDD

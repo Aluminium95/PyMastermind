@@ -36,6 +36,10 @@ def choisir_code (mode="aleatoire"):
 
 		@return : None
 	"""
+	
+	# les fonctions définies ici ne sont pas visibles 
+	# depuis l'extérieur ! C'est le but !
+
 	def ia_alea ():
 		# BRUTE FORCE !!!!
 		# On crée des listes aléatoires 
@@ -49,6 +53,8 @@ def choisir_code (mode="aleatoire"):
 			if r != False:
 				condition = False
 
+	# fin def ia_alea ici 
+
 	if mode == "aleatoire":
 		ia_alea ()
 	else:
@@ -58,7 +64,7 @@ def choisir_code (mode="aleatoire"):
 def jouer (mode = "aleatoire"):
 	""" Fait jouer l'IA pour deviner le code 
 
-		@mode : string (aleatoire | probabiliste | deterministe) = 
+		@mode : string (aleatoire | knuth | matrice) = 
 			le mode de résolution 
 
 		@return : None
