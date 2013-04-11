@@ -155,3 +155,56 @@ def proposer_solution (proposition):
 		affichage.afficher_couleurs (4,l,(a,b))
 		return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
+def proposition_ia (proposition, code_secret): 
+	""" Fonction qui effectue un coup du joueur !
+		comme la fontion proposer_solution, sans s'occuper des autres paramètres, tel que le score,
+		les coups restant ... ne renvoie que (a,b)
+
+		@proposition : [couleur (français) ...] = la proposition du joueur
+
+		@return : (a,b)
+			- (a,b) : a couleurs justes et bien placées, b couleurs justes et mal placées 
+	"""
+	
+	
+
+	# couleurs.is_string (c) 
+	# il faut verifier que la couleur est valide 
+
+	a = 0
+	b = 0
+	i = 0
+	
+	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
+	
+	""" Le code ici est un peu « barbare » 
+	while i < len(proposition):
+		proposition_copie.append(proposition[i])
+		i = i+1
+	
+	i = 0
+	"""
+
+	solution = list (code_secret) # Création d'une copie de la liste :-) 
+
+	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
+		if solution[i] == proposition_copie[i]:
+			a = a+1
+			solution[i] = "*"
+			proposition_copie[i] = "*"
+		i = i+1
+	i = 0
+
+	while i < len (code_secret):
+		j = 0
+		while j < len (solution): #cherche les bonnes couleurs mal placées
+			if solution[j] != "*" and solution[j] == proposition[i]:
+				b = b+1
+				solution[j] = "*"
+				proposition_copie[i] = "*"
+				break
+			j = j + 1
+		i = i+1
+		
+	return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
+
