@@ -7,6 +7,7 @@ import persistance
 import couleurs
 import affichage
 
+historique = []
 code_secret = False
 mode = "moyen"
 restant = 10
@@ -29,9 +30,12 @@ def set_mode (m): #fonction permettant de changer le mode de jeu par m (facile m
 		return True
 	else:
 		return False
+		
+def get_historique():
+	return historique
 
 def get_restant (): #fonction retournant le nombre de coups restants disponibles pour la partie en cours.
-    return restant
+    	return restant
 
 def double_couleur (test): #fonction permettant de vérifier qu'il n'y a pas deux couleurs identiques dans la liste test
 	liste_test = []
@@ -66,14 +70,20 @@ def proposer_solution (proposition):
 	a = 0
 	b = 0
 	i = 0
-
+	
+	while i < len(proposition):
+		proposition_copie.append(proposition[i]
+		i = i+1
+		
+	i = 0
+	
 	solution = list (code_secret)
 
 	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
-		if solution[i] == proposition[i]:
+		if solution[i] == proposition_copie[i]:
 			a = a+1
 			solution[i] = "*"
-			proposition[i] = "*"
+			proposition_copie[i] = "*"
 		i = i+1
 	i = 0
 
@@ -83,11 +93,13 @@ def proposer_solution (proposition):
 			if solution[j] != "*" and solution[j] == proposition[i]:
 				b = b+1
 				solution[j] = "*"
-				proposition[i] = "*"
+				proposition_copie[i] = "*"
 				break
 			j = j + 1
 		i = i+1
-
+	
+	historique.append([proposition_copie, (a,b)])
+	
 	restant -= 1
 	if a == 4: #si proposition est identique àsolution
 		affichage.win ("red") 
@@ -97,7 +109,7 @@ def proposer_solution (proposition):
 		return "perdu"
 	else:
 		l = []
-		for i in proposition:
+		for i in proposition_copie:
 			l.append (couleurs.string_to_hexa (i))
 		
 		affichage.afficher_couleurs (4,l,(a,b))
