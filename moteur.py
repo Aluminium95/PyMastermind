@@ -41,6 +41,47 @@ def set_mode (m):
 	else:
 		return False
 		
+def calcul_score(coups):
+	""" Calcul le score actuel a partir du nombre de coups et de la difficultés
+	"""
+	
+	mode = get_mode()
+	if mode == "facile":
+		score = coups
+	elif mode == "moyen":
+		score = coups + 2
+	else:
+		score = coups + 5
+	
+	return score
+
+def recup_score():
+	""" Recupere la liste des 5 meilleurs scores
+	"""
+      
+	score = []
+	i = 0
+	while i < 5:
+		score.append(persistance.get_propriete ("scores",str(i)))
+		i = i+1
+	return score
+
+def enregistre_score (score_actuel, top_score): 
+	""" Enregistre le score actuel dans le top 5 des scores s'il est superieur a un de ces derniers
+	"""
+
+    	i = 0
+
+    	while i < 5:
+        	if score_actuel > top_score[i]:
+            		top_score.insert(i, score_actuel)
+            		i = i+1
+            
+    	i = 0
+    	while i < 5:
+        	persistance.set_propriete ("scores",str(i),top_score[i])
+		i = i+1
+		
 def get_historique():
 	return historique
 
