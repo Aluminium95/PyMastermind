@@ -111,8 +111,8 @@ def reset ():
 	path = "Images/Theme" + th + "/fond.gif"
 	bgpic (path)
 	
-	y = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":yi"))
-	x = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":xi"))
+	y = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":y:plateau"))
+	x = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":x:plateau"))
 	
 	
 	goto(x,y)
