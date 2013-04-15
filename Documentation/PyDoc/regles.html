@@ -10,13 +10,18 @@
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/aluminium95/Documents/Test/terminale/ISN/Code/Devoirs/PyMastermind/regles.py">/home/aluminium95/Documents/Test/terminale/ISN/Code/Devoirs/PyMastermind/regles.py</a></font></td></tr></table>
     <p><tt>#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
-#règles&nbsp;du&nbsp;jeu&nbsp;(mode&nbsp;facile&nbsp;au&nbsp;mode&nbsp;difficile)<br>
-#05/04/2013<br>
-#regles_du_jeu1&nbsp;:&nbsp;niveau&nbsp;facile.<br>
-#regles_du_jeu2&nbsp;:&nbsp;niveau&nbsp;normal.<br>
-#regles_du_jeu3&nbsp;:&nbsp;niveau&nbsp;difficile.<br>
-#&nbsp;Bien&nbsp;appeler&nbsp;la&nbsp;fonction&nbsp;ainsi&nbsp;:&nbsp;<a href="#-regles_du_jeu1">regles_du_jeu1</a>("black")&nbsp;==&gt;&nbsp;avec&nbsp;"black"&nbsp;ainsi&nbsp;histoire&nbsp;de&nbsp;pourvoir&nbsp;lire&nbsp;les&nbsp;caractères.</tt></p>
+#règles&nbsp;du&nbsp;jeu&nbsp;(mode&nbsp;facile,&nbsp;normal&nbsp;et&nbsp;difficile)<br>
+#014/04/2013</tt></p>
 <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="couleurs.html">couleurs</a><br>
+</td><td width="25%" valign=top><a href="persistance.html">persistance</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#eeaa77">
 <td colspan=3 valign=bottom>&nbsp;<br>
@@ -36,6 +41,10 @@ Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;
 &nbsp;<br>
 Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;y/x.<br>
 Unlike&nbsp;<a href="#-atan">atan</a>(y/x),&nbsp;the&nbsp;signs&nbsp;of&nbsp;both&nbsp;x&nbsp;and&nbsp;y&nbsp;are&nbsp;considered.</tt></dd></dl>
+ <dl><dt><a name="-carre"><strong>carre</strong></a>(taille)</dt></dl>
+ <dl><dt><a name="-carre_difficile"><strong>carre_difficile</strong></a>()</dt></dl>
+ <dl><dt><a name="-carre_facile"><strong>carre_facile</strong></a>()</dt></dl>
+ <dl><dt><a name="-carre_normal"><strong>carre_normal</strong></a>()</dt></dl>
  <dl><dt><a name="-ceil"><strong>ceil</strong></a>(...)</dt><dd><tt><a href="#-ceil">ceil</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;ceiling&nbsp;of&nbsp;x&nbsp;as&nbsp;a&nbsp;float.<br>
@@ -77,18 +86,22 @@ If&nbsp;the&nbsp;base&nbsp;not&nbsp;specified,&nbsp;returns&nbsp;the&nbsp;natura
  <dl><dt><a name="-log10"><strong>log10</strong></a>(...)</dt><dd><tt><a href="#-log10">log10</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;base&nbsp;10&nbsp;logarithm&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-main_text"><strong>main_text</strong></a>()</dt></dl>
+ <dl><dt><a name="-main_text2"><strong>main_text2</strong></a>()</dt></dl>
  <dl><dt><a name="-modf"><strong>modf</strong></a>(...)</dt><dd><tt><a href="#-modf">modf</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;fractional&nbsp;and&nbsp;integer&nbsp;parts&nbsp;of&nbsp;x.&nbsp;&nbsp;Both&nbsp;results&nbsp;carry&nbsp;the&nbsp;sign<br>
 of&nbsp;x&nbsp;and&nbsp;are&nbsp;floats.</tt></dd></dl>
+ <dl><dt><a name="-niveau"><strong>niveau</strong></a>(niveau)</dt></dl>
+ <dl><dt><a name="-nombre_coup"><strong>nombre_coup</strong></a>(coups)</dt></dl>
  <dl><dt><a name="-pow"><strong>pow</strong></a>(...)</dt><dd><tt><a href="#-pow">pow</a>(x,&nbsp;y)<br>
 &nbsp;<br>
 Return&nbsp;x**y&nbsp;(x&nbsp;to&nbsp;the&nbsp;power&nbsp;of&nbsp;y).</tt></dd></dl>
- <dl><dt><a name="-regles_du_jeu1"><strong>regles_du_jeu1</strong></a>(couleur)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;facil.<br>
+ <dl><dt><a name="-regles_difficile"><strong>regles_difficile</strong></a>(couleur)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;difficile.<br>
 (un&nbsp;fond&nbsp;y&nbsp;est&nbsp;inséré)</tt></dd></dl>
- <dl><dt><a name="-regles_du_jeu2"><strong>regles_du_jeu2</strong></a>(couleur)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;normal.<br>
+ <dl><dt><a name="-regles_facile"><strong>regles_facile</strong></a>(couleur)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;facile.<br>
 (un&nbsp;fond&nbsp;y&nbsp;est&nbsp;inséré)</tt></dd></dl>
- <dl><dt><a name="-regles_du_jeu3"><strong>regles_du_jeu3</strong></a>(couleur)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;difficile.<br>
+ <dl><dt><a name="-regles_normal"><strong>regles_normal</strong></a>(couleur)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;normal.<br>
 (un&nbsp;fond&nbsp;y&nbsp;est&nbsp;inséré)</tt></dd></dl>
  <dl><dt><a name="-sin"><strong>sin</strong></a>(...)</dt><dd><tt><a href="#-sin">sin</a>(x)<br>
 &nbsp;<br>
@@ -105,6 +118,8 @@ Return&nbsp;the&nbsp;tangent&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians)
  <dl><dt><a name="-tanh"><strong>tanh</strong></a>(...)</dt><dd><tt><a href="#-tanh">tanh</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;hyperbolic&nbsp;tangent&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-texte_normal"><strong>texte_normal</strong></a>(text)</dt></dl>
+ <dl><dt><a name="-texte_petit"><strong>texte_petit</strong></a>(text)</dt></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">

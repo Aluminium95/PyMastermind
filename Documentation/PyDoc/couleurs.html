@@ -68,6 +68,19 @@ en&nbsp;string&nbsp;ou&nbsp;en&nbsp;hexa&nbsp;et&nbsp;convertir&nbsp;en&nbsp;str
 @couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;le&nbsp;truc&nbsp;à&nbsp;convertir<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;string&nbsp;(français)&nbsp;|&nbsp;False</tt></dd></dl>
+ <dl><dt><a name="-eclaircir"><strong>eclaircir</strong></a>(couleur, pts)</dt><dd><tt>Permet&nbsp;d'éclaircir&nbsp;une&nbsp;couleur&nbsp;passée&nbsp;en&nbsp;argument&nbsp;d'une&nbsp;<br>
+valeur&nbsp;de&nbsp;«&nbsp;pts&nbsp;»,&nbsp;nombre&nbsp;à&nbsp;«&nbsp;ajouter&nbsp;».<br>
+&nbsp;<br>
+Attention&nbsp;:&nbsp;ne&nbsp;vérifie&nbsp;pas&nbsp;que&nbsp;la&nbsp;couleur&nbsp;générée&nbsp;est&nbsp;correcte&nbsp;...<br>
+turtle&nbsp;n'affiche&nbsp;pas&nbsp;les&nbsp;couleurs&nbsp;invalides,&nbsp;donc&nbsp;quand&nbsp;c'est&nbsp;terminé,<br>
+c'est&nbsp;terminé&nbsp;:-).<br>
+&nbsp;<br>
+@couleur&nbsp;:&nbsp;couleur&nbsp;=&nbsp;une&nbsp;couleur,&nbsp;sous&nbsp;n'importe&nbsp;quelle&nbsp;représentation<br>
+@pts&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;taux&nbsp;d'éclaircissement&nbsp;à&nbsp;ajouter&nbsp;à&nbsp;chaque&nbsp;valeur<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Est&nbsp;de&nbsp;type&nbsp;"A0",&nbsp;c'est&nbsp;à&nbsp;dire&nbsp;DEUX&nbsp;caractères&nbsp;obligatoires,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entre&nbsp;0&nbsp;et&nbsp;F&nbsp;(0&nbsp;1&nbsp;...&nbsp;8&nbsp;9&nbsp;A&nbsp;B...&nbsp;E&nbsp;F)<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;couleur&nbsp;(hexadecimal)</tt></dd></dl>
  <dl><dt><a name="-hexa_to_string"><strong>hexa_to_string</strong></a>(hexa)</dt><dd><tt>Retourne&nbsp;la&nbsp;valeur&nbsp;String&nbsp;de&nbsp;la&nbsp;couleur&nbsp;en&nbsp;Hexa<br>
 &nbsp;<br>
 @hexa&nbsp;:&nbsp;string&nbsp;=&nbsp;hexa&nbsp;à&nbsp;convertir<br>

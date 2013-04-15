@@ -27,7 +27,10 @@
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-definir_code"><strong>definir_code</strong></a>(tableau)</dt><dd><tt>Définit&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver&nbsp;pour&nbsp;la&nbsp;partie&nbsp;!<br>
+<td width="100%"><dl><dt><a name="-calcul_score"><strong>calcul_score</strong></a>()</dt><dd><tt>Calcul&nbsp;le&nbsp;score&nbsp;actuel&nbsp;a&nbsp;partir&nbsp;du&nbsp;nombre&nbsp;de&nbsp;coups&nbsp;et&nbsp;de&nbsp;la&nbsp;difficulté<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;int&nbsp;=&nbsp;le&nbsp;score&nbsp;calculé</tt></dd></dl>
+ <dl><dt><a name="-definir_code"><strong>definir_code</strong></a>(tableau)</dt><dd><tt>Définit&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver&nbsp;pour&nbsp;la&nbsp;partie&nbsp;!<br>
 &nbsp;<br>
 @tableau&nbsp;:&nbsp;[couleurs&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver<br>
 &nbsp;<br>
@@ -37,14 +40,24 @@
 @test&nbsp;:&nbsp;[?&nbsp;...]&nbsp;=&nbsp;la&nbsp;liste&nbsp;à&nbsp;tester<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;bool</tt></dd></dl>
- <dl><dt><a name="-get_historique"><strong>get_historique</strong></a>()</dt></dl>
+ <dl><dt><a name="-enregistre_score"><strong>enregistre_score</strong></a>()</dt><dd><tt>Enregistre&nbsp;le&nbsp;score&nbsp;actuel&nbsp;dans&nbsp;le&nbsp;top&nbsp;5&nbsp;des&nbsp;scores&nbsp;s'il&nbsp;est&nbsp;superieur&nbsp;a&nbsp;un&nbsp;de&nbsp;ces&nbsp;derniers<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-get_historique"><strong>get_historique</strong></a>()</dt><dd><tt>Retourne&nbsp;une&nbsp;copie&nbsp;de&nbsp;l'historique&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;["couleur",&nbsp;...],&nbsp;(a,b)&nbsp;]&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;COUP&nbsp;,&nbsp;RESULTAT&nbsp;]&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</tt></dd></dl>
  <dl><dt><a name="-get_mode"><strong>get_mode</strong></a>()</dt><dd><tt>Retourne&nbsp;le&nbsp;mode&nbsp;de&nbsp;jeu&nbsp;actuel&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;str&nbsp;(facile&nbsp;|&nbsp;moyen&nbsp;|&nbsp;difficile)</tt></dd></dl>
  <dl><dt><a name="-get_restant"><strong>get_restant</strong></a>()</dt><dd><tt>Retourne&nbsp;le&nbsp;nombre&nbsp;de&nbsp;coups&nbsp;restants&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;int</tt></dd></dl>
- <dl><dt><a name="-init"><strong>init</strong></a>()</dt></dl>
+ <dl><dt><a name="-init"><strong>init</strong></a>()</dt><dd><tt>Initialise&nbsp;le&nbsp;module</tt></dd></dl>
  <dl><dt><a name="-proposer_solution"><strong>proposer_solution</strong></a>(proposition)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
 Si&nbsp;le&nbsp;coup&nbsp;est&nbsp;invalide,&nbsp;on&nbsp;n'enlève&nbsp;pas&nbsp;de&nbsp;vie&nbsp;ni&nbsp;ne&nbsp;diminue&nbsp;<br>
 le&nbsp;score&nbsp;!<br>
@@ -56,6 +69,17 @@ le&nbsp;score&nbsp;!<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"gagne"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;gagné&nbsp;la&nbsp;partie<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"perdu"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;perdu&nbsp;la&nbsp;partie<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées</tt></dd></dl>
+ <dl><dt><a name="-proposition_ia"><strong>proposition_ia</strong></a>(proposition, code_secret)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
+comme&nbsp;la&nbsp;fontion&nbsp;proposer_solution,&nbsp;sans&nbsp;s'occuper&nbsp;des&nbsp;autres&nbsp;paramètres,&nbsp;tel&nbsp;que&nbsp;le&nbsp;score,<br>
+les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br>
+&nbsp;<br>
+@proposition&nbsp;:&nbsp;[couleur&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;la&nbsp;proposition&nbsp;du&nbsp;joueur<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;(a,b)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées</tt></dd></dl>
+ <dl><dt><a name="-recup_score"><strong>recup_score</strong></a>()</dt><dd><tt>Recupere&nbsp;la&nbsp;liste&nbsp;des&nbsp;5&nbsp;meilleurs&nbsp;scores<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;[&nbsp;int&nbsp;...&nbsp;]&nbsp;=&nbsp;les&nbsp;5&nbsp;meilleurs&nbsp;scores</tt></dd></dl>
  <dl><dt><a name="-set_mode"><strong>set_mode</strong></a>(m)</dt><dd><tt>Change&nbsp;le&nbsp;mode&nbsp;de&nbsp;jeu&nbsp;<br>
 &nbsp;<br>
 @m&nbsp;:&nbsp;str&nbsp;(facile&nbsp;|&nbsp;moyen&nbsp;|&nbsp;difficile)&nbsp;=&nbsp;Le&nbsp;nouveau&nbsp;mode&nbsp;de&nbsp;jeu&nbsp;<br>
