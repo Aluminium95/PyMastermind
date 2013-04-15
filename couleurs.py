@@ -139,6 +139,32 @@ def couleur_to_string (couleur):
 	else:
 		return hexa_to_string (couleur)
 
+def eclaircir (couleur, pts):
+	""" Permet d'éclaircir une couleur passée en argument d'une 
+		valeur de « pts », nombre à « ajouter ».
+
+		Attention : ne vérifie pas que la couleur générée est correcte ...
+		turtle n'affiche pas les couleurs invalides, donc quand c'est terminé,
+		c'est terminé :-).
+
+		@couleur : couleur = une couleur, sous n'importe quelle représentation
+		@pts : str = le taux d'éclaircissement à ajouter à chaque valeur
+			Est de type "A0", c'est à dire DEUX caractères obligatoires, 
+			entre 0 et F (0 1 ... 8 9 A B... E F)
+
+		@return : couleur (hexadecimal)
+	"""
+	c = couleur_to_hexa (couleur)
+	r = int (c[1:],16) # Convertit en nombre entier normal 
+
+	taux = int (pts * 3, 16)
+
+	r += taux
+
+	return "#" + hex (r)[2:]
+
+	
+
 # Test
 if __name__ == '__main__':
 	persistance.init () # Charge les fichiers
