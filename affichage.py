@@ -141,7 +141,7 @@ def loose(bg=''):
 	path = "Images/Theme" + th + "/perdu.gif"
 	bgpic(path)
 
-def choix_theme(nbr_theme):
+def choix_theme(nbr_theme = 1):
 	persistance.set_propriete("backgrounds","theme:courant",nbr_theme)
             
 def afficher_couleurs(nbr_case,couleurs,answer):
