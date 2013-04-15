@@ -3,6 +3,8 @@
 # Desmarais Yann
 #
 # Description:
+#
+# Gère tout ce qui est plateau
 
 from turtle import *
 from couleurs import *
