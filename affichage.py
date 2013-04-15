@@ -143,8 +143,14 @@ def loose(bg=''):
 	path = "Images/Theme" + th + "/perdu.gif"
 	bgpic(path)
 
-def choix_theme(nbr_theme):
-	persistance.set_propriete("backgrounds","theme:courant",nbr_theme)
+def choix_theme(nbr_theme = 1):
+	test_type = type(nbr_theme)
+	if test_type != int:
+		nbr_theme = 1
+	max_theme = persistance.get_propriete ("backgrounds","theme:max")
+	if nbr_theme > max_theme:
+		nbr_theme = 1
+	persistance.set_propriete ("backgrounds","theme:courant",nbr_theme)
             
 def afficher_couleurs(nbr_case,couleurs,answer):
 	""" dessine une ligne du plateau du mastermind avec en argument les donnée envoyé par les autres modules:
