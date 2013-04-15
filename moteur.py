@@ -73,14 +73,14 @@ def recup_score():
 		i = i+1
 	return score
 
-def enregistre_score (score_actuel, top_score): 
+def enregistre_score (): 
 	""" Enregistre le score actuel dans le top 5 des scores s'il est superieur a un de ces derniers
 		
-		@score_actuel : int = le score actuel 
-		@top_score : [int ...] = les meilleurs scores 
-
 		@return : None
 	"""
+		score_actuel = calcul_score ()
+
+		top_score = recup_score ()
 
     	i = 0
 
