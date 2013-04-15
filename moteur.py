@@ -175,18 +175,19 @@ def proposer_solution (proposition):
 	historique.append([proposition_copie, (a,b)])
 	
 	restant -= 1
-	if a == 4: #si proposition est identique àsolution
+	l = []
+	for i in proposition: # alala, c'est trop con sinon 
+		l.append (couleurs.string_to_hexa (i))
+	
+	affichage.afficher_couleurs (4,l,(a,b))
+	
+	if a == 4: #si proposition est identique àsolution	
 		affichage.win ("red") 
 		return "gagne"
 	elif restant <= -1: #si le nombre de coups restants est de 0
 		affichage.loose ("red") 
 		return "perdu"
 	else:
-		l = []
-		for i in proposition: # alala, c'est trop con sinon 
-			l.append (couleurs.string_to_hexa (i))
-		
-		affichage.afficher_couleurs (4,l,(a,b))
 		return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
 def proposition_ia (proposition, code_secret): 
