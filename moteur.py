@@ -14,7 +14,9 @@ restant = 10
 liste_mode = ["facile","moyen","difficile"]
 
 def init ():
+	""" Initialise le module """
 	global restant
+	
 	restant = persistance.get_propriete ("config","coups:" + mode)
 	restant = int (restant)
 
@@ -41,10 +43,13 @@ def set_mode (m):
 	else:
 		return False
 		
-def calcul_score(coups):
-	""" Calcul le score actuel a partir du nombre de coups et de la difficultés
+def calcul_score ():
+	""" Calcul le score actuel a partir du nombre de coups et de la difficulté
+		
+		@return : int = le score calculé 
 	"""
 	
+	coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
 	mode = get_mode()
 	if mode == "facile":
 		score = coups
@@ -57,6 +62,8 @@ def calcul_score(coups):
 
 def recup_score():
 	""" Recupere la liste des 5 meilleurs scores
+		
+		@return : [ int ... ] = les 5 meilleurs scores 
 	"""
       
 	score = []
@@ -68,6 +75,11 @@ def recup_score():
 
 def enregistre_score (score_actuel, top_score): 
 	""" Enregistre le score actuel dans le top 5 des scores s'il est superieur a un de ces derniers
+		
+		@score_actuel : int = le score actuel 
+		@top_score : [int ...] = les meilleurs scores 
+
+		@return : None
 	"""
 
     	i = 0
@@ -83,7 +95,16 @@ def enregistre_score (score_actuel, top_score):
 		i = i+1
 		
 def get_historique():
-	return historique
+	""" Retourne une copie de l'historique 
+		
+		@return : 
+			[ 
+				[ ["couleur", ...], (a,b) ] 
+				... 
+				[ COUP , RESULTAT ] 
+			]
+	"""
+	return list (historique) # Retourne une copie de l'historique
 
 def get_restant (): 
 	""" Retourne le nombre de coups restants 
