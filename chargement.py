@@ -66,38 +66,38 @@ def run (t,mode = "cercle"):
 	k = 0
 	# speed (0)
 	for i in range (t):
+		# Définit la couleur de ce tour de boucle 
+		current_color = couleurs.string_to_hexa (liste[k % len (liste)])
+
 		if mode == "cercle":
-			for j in range (0,6): # On fait 7 trucs
+			for j in range (0,6): # On fait 6 trucs
 				#polygone (4,50,couleurs.string_to_hexa (c))
-				dot (40, couleurs.string_to_hexa (liste[k % len (liste)]))
+				current_color = couleurs.eclaircir (current_color, "11")
+				dot (40, current_color)
 				up ()
 				right (360 / 6)
 				forward (70)
-			k += 1
 		elif mode == "arc":
 			for j in range (0,5):
 				# polygone (4,40, couleurs.string_to_hexa (liste[k % len (liste)]))
-				dot (40, couleurs.string_to_hexa (liste[k % len (liste)]))
+				current_color = couleurs.eclaircir (current_color, "11")
+				dot (40, current_color) 
 				up ()
 				right (20)
 				forward (50)
-				k += 1
-			#liste.append (liste[0])
-			#del liste[0]
 			up ()
 			goto (xc,yc)
 			seth (0)
 		else: # mode == "ligne"
 			for j in range (0,5):
 				# polygone (4, 40, couleurs.string_to_hexa (liste[k % len (liste)]))
-				dot (30, couleurs.string_to_hexa (liste[k % len (liste)]))
+				current_color = couleurs.eclaircir (current_color, "11")
+				dot (30, current_color)
 				up ()
 				forward (40)
-				k += 1
-			#liste.append (liste[0])
-			#del liste[0]
 			up ()
 			goto (xc,yc)
+		k += 1
 	goto (0,0)
 	seth (0)
 if __name__ == '__main__':
