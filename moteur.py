@@ -78,22 +78,21 @@ def enregistre_score ():
 		
 		@return : None
 	"""
-		score_actuel = calcul_score ()
+	score_actuel = calcul_score ()
 
-		top_score = recup_score ()
+	top_score = recup_score ()
 
-    	i = 0
+	i = 0
+	while i < 5:
+		if score_actuel > top_score[i]:
+			top_score.insert(i, score_actuel)
+			i = i+1
 
-    	while i < 5:
-        	if score_actuel > top_score[i]:
-            		top_score.insert(i, score_actuel)
-            		i = i+1
-            
-    	i = 0
-    	while i < 5:
-        	persistance.set_propriete ("scores",str(i),top_score[i])
+	i = 0
+	while i < 5:
+		persistance.set_propriete ("scores",str(i),top_score[i])
 		i = i+1
-		
+
 def get_historique():
 	""" Retourne une copie de l'historique 
 		
