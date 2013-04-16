@@ -41,11 +41,23 @@ def jouer ():
 		else:
 			a,b = rep
 			print ("_" * 50) # Afficher à la main ?
-			# On peut rafiner en mettant les s si besoin seulement, et ne pas afficher 
-			# le texte si la valeur est 0 ...
-			iconsole.afficher("Mastermind","Il y a " + str(a) + " bonne(s) couleur(s) et bonne place(s)")
-			iconsole.afficher("Mastermind","Il y a " + str(b) + " bonne(s) couleur(s) et mauvaise place(s)")
-			iconsole.afficher("Mastermind"," Voulez-vous rejouer ?")
+			
+			# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+			sa = ""
+			sb = ""
+
+			if a > 1:
+				sa = "s"
+
+			if b > 1:
+				sb = "s"
+			
+			messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+			messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+
+			iconsole.afficher("Mastermind", messaga)
+			iconsole.afficher("Mastermind", messagb)
+			iconsole.afficher("Mastermind", "Voulez-vous rejouer")
 			print ("_" * 50) # Idem ? ...
 				    
 

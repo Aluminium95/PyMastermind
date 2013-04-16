@@ -104,3 +104,10 @@ def colonnes (n,c,l,func):
 		fd (c)
 		seth (a)
 
+def raz ():
+	""" Remise À Zéro de l'écran : pointeur réinitialisé (orientation et position) 
+		et efface tout ce qu'il y avait, y compris le fond
+			
+		@return : None
+	"""
+	reset () # C'est juste un wrapper de turtle en fait ... mais quand même !

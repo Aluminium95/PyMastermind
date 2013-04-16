@@ -9,7 +9,10 @@ import joueur
 import ia
 import couleurs
 import misc
-import fsm
+import regles
+
+import primitives 
+import chargement 
 
 if __name__ == '__main__':
 	# Initialisations des modules dans le bon ordre !
@@ -24,12 +27,17 @@ if __name__ == '__main__':
 	while continuer == True:
 		# Les commandes sont 
 		# help, humain-code, humain-joue, quit, ia-joue, ia-code
-		rep = iconsole.demander ("Menu","Commande :")
+		rep = iconsole.demander ("Menu","Commande")
 		
 		if rep == "help":
-			iconsole.afficher ("Menu:help","Les commandes sont : « help », « humain-code », « humain-joue », « quit », « ia-code » et « ia-joue »")
+			iconsole.afficher ("Menu:help","Les commandes sont : « help », « regles », « humain-code », « humain-joue », « quit », « ia-code » et « ia-joue »")
 		elif rep == "quit":
 			continuer = False
+		elif rep == "regles":
+			primitives.raz ()
+			chargement.run (5,"ligne")
+			primitives.raz ()
+			regles.regles_normal ("#AAA")
 		elif rep == "ia-code":
 			ia.choisir_code ()
 			code_defini = True
@@ -37,10 +45,14 @@ if __name__ == '__main__':
 			joueur.choisir_code ()
 			code_defini = True
 		elif rep == "humain-joue" and code_defini == True:
+			primitives.raz ()
+			chargement.run (5,"arc")
 			affichage.reset ()
 			joueur.jouer ()
 			moteur.restant = 10 # Moche !
 		elif rep == "ia-joue" and code_defini == True:
+			primitives.raz ()
+			chargement.run (5,"cercle")
 			affichage.reset ()
 			ia.jouer ("knuth")
 			moteur.restant = 10 # Moche !
