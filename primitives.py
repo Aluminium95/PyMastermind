@@ -7,8 +7,44 @@
 # primitives de dessin plus 
 # possées !
 
+
+# Le module expose de plus toutes les fonctions 
+# De TURTLE !!!
 from turtle import * 
 
+def cercle (r,c):
+	""" Dessine un cercle dont le centre 
+		est le pointeur actuel 
+
+		@r : int = rayon du cercle
+		@c : couleur (turtle) = couleur du cercle
+
+		@return : None
+
+		@avance : ne modifie rien 
+	"""
+	dot (r,c)
+
+def get_position ():
+	""" Retourne la position du pointeur 
+		
+		@return : (x,y) position du pointeur
+	"""
+	return position ()
+
+def aller_a (x,y,trace = False):
+	""" Se déplace aux coordonnées x,y
+		
+		@x : int = position en x
+		@y : int = position en y
+		@trace : bool = si on trace le trait
+
+		@return : None
+	"""
+
+	if trace == False:
+		up ()
+	goto (x,y)
 
 def polygone (n,w,c):
 	""" Crée un polygone régulier de n côtés de longueur w

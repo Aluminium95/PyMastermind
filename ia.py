@@ -6,6 +6,8 @@ import couleurs
 import moteur
 import iconsole
 import persistance
+import chargement
+from turtle import goto
 from random import choice # faire un choix aléatoire dans une liste 
 
 def generer_couleurs_aleatoires ():
@@ -112,7 +114,9 @@ def jouer (mode = "aleatoire"):
 		while True: # On boucle ! Youhou ...
 			proposition = choice (li) # On propose un truc de la liste 
 			li.remove (proposition) # Retire la proposition de la liste 
-
+			
+			goto (-280,-280)
+			chargement.animation (4,"ligne")
 			reponse = moteur.proposer_solution (proposition) # Et récupère la réponse du moteur 
 			
 			if reponse == False: # Si la solution est « faux » ... l'univers est corrompu !

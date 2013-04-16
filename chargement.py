@@ -3,30 +3,64 @@
 # Affiche un écran qui fait une barre
 # de chargement !
 
-from time import sleep
-
+# Nos modules à nous 
 import persistance
-from turtle import * 
-from random import randint
-from random import choice
 import couleurs
+import primitives 
+
+# Python standard
+from random import randint
+from time import sleep
+from random import choice
 
 def init ():
 	""" Initialise le module """
-	print "initialisation"
+	pass # ne fait rien 
 
-def polygone (n,w,c):
-	up ()
-	
-	color (c)
-	begin_fill ()
-	
-	for i in range (0,n):
-		forward (w)
-		right (360 / n)
+def animation (t,mode = "cercle"):
+	""" Fait une animation en partant de la position 
+		actuelle du pointeur ...
 
-	end_fill ()
-	up ()
+		@t : int = le nombre de tours
+		@mode : str (cercle|arc|ligne) = le mode de chargement
+
+		@return : None
+	"""
+	x,y = primitives.get_position ()
+
+	liste = ["zinzolin","indigo","vert"]
+	
+	k = 0
+	# speed (0)
+	for i in range (t):
+		# Définit la couleur de ce tour de boucle 
+		current_color = couleurs.string_to_hexa (liste[k % len (liste)])
+
+		if mode == "cercle":
+			for j in range (0,6): # On fait 6 trucs
+				current_color = couleurs.eclaircir (current_color, "11")
+				primitives.cercle (40, current_color)
+				primitives.up ()
+				primitives.right (360 / 6)
+				primitives.forward (70)
+		elif mode == "arc":
+			for j in range (0,5):
+				current_color = couleurs.eclaircir (current_color, "11")
+				primitives.cercle (40, current_color) 
+				primitives.up ()
+				primitives.right (20)
+				primitives.forward (50)
+			primitives.aller_a (x,y)
+			primitives.seth (0)
+		else: # mode == "ligne"
+			for j in range (0,5):
+				current_color = couleurs.eclaircir (current_color, "11")
+				primitives.cercle (30, current_color)
+				primitives.up ()
+				primitives.forward (40)
+			primitives.aller_a (x,y)
+		k += 1
+
 
 def run (t,mode = "cercle"):
 	""" Fait un chargement d'une durée
@@ -37,10 +71,12 @@ def run (t,mode = "cercle"):
 
 		@return : None 
 	"""
+	primitives.hideturtle ()
+	
 	# Affiche le fond d'écran approprié
 	th = persistance.get_propriete ("backgrounds", "theme:courant")
 
-	bgpic ("Images/Theme{0}/chargement.gif".format (th))
+	primitives.bgpic ("Images/Theme{0}/chargement.gif".format (th))
 	
 	# Affiche une astuce
 	astuce = "Vous pouvez modifier la difficulté dans le menu ..."
@@ -52,63 +88,25 @@ def run (t,mode = "cercle"):
 	yc = int (persistance.get_propriete ("backgrounds","theme:" + th + ":y:chargement"))
 	
 	
-	up ()
-	goto (xa,ya)
-	write (astuce,False,"left", ("calibri",12,"normal"))
+	primitives.aller_a (xa,ya)
+	primitives.texte (astuce,"petit")
 	
-	up ()
-	goto (xc,yc)
-	down ()
+	primitives.aller_a (xc,yc)
 	
-	# liste = couleurs.liste_couleurs ()[0:8]
-	# Configuration spéciale violet !
-	liste = ["zinzolin", "indigo"]
-	k = 0
-	# speed (0)
-	for i in range (t):
-		# Définit la couleur de ce tour de boucle 
-		current_color = couleurs.string_to_hexa (liste[k % len (liste)])
+	primitives.down ()
+	animation (t,mode)
+	
+	primitives.aller_a (0,0)
+	primitives.seth (0)
 
-		if mode == "cercle":
-			for j in range (0,6): # On fait 6 trucs
-				#polygone (4,50,couleurs.string_to_hexa (c))
-				current_color = couleurs.eclaircir (current_color, "11")
-				dot (40, current_color)
-				up ()
-				right (360 / 6)
-				forward (70)
-		elif mode == "arc":
-			for j in range (0,5):
-				# polygone (4,40, couleurs.string_to_hexa (liste[k % len (liste)]))
-				current_color = couleurs.eclaircir (current_color, "11")
-				dot (40, current_color) 
-				up ()
-				right (20)
-				forward (50)
-			up ()
-			goto (xc,yc)
-			seth (0)
-		else: # mode == "ligne"
-			for j in range (0,5):
-				# polygone (4, 40, couleurs.string_to_hexa (liste[k % len (liste)]))
-				current_color = couleurs.eclaircir (current_color, "11")
-				dot (30, current_color)
-				up ()
-				forward (40)
-			up ()
-			goto (xc,yc)
-		k += 1
-	goto (0,0)
-	seth (0)
 if __name__ == '__main__':
 	# Si on lance le module seul
 	persistance.init ()
 	couleurs.init ()
 
 	init ()
-	hideturtle ()
 	run (10,"cercle")
-	clear ()
+	primitives.raz ()
 	run (10,"arc")
-	clear ()
+	primitives.raz ()
 	run (10,"ligne")
