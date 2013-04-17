@@ -107,14 +107,14 @@ def texte (text, t = "normal"):
 	else:
 		return False
 		
-def colonnes (n,c,l,func):
+def colonnes (n,c,l,generateur):
 	""" Crée des colonnes de n lignes, appelant 
 		périodiquement la fonction func
 		
 		@n : int = nombre de lignes 
 		@c : int = espace entre les lignes
 		@l : int = espace entre les colonnes 
-		@func : generator = une fonction génératrice
+		@generateur: generator = un générateur python
 		
 		@return : None
 		
@@ -127,7 +127,7 @@ def colonnes (n,c,l,func):
 	k = 0 # Nombre d'éléments actuels dans la colonne 
 	p = 1 # Numéro de la colonne actuelle  
 	
-	for i in func ():
+	for i in generateur:
 		k += 1
 		if k == n:
 			k = 0
