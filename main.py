@@ -35,7 +35,7 @@ if __name__ == '__main__':
 			continuer = False
 		elif rep == "regles":
 			primitives.raz ()
-			chargement.run (5,"ligne")
+			chargement.run (1,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
 		elif rep == "ia-code":
@@ -46,13 +46,13 @@ if __name__ == '__main__':
 			code_defini = True
 		elif rep == "humain-joue" and code_defini == True:
 			primitives.raz ()
-			chargement.run (5,"arc")
+			chargement.run (2,"arc")
 			affichage.reset ()
 			joueur.jouer ()
 			moteur.restant = 10 # Moche !
 		elif rep == "ia-joue" and code_defini == True:
 			primitives.raz ()
-			chargement.run (5,"cercle")
+			chargement.run (1,"cercle")
 			affichage.reset ()
 			ia.jouer ("knuth")
 			moteur.restant = 10 # Moche !

@@ -1,27 +1,23 @@
 theme:courant |=> 1
 theme:max |=> 4
-# Configuration thème 1
 theme:1:x:plateau |=> -125
 theme:1:y:plateau |=> 245
 theme:1:x:astuce |=> -270
 theme:1:y:astuce |=> 245
 theme:1:x:chargement |=> -130
 theme:1:y:chargement |=> 100
-# Configuration thème 2
 theme:2:x:plateau |=> -125
 theme:2:y:plateau |=> 245
 theme:2:x:astuce |=> -245
 theme:2:y:astuce |=> 245
 theme:2:x:chargement |=> 0
 theme:2:y:chargement |=> 0
-# Configuration thème 3
 theme:3:x:plateau |=> -125
 theme:3:y:plateau |=> 245
 theme:3:x:astuce |=> -245
 theme:3:y:astuce |=> 245
 theme:3:x:chargement |=> 0
 theme:3:y:chargement |=> 0
-# Configuration thème 4
 theme:4:x:plateau |=> -125
 theme:4:y:plateau |=> 245
 theme:4:x:astuce |=> -245

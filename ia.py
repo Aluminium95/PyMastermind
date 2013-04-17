@@ -96,7 +96,7 @@ def jouer (mode = "aleatoire"):
 		# Il faut plus de rafinement --"
 		while True:
 			prop = generer_couleurs_aleatoires ()
-			r = moteur.proposer_solution (prop)
+			r = moteur.verification_solution (prop)
 		
 			# On affiche que si le coup était valide
 			# (sinon on a plein de trucs nuls :-P)
@@ -115,9 +115,9 @@ def jouer (mode = "aleatoire"):
 			proposition = choice (li) # On propose un truc de la liste 
 			li.remove (proposition) # Retire la proposition de la liste 
 			
-			goto (-280,-280)
-			chargement.animation (4,"ligne")
-			reponse = moteur.proposer_solution (proposition) # Et récupère la réponse du moteur 
+			goto (-200,-200)
+			chargement.animation (2,"cercle",10)
+			reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
 			
 			if reponse == False: # Si la solution est « faux » ... l'univers est corrompu !
 				return False # On quitte !
@@ -128,7 +128,7 @@ def jouer (mode = "aleatoire"):
 			else: # Sinon, c'est un tuple (a,b) (par définition de la fonction)
 				nli = []
 				for i in li: # Pour chaque élément de la liste 
-					reponse_tmp = moteur.proposition_ia (proposition, i)
+					reponse_tmp = moteur.proposition_solution (proposition, i)
 					if reponse_tmp == reponse: # Si l'élément « i » donne bien le même résultat
 						nli.append (i) # On le garde ... sinon on le laisse 
 				li = nli # On remplace l'ancienne liste 

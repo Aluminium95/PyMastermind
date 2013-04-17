@@ -58,18 +58,7 @@
 &nbsp;<br>
 @return&nbsp;:&nbsp;int</tt></dd></dl>
  <dl><dt><a name="-init"><strong>init</strong></a>()</dt><dd><tt>Initialise&nbsp;le&nbsp;module</tt></dd></dl>
- <dl><dt><a name="-proposer_solution"><strong>proposer_solution</strong></a>(proposition)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
-Si&nbsp;le&nbsp;coup&nbsp;est&nbsp;invalide,&nbsp;on&nbsp;n'enlève&nbsp;pas&nbsp;de&nbsp;vie&nbsp;ni&nbsp;ne&nbsp;diminue&nbsp;<br>
-le&nbsp;score&nbsp;!<br>
-&nbsp;<br>
-@proposition&nbsp;:&nbsp;[couleur&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;la&nbsp;proposition&nbsp;du&nbsp;joueur<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;False&nbsp;|&nbsp;"gagne"&nbsp;|&nbsp;"perdu"&nbsp;|&nbsp;(a,b)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;False&nbsp;:&nbsp;il&nbsp;y&nbsp;a&nbsp;eu&nbsp;un&nbsp;problème&nbsp;dans&nbsp;le&nbsp;code&nbsp;proposé<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"gagne"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;gagné&nbsp;la&nbsp;partie<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"perdu"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;perdu&nbsp;la&nbsp;partie<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées</tt></dd></dl>
- <dl><dt><a name="-proposition_ia"><strong>proposition_ia</strong></a>(proposition, code_secret)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
+ <dl><dt><a name="-proposition_solution"><strong>proposition_solution</strong></a>(proposition, code_secret)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
 comme&nbsp;la&nbsp;fontion&nbsp;proposer_solution,&nbsp;sans&nbsp;s'occuper&nbsp;des&nbsp;autres&nbsp;paramètres,&nbsp;tel&nbsp;que&nbsp;le&nbsp;score,<br>
 les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br>
 &nbsp;<br>
@@ -85,6 +74,17 @@ les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br
 @m&nbsp;:&nbsp;str&nbsp;(facile&nbsp;|&nbsp;moyen&nbsp;|&nbsp;difficile)&nbsp;=&nbsp;Le&nbsp;nouveau&nbsp;mode&nbsp;de&nbsp;jeu&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;c'est&nbsp;bon</tt></dd></dl>
+ <dl><dt><a name="-verification_solution"><strong>verification_solution</strong></a>(proposition)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
+Si&nbsp;le&nbsp;coup&nbsp;est&nbsp;invalide,&nbsp;on&nbsp;n'enlève&nbsp;pas&nbsp;de&nbsp;vie&nbsp;ni&nbsp;ne&nbsp;diminue&nbsp;<br>
+le&nbsp;score&nbsp;!<br>
+&nbsp;<br>
+@proposition&nbsp;:&nbsp;[couleur&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;la&nbsp;proposition&nbsp;du&nbsp;joueur<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;False&nbsp;|&nbsp;"gagne"&nbsp;|&nbsp;"perdu"&nbsp;|&nbsp;(a,b)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;False&nbsp;:&nbsp;il&nbsp;y&nbsp;a&nbsp;eu&nbsp;un&nbsp;problème&nbsp;dans&nbsp;le&nbsp;code&nbsp;proposé<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"gagne"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;gagné&nbsp;la&nbsp;partie<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"perdu"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;perdu&nbsp;la&nbsp;partie<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">

@@ -17,7 +17,25 @@ def init ():
 	""" Initialise le module """
 	pass # ne fait rien 
 
-def animation (t,mode = "cercle"):
+def generer_couleurs (col,n, t = 40):
+	""" Génère des ronds de plus en plus clair 
+		de la teinte de départ, avec n ronds,
+		de taille t
+
+		@col : couleur (fr) = couleur de départ
+		@n : int = nombre de ronds
+		@t : int = rayon du rond
+
+		@return : generator
+	"""
+	current_color = col
+	for i in xrange (0,n):
+		current_color = couleurs.eclaircir (current_color, "11")
+		primitives.dot (t, current_color)
+		yield
+
+
+def animation (t,mode = "cercle",taille = 40):
 	""" Fait une animation en partant de la position 
 		actuelle du pointeur ...
 
@@ -30,12 +48,6 @@ def animation (t,mode = "cercle"):
 
 	liste = ["zinzolin","indigo","vert"]
 	
-	def generer_couleurs (col,n, t = 40):
-		current_color = col
-		for i in xrange (0,n):
-			current_color = couleurs.eclaircir (current_color, "11")
-			primitives.dot (40, current_color)
-			yield
 
 	k = 0
 	# speed (0)
@@ -45,11 +57,11 @@ def animation (t,mode = "cercle"):
 
 		if mode == "cercle":
 			# Fait un cercle ... mouhaha
-			primitives.cercle (6,100,generer_couleurs (current_color,6))
+			primitives.cercle (6,taille * 2 + 20,generer_couleurs (current_color,6, taille))
 		elif mode == "arc":
-			primitives.arc (20,50,generer_couleurs (current_color,5))
+			primitives.arc (20,taille + 10,generer_couleurs (current_color,5, taille))
 		else: # mode == "ligne"
-			primitives.colonnes (1,50,50,generer_couleurs (current_color,6,30))
+			primitives.colonnes (1,taille + 10, taille + 10,generer_couleurs (current_color,6,taille))
 		k += 1
 
 

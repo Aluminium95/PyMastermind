@@ -31,7 +31,7 @@ def jouer ():
 
 	while True:
 		Li = iconsole.demander_tableau()
-		rep = moteur.proposer_solution(Li)
+		rep = moteur.verification_solution (Li)
 		if rep == "gagne":
 			iconsole.afficher("Mastermind", "Vous avez gagné !!!")
 			break
