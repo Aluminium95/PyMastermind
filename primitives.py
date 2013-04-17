@@ -12,19 +12,6 @@
 # De TURTLE !!!
 from turtle import * 
 
-def cercle (r,c):
-	""" Dessine un cercle dont le centre 
-		est le pointeur actuel 
-
-		@r : int = rayon du cercle
-		@c : couleur (turtle) = couleur du cercle
-
-		@return : None
-
-		@avance : ne modifie rien 
-	"""
-	dot (r,c)
-
 def get_position ():
 	""" Retourne la position du pointeur 
 		
@@ -124,7 +111,7 @@ def colonnes (n,c,l,generateur):
 	x,y = position () # Récupère la position initiale de turtle 
 	a = heading () # Récupère l'angle absolu de la tortue 
 	
-	k = 0 # Nombre d'éléments actuels dans la colonne 
+	k = 1 # Nombre d'éléments actuels dans la colonne 
 	p = 1 # Numéro de la colonne actuelle  
 	
 	for i in generateur:
@@ -139,6 +126,43 @@ def colonnes (n,c,l,generateur):
 		right (90)
 		fd (c)
 		seth (a)
+
+def cercle (npts, distance, generateur):
+	""" Crée un cercle avec n points, appelant la fonction 
+		pour chaque point, le cercle a un rayon de distance
+		et est de centre la position du pointeur 
+
+		@npts : int = nombre de points 
+			le premier point est vers le nord !
+		@distance : int = rayon du cercle
+		@generateur : generator = fonction génératrice 
+
+		@return : None
+
+		@avance : garde l'angle et la position du pointeur avant 
+			l'opération !
+	"""
+	# Sauvegarde les coordonnées :-)
+	x,y = position ()
+	a = heading ()
+
+	angle = 90
+	seth (angle)
+	up ()
+	forward (distance)
+	down ()
+	
+
+	for i in generateur:
+		aller_a (x,y,False)
+		angle = angle - 360.0 / npts
+		seth (angle)
+		up ()
+		forward (distance)
+		down ()
+	
+	seth (a)
+	aller_a (x,y)
 
 def raz ():
 	""" Remise À Zéro de l'écran : pointeur réinitialisé (orientation et position) 

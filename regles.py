@@ -90,7 +90,6 @@ def carre_normal ():
 	def dessiner_couleurs (tableau):
 		""" Générateur """
 		for i in tableau:
-			yield 
 			color (couleurs.string_to_hexa (i))
 			begin_fill ()
 			carre (10)
@@ -105,6 +104,7 @@ def carre_normal ():
 			left (90)
 			
 			fd (-20)
+			yield 
 	
 	g = dessiner_couleurs (li)
 

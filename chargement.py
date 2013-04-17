@@ -30,6 +30,13 @@ def animation (t,mode = "cercle"):
 
 	liste = ["zinzolin","indigo","vert"]
 	
+	def generer_couleurs (col,n):
+		current_color = col
+		for i in xrange (0,n):
+			current_color = couleurs.eclaircir (current_color, "11")
+			primitives.dot (40, current_color)
+			yield
+
 	k = 0
 	# speed (0)
 	for i in range (t):
@@ -37,16 +44,12 @@ def animation (t,mode = "cercle"):
 		current_color = couleurs.string_to_hexa (liste[k % len (liste)])
 
 		if mode == "cercle":
-			for j in range (0,6): # On fait 6 trucs
-				current_color = couleurs.eclaircir (current_color, "11")
-				primitives.cercle (40, current_color)
-				primitives.up ()
-				primitives.right (360 / 6)
-				primitives.forward (70)
+			# Fait un cercle ... mouhaha
+			primitives.cercle (6,100,generer_couleurs (current_color,6))
 		elif mode == "arc":
 			for j in range (0,5):
 				current_color = couleurs.eclaircir (current_color, "11")
-				primitives.cercle (40, current_color) 
+				primitives.dot (40, current_color) 
 				primitives.up ()
 				primitives.right (20)
 				primitives.forward (50)
@@ -55,7 +58,7 @@ def animation (t,mode = "cercle"):
 		else: # mode == "ligne"
 			for j in range (0,5):
 				current_color = couleurs.eclaircir (current_color, "11")
-				primitives.cercle (30, current_color)
+				primitives.dot (30, current_color)
 				primitives.up ()
 				primitives.forward (40)
 			primitives.aller_a (x,y)
