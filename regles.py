@@ -5,7 +5,7 @@
 from turtle import *
 import persistance
 import couleurs
-
+import primitives
 
 
 def texte_normal (text):
@@ -86,38 +86,30 @@ def carre_facile():
         
 def carre_normal ():
 	li = couleurs.liste_couleurs ()
-	print li
 	
-	k = 0 # Compteur
-	# Dit combien de couleurs 
-	# ont été dessinées sur une colonne 
+	def dessiner_couleurs (tableau):
+		""" Générateur """
+		for i in tableau:
+			yield 
+			color (couleurs.string_to_hexa (i))
+			begin_fill ()
+			carre (10)
+			end_fill ()
+			
+			fd (20)
 
-	for i in li:
-		if k == 4: # Quand on a fait 4 couleurs
-			k = 0 # On repart à zéro
-			left (90) # Et on se place sur la colonne suivante 
-			fd (120)
 			right (90)
-			fd (120)
+			fd (5)
+			texte_petit (i)
+			fd (-5)
+			left (90)
+			
+			fd (-20)
+	
+	g = dessiner_couleurs (li)
 
-		color (couleurs.string_to_hexa (i))
-		begin_fill ()
-		carre (10)
-		end_fill ()
-		fd (20)
-
-		right (90)
-		fd (5)
-		texte_petit(i)
-		fd (-5)
-		left (90)
-
-		fd (-20)
-		right(90)
-		fd (30)
-		left (90)
-		
-		k += 1
+	# Un tableau, 4 lignes, epacées de 25px, avec 120px entre les colonnes :-)
+	primitives.colonnes (4,25,120,g)
 
 def carre_difficile():
 	li = couleurs.liste_couleurs ()

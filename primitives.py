@@ -128,13 +128,13 @@ def colonnes (n,c,l,generateur):
 	p = 1 # Numéro de la colonne actuelle  
 	
 	for i in generateur:
-		k += 1
 		if k == n:
 			k = 0
 			up ()
 			goto (x + p * l,y)
 			seth (a)
 			p += 1
+		k += 1
 		seth (0)
 		right (90)
 		fd (c)
