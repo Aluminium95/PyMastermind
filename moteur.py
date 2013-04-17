@@ -144,7 +144,7 @@ def definir_code (tableau):
 	else:
 		return False
 
-def verification_solution (proposition, code_secret): 
+def verification_solution (proposition): 
 	""" Fonction qui effectue un coup du joueur !
 		Si le coup est invalide, on n'enlève pas de vie ni ne diminue 
 		le score !
