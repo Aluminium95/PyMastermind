@@ -30,7 +30,7 @@ def animation (t,mode = "cercle"):
 
 	liste = ["zinzolin","indigo","vert"]
 	
-	def generer_couleurs (col,n):
+	def generer_couleurs (col,n, t = 40):
 		current_color = col
 		for i in xrange (0,n):
 			current_color = couleurs.eclaircir (current_color, "11")
@@ -47,16 +47,9 @@ def animation (t,mode = "cercle"):
 			# Fait un cercle ... mouhaha
 			primitives.cercle (6,100,generer_couleurs (current_color,6))
 		elif mode == "arc":
-			for j in range (0,5):
-				current_color = couleurs.eclaircir (current_color, "11")
-				primitives.dot (40, current_color) 
-				primitives.up ()
-				primitives.right (20)
-				primitives.forward (50)
-			primitives.aller_a (x,y)
-			primitives.seth (0)
+			primitives.arc (20,50,generer_couleurs (current_color,5))
 		else: # mode == "ligne"
-			primitives.colonnes (1,30,generer_couleurs (current_color,6))
+			primitives.colonnes (1,50,50,generer_couleurs (current_color,6,30))
 		k += 1
 
 
@@ -103,8 +96,8 @@ if __name__ == '__main__':
 	couleurs.init ()
 
 	init ()
-	run (10,"cercle")
+	run (2,"cercle")
 	primitives.raz ()
-	run (10,"arc")
+	run (2,"arc")
 	primitives.raz ()
-	run (10,"ligne")
+	run (2,"ligne")

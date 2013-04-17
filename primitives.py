@@ -128,6 +128,31 @@ def colonnes (n,c,l,generateur):
 
 	seth (a)
 	aller_a (x,y, False)
+
+def arc (an,dist, generateur):
+	""" Crée un arc de cercle avec chaque point 
+		espacés de dist et avec un angle relatif de an
+
+		@an : int = l'angle relatif de décalage entre deux points
+		@dist : int = la distance entre deux points
+		@generateur : generator = la fonction génératrice
+
+		@return : None
+
+		@avance : Le pointeur est remis à sa place initiale après 
+			utilisation, et dans son orientation initiale
+
+	"""
+	x,y = position ()
+	a = heading ()
+
+	for i in generateur:
+		right (an)
+		up ()
+		fd (dist)
+	seth (a)
+	aller_a (x,y, False)
+
 def cercle (npts, distance, generateur):
 	""" Crée un cercle avec n points, appelant la fonction 
 		pour chaque point, le cercle a un rayon de distance
