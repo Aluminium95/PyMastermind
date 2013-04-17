@@ -144,7 +144,7 @@ def definir_code (tableau):
 	else:
 		return False
 
-def proposer_solution (proposition): 
+def verification_solution (proposition): 
 	""" Fonction qui effectue un coup du joueur !
 		Si le coup est invalide, on n'enlève pas de vie ni ne diminue 
 		le score !
@@ -157,49 +157,26 @@ def proposer_solution (proposition):
 			- "perdu" : l'utilisateur a perdu la partie
 			- (a,b) : a couleurs justes et bien placées, b couleurs justes et mal placées 
 	"""
+	i = 0
+	reponse = proposition_solution(proposition, code_secret)
 	
 	global restant
+	
 	
 
 	# couleurs.is_string (c) 
 	# il faut verifier que la couleur est valide 
 
-	a = 0
-	b = 0
-	i = 0
+	proposition(proposition)
 	
-	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
-	
-
-	solution = list (code_secret) # Création d'une copie de la liste :-) 
-
-	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
-		if solution[i] == proposition_copie[i]:
-			a = a+1
-			solution[i] = "*"
-			proposition_copie[i] = "*"
-		i = i+1
-	i = 0
-
-	while i < len (code_secret):
-		j = 0
-		while j < len (solution): #cherche les bonnes couleurs mal placées
-			if solution[j] != "*" and solution[j] == proposition_copie[i]:
-				b = b+1
-				solution[j] = "*"
-				proposition_copie[i] = "*"
-				break
-			j = j + 1
-		i = i+1
-	
-	historique.append([proposition_copie, (a,b)])
+	historique.append([proposition_copie, reponse])
 	
 	restant -= 1
 	l = []
 	for i in proposition: # alala, c'est trop con sinon 
 		l.append (couleurs.string_to_hexa (i))
 	
-	affichage.afficher_couleurs (4,l,(a,b))
+	affichage.afficher_couleurs (4,l,reponse)
 	
 	if a == 4: #si proposition est identique àsolution	
 		affichage.win ("red") 
@@ -208,9 +185,9 @@ def proposer_solution (proposition):
 		affichage.loose ("red") 
 		return "perdu"
 	else:
-		return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
+		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
-def proposition_ia (proposition, code_secret): 
+def proposition_solution (proposition, code_secret): 
 	""" Fonction qui effectue un coup du joueur !
 		comme la fontion proposer_solution, sans s'occuper des autres paramètres, tel que le score,
 		les coups restant ... ne renvoie que (a,b)
