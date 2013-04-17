@@ -14,23 +14,21 @@ import regles
 import primitives 
 import chargement 
 
-if __name__ == '__main__':
-	# Initialisations des modules dans le bon ordre !
-	persistance.init ()
-	couleurs.init ()
-	affichage.init ()
-	moteur.init ()
-	
+def gen_main_fsm ():
+	""" Retourne le générateur de la boucle principale !
+		
+		@return : generator
+	"""
+	etat = "Menu"
+	# Variables 
 	code_defini = False
-
-	continuer = True
-	while continuer == True:
-		# Les commandes sont 
-		# help, humain-code, humain-joue, quit, ia-joue, ia-code
-		rep = iconsole.demander ("Menu","Commande")
+	
+	# On commence la boucle infinie !
+	while True:
+		r = (yield etat) # Récupère le message (et retourne l'état)
 		
 		if rep == "help":
-			iconsole.afficher ("Menu:help","Les commandes sont : « help », « regles », « humain-code », « humain-joue », « quit », « ia-code » et « ia-joue »")
+			iconsole.afficher (etat,"Les commandes sont : \n\t - « help » \n\t - « regles » \n\t - « humain-code » \n\t - « humain-joue » \n\t - « quit » \n\t - « ia-code » \n\t - « ia-joue » \n\t - « modifier-theme » \n\t - « modifier-niveau »")
 		elif rep == "quit":
 			continuer = False
 		elif rep == "regles":
@@ -38,25 +36,76 @@ if __name__ == '__main__':
 			chargement.run (1,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
-		elif rep == "ia-code":
-			ia.choisir_code ()
-			code_defini = True
-		elif rep == "humain-code":
-			joueur.choisir_code ()
-			code_defini = True
-		elif rep == "humain-joue" and code_defini == True:
-			primitives.raz ()
-			chargement.run (2,"arc")
-			affichage.reset ()
-			joueur.jouer ()
-			moteur.restant = 10 # Moche !
-		elif rep == "ia-joue" and code_defini == True:
-			primitives.raz ()
-			chargement.run (1,"cercle")
-			affichage.reset ()
-			ia.jouer ("knuth")
-			moteur.restant = 10 # Moche !
+		
+		if etat == "Menu":
+			if rep == "ia-code":
+				ia.choisir_code ()
+				code_defini = True
+			elif rep == "humain-code":
+				joueur.choisir_code ()
+				code_defini = True
+			elif rep == "humain-joue" and code_defini == True:
+				primitives.raz ()
+				chargement.run (2,"arc")
+				affichage.reset ()
+				joueur.jouer ()
+				moteur.restant = 10 # Moche !
+			elif rep == "ia-joue" and code_defini == True:
+				primitives.raz ()
+				chargement.run (1,"cercle")
+				affichage.reset ()
+				ia.jouer ("knuth")
+				moteur.restant = 10 # Moche !
+			elif rep == "modifier-theme":
+				etat = "Theme"
+			elif rep == "modifier-niveau":
+				etat = "Niveau"
+			else:
+				iconsole.afficher (etat,"Cette requête est invalide ...")
+		elif etat == "Theme":
+			if rep == "list":
+				iconsole.afficher (etat,"Voici la liste des thèmes : 1,2,3,4 ... et oui c'est nul")
+			elif rep == "fin":
+				iconsole.afficher (etat,"Theme modifié ... ")
+				etat = "Menu"
+			else:
+				iconsole.afficher (etat,"Selection theme : " + rep)
+		elif etat == "Niveau":
+			if rep == "list":
+				iconsole.afficher (etat,"Voici la liste des niveaux : .... ")
+			elif rep == "fin":
+				iconsole.afficher (etat,"Niveau modifié pour la prochaine partie")
+			else:
+				iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
 		else:
-			iconsole.afficher ("Menu","Cette requête est invalide ...")
+			break # Erreur fatale !
+		
+
+if __name__ == '__main__':
+	# Initialisations des modules dans le bon ordre !
+	persistance.init ()
+	couleurs.init ()
+	affichage.init ()
+	moteur.init ()
+	
+	iconsole.afficher ("Programme", "Bienvenue dans le mastermind !")
+
+	machine = gen_main_fsm ()
+
+	e = machine.next () # récupère l'état 
+	
+	iconsole.afficher (e, "Tapez « help » pour obtenir de l'aide ...")
+
+	continuer = True
+	while continuer == True:
+		# Les commandes sont 
+		# help, humain-code, humain-joue, quit, ia-joue, ia-code
+		rep = iconsole.demander (e,"Commande")
+		
+		if rep == "quit":
+			continuer = False
+			iconsole.afficher ("Programme", "Quitte ...")
+		else:
+			e = machine.send (rep) 
 
 	persistance.save ()
