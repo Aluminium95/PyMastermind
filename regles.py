@@ -2,18 +2,10 @@
 #règles du jeu (mode facile, normal et difficile)
 #014/04/2013
 
-from turtle import *
 import persistance
 import couleurs
-import primitives
+from primitives import *
 
-
-def texte_normal (text):
-	write(text, False, "center", ("calibri",16,"normal"))
-
-
-def texte_petit (text):
-	write(text, False, "left", ("calibri",12,"normal"))
 
 def niveau(niveau):
 	text="Voici les regles du mastermind mode " + niveau + ":"
@@ -22,40 +14,40 @@ def niveau(niveau):
 def main_text():
 	goto(50,150)
 	text2="- Vous devez deviner le code couleur du jeu."
-	texte_normal (text2)
+	texte (text2)
 	goto(-132,120)
 	dot(10,"red")
 	goto(80,110)
 	text3=" : Signifie que la couleur est juste et bien placée."
-	texte_normal (text3)
+	texte (text3)
 	goto(-132,90)
 	dot(10,"black")
 	goto(90,80)
 	text4=" : Signifie que la couleur est juste mais mal placée."
-	texte_normal (text4)
+	texte (text4)
 	goto(9,50)
     
 
 def nombre_coup(coups):
 	text5="- Il y a " + coups + " couleurs selectionnables." 
-	texte_normal (text5)
+	texte (text5)
 
 def main_text2():
 	text6="- Le code à trouver est composé de 4 couleurs."
-	texte_normal (text6)
+	texte (text6)
 	goto(69,-10)
 	text7="- Vous avez 10 essais maximum pour le deviner."
-	texte_normal (text7)
+	texte (text7)
 	goto(50,-40)
 	color("red")
 	begin_fill()
 	text8="Attention,"
-	texte_normal (text8)
+	texte (text8)
 	end_fill()
 	color("black")
 	goto(80,-60)
 	text9="si rien n'est indiqué, alors votre réponse est fausse."
-	texte_normal (text9)
+	texte (text9)
 	goto(-185,-130)
 	text10="Panel de couleurs :"
 	write(text10, False, "center", ("calibri",15,"underline"))
@@ -72,58 +64,55 @@ def carre(taille):
 
 def carre_facile():
 	li = couleurs.liste_couleurs ()
-	print li
-	for i in li:
+	
+	li = li[0:8]
+
+	g = generateur_couleurs (tableau)
+
+	colonnes (4, 25, 120, g)
+	
+def generateur_couleurs (tableau):
+	""" Générateur qui dessine 
+		une à une les couleurs 
+		du tableau, avec leur nom 
+		à côté d'un carré de la-dite 
+		couleur
+
+		@tableau : [couleur (fr) ...] = tableau des couleurs
+
+		@return : generator 
+	"""
+	for i in tableau:
 		color (couleurs.string_to_hexa (i))
 		begin_fill ()
-		carre(10)
+		carre (10)
 		end_fill ()
+		
+		fd (20)
+		right (90)
+		fd (5)
+		texte (i, "petit")
+		fd (-5)
 		left (90)
-		fd (10)
-		texte_petit(i)
-		right(90)
-		fd (38)
-        
+		fd (-20)
+		yield 
+
+
 def carre_normal ():
 	li = couleurs.liste_couleurs ()
 	
-	def dessiner_couleurs (tableau):
-		""" Générateur """
-		for i in tableau:
-			color (couleurs.string_to_hexa (i))
-			begin_fill ()
-			carre (10)
-			end_fill ()
-			
-			fd (20)
-
-			right (90)
-			fd (5)
-			texte_petit (i)
-			fd (-5)
-			left (90)
-			
-			fd (-20)
-			yield 
+	li = li[0:12] # en normal il y a 12 couleurs
 	
-	g = dessiner_couleurs (li)
+	g = generateur_couleurs (li)
 
 	# Un tableau, 4 lignes, epacées de 25px, avec 120px entre les colonnes :-)
-	primitives.colonnes (4,25,120,g)
+	colonnes (4,25,120,g)
 
 def carre_difficile():
 	li = couleurs.liste_couleurs ()
-	print li
-	for i in li:
-		color (couleurs.string_to_hexa (i))
-		begin_fill ()
-		carre(10)
-		end_fill ()
-		left (90)
-		fd (10)
-		texte_petit(i)
-		right(90)
-		fd (38)
+	
+	g = generateur_couleurs (li)
+	colonnes (4,25,120,g)
 
 def regles_facile(couleur):
 	"""Affiche les règles ainsi que les aides du jeu. En mode facile.
