@@ -56,12 +56,7 @@ def animation (t,mode = "cercle"):
 			primitives.aller_a (x,y)
 			primitives.seth (0)
 		else: # mode == "ligne"
-			for j in range (0,5):
-				current_color = couleurs.eclaircir (current_color, "11")
-				primitives.dot (30, current_color)
-				primitives.up ()
-				primitives.forward (40)
-			primitives.aller_a (x,y)
+			primitives.colonnes (1,30,generer_couleurs (current_color,6))
 		k += 1
 
 

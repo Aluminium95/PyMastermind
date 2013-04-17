@@ -105,28 +105,29 @@ def colonnes (n,c,l,generateur):
 		
 		@return : None
 		
-		@avance : le pointeur est déplacé, mais garde son orientation !
+		@avance : le pointeur ne bouge pas !
+			- à chaque dessin, le pointeur conserve l'angle 
+				laissé par le précédent dessin !
 	"""
 	
 	x,y = position () # Récupère la position initiale de turtle 
 	a = heading () # Récupère l'angle absolu de la tortue 
 	
-	k = 1 # Nombre d'éléments actuels dans la colonne 
-	p = 1 # Numéro de la colonne actuelle  
+	k = 0 # Nombre d'éléments actuels dans la colonne 
+	p = 0 # Numéro de la colonne actuelle  
 	
 	for i in generateur:
+		k += 1
 		if k == n:
 			k = 0
-			up ()
-			goto (x + p * l,y)
-			seth (a)
 			p += 1
-		k += 1
-		seth (0)
-		right (90)
-		fd (c)
-		seth (a)
+			aller_a (x + p * l, y, False)
+			seth (a)
+			
+		aller_a (x + p * l, y - k * c, False)
 
+	seth (a)
+	aller_a (x,y, False)
 def cercle (npts, distance, generateur):
 	""" Crée un cercle avec n points, appelant la fonction 
 		pour chaque point, le cercle a un rayon de distance
