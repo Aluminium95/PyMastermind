@@ -40,11 +40,13 @@ def gen_main_fsm ():
 		},
 		"Niveau" : {
 			"list" : "Fait la liste des niveaux disponibles",
+			"actuel" : "Affiche le niveau actuel de difficulté",
 			"end" : "Enregistre le niveau sélectionné et revient au menu",
 			"@" : "Une autre chaine de caractère est prise comme un niveau"
 		},
 		"Theme" : {
 			"list" : "Fait la liste des thèmes disponibles",
+			"actuel" : "Affiche le thème actuel ...",
 			"end" : "Engeristre le thème sélectionné et revient au menu",
 			"@" : "Sélectionne le texte rentré comme un thème"
 		}
@@ -93,9 +95,9 @@ def gen_main_fsm ():
 				affichage.reset ()
 				ia.jouer ("knuth")
 				moteur.restant = 10 # Moche !
-			elif rep == "modifier-theme":
+			elif rep == "theme":
 				etat = "Theme"
-			elif rep == "modifier-niveau":
+			elif rep == "niveau":
 				etat = "Niveau"
 			else:
 				iconsole.afficher (etat,"Cette requête est invalide ...")
@@ -106,14 +108,22 @@ def gen_main_fsm ():
 				iconsole.afficher (etat,"Theme modifié ... ")
 				etat = "Menu"
 			else:
+				affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
 				iconsole.afficher (etat,"Selection theme : " + rep)
 		elif etat == "Niveau":
 			if rep == "list":
-				iconsole.afficher (etat,"Voici la liste des niveaux : .... ")
+				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
+			elif rep == "actuel":
+				iconsole.afficher (etat, moteur.get_mode ())
 			elif rep == "fin":
 				iconsole.afficher (etat,"Niveau modifié pour la prochaine partie")
+				etat = "Menu"
 			else:
-				iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
+				if rep in (moteur.get_liste_modes ()):
+					iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
+					moteur.set_mode (rep)
+				else:
+					iconsole.afficher (etat,"Ce niveau est invalide ...")
 		else:
 			break # Erreur fatale !
 		

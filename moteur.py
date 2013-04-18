@@ -27,6 +27,14 @@ def get_mode ():
 	"""
 	return mode
 
+def get_liste_modes ():
+	""" Retourne la liste des modes disonibles 
+
+		@return : list [str ...] = la liste
+	"""
+
+	return list (liste_mode)
+
 def set_mode (m): 
 	""" Change le mode de jeu 
 		
@@ -36,7 +44,7 @@ def set_mode (m):
 	"""
 	global mode,restant
 	
-	if m in liste_modes:
+	if m in liste_mode:
 		mode = m
 		restant = persistance.get_propriete ("config","coups:"+m)
 		return True
