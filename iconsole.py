@@ -12,7 +12,7 @@ def afficher(acteur,dialogue,t=0):
 	"""
 	# met t tabulations devant le texte ... permet d'intenter !
 	formattage = "\t" * t + "- [{0}] : {1}"
-	print formattage.format (acteur,dialogue)
+	print formattage.format (acteur,dialogue).encode ("utf-8")
 
 def demander(acteur,dialogue,t=0):
 	""" Demande une information à l'utilisateur 
@@ -24,7 +24,7 @@ def demander(acteur,dialogue,t=0):
 	"""
 	# met t tabulations devant le texte : indentation !
 	formattage = "\t" * t + "# [{0}] ? {1} : "
-	return raw_input (formattage.format (acteur,dialogue))
+	return raw_input (formattage.format (acteur,dialogue).encode ("utf-8"))
 
 
 def demander_tableau ():
