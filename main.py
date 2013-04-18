@@ -19,16 +19,53 @@ def gen_main_fsm ():
 		
 		@return : generator
 	"""
-	etat = "Menu"
+	etat = "Menu" # Etat = Menu | Niveau | Theme
 	# Variables 
 	code_defini = False
+
+	# Commandes 
+	aide = {
+		"global" : {
+			"quit" : "Quitte le programme ...",
+			"regles" : "Affiche les règles du jeu ...",
+			"scores" : "Affiche les meilleurs scores du jeu ..."
+		},
+		"Menu" : {
+			"ia-code" : "Fait décider un code à trouver par une IA",
+			"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
+			"humain-code" : "Fait rentrer un code à l'utilisateur",
+			"humain-joue" : "Fait trouver le code à l'utilisateur",
+			"theme" : "Permet à l'utilisateur de chosir un thème",
+			"niveau" : "Permet à l'utilisateur de changer de niveau de difficulté"
+		},
+		"Niveau" : {
+			"list" : "Fait la liste des niveaux disponibles",
+			"end" : "Enregistre le niveau sélectionné et revient au menu",
+			"@" : "Une autre chaine de caractère est prise comme un niveau"
+		},
+		"Theme" : {
+			"list" : "Fait la liste des thèmes disponibles",
+			"end" : "Engeristre le thème sélectionné et revient au menu",
+			"@" : "Sélectionne le texte rentré comme un thème"
+		}
+	}
 	
 	# On commence la boucle infinie !
 	while True:
 		r = (yield etat) # Récupère le message (et retourne l'état)
 		
 		if rep == "help":
-			iconsole.afficher (etat,"Les commandes sont : \n\t - « help » \n\t - « regles » \n\t - « humain-code » \n\t - « humain-joue » \n\t - « quit » \n\t - « ia-code » \n\t - « ia-joue » \n\t - « modifier-theme » \n\t - « modifier-niveau »")
+			iconsole.afficher (etat,"Aide :")
+			# On affiche manuellement des trucs ... c'est MAAAAAL
+			print "\t ## Commandes Globales ##"
+			for i,j in aide["global"].items ():
+				print "\t - ",i, ":"
+				print "\t\t",j
+			print "\t ## Commandes", etat, "##"
+			for i,j in aide[etat].items ():
+				print "\t - ",i, ":"
+				print "\t\t",j
+
 		elif rep == "quit":
 			continuer = False
 		elif rep == "regles":
@@ -36,8 +73,8 @@ def gen_main_fsm ():
 			chargement.run (1,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
-		
-		if etat == "Menu":
+
+		elif etat == "Menu":
 			if rep == "ia-code":
 				ia.choisir_code ()
 				code_defini = True
