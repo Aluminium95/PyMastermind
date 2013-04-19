@@ -191,9 +191,10 @@ def verification_solution (proposition):
 	global restant
 	
 	
-
-	# couleurs.is_string (c) 
-	# il faut verifier que la couleur est valide 
+	univers = couleur.liste_couleurs()[0:get_nombre_couleur]
+	for i in proposition:
+		if i not in universe:
+			return False
 
 	a,b = proposition_solution (proposition,code_secret)
 	

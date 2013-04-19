@@ -199,3 +199,11 @@ def creer_bouton (x,y,l,couleur,texte):
 	down ()
 	write (texte)
 	up ()
+	
+def generer_score():
+     for i in xrange(0,4):
+        down()
+        score = get_propriete("scores",i + ":score")
+        texte(score)
+        up()
+        yield
