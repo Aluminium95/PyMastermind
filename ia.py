@@ -108,7 +108,8 @@ def jouer (mode = "aleatoire"):
 
 
 	def ia_knuth ():
-		univers = couleurs.liste_couleurs ()[0:8] # Prend les 8 premières couleurs 
+		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
+
 		li = create_list (univers) # Crée la liste de toutes les possibilités 
 		
 		while True: # On boucle ! Youhou ...
@@ -117,8 +118,11 @@ def jouer (mode = "aleatoire"):
 			
 			goto (-200,-200)
 			chargement.animation (2,"cercle",10)
-			reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
 			
+			reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
+				
+			print reponse
+
 			if reponse == False: # Si la solution est « faux » ... l'univers est corrompu !
 				return False # On quitte !
 			if reponse == "gagne": # Si la solution est « gagne » ... fin
@@ -131,7 +135,8 @@ def jouer (mode = "aleatoire"):
 					reponse_tmp = moteur.proposition_solution (proposition, i)
 					if reponse_tmp == reponse: # Si l'élément « i » donne bien le même résultat
 						nli.append (i) # On le garde ... sinon on le laisse 
-				li = nli # On remplace l'ancienne liste 
+				li = nli # On remplace l'ancienne liste
+				print len (li)
 	ia_knuth ()
 	"""
 	if mode == "aleatoire":

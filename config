@@ -1,4 +1,8 @@
 nombre_cases |=> 4
+niveau |=> moyen
 coups:facile |=> 10
 coups:moyen |=> 10
 coups:difficile |=> 10
+couleurs:facile |=> 6
+couleurs:moyen |=> 8
+couleurs:difficile |=> 12

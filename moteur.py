@@ -9,9 +9,17 @@ import affichage
 
 historique = []
 code_secret = False
-mode = "moyen"
+mode = False
 restant = 10
 liste_mode = ["facile","moyen","difficile"]
+
+def get_nombre_couleurs ():
+	""" Retourne le nombre de couleurs disponibles dans 
+		le niveau de difficulté courant 
+
+		@return : int 
+	"""
+	return int (persistance.get_propriete ("config","couleurs:" + mode))
 
 def init ():
 	""" Initialise le module """
@@ -19,6 +27,7 @@ def init ():
 	
 	restant = persistance.get_propriete ("config","coups:" + mode)
 	restant = int (restant)
+	mode = persistance.get_propriete ("config","niveau")
 
 def get_mode ():
 	""" Retourne le mode de jeu actuel 
@@ -46,7 +55,8 @@ def set_mode (m):
 	
 	if m in liste_mode:
 		mode = m
-		restant = persistance.get_propriete ("config","coups:"+m)
+		persistance.set_propriete ("config","niveau",m)
+		restant = int (persistance.get_propriete ("config","coups:"+m))
 		return True
 	else:
 		return False
@@ -188,9 +198,9 @@ def verification_solution (proposition):
 	# couleurs.is_string (c) 
 	# il faut verifier que la couleur est valide 
 
-	proposition(proposition)
+	a,b = proposition_solution (proposition,code_secret)
 	
-	historique.append([proposition_copie, reponse])
+	historique.append([ list (proposition) , reponse])
 	
 	restant -= 1
 	l = []
@@ -199,7 +209,7 @@ def verification_solution (proposition):
 	
 	affichage.afficher_couleurs (4,l,reponse)
 	
-	if a == 4: #si proposition est identique àsolution	
+	if a == 4: #si proposition est identique à solution	
 		affichage.win ("red") 
 		return "gagne"
 	elif restant <= -1: #si le nombre de coups restants est de 0
@@ -208,7 +218,7 @@ def verification_solution (proposition):
 	else:
 		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
-def proposition_solution (proposition, code_secret): 
+def proposition_solution (proposition, code): 
 	""" Fonction qui effectue un coup du joueur !
 		comme la fontion proposer_solution, sans s'occuper des autres paramètres, tel que le score,
 		les coups restant ... ne renvoie que (a,b)
@@ -230,9 +240,9 @@ def proposition_solution (proposition, code_secret):
 	
 	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
 	
-	solution = list (code_secret) # Création d'une copie de la liste :-) 
+	solution = list (code) # Création d'une copie de la liste :-) 
 
-	while i < len (code_secret): #cherche les bonnes couleurs bien placées.
+	while i < len (code): #cherche les bonnes couleurs bien placées.
 		if solution[i] == proposition_copie[i]:
 			a = a+1
 			solution[i] = "*"
@@ -240,7 +250,7 @@ def proposition_solution (proposition, code_secret):
 		i = i+1
 	i = 0
 
-	while i < len (code_secret):
+	while i < len (code):
 		j = 0
 		while j < len (solution): #cherche les bonnes couleurs mal placées
 			if solution[j] != "*" and solution[j] == proposition_copie[i]:
