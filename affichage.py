@@ -10,7 +10,7 @@ import couleurs
 import persistance
 from primitives import * 
 
-y = 245
+y = -245
 x = -125
 
 def init (theme = ""):
@@ -178,7 +178,7 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 	
 	seth (0) # remet la tortue à un angle absolu de zéro !
 
-	y = y - 50
+	y = y + 50
 
 def creer_bouton (x,y,l,couleur,texte):
 	""" Crée un bouton de couleur avec du texte à côté
