@@ -111,7 +111,6 @@ def init ():
 	n = persistance.liste_variables ("couleurs")
 	for i in n:
 		l.append (i)
-	print l
 	couleurs = l # Sauvegarde
 
 def couleur_to_hexa(couleur):
