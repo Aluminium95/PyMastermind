@@ -41,10 +41,8 @@ def reprendre_partie(): #permet de reafficher la partie en cours, grace a l'hist
 		couleurs_hexa = []
 		
 		for j in historique[0]: # alala, c'est trop con sinon 
-			try:
-				couleurs_hexa.append (couleurs.string_to_hexa (j))
-			except:
-				return 
+			couleurs_hexa.append (couleurs.string_to_hexa (j))
+			
 		affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
 		
 
@@ -181,18 +179,17 @@ def definir_code (tableau):
 		
 		@tableau : [couleurs (français) ...] = le code à trouver
 
-		@return : None
-
-		@throw : TableauInvalide (msg)
+		@return : bool = si tout s'est bien passé
 	"""
 	global code_secret
 	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
 		for i in tableau:
 			if couleurs.is_string (i) == False:
-				raise TableauInvalide ("la couleur {0} du tableau est invalide".format (i + 1))
+				return False
 		code_secret = tableau
+		return True
 	else:
-		raise TableauInvalide ("le tableau n'a pas la bonne taille")
+		return False
 
 def verification_solution (proposition): 
 	""" Fonction qui effectue un coup du joueur !
@@ -202,11 +199,10 @@ def verification_solution (proposition):
 		@proposition : [couleur (français) ...] = la proposition du joueur
 
 		@return : False | "gagne" | "perdu" | (a,b)
+			- False : il y a eu un problème dans le code proposé
 			- "gagne" : l'utilisateur a gagné la partie
 			- "perdu" : l'utilisateur a perdu la partie
 			- (a,b) : a couleurs justes et bien placées, b couleurs justes et mal placées 
-		
-		@throw : TableauInvalide (msg)
 	"""
 	i = 0
 	reponse = proposition_solution(proposition, code_secret)
@@ -217,7 +213,7 @@ def verification_solution (proposition):
 	univers = couleurs.liste_couleurs()[0:get_nombre_couleurs ()]
 	for i in proposition:
 		if i not in univers:
-			raise TableauInvalide ("il existe une couleur invalide dans le tableau")
+			return False
 
 	a,b = proposition_solution (proposition,code_secret)
 	
@@ -226,19 +222,18 @@ def verification_solution (proposition):
 	restant -= 1
 	l = []
 	for i in proposition: # alala, c'est trop con sinon 
-		try:
-			l.append (couleurs.string_to_hexa (i))
-		except:
-			raise TableauInvalide ("il existe une couleur invalide dans le tableau")
-
+		l.append (couleurs.string_to_hexa (i))
+	
 	# Affiche la proposition à l'écran
 	affichage.afficher_couleurs (4,l,reponse)
 	
-	if a == 4: #si proposition est identique à solution	
-		affichage.win ("red") 
+	if a == 4: #si proposition est identique à solution
+		score = calcul_score()
+		affichage.win (score) 
 		return "gagne"
 	elif restant <= -1: #si le nombre de coups restants est de 0
-		affichage.loose ("red") 
+		score = calcul_score()
+		affichage.loose (list(code_secret),score) 
 		return "perdu"
 	else:
 		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
@@ -285,6 +280,5 @@ def proposition_solution (proposition, code):
 				break
 			j = j + 1
 		i = i+1
-		
 	return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
