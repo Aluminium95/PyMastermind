@@ -130,7 +130,7 @@ def win(bg=''):
 	"""
 	#reset() - On peut laisser le plateau ! 
 	th = persistance.get_propriete ("backgrounds", "theme:courant")
-	path = "Images/Theme" + th + "/perdu.gif"
+	path = "Images/Theme" + th + "/gagne.gif"
 	bgpic(path)
 
 def loose(bg=''):

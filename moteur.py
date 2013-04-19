@@ -1,5 +1,4 @@
 #-*- coding: utf-8 -*-
-
 # 29/03/13
 #derniere maj 3/4
 
@@ -26,6 +25,20 @@ def init ():
 	
 	restant = persistance.get_propriete ("config","coups:" + get_mode ())
 	restant = int (restant)
+
+def reprendre_partie(): #permet de reafficher la partie en cours, grace a l'historique
+	
+	i = 0
+	j = 0
+	while i < len(historique):
+		
+		couleurs_hexa = []
+		
+		for j in historique[0]: # alala, c'est trop con sinon 
+			couleurs_hexa.append (couleurs.string_to_hexa (j))
+			
+		affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
+		
 
 def get_mode ():
 	""" Retourne le mode de jeu actuel 
