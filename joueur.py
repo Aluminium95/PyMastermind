@@ -38,6 +38,8 @@ def jouer ():
 		elif rep == "perdu":
 			iconsole.afficher("Mastermind","Vous avez perdu !!!")
 			break
+		elif rep == False:
+			iconsole.afficher ("Mastermind", "Votre proposition n'a pas de sens ...")
 		else:
 			a,b = rep
 			print ("_" * 50) # Afficher à la main ?

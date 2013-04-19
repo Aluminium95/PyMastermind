@@ -6,15 +6,14 @@
 #
 # Gère tout ce qui est plateau
 
-from turtle import *
-from couleurs import *
+import couleurs
 import persistance
 from primitives import * 
 
 y = 245
 x = -125
 
-def init_ (theme = ""):
+def init (theme = ""):
 	""" Initialise la fonction, affiche le fond sélectionné
 	
 		@thème : str
@@ -218,11 +217,3 @@ def generer_score():
         
 def high_score ():
 	colonnes(5, 50, 100, generer_score () )
-
-if __name__ == '__main__':
-
-	persistance.init ()
-	init ()
-	
-	high_score ()
-	mainloop ()

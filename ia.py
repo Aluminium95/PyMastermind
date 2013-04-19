@@ -123,8 +123,8 @@ def jouer (mode = "aleatoire"):
 			proposition = choice (li) # On propose un truc de la liste 
 			li.remove (proposition) # Retire la proposition de la liste 
 			
-			goto (-200,-200)
-			chargement.animation (2,"cercle",10)
+			goto (200,-200)
+			chargement.animation (2,"cercle",20)
 			
 			reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
 				

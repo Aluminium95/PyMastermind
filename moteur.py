@@ -204,9 +204,9 @@ def verification_solution (proposition):
 	global restant
 	
 	
-	univers = couleur.liste_couleurs()[0:get_nombre_couleur]
+	univers = couleurs.liste_couleurs()[0:get_nombre_couleurs ()]
 	for i in proposition:
-		if i not in universe:
+		if i not in univers:
 			return False
 
 	a,b = proposition_solution (proposition,code_secret)
