@@ -205,6 +205,7 @@ def verification_solution (proposition):
 	for i in proposition: # alala, c'est trop con sinon 
 		l.append (couleurs.string_to_hexa (i))
 	
+	# Affiche la proposition à l'écran
 	affichage.afficher_couleurs (4,l,reponse)
 	
 	if a == 4: #si proposition est identique à solution	

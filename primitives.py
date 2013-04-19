@@ -129,6 +129,20 @@ def colonnes (n,c,l,generateur):
 	seth (a)
 	aller_a (x,y, False)
 
+def lignes (n,l,c,generateur):
+	""" Crée une ligne de n élément, espacés par l pxiels
+		et revient à la ligne avec un interligne de c pixels
+		en utilisant le générateur pour les remplir
+
+		@n : int = nombre d'éléments par ligne
+		@l : int = espace entre deux éléments
+		@c : int = espace entre deux lignes
+		@generateur : generator = generateur
+
+		@return : None
+	"""
+	pass
+
 def arc (an,dist, generateur):
 	""" Crée un arc de cercle avec chaque point 
 		espacés de dist et avec un angle relatif de an
