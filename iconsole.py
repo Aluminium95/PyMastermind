@@ -7,7 +7,7 @@ def separateur ():
 
 		@return : None
 	"""
-	print 100 * "-"
+	print (100 * "-")
 
 def afficher(acteur,dialogue,t=0):
 	""" Affiche une information à l'utilisateur 
@@ -19,7 +19,7 @@ def afficher(acteur,dialogue,t=0):
 	"""
 	# met t tabulations devant le texte ... permet d'intenter !
 	formattage = "\t" * t + "- ({0}) : « {1} »"
-	print formattage.format (acteur,dialogue)
+	print (formattage.format (acteur,dialogue))
 
 def demander(acteur,dialogue,t=0):
 	""" Demande une information à l'utilisateur 
@@ -31,8 +31,8 @@ def demander(acteur,dialogue,t=0):
 	"""
 	# met t tabulations devant le texte : indentation !
 	formattage = "\t" * t + "# [{0}] ? {1} : "
-	return raw_input (formattage.format (acteur,dialogue))
-
+	# return raw_input (formattage.format (acteur,dialogue))
+	return input (formattage.format (acteur,dialogue))
 
 def demander_tableau ():
 	""" Demande un tableau """

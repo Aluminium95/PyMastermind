@@ -60,14 +60,14 @@ def gen_main_fsm ():
 		if rep == "help":
 			iconsole.afficher (etat,"Aide :")
 			# On affiche manuellement des trucs ... c'est MAAAAAL
-			print "\t ## Commandes Globales ##"
+			print ("\t ## Commandes Globales ##")
 			for i,j in aide["global"].items ():
-				print "\t - ",i, ":"
-				print "\t\t",j
-			print "\t ## Commandes", etat, "##"
+				print ("\t - ",i, ":")
+				print ("\t\t",j)
+			print ("\t ## Commandes", etat, "##")
 			for i,j in aide[etat].items ():
-				print "\t - ",i, ":"
-				print "\t\t",j
+				print ("\t - ",i, ":")
+				print ("\t\t",j)
 		elif rep == "quit":
 			continuer = False
 		elif rep == "regles":
@@ -155,8 +155,10 @@ if __name__ == '__main__':
 
 	machine = gen_main_fsm ()
 
-	e = machine.next () # récupère l'état 
 	
+	# e = machine.next () # récupère l'état 
+	e = next (machine)
+
 	iconsole.afficher (e, "Tapez « help » pour obtenir de l'aide ...")
 
 	continuer = True

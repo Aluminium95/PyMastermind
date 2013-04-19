@@ -180,9 +180,9 @@ if __name__ == '__main__':
 	init () # initialise le module (auto-initialise ?!)
 
 	# Démonstration 
-	print string_to_hexa ("or")
-	print hexa_to_string ("#A300FF")
-	print hexa_to_string (string_to_hexa ("jaune")) # inutile 
+	print (string_to_hexa ("or"))
+	print (hexa_to_string ("#A300FF"))
+	print (hexa_to_string (string_to_hexa ("jaune"))) # inutile 
 
 
 	persistance.save () # inutile aussi ... mais s'il y a eu des changements ... 

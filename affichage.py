@@ -206,14 +206,14 @@ def creer_bouton (x,y,l,couleur,texte):
 	up ()
 	
 def generer_score():
-     for i in xrange(0,5):
+     for i in range(0,5):
         down()
         score = persistance.get_propriete("scores",str (i) + ":score")
         texte(score)
         up()
         yield
         
-     for i in xrange(0,5):
+     for i in range(0,5):
         down()
         nom = persistance.get_propriete("scores",str (i) + ":nom")
         texte(nom)
