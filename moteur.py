@@ -228,7 +228,7 @@ def verification_solution (proposition):
 		affichage.loose ("red") 
 		return "perdu"
 	else:
-	return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
+		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
 def proposition_solution (proposition, code): 
 	""" Fonction qui effectue un coup du joueur !

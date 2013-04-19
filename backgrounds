@@ -1,5 +1,5 @@
-theme:courant |=> 1
-theme:max |=> 4
+theme:courant |=> 5
+theme:max |=> 5
 theme:1:x:plateau |=> -125
 theme:1:y:plateau |=> 245
 theme:1:x:astuce |=> -270
@@ -24,3 +24,9 @@ theme:4:x:astuce |=> -245
 theme:4:y:astuce |=> 245
 theme:4:x:chargement |=> 0
 theme:4:y:chargement |=> 0
+theme:5:x:plateau |=> -220
+theme:5:y:plateau |=> 220
+theme:5:x:astuce |=> -245
+theme:5:y:astuce |=> 245
+theme:5:x:chargement |=> 0
+theme:5:y:chargement |=> 0

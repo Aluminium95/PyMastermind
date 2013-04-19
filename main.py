@@ -75,7 +75,9 @@ def gen_main_fsm ():
 			chargement.run (1,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
-
+		elif rep == "scores":
+			primitives.raz ()
+			affichage.high_score ()
 		elif etat == "Menu":
 			if rep == "ia-code":
 				ia.choisir_code ()

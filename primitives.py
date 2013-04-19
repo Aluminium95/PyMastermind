@@ -121,8 +121,8 @@ def colonnes (n,c,l,generateur):
 		if k == n:
 			k = 0
 			p += 1
-			aller_a (x + p * l, y, False)
-			seth (a)
+			#aller_a (x + p * l, y, False)
+			#seth (a)
 			
 		aller_a (x + p * l, y - k * c, False)
 
@@ -141,8 +141,22 @@ def lignes (n,l,c,generateur):
 
 		@return : None
 	"""
-	pass
+	a = heading ()
+	x,y = position ()
+	
+	k = 0
+	p = 0
 
+	for i in generateur:
+		p += 1
+		if p == n:
+			p = 0
+			k += 1
+		aller_a (x + p * l, y - k * c, False)
+
+	seth (a)
+	aller_a (x,y, False)
+	
 def arc (an,dist, generateur):
 	""" Crée un arc de cercle avec chaque point 
 		espacés de dist et avec un angle relatif de an
