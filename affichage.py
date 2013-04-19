@@ -128,9 +128,9 @@ def win(bg=''):
 		@return : None 
 	"""
 	#reset() - On peut laisser le plateau ! 
-	th = persistance.get_propriete ("backgrounds", "theme:courant")
-	path = "Images/Theme" + th + "/perdu.gif"
-	bgpic(path)
+	#th = persistance.get_propriete ("backgrounds", "theme:courant")
+	#path = "Images/Theme" + th + "/perdu.gif"
+	#bgpic(path)
 
 def loose(bg=''):
 	""" Affiche l'écran de défaite
@@ -139,9 +139,10 @@ def loose(bg=''):
 		@return : None
 	"""
 	#reset() - On peut laisser le plateau !
-	th = persistance.get_propriete ("backgrounds","theme:courant")
-	path = "Images/Theme" + th + "/perdu.gif"
-	bgpic(path)
+	#th = persistance.get_propriete ("backgrounds","theme:courant")
+	#path = "Images/Theme" + th + "/perdu.gif"
+	#bgpic(path)
+	
 
 def choix_theme(nbr_theme = 1):
 	if not isinstance (nbr_theme, int):
