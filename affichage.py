@@ -215,4 +215,5 @@ def generer_score():
         up()
         yield
         
-def high_score()
+def high_score(generer_score):
+	colonnes(5,50,100,generer_score)
