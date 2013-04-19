@@ -207,3 +207,11 @@ def generer_score():
         texte(score)
         up()
         yield
+        
+def generer_nom():
+     for i in xrange(0,4):
+        down()
+        nom = get_propriete("scores",i + ":score")
+        texte(nom)
+        up()
+        yield
