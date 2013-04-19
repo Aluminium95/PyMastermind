@@ -83,7 +83,10 @@ def generateur_couleurs (tableau):
 		@return : generator 
 	"""
 	for i in tableau:
-		color (couleurs.string_to_hexa (i))
+		try:
+			color (couleurs.string_to_hexa (i))
+		except:
+			pass # Une putain d'erreue survient ici !
 		begin_fill ()
 		carre (10)
 		end_fill ()

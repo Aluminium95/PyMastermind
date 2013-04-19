@@ -153,7 +153,7 @@ def choix_theme(nbr_theme = 1):
 	if nbr_theme > max_theme:
 		nbr_theme = 1
 	
-	persistance.set_propriete ("backgrounds","theme:courant",nbr_theme)
+	persistance.set_propriete ("backgrounds","theme:courant",str (nbr_theme))
             
 def afficher_couleurs(nbr_case,couleurs,answer):
 	""" dessine une ligne du plateau du mastermind avec en argument les donnée envoyé par les autres modules:

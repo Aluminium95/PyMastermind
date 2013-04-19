@@ -77,9 +77,11 @@ def choisir_code (mode="aleatoire"):
 
 		while condition:
 			p = generer_couleurs_aleatoires (univers)
-			r = moteur.definir_code (p)
-			if r != False:
+			try:
+				r = moteur.definir_code (p)
 				condition = False
+			except:
+				pass
 
 	# fin def ia_alea ici 
 
@@ -103,15 +105,14 @@ def jouer (mode = "aleatoire"):
 		# Il faut plus de rafinement --"
 		while True:
 			prop = generer_couleurs_aleatoires ()
-			r = moteur.verification_solution (prop)
-		
-			# On affiche que si le coup était valide
-			# (sinon on a plein de trucs nuls :-P)
-			if r != False:
-				iconsole.afficher ("IA", "Joue {0} -> {1}".format (prop,r))
-	
-			if r == "perdu" or r == "gagne":
-				return
+			try:
+				r = moteur.verification_solution (prop)
+				
+				if r == "perdu" or "gagne":
+					return
+
+			except moteur.TableauInvalide as t:
+				iconsole.afficher ("IA", "Erreur ... " + t.message)
 
 
 	def ia_knuth ():
@@ -126,24 +127,22 @@ def jouer (mode = "aleatoire"):
 			goto (200,-200)
 			chargement.animation (2,"cercle",20)
 			
-			reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
+			try:
+				reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
+				iconsole.afficher ("IA","Joue {0} -> {1}".format (proposition,reponse))
 				
-			print reponse
+				if reponse == "gagne" or reponse == "perdu":
+					return reponse
+				else:
+					nli = []
+					for i in li:
+						reponse_tmp = moteur.proposition_solution (proposition, i)
+						if reponse_tmp == reponse:
+							nli.append (i)
+					li = nli
+			except moteur.TableauInvalide as t:
+				iconsole.afficher ("IA", "Erreur ... " + t.message)
 
-			if reponse == False: # Si la solution est « faux » ... l'univers est corrompu !
-				return False # On quitte !
-			if reponse == "gagne": # Si la solution est « gagne » ... fin
-				return "gagne" 
-			if reponse == "perdu": # Si la solution est « perdu » ... idem 
-				return "perdu"
-			else: # Sinon, c'est un tuple (a,b) (par définition de la fonction)
-				nli = []
-				for i in li: # Pour chaque élément de la liste 
-					reponse_tmp = moteur.proposition_solution (proposition, i)
-					if reponse_tmp == reponse: # Si l'élément « i » donne bien le même résultat
-						nli.append (i) # On le garde ... sinon on le laisse 
-				li = nli # On remplace l'ancienne liste
-				print len (li)
 	ia_knuth ()
 	"""
 	if mode == "aleatoire":

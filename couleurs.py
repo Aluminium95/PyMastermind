@@ -35,6 +35,13 @@
 
 import persistance
 
+# Définition des exceptions 
+
+class CouleurInvalide (Exception):
+	pass
+
+# Fin définition des exceptions
+
 couleurs = [] # liste des couleurs possibles 
 
 def string_to_hexa (couleur):
@@ -42,12 +49,14 @@ def string_to_hexa (couleur):
 		
 		@couleur : string = couleur à convertir
 		
-		@return : string | False
+		@return : string 
+
+		@throw : CouleurInvalide
 	"""
 	if is_string (couleur): # vérifie que c'est une chaine valide
 		return persistance.get_propriete ("couleurs",couleur)
 	else:
-		return False # on sait pas convertir 
+		raise CouleurInvalide
 
 def hexa_to_string (hexa):
 	""" Retourne la valeur String de la couleur en Hexa
@@ -62,8 +71,9 @@ def hexa_to_string (hexa):
 		# on fait donc l'inverse de d'habitude !!! 
 		return persistance.get_by_value ("couleurs",hexa)
 	else:
-		return False # sinon ... on sait pas convertir 
-	
+		raise CouleurInvalide
+
+
 def liste_couleurs ():
 	""" Retourne la liste des couleurs (en hexa)
 		

@@ -116,8 +116,11 @@ def gen_main_fsm ():
 				iconsole.separateur ()
 				iconsole.afficher (etat, "Vous êtes dans le mode « Menu »")
 			else:
-				affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
-				iconsole.afficher (etat,"Selection theme : " + rep)
+				try:
+					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
+					iconsole.afficher (etat,"Selection theme : " + rep)
+				except:
+					iconsole.afficher (etat,"... ce theme est invalide ")
 		elif etat == "Niveau":
 			if rep == "list":
 				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
