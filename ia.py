@@ -10,8 +10,10 @@ import chargement
 from turtle import goto
 from random import choice # faire un choix aléatoire dans une liste 
 
-def generer_couleurs_aleatoires ():
+def generer_couleurs_aleatoires (c = False):
 	""" Génère un code aléatoire de couleurs, complètement !
+		
+		@c : [couleurs (fr) ...] | False = si on a un univers prédéfini !
 
 		@return : list of couleurs (Français)
 	"""
@@ -19,8 +21,11 @@ def generer_couleurs_aleatoires ():
 	sortie = [] # le tableau de sortie 
 
 	# On récupère la liste des couleurs possibles
-	lst = couleurs.liste_couleurs ()
-
+	if c == False:
+		lst = couleurs.liste_couleurs ()
+	else:
+		lst = c
+	
 	# On récupère le nombre de cases demandées
 	n = persistance.get_propriete ("config","nombre_cases")
 
@@ -68,9 +73,11 @@ def choisir_code (mode="aleatoire"):
 		# le code secret proposé est valide 
 		# par rapport à la difficulté 
 		condition = True
-	
+		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs()]
+
 		while condition:
-			r = moteur.definir_code (generer_couleurs_aleatoires ())
+			p = generer_couleurs_aleatoires (univers)
+			r = moteur.definir_code (p)
 			if r != False:
 				condition = False
 

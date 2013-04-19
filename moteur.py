@@ -9,7 +9,6 @@ import affichage
 
 historique = []
 code_secret = False
-mode = False
 restant = 10
 liste_mode = ["facile","moyen","difficile"]
 
@@ -19,22 +18,21 @@ def get_nombre_couleurs ():
 
 		@return : int 
 	"""
-	return int (persistance.get_propriete ("config","couleurs:" + mode))
+	return int (persistance.get_propriete ("config","couleurs:" + get_mode ()))
 
 def init ():
 	""" Initialise le module """
 	global restant
 	
-	restant = persistance.get_propriete ("config","coups:" + mode)
+	restant = persistance.get_propriete ("config","coups:" + get_mode ())
 	restant = int (restant)
-	mode = persistance.get_propriete ("config","niveau")
 
 def get_mode ():
 	""" Retourne le mode de jeu actuel 
 		
 		@return : str (facile | moyen | difficile)
 	"""
-	return mode
+	return persistance.get_propriete ("config","niveau")
 
 def get_liste_modes ():
 	""" Retourne la liste des modes disonibles 
@@ -51,10 +49,9 @@ def set_mode (m):
 
 		@return : bool = si c'est bon 
 	"""
-	global mode,restant
+	global restant
 	
 	if m in liste_mode:
-		mode = m
 		persistance.set_propriete ("config","niveau",m)
 		restant = int (persistance.get_propriete ("config","coups:"+m))
 		return True
