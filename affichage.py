@@ -9,11 +9,12 @@
 from turtle import *
 from couleurs import *
 import persistance
+from primitives import * 
 
 y = 245
 x = -125
 
-def init (theme = ""):
+def init_ (theme = ""):
 	""" Initialise la fonction, affiche le fond sélectionné
 	
 		@thème : str
@@ -201,19 +202,27 @@ def creer_bouton (x,y,l,couleur,texte):
 	up ()
 	
 def generer_score():
-     for i in xrange(0,4):
+     for i in xrange(0,5):
         down()
-        score = get_propriete("scores",i + ":score")
+        score = persistance.get_propriete("scores",str (i) + ":score")
         texte(score)
         up()
         yield
         
-     for i in xrange(0,4):
+     for i in xrange(0,5):
         down()
-        nom = get_propriete("scores",i + ":score")
+        nom = persistance.get_propriete("scores",str (i) + ":nom")
         texte(nom)
         up()
         yield
         
-def high_score(generer_score):
-	colonnes(5,50,100,generer_score)
+def high_score ():
+	colonnes(5, 50, 100, generer_score () )
+
+if __name__ == '__main__':
+
+	persistance.init ()
+	init ()
+	
+	high_score ()
+	mainloop ()
