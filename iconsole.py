@@ -2,6 +2,13 @@
 # 03/04/2013
 # Desmarais Yann 
 
+def separateur ():
+	""" Affiche un énorme séparateur !
+
+		@return : None
+	"""
+	print 100 * "-"
+
 def afficher(acteur,dialogue,t=0):
 	""" Affiche une information à l'utilisateur 
 	
@@ -11,7 +18,7 @@ def afficher(acteur,dialogue,t=0):
 		@return : None
 	"""
 	# met t tabulations devant le texte ... permet d'intenter !
-	formattage = "\t" * t + "- [{0}] : {1}"
+	formattage = "\t" * t + "- ({0}) : « {1} »"
 	print formattage.format (acteur,dialogue)
 
 def demander(acteur,dialogue,t=0):

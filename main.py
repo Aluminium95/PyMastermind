@@ -41,13 +41,13 @@ def gen_main_fsm ():
 		"Niveau" : {
 			"list" : "Fait la liste des niveaux disponibles",
 			"actuel" : "Affiche le niveau actuel de difficulté",
-			"end" : "Enregistre le niveau sélectionné et revient au menu",
+			"fin" : "Enregistre le niveau sélectionné et revient au menu",
 			"@" : "Une autre chaine de caractère est prise comme un niveau"
 		},
 		"Theme" : {
 			"list" : "Fait la liste des thèmes disponibles",
 			"actuel" : "Affiche le thème actuel ...",
-			"end" : "Engeristre le thème sélectionné et revient au menu",
+			"fin" : "Engeristre le thème sélectionné et revient au menu",
 			"@" : "Sélectionne le texte rentré comme un thème"
 		}
 	}
@@ -67,7 +67,6 @@ def gen_main_fsm ():
 			for i,j in aide[etat].items ():
 				print "\t - ",i, ":"
 				print "\t\t",j
-
 		elif rep == "quit":
 			continuer = False
 		elif rep == "regles":
@@ -86,6 +85,7 @@ def gen_main_fsm ():
 				joueur.choisir_code ()
 				code_defini = True
 			elif rep == "humain-joue" and code_defini == True:
+				iconsole.separateur ()
 				primitives.raz ()
 				chargement.run (2,"arc")
 				affichage.reset ()
@@ -98,8 +98,12 @@ def gen_main_fsm ():
 				ia.jouer ("knuth")
 				moteur.restant = 10 # Moche !
 			elif rep == "theme":
+				iconsole.separateur ()
+				iconsole.afficher (etat, "Vous êtes dans le mode « Theme »")
 				etat = "Theme"
 			elif rep == "niveau":
+				iconsole.separateur ()
+				iconsole.afficher (etat, "Vous êtes dans le mode « Niveau »")
 				etat = "Niveau"
 			else:
 				iconsole.afficher (etat,"Cette requête est invalide ...")
@@ -109,6 +113,8 @@ def gen_main_fsm ():
 			elif rep == "fin":
 				iconsole.afficher (etat,"Theme modifié ... ")
 				etat = "Menu"
+				iconsole.separateur ()
+				iconsole.afficher (etat, "Vous êtes dans le mode « Menu »")
 			else:
 				affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
 				iconsole.afficher (etat,"Selection theme : " + rep)
@@ -120,6 +126,8 @@ def gen_main_fsm ():
 			elif rep == "fin":
 				iconsole.afficher (etat,"Niveau modifié pour la prochaine partie")
 				etat = "Menu"
+				iconsole.separateur ()
+				iconsole.afficher (etat, "Vous êtes dans le mode « Menu »")
 			else:
 				if rep in (moteur.get_liste_modes ()):
 					iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
