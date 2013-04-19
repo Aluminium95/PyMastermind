@@ -208,10 +208,12 @@ def generer_score():
         up()
         yield
         
-def generer_nom():
      for i in xrange(0,4):
         down()
         nom = get_propriete("scores",i + ":score")
         texte(nom)
         up()
         yield
+        
+def high_score(generer_score):
+	colonnes(5,50,100,generer_score)
