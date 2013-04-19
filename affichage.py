@@ -121,7 +121,7 @@ def reset ():
 
     
 
-def win(bg=''):
+def win(score):
 	""" Affiche l'écran de victoire (fond choisi)
 		
 		@bg : str
@@ -132,7 +132,7 @@ def win(bg=''):
 	#bgpic(path)
 	pass
 	
-def loose(bg=''):
+def loose(code,score):
 	""" Affiche l'écran de défaite
 		
 		@bg : str
