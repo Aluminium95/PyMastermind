@@ -21,6 +21,15 @@
 # ]
 	
 
+# EXCEPTIONS 
+
+class FichierInvalide (Exception):
+	pass
+
+class VariableInvalide (Exception):
+	pass
+
+# FIN EXCEPTIONS	
 
 # ma variable globale : BDD
 persistant = []
