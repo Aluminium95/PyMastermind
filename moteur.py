@@ -223,11 +223,11 @@ def verification_solution (proposition):
 	
 	if a == 4: #si proposition est identique à solution
 		score = calcul_score()
-		affichage.win ("red",score) 
+		affichage.win (score) 
 		return "gagne"
 	elif restant <= -1: #si le nombre de coups restants est de 0
 		score = calcul_score()
-		affichage.loose ("red", score) 
+		affichage.loose (list(code_secret),score) 
 		return "perdu"
 	else:
 		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
