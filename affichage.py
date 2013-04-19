@@ -130,7 +130,8 @@ def win(score):
 	#th = persistance.get_propriete ("backgrounds", "theme:courant")
 	#path = "Images/Theme" + th + "/perdu.gif"
 	#bgpic(path)
-	pass
+	goto(245, 125)
+	texte(score)
 	
 def loose(code,score):
 	""" Affiche l'écran de défaite
@@ -142,6 +143,9 @@ def loose(code,score):
 	#th = persistance.get_propriete ("backgrounds","theme:courant")
 	#path = "Images/Theme" + th + "/perdu.gif"
 	#bgpic(path)
+	goto(245, 125)
+	texte(score)
+	
 	
 
 def choix_theme(nbr_theme = 1):
