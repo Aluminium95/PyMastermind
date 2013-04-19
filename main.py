@@ -28,7 +28,8 @@ def gen_main_fsm ():
 		"global" : {
 			"quit" : "Quitte le programme ...",
 			"regles" : "Affiche les règles du jeu ...",
-			"scores" : "Affiche les meilleurs scores du jeu ..."
+			"scores" : "Affiche les meilleurs scores du jeu ...",
+			"score" : "Affiche le score actuel ..."
 		},
 		"Menu" : {
 			"ia-code" : "Fait décider un code à trouver par une IA",
@@ -77,6 +78,8 @@ def gen_main_fsm ():
 		elif rep == "scores":
 			primitives.raz ()
 			affichage.high_score ()
+		elif rep == "score":
+			iconsole.afficher (etat, moteur.calcul_score ())
 		elif etat == "Menu":
 			if rep == "ia-code":
 				ia.choisir_code ()
