@@ -53,10 +53,21 @@ de&nbsp;t&nbsp;secondes&nbsp;...&nbsp;Un&nbsp;super&nbsp;écran&nbsp;!&nbsp;<br>
 @t&nbsp;:&nbsp;int&nbsp;=&nbsp;secondes<br>
 @mode&nbsp;:&nbsp;str&nbsp;(cercle|arc|ligne)&nbsp;=&nbsp;le&nbsp;mode&nbsp;d'affichage&nbsp;de&nbsp;la&nbsp;barre&nbsp;de&nbsp;chargement<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;None</tt></dd></dl>
- <dl><dt><a name="-sleep"><strong>sleep</strong></a>(...)</dt><dd><tt><a href="#-sleep">sleep</a>(seconds)<br>
+@return&nbsp;:&nbsp;None&nbsp;<br>
 &nbsp;<br>
-Delay&nbsp;execution&nbsp;for&nbsp;a&nbsp;given&nbsp;number&nbsp;of&nbsp;seconds.&nbsp;&nbsp;The&nbsp;argument&nbsp;may&nbsp;be<br>
-a&nbsp;floating&nbsp;point&nbsp;number&nbsp;for&nbsp;subsecond&nbsp;precision.</tt></dd></dl>
+@throw&nbsp;:&nbsp;persistance.FichierInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.ValeurInvalide&nbsp;(chemin,fichier)</tt></dd></dl>
+ <dl><dt><a name="-try_load_int"><strong>try_load_int</strong></a>(fichier, variable)</dt><dd><tt>Tente&nbsp;de&nbsp;charger&nbsp;un&nbsp;nombre&nbsp;dans&nbsp;un&nbsp;fichier&nbsp;<br>
+de&nbsp;configuration&nbsp;...<br>
+&nbsp;<br>
+@fichier&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;nom&nbsp;du&nbsp;fichier&nbsp;<br>
+@variable&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;nom&nbsp;de&nbsp;la&nbsp;variable<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;valeur&nbsp;convertie&nbsp;en&nbsp;int<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;persistance.FichierInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.ValeurInvalide&nbsp;(chemin,fichier)</tt></dd></dl>
 </td></tr></table>
 </body></html>
