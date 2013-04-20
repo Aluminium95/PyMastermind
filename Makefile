@@ -1,4 +1,4 @@
-PY = python2
+PY = python3
 MAIN = main
 DOCDIR = ./Documentation/PyDoc/
 

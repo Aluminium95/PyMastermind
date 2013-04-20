@@ -10,7 +10,6 @@ import primitives
 
 # Python standard
 from random import randint
-from time import sleep
 from random import choice
 
 def init ():
@@ -64,6 +63,25 @@ def animation (t,mode = "cercle",taille = 40):
 			primitives.colonnes (1,taille + 10, taille + 10,generer_couleurs (current_color,6,taille))
 		k += 1
 
+def try_load_int (fichier,variable):
+	""" Tente de charger un nombre dans un fichier 
+		de configuration ...
+
+		@fichier : str = le nom du fichier 
+		@variable : str = le nom de la variable
+
+		@return : int = la valeur convertie en int
+
+		@throw : persistance.FichierInvalide
+				 persistance.CleInvalide
+				 persistance.ValeurInvalide (chemin,fichier)
+	"""
+	try:
+		m = persistance.get_propriete (fichier, variable)
+		k = int (m)
+		return k
+	except ValueError:
+		raise persistance.ValeurInvalide (fichier,variable)
 
 def run (t,mode = "cercle"):
 	""" Fait un chargement d'une durée
@@ -73,6 +91,10 @@ def run (t,mode = "cercle"):
 		@mode : str (cercle|arc|ligne) = le mode d'affichage de la barre de chargement
 
 		@return : None 
+		
+		@throw : persistance.FichierInvalide
+				 persistance.CleInvalide
+				 persistance.ValeurInvalide (chemin,fichier)
 	"""
 	primitives.hideturtle ()
 	
@@ -82,15 +104,22 @@ def run (t,mode = "cercle"):
 	primitives.bgpic ("Images/Theme{0}/chargement.gif".format (th))
 	
 	# Affiche une astuce
-	astuce = "Vous pouvez modifier la difficulté dans le menu ..."
-
-	xa = int (persistance.get_propriete ("backgrounds","theme:" +  th + ":x:astuce"))
-	ya = int (persistance.get_propriete ("backgrounds","theme:" +  th + ":y:astuce"))
-
-	xc = int (persistance.get_propriete ("backgrounds","theme:" +  th + ":x:chargement"))
-	yc = int (persistance.get_propriete ("backgrounds","theme:" + th + ":y:chargement"))
+	# Récupère une astuce au hasard dans celles disponibles
+	maximum = try_load_int ("phrases","max")
+	numero = randint (0,maximum)
 	
+	# Cette ligne est susceptible de planter ... Il faut que le type récupère l'erreur !
+	astuce = persistance.get_propriete ("phrases", str (numero))
 	
+	# Ces lignes redirigent les erreurs de « persistance »
+	# vers l'appelant, en ajoutant la gestion du fait 
+	# que la variable peut être invalide, c'est à dire 
+	# qu'elle n'est pas convertible en int 
+	xa = try_load_int ("backgrounds","theme:" + th + ":x:astuce")
+	ya = try_load_int ("backgrounds","theme:" + th + ":y:astuce")
+	xc = try_load_int ("backgrounds","theme:" + th + ":x:chargement")
+	yc = try_load_int ("backgrounds","theme:" + th + ":y:chargement")
+
 	primitives.aller_a (xa,ya)
 	primitives.texte (astuce,"petit")
 	

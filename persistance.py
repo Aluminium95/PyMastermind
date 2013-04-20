@@ -32,7 +32,7 @@ class FichierInvalide (Exception):
 class CleInvalide (Exception):
 	pass
 
-class ValelurInvalide (Exception):
+class ValeurInvalide (Exception):
 	def __init__ (self, fichier, variable):
 		self.fichier = fichier
 		self.variable = variable
@@ -113,7 +113,7 @@ def get_propriete (chemin,nom):
 			for i in p[1:]: # On regarde les éléments du fichier 
 				if i[0] == nom: # Si le nom correspond 
 					return i[1] # On retourne la valeur !
-			raise CleInvalide	
+			raise CleInvalide
 	raise FichierInvalide
 
 def get_by_value (chemin,val):
@@ -247,3 +247,6 @@ def init ():
 	
 	# fichier des fonds
 	charger_fichier("backgrounds")
+	
+	# fichier des phrases
+	charger_fichier ("phrases")

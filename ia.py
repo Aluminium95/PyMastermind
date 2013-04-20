@@ -30,7 +30,7 @@ def generer_couleurs_aleatoires (c = False):
 	n = persistance.get_propriete ("config","nombre_cases")
 
 	# On définit n couleurs au hasard ... 
-	for i in xrange (int (n)):
+	for i in range (int (n)):
 		sortie.append (choice (lst))
 	
 	return sortie

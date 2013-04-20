@@ -155,9 +155,9 @@ if __name__ == '__main__':
 
 	machine = gen_main_fsm ()
 
-	
+	# Code en python2
 	# e = machine.next () # récupère l'état 
-	e = next (machine)
+	e = next (machine) # Code en python3
 
 	iconsole.afficher (e, "Tapez « help » pour obtenir de l'aide ...")
 
