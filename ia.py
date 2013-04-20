@@ -7,7 +7,9 @@ import moteur
 import iconsole
 import persistance
 import chargement
-from turtle import goto
+
+from turtle import goto # moooooochhheeee
+
 from random import choice # faire un choix aléatoire dans une liste 
 
 def generer_couleurs_aleatoires (c = False):
@@ -121,9 +123,11 @@ def jouer (mode = "aleatoire"):
 		li = create_list (univers) # Crée la liste de toutes les possibilités 
 		
 		while True: # On boucle ! Youhou ...
-			proposition = choice (li) # On propose un truc de la liste 
-			li.remove (proposition) # Retire la proposition de la liste 
-			
+			try:
+				proposition = choice (li) # On propose un truc de la liste 
+				li.remove (proposition) # Retire la proposition de la liste 
+			except:
+				iconsole.afficher ("IA","Le code utilise FORCÉMENT des couleurs qui ne sont pas disonibles ...")
 			goto (200,-200)
 			chargement.animation (2,"cercle",20)
 			

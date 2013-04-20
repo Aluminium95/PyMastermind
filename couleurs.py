@@ -185,7 +185,7 @@ def eclaircir (couleur, pts):
 	r += taux
 
 	#return "#" + hex (r)[2:]
- 	return couleur # hahaha 
+	return couleur # hahaha 
 	
 
 # Test

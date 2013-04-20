@@ -7,9 +7,11 @@ import couleurs
 import affichage
 
 # EXCEPTIONS 
+
 class TableauInvalide (Exception):
 	def __init__ (self,msg):
 		self.message = msg
+
 # FIN EXCEPTIONS
 
 historique = []
