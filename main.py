@@ -60,14 +60,16 @@ def gen_main_fsm ():
 		if rep == "help":
 			iconsole.afficher (etat,"Aide :")
 			# On affiche manuellement des trucs ... c'est MAAAAAL
-			print ("\t ## Commandes Globales ##")
-			for i,j in aide["global"].items ():
-				print ("\t - ",i, ":")
-				print ("\t\t",j)
-			print ("\t ## Commandes", etat, "##")
-			for i,j in aide[etat].items ():
-				print ("\t - ",i, ":")
-				print ("\t\t",j)
+			def gen_help ():
+				yield "Commandes globales ..."
+				for i,j in aide["global"].items ():
+					yield ("\t" + i,j)
+				
+				yield "Commandes d'état"
+
+				for i,j in aide[etat].items ():
+					yield ("\t" + i,j)
+			iconsole.afficher_generateur (etat, "Aide : ", gen_help ())
 		elif rep == "quit":
 			continuer = False
 		elif rep == "regles":
@@ -112,10 +114,12 @@ def gen_main_fsm ():
 				iconsole.afficher (etat,"Cette requête est invalide ...")
 		elif etat == "Theme": # THÈME ......
 			if rep == "list":
-				l = affichage.liste_themes ()
-				for i in l:
-					desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
-					print ("\t {0} - {1}".format (i,desc))
+				def gen_liste_theme ():
+					for i in affichage.liste_themes ():
+						desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
+						yield (i,desc)
+
+				iconsole.afficher_generateur (etat,"Themes",gen_liste_theme ())
 			elif rep == "fin":
 				iconsole.afficher (etat,"Theme modifié ... ")
 				etat = "Menu"

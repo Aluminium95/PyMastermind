@@ -110,10 +110,12 @@ def gen_fsm ():
 				# On suppose que si ce n'est pas une commande c'est une variable 
 				# à modifier ... Donc on demande la nouvelle valeur 
 				# et on modifie ... 
-				iconsole.afficher (st, "Valeur actuelle : " + str (persistance.get_propriete (fichier,req)))
-				
-				val = iconsole.demander (st,"Nouvelle valeur : ")
-				persistance.set_propriete (f,req,val)
+				try:
+					iconsole.afficher (st, "Valeur actuelle : " + str (persistance.get_propriete (fichier,req)))
+				except:
+					iconsole.afficher (st, "Nouvelle variable !")
+				val = iconsole.demander (st,"Nouvelle valeur")
+				persistance.set_propriete (fichier,req,val)
 				iconsole.afficher (st,"Bien modifié !")
 
 		
@@ -127,8 +129,10 @@ if __name__ == '__main__':
 	# On crée une machine comme définit en début de fichier 
 	machine = gen_fsm ()
 	
-	st = machine.next () # premier yield, pour savoir le nom de l'état et initialiser le générateur
+	#st = machine.next () # premier yield, pour savoir le nom de l'état et initialiser le générateur
 	
+	st = next (machine)
+
 	# La boucle infinie ... moche !
 	while True:
 		# On actualise l'état courant à chaque

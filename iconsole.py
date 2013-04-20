@@ -34,6 +34,24 @@ def demander(acteur,dialogue,t=0):
 	# return raw_input (formattage.format (acteur,dialogue))
 	return input (formattage.format (acteur,dialogue))
 
+def afficher_liste (acteur,message,liste,t = 0):
+	""" Affiche une liste à l'utilisateur """
+	afficher (acteur,message,t)
+	for i in liste:
+		if isinstance (i,tuple):
+			print ("\t" * (t + 1) + "{0} - {1}".format (i[0],i[1]))
+		else:
+			print ("\t" * (t + 1) + "- {0}".format (i))
+
+def afficher_generateur (acteur,message,generateur, t = 0):
+	""" Affiche un générateur à l'utilisateur """
+	afficher (acteur, message, t)
+	for i in generateur:
+		if isinstance (i,tuple):
+			print ("\t" * (t + 1) + "{0} - {1}".format (i[0],i[1]))
+		else:
+			print ("\t" * (t + 1) + "- {0}".format (i))
+
 def demander_tableau ():
 	""" Demande un tableau """
 	i = 0
