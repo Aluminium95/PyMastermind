@@ -51,7 +51,9 @@ def string_to_hexa (couleur):
 		
 		@return : string 
 
-		@throw : CouleurInvalide
+		@throw : CouleurInvalide 
+				 persistance.FichierInvalide
+				 persistance.CleInvalide
 	"""
 	if is_string (couleur): # vérifie que c'est une chaine valide
 		return persistance.get_propriete ("couleurs",couleur)
@@ -63,7 +65,11 @@ def hexa_to_string (hexa):
 		
 		@hexa : string = hexa à convertir
 		
-		@return : string | False
+		@return : string
+		
+		@throw : CouleurInvalide 
+				 persistance.FichierInvalide
+				 persistance.CleInvalide
 	"""
 	if is_hexa (hexa): # on vérifie quand même que c'est bien de l'hexa
 		# on cherche la clé qui a pour valeur associée @hexa 
@@ -128,7 +134,11 @@ def couleur_to_hexa(couleur):
 		
 		@couleur : ? = le truc 
 		
-		@return : string (hexa) | False
+		@return : string (hexa)
+
+		@throw : CouleurInvalide 
+				 persistance.FichierInvalide
+				 persistance.CleInvalide
 	"""
 	if is_hexa (couleur):
 		return couleur
@@ -141,7 +151,11 @@ def couleur_to_string (couleur):
 
 		@couleur : ? = le truc à convertir
 
-		@return : string (français) | False
+		@return : string (français) 
+		
+		@throw : CouleurInvalide 
+				 persistance.FichierInvalide
+				 persistance.CleInvalide
 	"""
 	if is_string (couleur):
 		return couleur
@@ -170,8 +184,8 @@ def eclaircir (couleur, pts):
 
 	r += taux
 
-	return "#" + hex (r)[2:]
-
+	#return "#" + hex (r)[2:]
+ 	return couleur # hahaha 
 	
 
 # Test
