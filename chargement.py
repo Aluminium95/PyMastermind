@@ -45,7 +45,12 @@ def animation (t,mode = "cercle",taille = 40):
 	"""
 	x,y = primitives.get_position ()
 
-	liste = ["zinzolin","indigo","vert"]
+	if t % 5 == 0:
+		liste = ["rouge","carmin","or","vert","chartreuse"]
+	elif t % 3 == 0:
+		liste = ["carmin","or","chartreuse"]
+	elif t % 2 == 0:
+		liste = ["carmin","chartreuse"]
 	
 
 	k = 0
@@ -60,7 +65,7 @@ def animation (t,mode = "cercle",taille = 40):
 		elif mode == "arc":
 			primitives.arc (20,taille + 10,generer_couleurs (current_color,5, taille))
 		else: # mode == "ligne"
-			primitives.colonnes (1,taille + 10, taille + 10,generer_couleurs (current_color,6,taille))
+			primitives.colonnes (1,taille + 10, taille + 10,generer_couleurs (current_color,4,taille))
 		k += 1
 
 def try_load_int (fichier,variable):
@@ -96,7 +101,7 @@ def run (t,mode = "cercle"):
 				 persistance.CleInvalide
 				 persistance.ValeurInvalide (chemin,fichier)
 	"""
-	primitives.hideturtle ()
+	primitives.speed (0)
 	
 	# Affiche le fond d'écran approprié
 	th = persistance.get_propriete ("backgrounds", "theme:courant")
@@ -106,7 +111,7 @@ def run (t,mode = "cercle"):
 	# Affiche une astuce
 	# Récupère une astuce au hasard dans celles disponibles
 	maximum = try_load_int ("phrases","max")
-	numero = randint (0,maximum)
+	numero = randint (0,maximum - 1)
 	
 	# Cette ligne est susceptible de planter ... Il faut que le type récupère l'erreur !
 	astuce = persistance.get_propriete ("phrases", str (numero))

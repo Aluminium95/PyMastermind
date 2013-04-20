@@ -129,8 +129,8 @@ def jouer (mode = "aleatoire"):
 			except:
 				iconsole.afficher ("IA","Le code utilise FORCÉMENT des couleurs qui ne sont pas disonibles ...")
 			goto (200,-200)
-			chargement.animation (2,"cercle",20)
-			
+			chargement.animation (3,"cercle",20)
+
 			try:
 				reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
 				iconsole.afficher ("IA","Joue {0} -> {1}".format (proposition,reponse))

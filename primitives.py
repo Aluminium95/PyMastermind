@@ -224,4 +224,6 @@ def raz ():
 			
 		@return : None
 	"""
+	clear ()
 	reset () # C'est juste un wrapper de turtle en fait ... mais quand même !
+	hideturtle ()

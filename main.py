@@ -72,7 +72,7 @@ def gen_main_fsm ():
 			continuer = False
 		elif rep == "regles":
 			primitives.raz ()
-			chargement.run (1,"ligne")
+			chargement.run (2,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
 		elif rep == "scores":
@@ -90,13 +90,13 @@ def gen_main_fsm ():
 			elif rep == "humain-joue" and code_defini == True:
 				iconsole.separateur ()
 				primitives.raz ()
-				chargement.run (2,"arc")
+				chargement.run (10,"arc")
 				affichage.reset ()
 				joueur.jouer ()
 				moteur.restant = 10 # Moche !
 			elif rep == "ia-joue" and code_defini == True:
 				primitives.raz ()
-				chargement.run (1,"cercle")
+				chargement.run (5,"cercle")
 				affichage.reset ()
 				ia.jouer ("knuth")
 				moteur.restant = 10 # Moche !

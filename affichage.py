@@ -23,7 +23,7 @@ def init (theme = ""):
 	up ()
 	
 	
-	reset () # Reset () -> met l'affichage de « jeu »
+	# reset () # Reset () -> met l'affichage de « jeu »
 	
 
 def dessiner_carre (taille,couleur):
@@ -119,7 +119,7 @@ def reset ():
 	
 	goto(x,y)
 
-    
+	speed (0)    
 
 def win(score):
 	""" Affiche l'écran de victoire (fond choisi)
