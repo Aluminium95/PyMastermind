@@ -154,11 +154,23 @@ def choix_theme(nbr_theme = 1):
 	
 	max_theme = persistance.get_propriete ("backgrounds","theme:max")
 	
-	if nbr_theme > max_theme:
+	if nbr_theme > int (max_theme):
 		nbr_theme = 1
 	
 	persistance.set_propriete ("backgrounds","theme:courant",str (nbr_theme))
-            
+
+def liste_themes ():
+	# C'est con ... ça génère ["1", "2", ..., "max"]
+	max_theme = persistance.get_propriete ("backgrounds", "theme:max")
+	
+	l = []
+
+	i = 1
+	while i <= int (max_theme):
+		l.append (str (i))
+		i += 1
+	return l
+
 def afficher_couleurs(nbr_case,couleurs,answer):
 	""" dessine une ligne du plateau du mastermind avec en argument les donnée envoyé par les autres modules:
     	les couleurs saisies par l'utilisateur et la réponse de l'ordinateur à partir du code secret. Composée de la fonction carré et de la fonction answer

@@ -110,9 +110,12 @@ def gen_main_fsm ():
 				etat = "Niveau"
 			else:
 				iconsole.afficher (etat,"Cette requête est invalide ...")
-		elif etat == "Theme":
+		elif etat == "Theme": # THÈME ......
 			if rep == "list":
-				iconsole.afficher (etat,"Voici la liste des thèmes : 1,2,3,4 ... et oui c'est nul")
+				l = affichage.liste_themes ()
+				for i in l:
+					desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
+					print ("\t {0} - {1}".format (i,desc))
 			elif rep == "fin":
 				iconsole.afficher (etat,"Theme modifié ... ")
 				etat = "Menu"
@@ -124,7 +127,7 @@ def gen_main_fsm ():
 					iconsole.afficher (etat,"Selection theme : " + rep)
 				except:
 					iconsole.afficher (etat,"... ce theme est invalide ")
-		elif etat == "Niveau":
+		elif etat == "Niveau": # NIVEAU ....
 			if rep == "list":
 				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
 			elif rep == "actuel":
