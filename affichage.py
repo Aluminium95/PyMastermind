@@ -131,7 +131,7 @@ def win(score):
 	#path = "Images/Theme" + th + "/perdu.gif"
 	#bgpic(path)
 	goto(245, 125)
-	texte(score)
+	texte ("Score : {0}".format (score))
 	
 def loose(code,score):
 	""" Affiche l'écran de défaite
@@ -143,9 +143,18 @@ def loose(code,score):
 	#th = persistance.get_propriete ("backgrounds","theme:courant")
 	#path = "Images/Theme" + th + "/perdu.gif"
 	#bgpic(path)
-	goto(245, 125)
-	texte(score)
+	aller_a (245, 125)
+	texte ("Score : {0}".format (score))
 	
+	th = persistance.get_propriete ("backgrounds", "theme:courant")
+	y = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":y:plateau"))
+	x = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":x:plateau"))
+	
+	aller_a (x, y + 10 * 50) # On se met pour faire le dernier coup
+
+	for i in code:
+		dessiner_carre (40, couleurs.couleur_to_hexa (i))
+		fd(50)
 	
 
 def choix_theme(nbr_theme = 1):

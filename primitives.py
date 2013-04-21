@@ -227,3 +227,4 @@ def raz ():
 	clear ()
 	reset () # C'est juste un wrapper de turtle en fait ... mais quand même !
 	hideturtle ()
+	speed (0) # C'est officiel ? Et bien oui !
