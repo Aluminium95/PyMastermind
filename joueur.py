@@ -18,7 +18,8 @@ def choisir_code ():
 		c = moteur.definir_code (t)
 		if c == False:
 			iconsole.afficher ("Joueur","Le moteur a refusé votre proposition ...")
-			
+
+	
 def jouer ():
 	""" Fonction qui fait jouer le joueur au mastermind, c'est à dire
 		lui fait deviner le code, jusqu'à ce qu'il perde ou gagne :-)

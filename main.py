@@ -19,7 +19,7 @@ def gen_main_fsm ():
 		
 		@return : generator
 	"""
-	etat = "Menu" # Etat = Menu | Niveau | Theme
+	etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
 	# Variables 
 	code_defini = False
 
@@ -50,6 +50,11 @@ def gen_main_fsm ():
 			"actuel" : "Affiche le thème actuel ...",
 			"fin" : "Engeristre le thème sélectionné et revient au menu",
 			"@" : "Sélectionne le texte rentré comme un thème"
+		},
+		"Humain-Joue" : {
+			"proposer" : "Permet de faire une proposition",
+			"score" : "Permet de savoir le score actuel", # Pour l'instant c'est faux
+			"abandon" : "Permet de revenir au menu, et abandonner la partie"
 		}
 	}
 	
@@ -94,8 +99,10 @@ def gen_main_fsm ():
 				primitives.raz ()
 				chargement.run (10,"arc")
 				affichage.reset ()
-				joueur.jouer ()
+				#
+				# joueur.jouer ()
 				moteur.restant = 10 # Moche !
+				etat = "Humain-Joue"
 			elif rep == "ia-joue" and code_defini == True:
 				primitives.raz ()
 				chargement.run (5,"cercle")
@@ -147,6 +154,43 @@ def gen_main_fsm ():
 					moteur.set_mode (rep)
 				else:
 					iconsole.afficher (etat,"Ce niveau est invalide ...")
+		elif etat == "Humain-Joue":
+			if rep == "abandon":
+				etat = "Menu"
+			elif rep == "proposer":
+				Li = iconsole.demander_tableau()
+				r = moteur.verification_solution (Li)
+				if r == "gagne":
+					iconsole.afficher (etat, "Vous avez gagné !!!")
+					etat = "Menu"
+				elif r == "perdu":
+					iconsole.afficher (etat,"Vous avez perdu !!!")
+					etat = "Menu"
+				elif r == False:
+					iconsole.afficher (etat, "Votre proposition n'a pas de sens ...")
+				else:
+					a,b = r
+					print ("_" * 50) # Afficher à la main ?
+			
+					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+					sa = ""
+					sb = ""
+
+					if a > 1:
+						sa = "s"
+
+					if b > 1:
+						sb = "s"
+			
+					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+
+					iconsole.afficher(etat, messaga)
+					iconsole.afficher(etat, messagb)
+					iconsole.afficher(etat, "Voulez-vous rejouer")
+					print ("_" * 50) # Idem ? ...
+			else:
+				iconsole.afficher (etat, "Requête invalide ...")
 		else:
 			break # Erreur fatale !
 		
