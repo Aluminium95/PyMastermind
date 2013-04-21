@@ -19,10 +19,10 @@ def init (theme = ""):
 		@thème : str
 		@return : None
 	"""
-	# On lève le crayon ! Ça affiche l'écran ... --'
-	up ()
 	
-	
+	# Crée la fenêtre :-)
+	setup (width=600,height=600,startx=400,starty=300)
+
 	# reset () # Reset () -> met l'affichage de « jeu »
 	
 

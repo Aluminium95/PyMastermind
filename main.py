@@ -25,7 +25,7 @@ def gen_main_fsm ():
 	# Variables Humain-Joue
 	plateau_affiche = True
 
-	# Commandes 
+	# Commandes : un gros dictionnaire avec l'aide :-)  
 	aide = {
 		"global" : {
 			"quit" : "Quitte le programme ...",
@@ -78,26 +78,33 @@ def gen_main_fsm ():
 				for i,j in aide[etat].items ():
 					yield ("\t" + i,j)
 			iconsole.afficher_generateur (etat, "Aide : ", gen_help ())
-		elif rep == "quit":
-			continuer = False
 		elif rep == "regles":
+			iconsole.afficher (etat, "Affichage des règles sur la fenêtre graphique ...")
 			primitives.raz ()
 			chargement.run (2,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
 			plateau_affiche = False
 		elif rep == "scores":
+			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
 			primitives.raz ()
 			affichage.high_score ()
 		elif rep == "score":
 			iconsole.afficher (etat, moteur.calcul_score ())
 		elif etat == "Menu":
 			if rep == "ia-code":
+				iconsole.afficher (etat, "L'IA va choisir un code")
+				primitives.raz ()
+				chargement.run (5,"ligne")
+				primitives.raz ()
 				ia.choisir_code ()
 				code_defini = True
+				iconsole.afficher (etat, "L'IA a déterminé un code")
 			elif rep == "humain-code":
+				iconsole.afficher (etat, "L'humain va choisir un code")
 				joueur.choisir_code ()
 				code_defini = True
+				iconsole.afficher (etat, "L'humain a déterminé un code")
 			elif rep == "humain-joue" and code_defini == True:
 				iconsole.separateur ()
 				primitives.raz ()
@@ -109,6 +116,7 @@ def gen_main_fsm ():
 				moteur.restant = 10 # Moche !
 				etat = "Humain-Joue"
 			elif rep == "ia-joue" and code_defini == True:
+				iconsole.afficher (etat, "L'IA va jouer une partie")
 				primitives.raz ()
 				chargement.run (5,"cercle")
 				affichage.reset ()
@@ -161,8 +169,10 @@ def gen_main_fsm ():
 					iconsole.afficher (etat,"Ce niveau est invalide ...")
 		elif etat == "Humain-Joue":
 			if rep == "abandon":
+				iconsole.afficher (etat,"Vous avez abandonné la partie ...")
 				etat = "Menu"
 			if rep == "plateau":
+				iconsole.afficher (etat,"Le plateau est affiché, vous pouvez proposer des solutions")
 				moteur.reprendre_partie ()
 			elif rep == "proposer" and plateau_affiche == True:
 				Li = iconsole.demander_tableau()
