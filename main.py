@@ -20,8 +20,10 @@ def gen_main_fsm ():
 		@return : generator
 	"""
 	etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
-	# Variables 
+	# Variables Menu
 	code_defini = False
+	# Variables Humain-Joue
+	plateau_affiche = True
 
 	# Commandes 
 	aide = {
@@ -52,7 +54,8 @@ def gen_main_fsm ():
 			"@" : "Sélectionne le texte rentré comme un thème"
 		},
 		"Humain-Joue" : {
-			"proposer" : "Permet de faire une proposition",
+			"proposer" : "Permet de faire une proposition, si et seulement si le plateau est affiché",
+			"plateau" : "Permet de réafficher le plateau de jeu",
 			"score" : "Permet de savoir le score actuel", # Pour l'instant c'est faux
 			"abandon" : "Permet de revenir au menu, et abandonner la partie"
 		}
@@ -82,6 +85,7 @@ def gen_main_fsm ():
 			chargement.run (2,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
+			plateau_affiche = False
 		elif rep == "scores":
 			primitives.raz ()
 			affichage.high_score ()
@@ -101,6 +105,7 @@ def gen_main_fsm ():
 				affichage.reset ()
 				#
 				# joueur.jouer ()
+				plateau_affiche = True
 				moteur.restant = 10 # Moche !
 				etat = "Humain-Joue"
 			elif rep == "ia-joue" and code_defini == True:
@@ -157,7 +162,9 @@ def gen_main_fsm ():
 		elif etat == "Humain-Joue":
 			if rep == "abandon":
 				etat = "Menu"
-			elif rep == "proposer":
+			if rep == "plateau":
+				moteur.reprendre_partie ()
+			elif rep == "proposer" and plateau_affiche == True:
 				Li = iconsole.demander_tableau()
 				r = moteur.verification_solution (Li)
 				if r == "gagne":
@@ -187,7 +194,6 @@ def gen_main_fsm ():
 
 					iconsole.afficher(etat, messaga)
 					iconsole.afficher(etat, messagb)
-					iconsole.afficher(etat, "Voulez-vous rejouer")
 					print ("_" * 50) # Idem ? ...
 			else:
 				iconsole.afficher (etat, "Requête invalide ...")

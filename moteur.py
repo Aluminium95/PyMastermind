@@ -36,6 +36,8 @@ def init ():
 
 def reprendre_partie(): #permet de reafficher la partie en cours, grace a l'historique
 	
+	affichage.reset () # Remet l'affichage du plateau
+
 	i = 0
 	j = 0
 	while i < len(historique):
