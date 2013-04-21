@@ -43,9 +43,7 @@
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="TableauInvalide">class <strong>TableauInvalide</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>#&nbsp;EXCEPTIONS<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="moteur.html#TableauInvalide">TableauInvalide</a></dd>
 <dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
@@ -111,7 +109,9 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 &nbsp;<br>
 @tableau&nbsp;:&nbsp;[couleurs&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;tout&nbsp;s'est&nbsp;bien&nbsp;passé</tt></dd></dl>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#TableauInvalide">TableauInvalide</a>&nbsp;(msg)</tt></dd></dl>
  <dl><dt><a name="-double_couleur"><strong>double_couleur</strong></a>(test)</dt><dd><tt>Vérifie&nbsp;si&nbsp;une&nbsp;liste&nbsp;contient&nbsp;deux&nbsp;fois&nbsp;un&nbsp;élément&nbsp;identique<br>
 &nbsp;<br>
 @test&nbsp;:&nbsp;[?&nbsp;...]&nbsp;=&nbsp;la&nbsp;liste&nbsp;à&nbsp;tester<br>
@@ -166,11 +166,12 @@ le&nbsp;score&nbsp;!<br>
 &nbsp;<br>
 @proposition&nbsp;:&nbsp;[couleur&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;la&nbsp;proposition&nbsp;du&nbsp;joueur<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;False&nbsp;|&nbsp;"gagne"&nbsp;|&nbsp;"perdu"&nbsp;|&nbsp;(a,b)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;False&nbsp;:&nbsp;il&nbsp;y&nbsp;a&nbsp;eu&nbsp;un&nbsp;problème&nbsp;dans&nbsp;le&nbsp;code&nbsp;proposé<br>
+@return&nbsp;:&nbsp;"gagne"&nbsp;|&nbsp;"perdu"&nbsp;|&nbsp;(a,b)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"gagne"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;gagné&nbsp;la&nbsp;partie<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;"perdu"&nbsp;:&nbsp;l'utilisateur&nbsp;a&nbsp;perdu&nbsp;la&nbsp;partie<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées&nbsp;<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#TableauInvalide">TableauInvalide</a>&nbsp;(msg)</tt></dd></dl>
 </td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
