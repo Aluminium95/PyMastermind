@@ -12,6 +12,13 @@
 # De TURTLE !!!
 from turtle import * 
 
+# EXCEPTIONS
+
+class ModeTexteInvalide (Exception):
+	pass
+
+# FIN EXCEPTIONS
+
 def get_position ():
 	""" Retourne la position du pointeur 
 		
@@ -92,7 +99,7 @@ def texte (text, t = "normal"):
 	elif t == "petit":
 		write (text, False, "left", ("calibri",12,"normal"))
 	else:
-		return False
+		raise ModeTexteInvalide
 		
 def colonnes (n,c,l,generateur):
 	""" Crée des colonnes de n lignes, appelant 

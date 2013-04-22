@@ -12,6 +12,14 @@ from turtle import goto # moooooochhheeee
 
 from random import choice # faire un choix aléatoire dans une liste 
 
+
+# EXCEPTIONS
+
+class ModeInvalide (Exception):
+	pass 
+
+# FIN EXCEPTIONS
+
 def generer_couleurs_aleatoires (c = False):
 	""" Génère un code aléatoire de couleurs, complètement !
 		
@@ -90,7 +98,7 @@ def choisir_code (mode="aleatoire"):
 	if mode == "aleatoire":
 		ia_alea ()
 	else:
-		return False 
+		raise ModeInvalide
 
 # L'IA joue, avec un mode 
 def jouer (mode = "aleatoire"):
@@ -154,5 +162,5 @@ def jouer (mode = "aleatoire"):
 	elif mode == "knuth":
 		ia_knuth ()
 	else:
-		return False
+		raise ModeInvalide
 	"""

@@ -9,6 +9,16 @@
 # plus facile de tout ce qui requiert
 # par définition des machines à état 
 
+# EXCEPTIONS 
+
+class TransitionImpossible (Exception):
+	def __init__ (self, msg):
+		self.message = msg
+
+
+# FIN EXCEPTIONS
+
+
 ## Constructeur 
 def new ():
 	""" Crée une nouvelle machine à état 
@@ -109,7 +119,7 @@ def transition (machine,arrivee):
 			machine["state"] = arrivee
 			machine["states-vars"][prec] = {} # supprime les variables d'état
 		except:
-			return False # Si ça ne fonctionne pas ... on retourne faux
+			raise TransitionImpossible ("ça marche juste pas")
 			
 	return True # Si tout fonctionne ... on retourne Vrai
 

@@ -11,6 +11,9 @@ import affichage
 class TableauInvalide (Exception):
 	def __init__ (self,msg):
 		self.message = msg
+		
+class ModeInvalide (Exception):
+	pass
 
 # FIN EXCEPTIONS
 
@@ -70,16 +73,21 @@ def set_mode (m):
 		
 		@m : str (facile | moyen | difficile) = Le nouveau mode de jeu 
 
-		@return : bool = si c'est bon 
+		@return : None
+		
+		@throw : 
+			ModeInvalide
+			persistance.CleInvalide
+			persistance.FichierInvalide
+			ValueError
 	"""
 	global restant
 	
 	if m in liste_mode:
 		persistance.set_propriete ("config","niveau",m)
 		restant = int (persistance.get_propriete ("config","coups:"+m))
-		return True
 	else:
-		return False
+		raise ModeInvalide
 		
 def calcul_score ():
 	""" Calcul le score actuel a partir du nombre de coups et de la difficulté
