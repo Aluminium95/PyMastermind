@@ -33,11 +33,70 @@
 <dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
 </font></dt><dd>
 <dl>
-<dt><font face="helvetica, arial"><a href="moteur.html#TableauInvalide">TableauInvalide</a>
+<dt><font face="helvetica, arial"><a href="moteur.html#ModeInvalide">ModeInvalide</a>
+</font></dt><dt><font face="helvetica, arial"><a href="moteur.html#TableauInvalide">TableauInvalide</a>
 </font></dt></dl>
 </dd>
 </dl>
  <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModeInvalide">class <strong>ModeInvalide</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="moteur.html#ModeInvalide">ModeInvalide</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="ModeInvalide-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#ModeInvalide-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="ModeInvalide-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="ModeInvalide-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="ModeInvalide-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeInvalide-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<dl><dt><a name="ModeInvalide-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
 <td colspan=3 valign=bottom>&nbsp;<br>
@@ -159,7 +218,13 @@ les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br
 &nbsp;<br>
 @m&nbsp;:&nbsp;str&nbsp;(facile&nbsp;|&nbsp;moyen&nbsp;|&nbsp;difficile)&nbsp;=&nbsp;Le&nbsp;nouveau&nbsp;mode&nbsp;de&nbsp;jeu&nbsp;<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;c'est&nbsp;bon</tt></dd></dl>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ModeInvalide">ModeInvalide</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ValueError</tt></dd></dl>
  <dl><dt><a name="-verification_solution"><strong>verification_solution</strong></a>(proposition)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
 Si&nbsp;le&nbsp;coup&nbsp;est&nbsp;invalide,&nbsp;on&nbsp;n'enlève&nbsp;pas&nbsp;de&nbsp;vie&nbsp;ni&nbsp;ne&nbsp;diminue&nbsp;<br>
 le&nbsp;score&nbsp;!<br>
