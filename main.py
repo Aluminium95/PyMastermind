@@ -102,11 +102,15 @@ def gen_main_fsm ():
 				iconsole.afficher (etat, "L'IA a déterminé un code")
 			elif rep == "humain-code":
 				iconsole.afficher (etat, "L'humain va choisir un code")
+				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
+				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
 				joueur.choisir_code ()
 				code_defini = True
 				iconsole.afficher (etat, "L'humain a déterminé un code")
 			elif rep == "humain-joue" and code_defini == True:
 				iconsole.separateur ()
+				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
+				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
 				primitives.raz ()
 				chargement.run (10,"arc")
 				affichage.reset ()
@@ -187,7 +191,6 @@ def gen_main_fsm ():
 					iconsole.afficher (etat, "Votre proposition n'a pas de sens ...")
 				else:
 					a,b = r
-					print ("_" * 50) # Afficher à la main ?
 			
 					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
 					sa = ""
@@ -204,7 +207,6 @@ def gen_main_fsm ():
 
 					iconsole.afficher(etat, messaga)
 					iconsole.afficher(etat, messagb)
-					print ("_" * 50) # Idem ? ...
 			else:
 				iconsole.afficher (etat, "Requête invalide ...")
 		else:
