@@ -164,7 +164,7 @@ def jouer (mode = "aleatoire"):
 			return coup # On retourne le coup une fois généré !
 
 		def coup_tentative ():
-		 	""" Fait une tentative d'interprétation des 
+			""" Fait une tentative d'interprétation des 
 				résultats !
 			"""
 			coup = [] # Un coup

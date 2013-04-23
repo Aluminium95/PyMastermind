@@ -1,8 +1,11 @@
 0 |=> Vous pouvez à tout moment consulter votre score ... \n taper « score »
-1 |=> Vous pouvez consulter les règles en tapand « règles »
+1 |=> Vous pouvez consulter les règles ...\n en tapant « règles »
 2 |=> À grand pouvoir grandes responsabilités ...
 3 |=> "The most dangerous food is wedding cake" \n -- American proverb
 4 |=> "Engineering without managment is art" \n -- Jeff Johnson
 5 |=> "A man without a woman is like \n a statue without pigeons"
-6 |=> "I used to think I was indecisive, but now I'm not so sure."
-max |=> 7
+6 |=> "I used to think I was indecisive ... \n ... but now I'm not so sure."
+7 |=> Two is not equal to three, \n even for large values of two.
+8 |=> Chemistry professors never die,\n they just fail to react.
+9 |=> It is impossible to make anything foolproof ... \n ... fools are so ingenious.
+max |=> 10
