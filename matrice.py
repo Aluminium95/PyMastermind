@@ -49,4 +49,18 @@ def set (matrice,i,j,val):
 def get (matrice,i,j):
 	return matrice[(i,j)]
 
+def display (matrice,univers):
+	
+	print (" |" + "|".join (univers))
+	
+	tailles = [len (k) for k in univers]
 
+	k = 0
+	for i in parcourir_lignes (matrice):
+		s = str (k)
+		for p,j in enumerate (i):
+			s += "|" + " " * (tailles[p] - len (str (j))) + str (j)
+		s += "|"
+		print (s)
+		k += 1
+	print ("\n")

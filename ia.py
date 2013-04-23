@@ -127,9 +127,16 @@ def jouer (mode = "aleatoire"):
 				iconsole.afficher ("IA", "Erreur ... " + t.message)
 	
 	def ia_matrice ():
-		
+		""" Une ia qui fait une matrice probabiliste
+			qui permet d'étudier quelle doit être 
+			la combinaison couleurs/cases qui
+			correspond au code
+		"""
+		# Il est pratique d'avoir l'univers sous la main 
+		# (l'ensemble des couleurs disponibles dans l'ordre)
 		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
 		
+		# On crée la matrice 
 		m = matrice.make (4, len (univers), lambda x,y: 0) # une matrice couleur/case
 
 		def coup_alea ():
@@ -183,11 +190,11 @@ def jouer (mode = "aleatoire"):
 				if a == 0:
 					for i,j in enumerate (coup):
 						matrice.set (m,i,univers.index (j), "F") # Met faux dans les cases 
-						if b == 4:
+						if b > 0:
 							k = 0
 							for element in matrice.parcourir_colonne (m, univers.index (j)):
 								if element != "F":
-									matrice.set (m, k, univers.index (j), element + 4)
+									matrice.set (m, k, univers.index (j), element + b)
 								k += 1
 						elif b == 0:
 							k = 0
@@ -200,10 +207,7 @@ def jouer (mode = "aleatoire"):
 						old = matrice.get (m,i,univers.index (j))
 						if old != "F":
 							matrice.set (m,i,univers.index (j), old + sc)
-
-				for i in matrice.parcourir_lignes (m):
-					print (i)
-				
+				matrice.display (m,univers)
 
 
 	def ia_knuth ():
