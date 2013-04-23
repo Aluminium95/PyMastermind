@@ -120,7 +120,7 @@ def gen_main_fsm ():
 				primitives.raz ()
 				chargement.run (5,"cercle")
 				affichage.reset ()
-				ia.jouer ("knuth")
+				ia.jouer ("aleatoire")
 				moteur.restant = 10 # Moche !
 			elif rep == "theme":
 				iconsole.separateur ()

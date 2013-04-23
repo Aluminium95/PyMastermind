@@ -8,6 +8,8 @@ import iconsole
 import persistance
 import chargement
 
+import matrice
+
 from turtle import goto # moooooochhheeee
 
 from random import choice # faire un choix aléatoire dans une liste 
@@ -123,6 +125,85 @@ def jouer (mode = "aleatoire"):
 
 			except moteur.TableauInvalide as t:
 				iconsole.afficher ("IA", "Erreur ... " + t.message)
+	
+	def ia_matrice ():
+		
+		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
+		
+		m = matrice.make (4, len (univers), lambda x,y: 0) # une matrice couleur/case
+
+		def coup_alea ():
+			coup = []
+			while coup == []:
+				coup = generer_couleurs_aleatoires (univers)
+				valide = True
+				for i,j in enumerate (coup):
+					if matrice.get (m,i, univers.index (j)) == "F":
+						valide = False
+				
+				hi = moteur.get_historique ()
+				for h in hi:
+					if h[0] == coup:
+						valide = False
+
+				if valide == False:
+					coup = []
+			return coup
+
+		def coup_tentative ():
+			coup = []
+			for i in matrice.parcourir_lignes (m):
+				maximum = 0
+				maximum_pos = 0
+				for j,k in enumerate (i):
+					if k != "F" and k >= maximum:
+						maximum = k
+						maximum_pos = j
+				coup.append (univers[maximum_pos])
+				
+			for h in moteur.get_historique ():
+				if h[0] == coup:
+					return coup_alea ()
+		
+			return coup
+	
+		while True:
+			coup = []
+			if moteur.get_restant () < 5:
+				coup = coup_tentative ()
+			else:
+				coup = coup_alea ()
+			
+			reponse = moteur.verification_solution (coup)
+
+			if reponse == "gagne" or reponse == "perdu":
+				return reponse
+			else:
+				a,b = reponse
+				if a == 0:
+					for i,j in enumerate (coup):
+						matrice.set (m,i,univers.index (j), "F") # Met faux dans les cases 
+						if b == 4:
+							k = 0
+							for element in matrice.parcourir_colonne (m, univers.index (j)):
+								if element != "F":
+									matrice.set (m, k, univers.index (j), element + 4)
+								k += 1
+						elif b == 0:
+							k = 0
+							for element in matrice.parcourir_colonne (m, univers.index (j)):
+								matrice.set (m, k, univers.index (j), "F")
+								k += 1
+				else:
+					sc = 10 * a + b
+					for i,j in enumerate (coup):
+						old = matrice.get (m,i,univers.index (j))
+						if old != "F":
+							matrice.set (m,i,univers.index (j), old + sc)
+
+				for i in matrice.parcourir_lignes (m):
+					print (i)
+				
 
 
 	def ia_knuth ():
@@ -155,12 +236,9 @@ def jouer (mode = "aleatoire"):
 			except moteur.TableauInvalide as t:
 				iconsole.afficher ("IA", "Erreur ... " + t.message)
 
-	ia_knuth ()
-	"""
 	if mode == "aleatoire":
-		ia_alea ()
+		ia_matrice ()
 	elif mode == "knuth":
 		ia_knuth ()
 	else:
 		raise ModeInvalide
-	"""
