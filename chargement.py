@@ -126,6 +126,7 @@ def run (t,mode = "cercle"):
 	yc = try_load_int ("backgrounds","theme:" + th + ":y:chargement")
 
 	primitives.aller_a (xa,ya)
+	primitives.color ("red")
 	primitives.texte (astuce,"petit")
 	
 	primitives.aller_a (xc,yc)

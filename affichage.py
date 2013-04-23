@@ -127,12 +127,14 @@ def win(score):
 		@bg : str
 		@return : None 
 	"""
-	#th = persistance.get_propriete ("backgrounds", "theme:courant")
-	#path = "Images/Theme" + th + "/perdu.gif"
-	#bgpic(path)
+	raz () # Ou pas ?
+
 	th = persistance.get_propriete ("backgrounds", "theme:courant")
 	y = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":y:plateau"))
 	x = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":x:plateau"))
+	
+	path = "Images/Theme" + th + "/gagne.gif"
+	bgpic(path)
 	
 	aller_a (x + 4 * 50 + 25, y + 10 * 50 - 35)
 	texte (score)
@@ -143,15 +145,14 @@ def loose(code,score):
 		@bg : str
 		@return : None
 	"""
-	#reset() - On peut laisser le plateau !
-	#th = persistance.get_propriete ("backgrounds","theme:courant")
-	#path = "Images/Theme" + th + "/perdu.gif"
-	#bgpic(path)
-	
+	raz () # Ou pas ?
 	
 	th = persistance.get_propriete ("backgrounds", "theme:courant")
 	y = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":y:plateau"))
 	x = int (persistance.get_propriete ("backgrounds", "theme:" + th + ":x:plateau"))
+	
+	path = "Images/Theme" + th + "/perdu.gif"
+	bgpic(path)
 	
 	aller_a (x, y + 10 * 50) # On se met pour faire le dernier coup
 	
