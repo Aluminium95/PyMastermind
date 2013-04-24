@@ -65,7 +65,11 @@ def gen_main_fsm ():
 	while True:
 		r = (yield etat) # Récupère le message (et retourne l'état)
 		
-		if rep == "help":
+		# Magnifique ÉNORME switch ... 
+		# le principe est de récupérer la commande, et 
+		# de regarder l'état actuel ... et faire des actions 
+		# en fonction :)
+		if rep == "help": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat,"Aide :")
 			# On affiche manuellement des trucs ... c'est MAAAAAL
 			def gen_help ():
@@ -78,20 +82,20 @@ def gen_main_fsm ():
 				for i,j in aide[etat].items ():
 					yield ("\t" + i,j)
 			iconsole.afficher_generateur (etat, "Aide : ", gen_help ())
-		elif rep == "regles":
+		elif rep == "regles": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des règles sur la fenêtre graphique ...")
 			primitives.raz ()
 			chargement.run (2,"ligne")
 			primitives.raz ()
 			regles.regles_normal ("#AAA")
 			plateau_affiche = False
-		elif rep == "scores":
+		elif rep == "scores": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
 			primitives.raz ()
 			affichage.high_score ()
-		elif rep == "score":
+		elif rep == "score": # Euh ... elle est censée être disponible uniquement localement ... 
 			iconsole.afficher (etat, moteur.calcul_score ())
-		elif etat == "Menu":
+		elif etat == "Menu": # MENU
 			if rep == "ia-code":
 				iconsole.afficher (etat, "L'IA va choisir un code")
 				primitives.raz ()
@@ -171,42 +175,45 @@ def gen_main_fsm ():
 					moteur.set_mode (rep)
 				else:
 					iconsole.afficher (etat,"Ce niveau est invalide ...")
-		elif etat == "Humain-Joue":
-			if rep == "abandon":
+		elif etat == "Humain-Joue": # HUMAIN-JOUE
+			if rep == "abandon": # Abandon de la partie -> retour au menu
 				iconsole.afficher (etat,"Vous avez abandonné la partie ...")
 				etat = "Menu"
 			if rep == "plateau":
 				iconsole.afficher (etat,"Le plateau est affiché, vous pouvez proposer des solutions")
 				moteur.reprendre_partie ()
 			elif rep == "proposer" and plateau_affiche == True:
-				Li = iconsole.demander_tableau()
-				r = moteur.verification_solution (Li)
-				if r == "gagne":
-					iconsole.afficher (etat, "Vous avez gagné !!!")
-					etat = "Menu"
-				elif r == "perdu":
-					iconsole.afficher (etat,"Vous avez perdu !!!")
-					etat = "Menu"
-				elif r == False:
-					iconsole.afficher (etat, "Votre proposition n'a pas de sens ...")
-				else:
-					a,b = r
-			
-					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
-					sa = ""
-					sb = ""
+				Li = iconsole.demander_tableau ()
+				try:
+					r = moteur.verification_solution (Li)
+					if r == "gagne":
+						iconsole.afficher (etat, "Vous avez gagné !!!")
+						etat = "Menu"
+					elif r == "perdu":
+						iconsole.afficher (etat,"Vous avez perdu !!!")
+						etat = "Menu"
+					elif r == False:
+						iconsole.afficher (etat, "Votre proposition n'a pas de sens ...")
+					else:
+						a,b = r
+				
+						# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+						sa = ""
+						sb = ""
 
-					if a > 1:
-						sa = "s"
+						if a > 1:
+							sa = "s"
 
-					if b > 1:
-						sb = "s"
-			
-					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
-					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+						if b > 1:
+							sb = "s"
+				
+						messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+						messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
 
-					iconsole.afficher(etat, messaga)
-					iconsole.afficher(etat, messagb)
+						iconsole.afficher(etat, messaga)
+						iconsole.afficher(etat, messagb)
+				except moteur.TableauInvalide as exception:
+					iconsole.afficher (etat, "Le tableau est invalide : {0}".format (exception.message))
 			else:
 				iconsole.afficher (etat, "Requête invalide ...")
 		else:
@@ -241,5 +248,8 @@ if __name__ == '__main__':
 			iconsole.afficher ("Programme", "Quitte ...")
 		else:
 			e = machine.send (rep) 
-
-	persistance.save ()
+	
+	try:
+		persistance.save ()
+	except persistance.EcritureImpossible:
+		iconsole.afficher ("Erreur", "Il est impossible de sauvgarder les modifications de paramètres ...")

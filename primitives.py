@@ -59,7 +59,7 @@ def polygone (n,w,c):
 	color (c)
 	down ()
 	for i in range (0,n):
-		forward (w)
+		forward (w - 1)
 		right (360 / n)
 	up ()
 	

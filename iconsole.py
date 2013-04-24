@@ -52,13 +52,19 @@ def afficher_generateur (acteur,message,generateur, t = 0):
 		else:
 			print ("\t" * (t + 1) + "- {0}".format (i))
 
-def demander_tableau ():
-	""" Demande un tableau """
+def demander_tableau (n = 4):
+	""" Demande un tableau
+		
+		@n : int = nombre de cases 
+		
+		@return : [str ...] = le tableau rentré par l'utilisateur 
+	"""
+	
 	i = 0
 	Li = []
 	afficher ("Entrée tableau","Début du tableau...",1)
 	
-	while i < 4:
+	while i < n:
 		x = demander("Entée Tableau","entrez une couleur",2)
 		Li.append(x)
 		i = i + 1
