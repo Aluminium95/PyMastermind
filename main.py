@@ -158,7 +158,7 @@ def gen_main_fsm ():
 					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
 					iconsole.afficher (etat,"Selection theme : " + rep)
 					primitives.raz ()
-					path = "Images/Theme" + rep + "/gagne.gif"
+					path = "Images/Theme" + rep + "/fond.gif"
 					primitives.bgpic (path)
 				except:
 					iconsole.afficher (etat,"... ce theme est invalide ")
