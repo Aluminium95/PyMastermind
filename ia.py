@@ -226,7 +226,16 @@ def jouer (mode = "aleatoire"):
 								matrice.set (m, k, univers.index (j), "F")
 								k += 1
 				else:
-					sc = 10 * a + b
+					sc = 2^(a) + b
+					
+					def my_little_lambda (i,j,v):
+						if v == "F":
+							return "F"
+						else:
+							return v - a / 2
+
+					matrice.apply (m, my_little_lambda)
+	
 					for i,j in enumerate (coup):
 						old = matrice.get (m,i,univers.index (j))
 						if old != "F":

@@ -14,17 +14,7 @@ import regles
 import primitives 
 import chargement 
 
-def gen_main_fsm ():
-	""" Retourne le générateur de la boucle principale !
-		
-		@return : generator
-	"""
-	etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
-	# Variables Menu
-	code_defini = False
-	# Variables Humain-Joue
-	plateau_affiche = True
-
+def afficher_aide (etat):
 	# Commandes : un gros dictionnaire avec l'aide :-)  
 	aide = {
 		"global" : {
@@ -61,6 +51,31 @@ def gen_main_fsm ():
 		}
 	}
 	
+	iconsole.afficher (etat,"Aide :")
+	# On affiche manuellement des trucs ... c'est MAAAAAL
+	def gen_help ():
+		yield "Commandes globales ..."
+		for i,j in aide["global"].items ():
+			yield ("\t" + i,j)
+		
+		yield "Commandes d'état"
+		for i,j in aide[etat].items ():
+			yield ("\t" + i,j)
+	iconsole.afficher_generateur (etat, "Aide : ", gen_help ())
+	
+
+def gen_main_fsm ():
+	""" Retourne le générateur de la boucle principale !
+		
+		@return : generator
+	"""
+	etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
+	
+	# Variables Menu
+	code_defini = False
+	# Variables Humain-Joue
+	plateau_affiche = True
+
 	# On commence la boucle infinie !
 	while True:
 		r = (yield etat) # Récupère le message (et retourne l'état)
@@ -70,18 +85,7 @@ def gen_main_fsm ():
 		# de regarder l'état actuel ... et faire des actions 
 		# en fonction :)
 		if rep == "help": # Commande indépendante de l'état courant !
-			iconsole.afficher (etat,"Aide :")
-			# On affiche manuellement des trucs ... c'est MAAAAAL
-			def gen_help ():
-				yield "Commandes globales ..."
-				for i,j in aide["global"].items ():
-					yield ("\t" + i,j)
-				
-				yield "Commandes d'état"
-
-				for i,j in aide[etat].items ():
-					yield ("\t" + i,j)
-			iconsole.afficher_generateur (etat, "Aide : ", gen_help ())
+			afficher_aide (etat)
 		elif rep == "regles": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des règles sur la fenêtre graphique ...")
 			primitives.raz ()
