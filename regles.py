@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #règles du jeu (mode facile, normal et difficile)
-#014/04/2013
+#24/04/2013
 
 import persistance
 import couleurs
@@ -12,20 +12,20 @@ def niveau(niveau):
 	write(text, False, "center", ("calibri",16,"underline"))
 
 def main_text():
-	goto(50,150)
+	goto(-133,150)
 	text2="- Vous devez deviner le code couleur du jeu."
 	texte (text2)
 	goto(-132,120)
 	dot(10,"red")
-	goto(80,110)
+	goto(-127,110)
 	text3=" : Signifie que la couleur est juste et bien placée."
 	texte (text3)
 	goto(-132,90)
 	dot(10,"black")
-	goto(90,80)
+	goto(-127,80)
 	text4=" : Signifie que la couleur est juste mais mal placée."
 	texte (text4)
-	goto(9,50)
+	goto(-133,50)
     
 
 def nombre_coup(coups):
@@ -35,17 +35,17 @@ def nombre_coup(coups):
 def main_text2():
 	text6="- Le code à trouver est composé de 4 couleurs."
 	texte (text6)
-	goto(69,-10)
+	goto(-133,-10)
 	text7="- Vous avez 10 essais maximum pour le deviner."
 	texte (text7)
-	goto(50,-40)
+	goto(20,-40)
 	color("red")
 	begin_fill()
 	text8="Attention,"
 	texte (text8)
 	end_fill()
 	color("black")
-	goto(80,-60)
+	goto(-133,-60)
 	text9="si rien n'est indiqué, alors votre réponse est fausse."
 	texte (text9)
 	goto(-185,-130)
@@ -62,14 +62,7 @@ def carre(taille):
 		c = c + 1
 	up ()
 
-def carre_facile():
-	li = couleurs.liste_couleurs ()
-	
-	li = li[0:8]
 
-	g = generateur_couleurs (tableau)
-
-	colonnes (4, 25, 120, g)
 	
 def generateur_couleurs (tableau):
 	""" Générateur qui dessine 
@@ -99,6 +92,14 @@ def generateur_couleurs (tableau):
 		left (90)
 		fd (-20)
 		yield 
+def carre_facile():
+	li = couleurs.liste_couleurs ()
+	
+	li = li[0:8]
+
+	g = generateur_couleurs (li)
+
+	colonnes (4,25,120,g)
 
 
 def carre_normal ():
@@ -121,16 +122,17 @@ def regles_facile(couleur):
 	"""Affiche les règles ainsi que les aides du jeu. En mode facile.
 	(un fond y est inséré)"""
 	screensize(600,600,"white")
-	bgpic("ff.gif")
+	bgpic("Images/Regles/ff.gif")
 	up()
 	goto(30,220)
 	color(couleur)
 	niveau('facile')
 	main_text()
-	goto(8,50)
+	goto(-133,50)
 	nombre_coup('8')
-	goto(64,20)
+	goto(-133,20)
 	main_text2()
+	goto (-245,-160)
 	carre_facile()
 
 
@@ -145,13 +147,11 @@ def regles_normal(couleur):
 	color(couleur)
 	niveau('normal')
 	main_text()
-	goto(14,50)
+	goto(-133,50)
 	nombre_coup('12')
-	goto(63,20)
+	goto(-133,20)
 	main_text2()
-	
 	goto (-245,-160)
-
 	carre_normal()
 
 def regles_difficile(couleur):
@@ -161,16 +161,17 @@ def regles_difficile(couleur):
 	th = persistance.get_propriete ("backgrounds", "theme:courant")
 		
 
-	bgpic ("Images/Theme" + th + "/fd.gif")
+	bgpic ("Images/Regles/fd.gif")
 	up()
 	goto(30,220)
 	color(couleur)
 	niveau('difficile')
 	main_text()
-	goto(14,50)
+	goto(-133,50)
 	nombre_coup('16')
-	goto(63,20)
+	goto(-133,20)
 	main_text2()
+	goto (-245,-160)
 	carre_difficile()
 
 
@@ -183,6 +184,6 @@ if __name__ == '__main__':
 	persistance.init ()
 	couleurs.init ()
 	
-	regles_normal ("#000")
+	regles_difficile ("#000")
 	
 	mainloop ()
