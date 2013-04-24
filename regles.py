@@ -4,6 +4,8 @@
 
 import persistance
 import couleurs
+
+
 from primitives import *
 
 
@@ -174,6 +176,13 @@ def regles_difficile(couleur):
 	goto (-245,-160)
 	carre_difficile()
 
+def regles_mode (mode):
+	if mode == "facile":
+		regles_facile ("#AAA")
+	elif mode == "normal":
+		regles_normal ("#AAA")
+	else:
+		regles_difficile ("#AAA")
 
 # Cette partie de code ne s'exécute que
 # quand le programme est lancé directement 

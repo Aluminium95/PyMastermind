@@ -87,7 +87,7 @@ def gen_main_fsm ():
 			primitives.raz ()
 			chargement.run (2,"ligne")
 			primitives.raz ()
-			regles.regles_normal ("#AAA")
+			regles.regles_mode (moteur.get_mode ())
 			plateau_affiche = False
 		elif rep == "scores": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
@@ -157,6 +157,9 @@ def gen_main_fsm ():
 				try:
 					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
 					iconsole.afficher (etat,"Selection theme : " + rep)
+					primitives.raz ()
+					path = "Images/Theme" + rep + "/gagne.gif"
+					primitives.bgpic (path)
 				except:
 					iconsole.afficher (etat,"... ce theme est invalide ")
 		elif etat == "Niveau": # NIVEAU ....
@@ -173,6 +176,8 @@ def gen_main_fsm ():
 				if rep in (moteur.get_liste_modes ()):
 					iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
 					moteur.set_mode (rep)
+					primitives.raz ()
+					regles.regles_mode (rep) # affiche les règles 
 				else:
 					iconsole.afficher (etat,"Ce niveau est invalide ...")
 		elif etat == "Humain-Joue": # HUMAIN-JOUE
