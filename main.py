@@ -14,6 +14,8 @@ import regles
 import primitives 
 import chargement 
 
+from random import randint
+
 def afficher_aide (etat):
 	# Commandes : un gros dictionnaire avec l'aide :-)  
 	aide = {
@@ -21,6 +23,7 @@ def afficher_aide (etat):
 			"quit" : "Quitte le programme ...",
 			"regles" : "Affiche les règles du jeu ...",
 			"scores" : "Affiche les meilleurs scores du jeu ...",
+			"fortune" : "Affiche une petite phrase aléatoire sympa ...",
 			"score" : "Affiche le score actuel ..."
 		},
 		"Menu" : {
@@ -113,6 +116,11 @@ def gen_main_fsm ():
 			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
 			# primitives.raz ()
 			affichage.high_score ()
+		elif rep == "fortune":
+			maximum = persistance.get_propriete ("phrases", "max")
+			maximum = int (maximum)
+			aleatoire = randint (0,maximum - 1)
+			iconsole.afficher (etat, persistance.get_propriete ("phrases", str (aleatoire)))
 		elif rep == "score": # Euh ... elle est censée être disponible uniquement localement ... 
 			iconsole.afficher (etat, moteur.calcul_score ())
 		elif etat == "Menu": # MENU

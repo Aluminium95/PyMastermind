@@ -19,6 +19,7 @@ def choisir_code ():
 		if c == False:
 			iconsole.afficher ("Joueur","Le moteur a refusé votre proposition ...")
 
+# Cette fonction devient ... inutile !
 	
 def jouer ():
 	""" Fonction qui fait jouer le joueur au mastermind, c'est à dire
