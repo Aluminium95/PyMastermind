@@ -101,6 +101,8 @@ def run (t,mode = "cercle"):
 				 persistance.CleInvalide
 				 persistance.ValeurInvalide (chemin,fichier)
 	"""
+	
+	primitives.raz ()
 	primitives.speed (0)
 	
 	# Affiche le fond d'écran approprié

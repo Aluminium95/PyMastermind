@@ -51,7 +51,6 @@ def afficher_aide (etat):
 		}
 	}
 	
-	iconsole.afficher (etat,"Aide :")
 	# On affiche manuellement des trucs ... c'est MAAAAAL
 	def gen_help ():
 		yield "Commandes globales ..."
@@ -69,7 +68,25 @@ def gen_main_fsm ():
 		
 		@return : generator
 	"""
-	etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
+	
+	class State:
+		def __init__ (self,initial):
+			self.etat = initial
+			
+		def get (self):
+			return self.etat
+
+		def set (self,valeur):
+			self.etat = valeur
+			
+			iconsole.separateur ()
+			iconsole.afficher (valeur, "Vous êtes maintenant dans un nouveau mode")
+			afficher_aide (valeur)
+
+	objet_etat = State ("Menu")
+	# etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
+	
+	
 	
 	# Variables Menu
 	code_defini = False
@@ -78,6 +95,7 @@ def gen_main_fsm ():
 
 	# On commence la boucle infinie !
 	while True:
+		etat = objet_etat.get ()
 		r = (yield etat) # Récupère le message (et retourne l'état)
 		
 		# Magnifique ÉNORME switch ... 
@@ -88,21 +106,18 @@ def gen_main_fsm ():
 			afficher_aide (etat)
 		elif rep == "regles": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des règles sur la fenêtre graphique ...")
-			primitives.raz ()
 			chargement.run (2,"ligne")
-			primitives.raz ()
 			regles.regles_mode (moteur.get_mode ())
 			plateau_affiche = False
 		elif rep == "scores": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
-			primitives.raz ()
+			# primitives.raz ()
 			affichage.high_score ()
 		elif rep == "score": # Euh ... elle est censée être disponible uniquement localement ... 
 			iconsole.afficher (etat, moteur.calcul_score ())
 		elif etat == "Menu": # MENU
 			if rep == "ia-code":
 				iconsole.afficher (etat, "L'IA va choisir un code")
-				primitives.raz ()
 				chargement.run (5,"ligne")
 				primitives.raz ()
 				ia.choisir_code ()
@@ -116,32 +131,26 @@ def gen_main_fsm ():
 				code_defini = True
 				iconsole.afficher (etat, "L'humain a déterminé un code")
 			elif rep == "humain-joue" and code_defini == True:
-				iconsole.separateur ()
-				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
-				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-				primitives.raz ()
 				chargement.run (10,"arc")
 				affichage.reset ()
 				#
 				# joueur.jouer ()
 				plateau_affiche = True
 				moteur.restant = 10 # Moche !
-				etat = "Humain-Joue"
+				objet_etat.set ("Humain-Joue")
+				
+				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
+				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
 			elif rep == "ia-joue" and code_defini == True:
 				iconsole.afficher (etat, "L'IA va jouer une partie")
-				primitives.raz ()
 				chargement.run (5,"cercle")
 				affichage.reset ()
 				ia.jouer ("aleatoire")
 				moteur.restant = 10 # Moche !
 			elif rep == "theme":
-				iconsole.separateur ()
-				iconsole.afficher (etat, "Vous êtes dans le mode « Theme »")
-				etat = "Theme"
+				objet_etat.set ("Theme")
 			elif rep == "niveau":
-				iconsole.separateur ()
-				iconsole.afficher (etat, "Vous êtes dans le mode « Niveau »")
-				etat = "Niveau"
+				objet_etat.set ("Niveau")
 			else:
 				iconsole.afficher (etat,"Cette requête est invalide ...")
 		elif etat == "Theme": # THÈME ......
@@ -154,9 +163,7 @@ def gen_main_fsm ():
 				iconsole.afficher_generateur (etat,"Themes",gen_liste_theme ())
 			elif rep == "fin":
 				iconsole.afficher (etat,"Theme modifié ... ")
-				etat = "Menu"
-				iconsole.separateur ()
-				iconsole.afficher (etat, "Vous êtes dans le mode « Menu »")
+				objet_etat.set ("Menu")
 			else:
 				try:
 					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
@@ -173,21 +180,18 @@ def gen_main_fsm ():
 				iconsole.afficher (etat, moteur.get_mode ())
 			elif rep == "fin":
 				iconsole.afficher (etat,"Niveau modifié pour la prochaine partie")
-				etat = "Menu"
-				iconsole.separateur ()
-				iconsole.afficher (etat, "Vous êtes dans le mode « Menu »")
+				objet_etat.set ("Menu")
 			else:
 				if rep in (moteur.get_liste_modes ()):
 					iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
 					moteur.set_mode (rep)
-					primitives.raz ()
 					regles.regles_mode (rep) # affiche les règles 
 				else:
 					iconsole.afficher (etat,"Ce niveau est invalide ...")
 		elif etat == "Humain-Joue": # HUMAIN-JOUE
 			if rep == "abandon": # Abandon de la partie -> retour au menu
 				iconsole.afficher (etat,"Vous avez abandonné la partie ...")
-				etat = "Menu"
+				objet_etat.set ("Menu")
 			if rep == "plateau":
 				iconsole.afficher (etat,"Le plateau est affiché, vous pouvez proposer des solutions")
 				moteur.reprendre_partie ()
@@ -197,10 +201,10 @@ def gen_main_fsm ():
 					r = moteur.verification_solution (Li)
 					if r == "gagne":
 						iconsole.afficher (etat, "Vous avez gagné !!!")
-						etat = "Menu"
+						objet_etat.set ("Menu")
 					elif r == "perdu":
 						iconsole.afficher (etat,"Vous avez perdu !!!")
-						etat = "Menu"
+						objet_etat.set ("Menu")
 					elif r == False:
 						iconsole.afficher (etat, "Votre proposition n'a pas de sens ...")
 					else:

@@ -13,6 +13,7 @@ import matrice
 from turtle import goto # moooooochhheeee
 
 from random import choice # faire un choix aléatoire dans une liste 
+from random import random 
 
 
 # EXCEPTIONS
@@ -211,7 +212,15 @@ def jouer (mode = "aleatoire"):
 				# ce code tente de remplir la matrice d'informations 
 			 	# les plus pertinentes possibles à partir de ce couple
 				# et des couleurs jouées ... Mais c'est dur !
-				if a == 0:
+				
+				if a + b == 4:
+					def une_petite_lambda (i,j,v):
+						if univers[j] not in coup:
+							return "F"
+						else:
+							return v
+					matrice.apply (m, une_petite_lambda)
+				elif a == 0:
 					for i,j in enumerate (coup):
 						matrice.set (m,i,univers.index (j), "F") # Met faux dans les cases 
 						if b > 0:
@@ -225,14 +234,14 @@ def jouer (mode = "aleatoire"):
 							for element in matrice.parcourir_colonne (m, univers.index (j)):
 								matrice.set (m, k, univers.index (j), "F")
 								k += 1
-				else:
-					sc = 2^(a) + b
+				else: # A ≠ 0
+					sc = 20 * a + b
 					
 					def my_little_lambda (i,j,v):
 						if v == "F":
 							return "F"
 						else:
-							return v - a / 2
+							return v - 5 * a
 
 					matrice.apply (m, my_little_lambda)
 	
@@ -240,6 +249,7 @@ def jouer (mode = "aleatoire"):
 						old = matrice.get (m,i,univers.index (j))
 						if old != "F":
 							matrice.set (m,i,univers.index (j), old + sc)
+				
 				matrice.display (m,univers) # Affiche la matrice résultante !
 
 

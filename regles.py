@@ -177,6 +177,9 @@ def regles_difficile(couleur):
 	carre_difficile()
 
 def regles_mode (mode):
+	
+	raz () # efface l'écran 
+
 	if mode == "facile":
 		regles_facile ("#AAA")
 	elif mode == "normal":
