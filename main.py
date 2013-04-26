@@ -189,8 +189,12 @@ def gen_main_fsm ():
 					primitives.raz ()
 					path = "Images/Theme" + rep + "/fond.gif"
 					primitives.bgpic (path)
-				except:
-					iconsole.afficher (etat,"... ce theme est invalide ")
+				except ValueError:
+					iconsole.afficher (etat, "Il faut entrer le numéro du thème ...")
+				except persistance.CleInvalide:
+					iconsole.afficher (etat, "Euh ... ce thème ne peut être chargé ...")
+				except persistance.FichierInvalide:
+					iconsole.afficher (etat,"Priez pauvres fous, le fichier de configuration est introuvable !")
 		elif etat == "Niveau": # NIVEAU ....
 			if rep == "list":
 				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
