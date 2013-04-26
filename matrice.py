@@ -21,6 +21,16 @@ def make (n,m,func):
 			matrice[(i,j)] = func (i,j)
 	return matrice
 
+def apply (matrice, func):
+	for i in range (0, matrice["n"]):
+		for j in range (0, matrice ["m"]):
+			matrice[(i,j)] = func (i,j,matrice[(i,j)])
+
+def parcourir_matrice (matrice):
+	for i in range (0,matrice["n"]):
+		for j in range (0, matrice["m"]):
+			yield matrice[(i,j)]
+
 def parcourir_colonne (matrice,m):
 	for i in range (0,matrice["n"]):
 		yield matrice[(i,m)]

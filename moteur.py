@@ -276,7 +276,7 @@ def proposition_solution (proposition, code):
 	
 	solution = list (code) # Création d'une copie de la liste :-) 
 
-	while i < len (code): #cherche les bonnes couleurs bien placées.
+	while i < len (code): # cherche les bonnes couleurs bien placées.
 		if solution[i] == proposition_copie[i]:
 			a = a+1
 			solution[i] = "*"
