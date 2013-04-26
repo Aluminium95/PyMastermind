@@ -246,19 +246,31 @@ def creer_bouton (x,y,l,couleur,texte):
 	up ()
 	
 def generer_score():
-     for i in range(0,5):
-        down()
-        score = persistance.get_propriete("scores",str (i) + ":score")
-        texte(score)
-        up()
-        yield
-        
-     for i in range(0,5):
-        down()
-        nom = persistance.get_propriete("scores",str (i) + ":nom")
-        texte(nom)
-        up()
-        yield
+	
+	for i in range (1,6):
+		seth (0)
+		up ()
+		forward (40)
+		texte (str (i) + " - ")
+		yield
+	
+	for i in range(0,5):
+		down()
+		score = persistance.get_propriete("scores",str (i) + ":score")
+		texte(score)
+		up()
+		yield
+
+	for i in range(0,5):
+		down()
+		nom = persistance.get_propriete("scores",str (i) + ":nom")
+		texte(nom)
+		up()
+		yield
         
 def high_score ():
+	raz ()
+	aller_a (-200,200)
+	texte ("Meilleurs scores","important")
+	aller_a (-200,150)
 	colonnes(5, 50, 100, generer_score () )

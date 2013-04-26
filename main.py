@@ -72,7 +72,7 @@ def gen_main_fsm ():
 		@return : generator
 	"""
 	
-	class State:
+	class State: # Une petite classe qui permet d'avoir une fonction de transition 
 		def __init__ (self,initial):
 			self.etat = initial
 			

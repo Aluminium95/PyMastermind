@@ -86,7 +86,7 @@ def nouvelle_partie ():
 		@throw : 
 			persistance.CleInvalide # pour le nombre de coups
 			persistance.FichierInvalide # « config »
-			persistance.ValeurInvalide (message) # nombre de coups 
+			persistance.ValeurInvalide (fichier,clé) # nombre de coups 
 	"""
 	global en_cours_de_partie,historique,restant,code_secret,mode_partie
 	
@@ -99,8 +99,8 @@ def nouvelle_partie ():
 	
 	try:
 		restant = int (restant)
-	except:
-		raise persistance.ValeurInvalide ("« config -> coups:" + mode_partie + ", n'est pas une valeur correcte !")
+	except ValueError:
+		raise persistance.ValeurInvalide ("config", "coups:" + mode_partie)
 	
 	affichage.reset () # Remet l'affichage du plateau
 
@@ -169,15 +169,12 @@ def set_mode (m):
 		
 		@throw : 
 			ModeInvalide
-			persistance.CleInvalide
 			persistance.FichierInvalide
-			ValueError
 	"""
 	global restant
 	
 	if m in liste_mode:
 		persistance.set_propriete ("config","niveau",m)
-		restant = int (persistance.get_propriete ("config","coups:"+m))
 	else:
 		raise ModeInvalide
 		

@@ -59,7 +59,7 @@ def polygone (n,w,c):
 	color (c)
 	down ()
 	for i in range (0,n):
-		forward (w - 1)
+		forward (w - 1) # On prend en compte la taille du trait qui fait déjà 1px
 		right (360 / n)
 	up ()
 	

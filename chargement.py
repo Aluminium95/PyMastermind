@@ -29,7 +29,10 @@ def generer_couleurs (col,n, t = 40):
 	"""
 	current_color = col
 	for i in range (0,n):
-		current_color = couleurs.eclaircir (current_color, "11")
+		try:
+			current_color = couleurs.eclaircir (current_color, "11")
+		except:
+			pass # un erreur ...
 		primitives.dot (t, current_color)
 		yield
 
@@ -51,7 +54,8 @@ def animation (t,mode = "cercle",taille = 40):
 		liste = ["carmin","or","chartreuse"]
 	elif t % 2 == 0:
 		liste = ["carmin","chartreuse"]
-	
+	else:
+		liste = ["zinzolin","indigo"]
 
 	k = 0
 	# speed (0)
