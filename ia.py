@@ -55,18 +55,36 @@ def create_list(S):
 		@S : list = L'univers, l'ensemble des possibilités, pour le mastermind, le nombre de couleurs
 		@return : list = li la liste de toutes les combinaison
 	"""
-	li=[]
-	for i in S:
-		temp = [0,0,0,0]
-		temp[0] = i
-		for j in S:
-			temp[1] = j
-			for k in S:
-				temp[2] = k
-				for l in S:
-					temp[3] = l
-					li.append(list(temp))
-	return li
+	L = []
+	
+	n = len (S) - 1
+
+	rotors = [-1,0,0,0]
+
+	while rotors != [n,n,n,n]:
+		
+		rotors[0] += 1
+		
+		i = 0
+		while i < len (rotors):
+			if rotors[i] == (n + 1): # Si la couleurs n'existe pas, on recommence
+				rotors[i] = 0 # repart à zéro
+				try: # Je pense que ça peut planter
+					rotors[i + 1] += 1 # Et ajoute 1 au suivant
+				except:
+					# On y arrive jamais ici ... c'est con 
+					print ("euh ... ici faut vérifier")
+			else:
+				break
+			i += 1 
+		
+		nl = []
+		for i in rotors:
+			nl.append (S[i])
+		
+		L.append (nl)
+	
+	return L
 
 # L'IA définit le code 
 def choisir_code (mode="aleatoire"):

@@ -167,7 +167,7 @@ def gen_main_fsm ():
 					iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
 					chargement.run (5,"cercle")
 					affichage.reset ()
-					ia.jouer ("aleatoire")
+					ia.jouer ("knuth")
 				except moteur.PasEnCoursDePartie:
 					iconsole.afficher (etat, "Vous n'êtes pas en cours de partie ... il faut définir un code !")
 				except:
