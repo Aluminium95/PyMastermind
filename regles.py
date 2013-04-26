@@ -71,7 +71,7 @@ def carre_facile():
 
 	colonnes (4, 25, 120, g)
 	
-def generateur_couleurs (tableau):
+def generateur_couleurs (tableau): # C'est lui 
 	""" Générateur qui dessine 
 		une à une les couleurs 
 		du tableau, avec leur nom 
@@ -101,12 +101,12 @@ def generateur_couleurs (tableau):
 		yield 
 
 
-def carre_normal ():
+def carre_normal (): # C'est le bon exemple !
 	li = couleurs.liste_couleurs ()
 	
 	li = li[0:12] # en normal il y a 12 couleurs
 	
-	g = generateur_couleurs (li)
+	g = generateur_couleurs (li) # generateur_couleurs ()
 
 	# Un tableau, 4 lignes, epacées de 25px, avec 120px entre les colonnes :-)
 	colonnes (4,25,120,g)

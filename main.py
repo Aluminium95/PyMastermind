@@ -87,7 +87,13 @@ def gen_main_fsm ():
 			primitives.raz ()
 			chargement.run (2,"ligne")
 			primitives.raz ()
-			regles.regles_normal ("#AAA")
+			niveau_actuel = moteur.get_mode ()
+			if niveau_actuel == "facile":
+				regles.regles_facile ("#AAA")
+			elif niveau_actuel == "normal":
+				regles.regles_normal ("#AAA") 
+			else:
+				regles.regles_difficile ("#AAA")
 			plateau_affiche = False
 		elif rep == "scores": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
@@ -155,10 +161,14 @@ def gen_main_fsm ():
 				iconsole.afficher (etat, "Vous êtes dans le mode « Menu »")
 			else:
 				try:
+					
 					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
 					iconsole.afficher (etat,"Selection theme : " + rep)
 				except:
 					iconsole.afficher (etat,"... ce theme est invalide ")
+					
+					primitives.raz ()
+					primitives.bgpic ("Images/Themes" + int (rep) + "/fond.gif") # Pas certain ... faut tester 
 		elif etat == "Niveau": # NIVEAU ....
 			if rep == "list":
 				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
