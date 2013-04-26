@@ -249,9 +249,16 @@ def generer_score():
 	
 	for i in range (1,6):
 		seth (0)
+		
+		
 		up ()
 		forward (40)
-		texte (str (i) + " - ")
+		polygone (6,20)
+		up ()
+		forward (3)
+		left (90)
+		forward (5)
+		texte (str (i))
 		yield
 	
 	for i in range(0,5):

@@ -84,7 +84,7 @@ def generateur_couleurs (tableau): # C'est lui
 		except:
 			pass # Une putain d'erreue survient ici !
 		begin_fill ()
-		carre (10)
+		polygone (4,10) # Un ... Carré
 		end_fill ()
 		
 		fd (20)

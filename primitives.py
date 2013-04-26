@@ -40,7 +40,7 @@ def aller_a (x,y,trace = False):
 		up ()
 	goto (x,y)
 
-def polygone (n,w,c):
+def polygone (n,w,c = False):
 	""" Crée un polygone régulier de n côtés de longueur w
 		et de couleur c
 		
@@ -56,14 +56,16 @@ def polygone (n,w,c):
 		@avance : le pointeur revient à sa position initiale, dans sa 
 			direction initiale !
 	"""
-	color (c)
+	if c != False:
+		color (c)
+		
 	down ()
 	for i in range (0,n):
 		forward (w - 1) # On prend en compte la taille du trait qui fait déjà 1px
-		right (360 / n)
+		left (360 / n)
 	up ()
 	
-def carre (w,c):
+def carre (w,c = False):
 	""" Crée un carré de longueur w et de couleur c
 	
 		Le carré est crée à partir du point actuel de turtle 
