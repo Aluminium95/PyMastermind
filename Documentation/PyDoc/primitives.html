@@ -1,0 +1,282 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module primitives</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>primitives</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/aluminium95/Documents/Scolaire/Lycée/Terminale/ISN/Code/Devoirs/Projet BAC/PyMastermind/primitives.py">/home/aluminium95/Documents/Scolaire/Lycée/Terminale/ISN/Code/Devoirs/Projet BAC/PyMastermind/primitives.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
+#<br>
+#&nbsp;Module&nbsp;qui&nbsp;permet&nbsp;<br>
+#&nbsp;de&nbsp;faire&nbsp;abstraction&nbsp;de&nbsp;<br>
+#&nbsp;turtle&nbsp;(un&nbsp;peu)<br>
+#&nbsp;et&nbsp;qui&nbsp;met&nbsp;à&nbsp;disposition&nbsp;des&nbsp;<br>
+#&nbsp;primitives&nbsp;de&nbsp;dessin&nbsp;plus&nbsp;<br>
+#&nbsp;possées&nbsp;!</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="primitives.html#ModeTexteInvalide">ModeTexteInvalide</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModeTexteInvalide">class <strong>ModeTexteInvalide</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="primitives.html#ModeTexteInvalide">ModeTexteInvalide</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="ModeTexteInvalide-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#ModeTexteInvalide-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="ModeTexteInvalide-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#ModeTexteInvalide-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<dl><dt><a name="ModeTexteInvalide-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-acos"><strong>acos</strong></a>(...)</dt><dd><tt><a href="#-acos">acos</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;arc&nbsp;cosine&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-aller_a"><strong>aller_a</strong></a>(x, y, trace<font color="#909090">=False</font>)</dt><dd><tt>Se&nbsp;déplace&nbsp;aux&nbsp;coordonnées&nbsp;x,y<br>
+&nbsp;<br>
+@x&nbsp;:&nbsp;int&nbsp;=&nbsp;position&nbsp;en&nbsp;x<br>
+@y&nbsp;:&nbsp;int&nbsp;=&nbsp;position&nbsp;en&nbsp;y<br>
+@trace&nbsp;:&nbsp;bool&nbsp;=&nbsp;si&nbsp;on&nbsp;trace&nbsp;le&nbsp;trait<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-arc"><strong>arc</strong></a>(an, dist, generateur)</dt><dd><tt>Crée&nbsp;un&nbsp;arc&nbsp;de&nbsp;cercle&nbsp;avec&nbsp;chaque&nbsp;point&nbsp;<br>
+espacés&nbsp;de&nbsp;dist&nbsp;et&nbsp;avec&nbsp;un&nbsp;angle&nbsp;relatif&nbsp;de&nbsp;an<br>
+&nbsp;<br>
+@an&nbsp;:&nbsp;int&nbsp;=&nbsp;l'angle&nbsp;relatif&nbsp;de&nbsp;décalage&nbsp;entre&nbsp;deux&nbsp;points<br>
+@dist&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;distance&nbsp;entre&nbsp;deux&nbsp;points<br>
+@generateur&nbsp;:&nbsp;generator&nbsp;=&nbsp;la&nbsp;fonction&nbsp;génératrice<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;Le&nbsp;pointeur&nbsp;est&nbsp;remis&nbsp;à&nbsp;sa&nbsp;place&nbsp;initiale&nbsp;après&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;utilisation,&nbsp;et&nbsp;dans&nbsp;son&nbsp;orientation&nbsp;initiale</tt></dd></dl>
+ <dl><dt><a name="-asin"><strong>asin</strong></a>(...)</dt><dd><tt><a href="#-asin">asin</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;arc&nbsp;sine&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-atan"><strong>atan</strong></a>(...)</dt><dd><tt><a href="#-atan">atan</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-atan2"><strong>atan2</strong></a>(...)</dt><dd><tt><a href="#-atan2">atan2</a>(y,&nbsp;x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;y/x.<br>
+Unlike&nbsp;<a href="#-atan">atan</a>(y/x),&nbsp;the&nbsp;signs&nbsp;of&nbsp;both&nbsp;x&nbsp;and&nbsp;y&nbsp;are&nbsp;considered.</tt></dd></dl>
+ <dl><dt><a name="-carre"><strong>carre</strong></a>(w, c)</dt><dd><tt>Crée&nbsp;un&nbsp;carré&nbsp;de&nbsp;longueur&nbsp;w&nbsp;et&nbsp;de&nbsp;couleur&nbsp;c<br>
+&nbsp;<br>
+Le&nbsp;carré&nbsp;est&nbsp;crée&nbsp;à&nbsp;partir&nbsp;du&nbsp;point&nbsp;actuel&nbsp;de&nbsp;turtle&nbsp;<br>
+en&nbsp;allant&nbsp;vers&nbsp;la&nbsp;droite.<br>
+&nbsp;<br>
+@w&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;taille&nbsp;du&nbsp;côté<br>
+@c&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;couleur&nbsp;du&nbsp;carré<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;le&nbsp;pointeur&nbsp;revient&nbsp;à&nbsp;sa&nbsp;position&nbsp;initiale,&nbsp;dans&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sa&nbsp;direction&nbsp;initiale</tt></dd></dl>
+ <dl><dt><a name="-ceil"><strong>ceil</strong></a>(...)</dt><dd><tt><a href="#-ceil">ceil</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;ceiling&nbsp;of&nbsp;x&nbsp;as&nbsp;a&nbsp;float.<br>
+This&nbsp;is&nbsp;the&nbsp;smallest&nbsp;integral&nbsp;value&nbsp;&gt;=&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-cercle"><strong>cercle</strong></a>(npts, distance, generateur)</dt><dd><tt>Crée&nbsp;un&nbsp;cercle&nbsp;avec&nbsp;n&nbsp;points,&nbsp;appelant&nbsp;la&nbsp;fonction&nbsp;<br>
+pour&nbsp;chaque&nbsp;point,&nbsp;le&nbsp;cercle&nbsp;a&nbsp;un&nbsp;rayon&nbsp;de&nbsp;distance<br>
+et&nbsp;est&nbsp;de&nbsp;centre&nbsp;la&nbsp;position&nbsp;du&nbsp;pointeur&nbsp;<br>
+&nbsp;<br>
+@npts&nbsp;:&nbsp;int&nbsp;=&nbsp;nombre&nbsp;de&nbsp;points&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;le&nbsp;premier&nbsp;point&nbsp;est&nbsp;vers&nbsp;le&nbsp;nord&nbsp;!<br>
+@distance&nbsp;:&nbsp;int&nbsp;=&nbsp;rayon&nbsp;du&nbsp;cercle<br>
+@generateur&nbsp;:&nbsp;generator&nbsp;=&nbsp;fonction&nbsp;génératrice&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;garde&nbsp;l'angle&nbsp;et&nbsp;la&nbsp;position&nbsp;du&nbsp;pointeur&nbsp;avant&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l'opération&nbsp;!</tt></dd></dl>
+ <dl><dt><a name="-colonnes"><strong>colonnes</strong></a>(n, c, l, generateur)</dt><dd><tt>Crée&nbsp;des&nbsp;colonnes&nbsp;de&nbsp;n&nbsp;lignes,&nbsp;appelant&nbsp;<br>
+périodiquement&nbsp;la&nbsp;fonction&nbsp;func<br>
+&nbsp;<br>
+@n&nbsp;:&nbsp;int&nbsp;=&nbsp;nombre&nbsp;de&nbsp;lignes&nbsp;<br>
+@c&nbsp;:&nbsp;int&nbsp;=&nbsp;espace&nbsp;entre&nbsp;les&nbsp;lignes<br>
+@l&nbsp;:&nbsp;int&nbsp;=&nbsp;espace&nbsp;entre&nbsp;les&nbsp;colonnes&nbsp;<br>
+@generateur:&nbsp;generator&nbsp;=&nbsp;un&nbsp;générateur&nbsp;python<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;le&nbsp;pointeur&nbsp;ne&nbsp;bouge&nbsp;pas&nbsp;!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;à&nbsp;chaque&nbsp;dessin,&nbsp;le&nbsp;pointeur&nbsp;conserve&nbsp;l'angle&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;laissé&nbsp;par&nbsp;le&nbsp;précédent&nbsp;dessin&nbsp;!</tt></dd></dl>
+ <dl><dt><a name="-cos"><strong>cos</strong></a>(...)</dt><dd><tt><a href="#-cos">cos</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;cosine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+ <dl><dt><a name="-cosh"><strong>cosh</strong></a>(...)</dt><dd><tt><a href="#-cosh">cosh</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;hyperbolic&nbsp;cosine&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-exp"><strong>exp</strong></a>(...)</dt><dd><tt><a href="#-exp">exp</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;e&nbsp;raised&nbsp;to&nbsp;the&nbsp;power&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-fabs"><strong>fabs</strong></a>(...)</dt><dd><tt><a href="#-fabs">fabs</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;absolute&nbsp;value&nbsp;of&nbsp;the&nbsp;float&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-floor"><strong>floor</strong></a>(...)</dt><dd><tt><a href="#-floor">floor</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;floor&nbsp;of&nbsp;x&nbsp;as&nbsp;a&nbsp;float.<br>
+This&nbsp;is&nbsp;the&nbsp;largest&nbsp;integral&nbsp;value&nbsp;&lt;=&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-fmod"><strong>fmod</strong></a>(...)</dt><dd><tt><a href="#-fmod">fmod</a>(x,&nbsp;y)<br>
+&nbsp;<br>
+Return&nbsp;<a href="#-fmod">fmod</a>(x,&nbsp;y),&nbsp;according&nbsp;to&nbsp;platform&nbsp;C.&nbsp;&nbsp;x&nbsp;%&nbsp;y&nbsp;may&nbsp;differ.</tt></dd></dl>
+ <dl><dt><a name="-frexp"><strong>frexp</strong></a>(...)</dt><dd><tt><a href="#-frexp">frexp</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;mantissa&nbsp;and&nbsp;exponent&nbsp;of&nbsp;x,&nbsp;as&nbsp;pair&nbsp;(m,&nbsp;e).<br>
+m&nbsp;is&nbsp;a&nbsp;float&nbsp;and&nbsp;e&nbsp;is&nbsp;an&nbsp;int,&nbsp;such&nbsp;that&nbsp;x&nbsp;=&nbsp;m&nbsp;*&nbsp;2.**e.<br>
+If&nbsp;x&nbsp;is&nbsp;0,&nbsp;m&nbsp;and&nbsp;e&nbsp;are&nbsp;both&nbsp;0.&nbsp;&nbsp;Else&nbsp;0.5&nbsp;&lt;=&nbsp;abs(m)&nbsp;&lt;&nbsp;1.0.</tt></dd></dl>
+ <dl><dt><a name="-get_position"><strong>get_position</strong></a>()</dt><dd><tt>Retourne&nbsp;la&nbsp;position&nbsp;du&nbsp;pointeur&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;(x,y)&nbsp;position&nbsp;du&nbsp;pointeur</tt></dd></dl>
+ <dl><dt><a name="-hypot"><strong>hypot</strong></a>(...)</dt><dd><tt><a href="#-hypot">hypot</a>(x,&nbsp;y)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;Euclidean&nbsp;distance,&nbsp;<a href="#-sqrt">sqrt</a>(x*x&nbsp;+&nbsp;y*y).</tt></dd></dl>
+ <dl><dt><a name="-ldexp"><strong>ldexp</strong></a>(...)</dt><dd><tt><a href="#-ldexp">ldexp</a>(x,&nbsp;i)<br>
+&nbsp;<br>
+Return&nbsp;x&nbsp;*&nbsp;(2**i).</tt></dd></dl>
+ <dl><dt><a name="-lignes"><strong>lignes</strong></a>(n, l, c, generateur)</dt><dd><tt>Crée&nbsp;une&nbsp;ligne&nbsp;de&nbsp;n&nbsp;élément,&nbsp;espacés&nbsp;par&nbsp;l&nbsp;pxiels<br>
+et&nbsp;revient&nbsp;à&nbsp;la&nbsp;ligne&nbsp;avec&nbsp;un&nbsp;interligne&nbsp;de&nbsp;c&nbsp;pixels<br>
+en&nbsp;utilisant&nbsp;le&nbsp;générateur&nbsp;pour&nbsp;les&nbsp;remplir<br>
+&nbsp;<br>
+@n&nbsp;:&nbsp;int&nbsp;=&nbsp;nombre&nbsp;d'éléments&nbsp;par&nbsp;ligne<br>
+@l&nbsp;:&nbsp;int&nbsp;=&nbsp;espace&nbsp;entre&nbsp;deux&nbsp;éléments<br>
+@c&nbsp;:&nbsp;int&nbsp;=&nbsp;espace&nbsp;entre&nbsp;deux&nbsp;lignes<br>
+@generateur&nbsp;:&nbsp;generator&nbsp;=&nbsp;generateur<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-log"><strong>log</strong></a>(...)</dt><dd><tt><a href="#-log">log</a>(x[,&nbsp;base])<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;logarithm&nbsp;of&nbsp;x&nbsp;to&nbsp;the&nbsp;given&nbsp;base.<br>
+If&nbsp;the&nbsp;base&nbsp;not&nbsp;specified,&nbsp;returns&nbsp;the&nbsp;natural&nbsp;logarithm&nbsp;(base&nbsp;e)&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-log10"><strong>log10</strong></a>(...)</dt><dd><tt><a href="#-log10">log10</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;base&nbsp;10&nbsp;logarithm&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-modf"><strong>modf</strong></a>(...)</dt><dd><tt><a href="#-modf">modf</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;fractional&nbsp;and&nbsp;integer&nbsp;parts&nbsp;of&nbsp;x.&nbsp;&nbsp;Both&nbsp;results&nbsp;carry&nbsp;the&nbsp;sign<br>
+of&nbsp;x&nbsp;and&nbsp;are&nbsp;floats.</tt></dd></dl>
+ <dl><dt><a name="-polygone"><strong>polygone</strong></a>(n, w, c)</dt><dd><tt>Crée&nbsp;un&nbsp;polygone&nbsp;régulier&nbsp;de&nbsp;n&nbsp;côtés&nbsp;de&nbsp;longueur&nbsp;w<br>
+et&nbsp;de&nbsp;couleur&nbsp;c<br>
+&nbsp;<br>
+Le&nbsp;polygone&nbsp;est&nbsp;crée&nbsp;en&nbsp;partant&nbsp;du&nbsp;point&nbsp;actuel&nbsp;<br>
+de&nbsp;turtle,&nbsp;et&nbsp;se&nbsp;construit&nbsp;en&nbsp;allant&nbsp;vers&nbsp;la&nbsp;droite<br>
+&nbsp;<br>
+@n&nbsp;:&nbsp;int&nbsp;=&nbsp;le&nbsp;nombre&nbsp;de&nbsp;côtés&nbsp;<br>
+@w&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;taille&nbsp;d'un&nbsp;côté<br>
+@c&nbsp;:&nbsp;color&nbsp;=&nbsp;une&nbsp;couleur&nbsp;(type&nbsp;turtle)<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;le&nbsp;pointeur&nbsp;revient&nbsp;à&nbsp;sa&nbsp;position&nbsp;initiale,&nbsp;dans&nbsp;sa&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;initiale&nbsp;!</tt></dd></dl>
+ <dl><dt><a name="-pow"><strong>pow</strong></a>(...)</dt><dd><tt><a href="#-pow">pow</a>(x,&nbsp;y)<br>
+&nbsp;<br>
+Return&nbsp;x**y&nbsp;(x&nbsp;to&nbsp;the&nbsp;power&nbsp;of&nbsp;y).</tt></dd></dl>
+ <dl><dt><a name="-raz"><strong>raz</strong></a>()</dt><dd><tt>Remise&nbsp;À&nbsp;Zéro&nbsp;de&nbsp;l'écran&nbsp;:&nbsp;pointeur&nbsp;réinitialisé&nbsp;(orientation&nbsp;et&nbsp;position)&nbsp;<br>
+et&nbsp;efface&nbsp;tout&nbsp;ce&nbsp;qu'il&nbsp;y&nbsp;avait,&nbsp;y&nbsp;compris&nbsp;le&nbsp;fond<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-sin"><strong>sin</strong></a>(...)</dt><dd><tt><a href="#-sin">sin</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;sine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+ <dl><dt><a name="-sinh"><strong>sinh</strong></a>(...)</dt><dd><tt><a href="#-sinh">sinh</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;hyperbolic&nbsp;sine&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-sqrt"><strong>sqrt</strong></a>(...)</dt><dd><tt><a href="#-sqrt">sqrt</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;square&nbsp;root&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-tan"><strong>tan</strong></a>(...)</dt><dd><tt><a href="#-tan">tan</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;tangent&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>
+ <dl><dt><a name="-tanh"><strong>tanh</strong></a>(...)</dt><dd><tt><a href="#-tanh">tanh</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;hyperbolic&nbsp;tangent&nbsp;of&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-texte"><strong>texte</strong></a>(text, t<font color="#909090">='normal'</font>)</dt><dd><tt>Écrit&nbsp;du&nbsp;texte&nbsp;sur&nbsp;l'écran,&nbsp;de&nbsp;manière&nbsp;jolie&nbsp;...<br>
+&nbsp;<br>
+@text&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;texte&nbsp;à&nbsp;écrire<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avec&nbsp;le&nbsp;pointeur&nbsp;comme&nbsp;repère&nbsp;bas-gauche&nbsp;de&nbsp;la&nbsp;première&nbsp;lettre<br>
+@t&nbsp;:&nbsp;str&nbsp;(normal&nbsp;|&nbsp;important&nbsp;|&nbsp;petit)&nbsp;=&nbsp;le&nbsp;type&nbsp;de&nbsp;texte<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None&nbsp;|&nbsp;False&nbsp;(si&nbsp;le&nbsp;@t&nbsp;est&nbsp;mauvais)<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;le&nbsp;pointeur&nbsp;revient&nbsp;à&nbsp;sa&nbsp;position&nbsp;initiale,&nbsp;dans&nbsp;sa<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;initiale&nbsp;!</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>e</strong> = 2.718281828459045<br>
+<strong>pi</strong> = 3.141592653589793</td></tr></table>
+</body></html>
