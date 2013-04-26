@@ -3,8 +3,6 @@
 #
 # Lopez Aliaume
 #
-# 18:55
-# 26 mars 2013
 #
 # Ce module sert à gérer les 
 # couleurs ... 

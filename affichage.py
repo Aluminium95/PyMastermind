@@ -166,6 +166,17 @@ def loose(code,score):
 	texte (score)
 
 def choix_theme(nbr_theme = 1):
+	""" Sélectionne un thème (modifie le fichier de configuration)
+		
+		@nbr_theme : int = le numéro du nouveau thème sélectionné
+		
+		@return : None
+		
+		@throw :
+			persistance.CleInvalide
+			persistance.FichierInvalide
+			ValueEror # si jamais il y a une valeur erronée dans backgrounds -> theme:max
+	"""
 	if not isinstance (nbr_theme, int):
 		nbr_theme = 1
 	

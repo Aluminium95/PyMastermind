@@ -5,6 +5,7 @@
 import persistance
 import couleurs
 
+import moteur
 
 from primitives import *
 
@@ -195,6 +196,7 @@ def regles_mode (mode):
 if __name__ == '__main__':
 	persistance.init ()
 	couleurs.init ()
+	moteur.init ()
 	
 	regles_difficile ("#000")
 	
