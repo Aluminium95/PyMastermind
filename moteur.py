@@ -15,50 +15,124 @@ class TableauInvalide (Exception):
 class ModeInvalide (Exception):
 	pass
 
+class PasEnCoursDePartie (Exception):
+	pass
+
 # FIN EXCEPTIONS
 
-historique = []
-code_secret = False
-restant = 10
-liste_mode = ["facile","moyen","difficile"]
+liste_mode = ["facile","moyen","difficile"] # Les modes disponibles 
+en_cours_de_partie = False # Est on en train de jouer ?
+
+# Variables relatives à une partie 
+historique = False # Les coups joués 
+code_secret = False # Le code secret 
+restant = False # Le nombre de coups restants
+mode_partie = False # Le mode de la partie actuelle
+
 
 def get_nombre_couleurs ():
 	""" Retourne le nombre de couleurs disponibles dans 
 		le niveau de difficulté courant 
 
 		@return : int 
+		
+		@throw :
+			PasEnCoursDePartie
+			persistance.CleInvalide
+			persistance.FichierInvalide
+			ValueError
 	"""
-	return int (persistance.get_propriete ("config","couleurs:" + get_mode ()))
+	if en_cours_de_partie == True:
+		return int (persistance.get_propriete ("config","couleurs:" + mode_partie)
+	else:
+		raise PasEnCoursDePartie
+
+def get_nombre_couleurs_next ():
+	""" Retourne le nombre de couleurs disponibles dans 
+		le futur niveau de difficulté 
+		
+		@return : int 
+		
+		@throw :
+			persistance.CleInvalide
+			persistance.FichierInvalide
+			ValueError
+	"""
+	return int (persistance.get_propriete ("config", "couleurs: "+ get_mode ()))
 
 def init ():
 	""" Initialise le module """
-	global restant
-	
-	restant = persistance.get_propriete ("config","coups:" + get_mode ())
-	restant = int (restant)
+	pass 
 
-def reprendre_partie(): #permet de reafficher la partie en cours, grace a l'historique
+def nouvelle_partie ():
+	""" Commence une nouvelle partie,
+		nécessaire pour pouvoir utilser les 
+		fonctions relatives à une partie ... afin 
+		de bien savoir ce qui se passe 
+		
+		@return : None
+		
+		@throw : 
+			persistance.CleInvalide # pour le nombre de coups
+			persistance.FichierInvalide # « config »
+			persistance.ValeurInvalide (message) # nombre de coups 
+	"""
+	global historique,restant,code_secret,mode_partie
 	
-	affichage.reset () # Remet l'affichage du plateau
+	en_cours_de_partie = True
+	historique = [] # Initialise l'historique
+	
+	mode_partie = get_mode () # susceptible de planter 
+	
+	restant = persistance.get_propriete ("config", "coups:" + mode_partie)
 
-	i = 0
-	j = 0
-	while i < len(historique):
+def reprendre_partie ():
+	""" Réaffiche le plateau et les coups joués précédement dans 
+		la partie sur l'écran Turtle 
 		
-		couleurs_hexa = []
+		@return : None
 		
-		for j in historique[0]: # alala, c'est trop con sinon 
-			couleurs_hexa.append (couleurs.string_to_hexa (j))
+		@throw : PasEnCoursDePartie
+	"""
+	if en_cours_de_partie == True:
+		affichage.reset () # Remet l'affichage du plateau
+
+		i = 0
+		j = 0
+		while i < len(historique):
 			
-		affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
-		
+			couleurs_hexa = []
+			
+			for j in historique[0]: # alala, c'est trop con sinon 
+				couleurs_hexa.append (couleurs.string_to_hexa (j))
+				
+			affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
+	else:
+		raise PasEnCoursDePartie
 
 def get_mode ():
 	""" Retourne le mode de jeu actuel 
 		
 		@return : str (facile | moyen | difficile)
+		
+		@throw : PasEnCoursDePartie
 	"""
-	return persistance.get_propriete ("config","niveau")
+	if en_cours_de_partie == True:
+		return mode_partie
+	else:
+		raise PasEnCoursDePartie
+
+def get_next_mode ():
+	""" Retourne le mode de jeu de la prochaine partie
+		(comme définit dans le fichier de configuration)
+		
+		@return : str (facile | moyen | difficile)
+		
+		@throw :
+			persistance.CleInvalide
+			persistance.FichierInvalide
+	"""
+	return persistance.get_propriete ("config", "niveau")
 
 def get_liste_modes ():
 	""" Retourne la liste des modes disonibles 
@@ -69,7 +143,7 @@ def get_liste_modes ():
 	return list (liste_mode)
 
 def set_mode (m): 
-	""" Change le mode de jeu 
+	""" Change le mode de jeu pour la PROCHAINE partie jouée
 		
 		@m : str (facile | moyen | difficile) = Le nouveau mode de jeu 
 
@@ -94,22 +168,28 @@ def calcul_score ():
 		
 		@return : int = le score calculé 
 	"""
-	
-	coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
-	mode = get_mode()
-	if mode == "facile":
-		score = coups
-	elif mode == "moyen":
-		score = coups + 2
+	if en_cours_de_partie == True:
+		coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
+		mode = get_mode()
+		if mode == "facile":
+			score = coups
+		elif mode == "moyen":
+			score = coups + 2
+		else:
+			score = coups + 5
+		
+		return score
 	else:
-		score = coups + 5
-	
-	return score
+		raise PasEnCoursDePartie
 
 def recup_score():
 	""" Recupere la liste des 5 meilleurs scores
 		
 		@return : [ int ... ] = les 5 meilleurs scores 
+		
+		@throw : 
+			persistance.CleInvalide
+			persistance.FichierInvalide
 	"""
       
 	score = []
@@ -120,7 +200,15 @@ def recup_score():
 	return score
 
 def recup_nom(): #recupere les noms des joueurs des 5 meilleurs scores
-
+	""" Récupère les noms des joueurs des 5 meilleurs scores 
+		dans le fichier de scores
+		
+		@return : [str ... ] = les 5 meilleurs noms
+		
+		@throw : 
+			persistance.CleInvalide
+			persistance.FichierInvalide
+	"""
 	nom = []
 	i = 0
 	while i < 5:
@@ -128,12 +216,17 @@ def recup_nom(): #recupere les noms des joueurs des 5 meilleurs scores
 		i = i+1
 	return nom
 
-def enregistre_score (nom_du_joueur = "AAA"): 
+def enregistre_score (nom_du_joueur = "AAA"):
 	""" Enregistre le score actuel dans le top 5 des scores s'il est superieur a un de ces derniers
 		
 		@return : None
+		
+		@throw : 
+			PasEnCoursDePartie
+			persistance.CleInvalide
+			persistance.FichierInvalide
 	"""
-	score_actuel = calcul_score ()
+	score_actuel = calcul_score () # Throw PasEnCoursDePartie si besoin ... 
 
 	top_score = recup_score ()
 	nom = recup_nom()
@@ -161,15 +254,26 @@ def get_historique():
 				... 
 				[ COUP , RESULTAT ] 
 			]
+			
+		@throw :
+			PasEnCoursDePartie
 	"""
-	return list (historique) # Retourne une copie de l'historique
+	if en_cours_de_partie == True:
+		return list (historique) # Retourne une copie de l'historique
+	else:
+		raise PasEnCoursDePartie
 
 def get_restant (): 
 	""" Retourne le nombre de coups restants 
 		
 		@return : int
+		
+		@throw : PasEnCoursDePartie
 	"""
-	return restant
+	if en_cours_de_partie == True:
+		return restant
+	else:
+		raise PasEnCoursDePartie
 
 def double_couleur (test):
 	""" Vérifie si une liste contient deux fois un élément identique
@@ -194,15 +298,20 @@ def definir_code (tableau):
 		@return : None
 
 		@throw : TableauInvalide (msg) 
+				PasEnCoursDePartie
 	"""
 	global code_secret
-	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
-		for i in tableau:
-			if couleurs.is_string (i) == False:
-				raise TableauInvalide ("Une couleur est invalide")
-		code_secret = tableau
+	
+	if en_cours_de_partie == True:
+		if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
+			for i in tableau:
+				if couleurs.is_string (i) == False:
+					raise TableauInvalide ("Une couleur est invalide")
+			code_secret = tableau
+		else:
+			raise TableauInvalide ("Le tableau ne contient pas le bon nombre de cases")
 	else:
-		raise TableauInvalide ("Le tableau ne contient pas le bon nombre de cases")
+		raise PasEnCoursDePartie
 
 def verification_solution (proposition): 
 	""" Fonction qui effectue un coup du joueur !
@@ -217,7 +326,12 @@ def verification_solution (proposition):
 			- (a,b) : a couleurs justes et bien placées, b couleurs justes et mal placées 
 		
 		@throw : TableauInvalide (msg)
+				PasEnCoursDePartie
 	"""
+	
+	if en_cours_de_partie != True:
+		raise PasEnCoursDePartie
+	
 	i = 0
 	reponse = proposition_solution(proposition, code_secret)
 	
