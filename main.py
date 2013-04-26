@@ -88,11 +88,7 @@ def gen_main_fsm ():
 
 	objet_etat = State ("Menu")
 	# etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
-	
-	
-	
-	# Variables Menu
-	code_defini = False
+
 	# Variables Humain-Joue
 	plateau_affiche = True
 
@@ -149,23 +145,33 @@ def gen_main_fsm ():
 				joueur.choisir_code ()
 				code_defini = True
 				iconsole.afficher (etat, "L'humain a déterminé un code")
-			elif rep == "humain-joue" and code_defini == True:
-				chargement.run (10,"arc")
-				affichage.reset ()
-				#
-				# joueur.jouer ()
-				plateau_affiche = True
-				moteur.restant = 10 # Moche !
-				objet_etat.set ("Humain-Joue")
-				
-				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
-				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-			elif rep == "ia-joue" and code_defini == True:
+			elif rep == "humain-joue":
+				try:
+					iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
+					iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+						
+					chargement.run (10,"arc")
+					affichage.reset ()
+					
+					objet_etat.set ("Humain-Joue")
+					
+					plateau_affiche = True
+				except moteur.PasEnCoursDePartie:
+					iconsole.afficher (etat, "Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
+				except:
+					iconsole.afficher (etat, "Une erreur inconnue est survenue ... ")
+			elif rep == "ia-joue":
 				iconsole.afficher (etat, "L'IA va jouer une partie")
-				chargement.run (5,"cercle")
-				affichage.reset ()
-				ia.jouer ("aleatoire")
-				moteur.restant = 10 # Moche !
+				try:
+					iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
+					iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+					chargement.run (5,"cercle")
+					affichage.reset ()
+					ia.jouer ("aleatoire")
+				except moteur.PasEnCoursDePartie:
+					iconsole.afficher (etat, "Vous n'êtes pas en cours de partie ... il faut définir un code !")
+				except:
+					iconsole.afficher (etat, "Une erreur inconnue est survenue dans l'IA ...")
 			elif rep == "theme":
 				objet_etat.set ("Theme")
 			elif rep == "niveau":
@@ -201,7 +207,7 @@ def gen_main_fsm ():
 			if rep == "list":
 				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
 			elif rep == "actuel":
-				iconsole.afficher (etat, moteur.get_mode ())
+				iconsole.afficher (etat, "Le mode de la prochaine partie est " + moteur.get_next_mode ())
 			elif rep == "fin":
 				iconsole.afficher (etat,"Niveau modifié pour la prochaine partie")
 				objet_etat.set ("Menu")
