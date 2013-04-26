@@ -109,16 +109,13 @@ def reprendre_partie ():
 		raise PasEnCoursDePartie
 	affichage.reset () # Remet l'affichage du plateau
 
-	i = 0
-	j = 0
-	while i < len(historique):
-		
+	for coup in historique:
 		couleurs_hexa = []
 		
-		for j in historique[0]: # alala, c'est trop con sinon 
-			couleurs_hexa.append (couleurs.string_to_hexa (j))
+		for couleurplacee in coup[0]: # alala, c'est trop con sinon 
+			couleurs_hexa.append (couleurs.couleur_to_hexa (couleurplacee))
 			
-		affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
+		affichage.afficher_couleurs (4,couleurs_hexa,coup[1])
 	
 def get_mode ():
 	""" Retourne le mode de jeu actuel 
