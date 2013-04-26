@@ -30,6 +30,15 @@ restant = False # Le nombre de coups restants
 mode_partie = False # Le mode de la partie actuelle
 
 
+def est_en_partie ():
+	""" Dit si on est en cours de partie ou non 
+		
+		@return : bool
+	"""
+	global en_cours_de_partie
+	
+	return en_cours_de_partie
+
 def get_nombre_couleurs ():
 	""" Retourne le nombre de couleurs disponibles dans 
 		le niveau de difficulté courant 
@@ -42,9 +51,9 @@ def get_nombre_couleurs ():
 			persistance.FichierInvalide
 			ValueError
 	"""
-	global mode_partie, en_cours_de_partie 
+	global mode_partie
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	return int (persistance.get_propriete ("config","couleurs:" + mode_partie))
@@ -103,9 +112,9 @@ def reprendre_partie ():
 		
 		@throw : PasEnCoursDePartie
 	"""
-	global historique, en_cours_de_partie
+	global historique
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	affichage.reset () # Remet l'affichage du plateau
 
@@ -124,9 +133,9 @@ def get_mode ():
 		
 		@throw : PasEnCoursDePartie
 	"""
-	global mode_partie, en_cours_de_partie
+	global mode_partie
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	return mode_partie
@@ -177,9 +186,9 @@ def calcul_score ():
 		
 		@return : int = le score calculé 
 	"""
-	global restant, en_cours_de_partie
+	global restant
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
@@ -269,9 +278,9 @@ def get_historique():
 		@throw :
 			PasEnCoursDePartie
 	"""
-	global historique,en_cours_de_partie
+	global historique
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	return list (historique) # Retourne une copie de l'historique
@@ -283,9 +292,9 @@ def get_restant ():
 		
 		@throw : PasEnCoursDePartie
 	"""
-	global restant,en_cours_de_partie 
+	global restant
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	return restant
@@ -315,9 +324,9 @@ def definir_code (tableau):
 		@throw : TableauInvalide (msg) 
 				PasEnCoursDePartie
 	"""
-	global code_secret, en_cours_de_partie
+	global code_secret
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
@@ -343,9 +352,8 @@ def verification_solution (proposition):
 		@throw : TableauInvalide (msg)
 				PasEnCoursDePartie
 	"""
-	global en_cours_de_partie
 	
-	if en_cours_de_partie != True:
+	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
 	i = 0
