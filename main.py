@@ -63,7 +63,7 @@ def afficher_aide (etat):
 		yield "Commandes d'état"
 		for i,j in aide[etat].items ():
 			yield ("\t" + i,j)
-	iconsole.afficher_generateur (etat, "Aide : ", gen_help ())
+	iconsole.afficher_liste (etat, "Aide : ", gen_help ())
 	
 
 def gen_main_fsm ():
@@ -117,10 +117,19 @@ def gen_main_fsm ():
 			# primitives.raz ()
 			affichage.high_score ()
 		elif rep == "fortune":
-			maximum = persistance.get_propriete ("phrases", "max")
-			maximum = int (maximum)
-			aleatoire = randint (0,maximum - 1)
-			iconsole.afficher (etat, persistance.get_propriete ("phrases", str (aleatoire)))
+			try:
+				maximum = persistance.get_propriete ("phrases", "max")
+				maximum = int (maximum)
+				aleatoire = randint (0,maximum - 1)
+				iconsole.afficher (etat, persistance.get_propriete ("phrases", str (aleatoire)))
+			except persistance.CleInvalide:
+				iconsole.afficher (etat, "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
+			except persistanec.FichierInvalide:
+				iconsole.afficher (etat, "Le fichier est introuvable ... Cela implique un problème dans le CODE SOURCE ... revenez plus tard ...")
+			except ValueError:
+				iconsole.afficher (etat, "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
+			except:
+				iconsole.afficher (etat, "Une erreur inconnue est survenue ... ")
 		elif rep == "score": # Euh ... elle est censée être disponible uniquement localement ... 
 			iconsole.afficher (etat, moteur.calcul_score ())
 		elif etat == "Menu": # MENU
@@ -168,23 +177,20 @@ def gen_main_fsm ():
 						desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
 						yield (i,desc)
 
-				iconsole.afficher_generateur (etat,"Themes",gen_liste_theme ())
+				iconsole.afficher_liste (etat,"Themes",gen_liste_theme ())
 			elif rep == "fin":
 				iconsole.afficher (etat,"Theme modifié ... ")
 				objet_etat.set ("Menu")
 			else:
 				try:
 					
-					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter 
+					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
 					iconsole.afficher (etat,"Selection theme : " + rep)
 					primitives.raz ()
 					path = "Images/Theme" + rep + "/fond.gif"
 					primitives.bgpic (path)
 				except:
 					iconsole.afficher (etat,"... ce theme est invalide ")
-					
-					primitives.raz ()
-					primitives.bgpic ("Images/Themes" + int (rep) + "/fond.gif") # Pas certain ... faut tester 
 		elif etat == "Niveau": # NIVEAU ....
 			if rep == "list":
 				iconsole.afficher (etat, str (moteur.get_liste_modes ()))

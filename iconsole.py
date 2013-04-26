@@ -18,8 +18,12 @@ def afficher(acteur,dialogue,t=0):
 		@return : None
 	"""
 	# met t tabulations devant le texte ... permet d'intenter !
-	formattage = "\t" * t + "- ({0}) : « {1} »"
-	print (formattage.format (acteur,dialogue))
+	indentation = "\t" * t
+	formattage = "- ({0}) : « {1} »"
+	
+	formattage = formattage.format (acteur,dialogue).replace ("\n", "\n" + indentation + "\t")
+	
+	print (indentation + formattage)
 
 def demander(acteur,dialogue,t=0):
 	""" Demande une information à l'utilisateur 
@@ -30,27 +34,39 @@ def demander(acteur,dialogue,t=0):
 		@return : string = l'information 
 	"""
 	# met t tabulations devant le texte : indentation !
-	formattage = "\t" * t + "# [{0}] ? {1} : "
+	indentation = "\t" * t
+	
+	formattage = "# [{0}] ? {1} : "
+	
+	formattage = formattage.format (acteur, dialogue).replace ("\n", "\n" + indentation + "\t")
 	# return raw_input (formattage.format (acteur,dialogue))
-	return input (formattage.format (acteur,dialogue))
+	return input (indentation + formattage)
 
-def afficher_liste (acteur,message,liste,t = 0):
-	""" Affiche une liste à l'utilisateur """
-	afficher (acteur,message,t)
-	for i in liste:
-		if isinstance (i,tuple):
-			print ("\t" * (t + 1) + "{0} - {1}".format (i[0],i[1]))
-		else:
-			print ("\t" * (t + 1) + "- {0}".format (i))
-
-def afficher_generateur (acteur,message,generateur, t = 0):
-	""" Affiche un générateur à l'utilisateur """
+def afficher_liste (acteur,message,generateur, t = 0):
+	""" Affiche un générateur de descriptions à l'utilisateur 
+	
+		@acteur : str = qui affiche 
+		@message : str = quoi
+		@generateur : generator = le générateur de la liste 
+			d'éléments (a,b) avec 
+				a : le nom 
+				b : la description
+			OU
+			d'éléments a, quelconques
+			
+		@return : None
+	"""
 	afficher (acteur, message, t)
+	
+	indentation = "\t" * (t + 1)
+	
 	for i in generateur:
 		if isinstance (i,tuple):
-			print ("\t" * (t + 1) + "{0} - {1}".format (i[0],i[1]))
+			s = indentation + "{0} - {1}".format (i[0],i[1])
 		else:
-			print ("\t" * (t + 1) + "- {0}".format (i))
+			s = indentation + "- {0}".format (i)
+			
+		print (s.replace ("\n","\n" + indentation + "\t"))
 
 def demander_tableau (n = 4):
 	""" Demande un tableau
