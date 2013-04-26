@@ -42,10 +42,12 @@ def get_nombre_couleurs ():
 			persistance.FichierInvalide
 			ValueError
 	"""
-	if en_cours_de_partie == True:
-		return int (persistance.get_propriete ("config","couleurs:" + mode_partie)
-	else:
+	global mode_partie, en_cours_de_partie 
+	
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	
+	return int (persistance.get_propriete ("config","couleurs:" + mode_partie))
 
 def get_nombre_couleurs_next ():
 	""" Retourne le nombre de couleurs disponibles dans 
@@ -77,14 +79,21 @@ def nouvelle_partie ():
 			persistance.FichierInvalide # « config »
 			persistance.ValeurInvalide (message) # nombre de coups 
 	"""
-	global historique,restant,code_secret,mode_partie
+	global en_cours_de_partie,historique,restant,code_secret,mode_partie
 	
 	en_cours_de_partie = True
 	historique = [] # Initialise l'historique
 	
-	mode_partie = get_mode () # susceptible de planter 
+	mode_partie = get_next_mode () # susceptible de planter 
 	
 	restant = persistance.get_propriete ("config", "coups:" + mode_partie)
+	
+	try:
+		restant = int (restant)
+	except:
+		raise persistance.ValeurInvalide ("« config -> coups:" + mode_partie + ", n'est pas une valeur correcte !")
+	
+	affichage.reset () # Remet l'affichage du plateau
 
 def reprendre_partie ():
 	""" Réaffiche le plateau et les coups joués précédement dans 
@@ -94,22 +103,23 @@ def reprendre_partie ():
 		
 		@throw : PasEnCoursDePartie
 	"""
-	if en_cours_de_partie == True:
-		affichage.reset () # Remet l'affichage du plateau
-
-		i = 0
-		j = 0
-		while i < len(historique):
-			
-			couleurs_hexa = []
-			
-			for j in historique[0]: # alala, c'est trop con sinon 
-				couleurs_hexa.append (couleurs.string_to_hexa (j))
-				
-			affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
-	else:
+	global historique, en_cours_de_partie
+	
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	affichage.reset () # Remet l'affichage du plateau
 
+	i = 0
+	j = 0
+	while i < len(historique):
+		
+		couleurs_hexa = []
+		
+		for j in historique[0]: # alala, c'est trop con sinon 
+			couleurs_hexa.append (couleurs.string_to_hexa (j))
+			
+		affichage.afficher_couleurs (4,couleurs_hexa,historique[1])
+	
 def get_mode ():
 	""" Retourne le mode de jeu actuel 
 		
@@ -117,10 +127,12 @@ def get_mode ():
 		
 		@throw : PasEnCoursDePartie
 	"""
-	if en_cours_de_partie == True:
-		return mode_partie
-	else:
+	global mode_partie, en_cours_de_partie
+	
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	
+	return mode_partie
 
 def get_next_mode ():
 	""" Retourne le mode de jeu de la prochaine partie
@@ -168,19 +180,21 @@ def calcul_score ():
 		
 		@return : int = le score calculé 
 	"""
-	if en_cours_de_partie == True:
-		coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
-		mode = get_mode()
-		if mode == "facile":
-			score = coups
-		elif mode == "moyen":
-			score = coups + 2
-		else:
-			score = coups + 5
-		
-		return score
-	else:
+	global restant, en_cours_de_partie
+	
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	
+	coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
+	mode = get_mode()
+	if mode == "facile":
+		score = coups
+	elif mode == "moyen":
+		score = coups + 2
+	else:
+		score = coups + 5
+	
+	return score
 
 def recup_score():
 	""" Recupere la liste des 5 meilleurs scores
@@ -258,10 +272,12 @@ def get_historique():
 		@throw :
 			PasEnCoursDePartie
 	"""
-	if en_cours_de_partie == True:
-		return list (historique) # Retourne une copie de l'historique
-	else:
+	global historique,en_cours_de_partie
+	
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	
+	return list (historique) # Retourne une copie de l'historique
 
 def get_restant (): 
 	""" Retourne le nombre de coups restants 
@@ -270,10 +286,12 @@ def get_restant ():
 		
 		@throw : PasEnCoursDePartie
 	"""
-	if en_cours_de_partie == True:
-		return restant
-	else:
+	global restant,en_cours_de_partie 
+	
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	
+	return restant
 
 def double_couleur (test):
 	""" Vérifie si une liste contient deux fois un élément identique
@@ -300,18 +318,18 @@ def definir_code (tableau):
 		@throw : TableauInvalide (msg) 
 				PasEnCoursDePartie
 	"""
-	global code_secret
+	global code_secret, en_cours_de_partie
 	
-	if en_cours_de_partie == True:
-		if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
-			for i in tableau:
-				if couleurs.is_string (i) == False:
-					raise TableauInvalide ("Une couleur est invalide")
-			code_secret = tableau
-		else:
-			raise TableauInvalide ("Le tableau ne contient pas le bon nombre de cases")
-	else:
+	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
+	
+	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
+		for i in tableau:
+			if couleurs.is_string (i) == False:
+				raise TableauInvalide ("Une couleur est invalide")
+		code_secret = tableau
+	else:
+		raise TableauInvalide ("Le tableau ne contient pas le bon nombre de cases")
 
 def verification_solution (proposition): 
 	""" Fonction qui effectue un coup du joueur !
@@ -328,6 +346,7 @@ def verification_solution (proposition):
 		@throw : TableauInvalide (msg)
 				PasEnCoursDePartie
 	"""
+	global en_cours_de_partie
 	
 	if en_cours_de_partie != True:
 		raise PasEnCoursDePartie
@@ -357,11 +376,15 @@ def verification_solution (proposition):
 	
 	if a == 4: #si proposition est identique à solution
 		score = calcul_score()
-		affichage.win (score) 
+		affichage.win (score)
+		
+		en_cours_de_partie = False
 		return "gagne"
 	elif restant <= 0: #si le nombre de coups restants est de 0
 		score = calcul_score()
-		affichage.loose (list(code_secret),score) 
+		affichage.loose (list(code_secret),score)
+		
+		en_cours_de_partie = False
 		return "perdu"
 	else:
 		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.

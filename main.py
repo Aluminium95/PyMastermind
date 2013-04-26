@@ -134,14 +134,16 @@ def gen_main_fsm ():
 			iconsole.afficher (etat, moteur.calcul_score ())
 		elif etat == "Menu": # MENU
 			if rep == "ia-code":
-				iconsole.afficher (etat, "L'IA va choisir un code")
+				moteur.nouvelle_partie ()
+				iconsole.afficher (etat, "L'IA va choisir un code, on commence une nouvelle partie")
 				chargement.run (5,"ligne")
 				primitives.raz ()
 				ia.choisir_code ()
 				code_defini = True
 				iconsole.afficher (etat, "L'IA a déterminé un code")
 			elif rep == "humain-code":
-				iconsole.afficher (etat, "L'humain va choisir un code")
+				moteur.nouvelle_partie ()
+				iconsole.afficher (etat, "L'humain va choisir un code, on commence une nouvelle partie")
 				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
 				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
 				joueur.choisir_code ()
