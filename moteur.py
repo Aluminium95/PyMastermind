@@ -69,7 +69,9 @@ def get_nombre_couleurs_next ():
 			persistance.FichierInvalide
 			ValueError
 	"""
-	return int (persistance.get_propriete ("config", "couleurs: "+ get_mode ()))
+	cle = "couleurs:{0}".format (get_next_mode ())
+	
+	return int (persistance.get_propriete ("config", cle))
 
 def init ():
 	""" Initialise le module """

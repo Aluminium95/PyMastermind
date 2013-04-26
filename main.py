@@ -106,7 +106,7 @@ def gen_main_fsm ():
 		elif rep == "regles": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des règles sur la fenêtre graphique ...")
 			chargement.run (2,"ligne")
-			regles.regles_mode (moteur.get_mode ())
+			regles.regles ()
 			plateau_affiche = False
 		elif rep == "scores": # Commande indépendante de l'état courant !
 			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
@@ -215,7 +215,7 @@ def gen_main_fsm ():
 				if rep in (moteur.get_liste_modes ()):
 					iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
 					moteur.set_mode (rep)
-					regles.regles_mode (rep) # affiche les règles 
+					regles.regles () # affiche les règles 
 				else:
 					iconsole.afficher (etat,"Ce niveau est invalide ...")
 		elif etat == "Humain-Joue": # HUMAIN-JOUE

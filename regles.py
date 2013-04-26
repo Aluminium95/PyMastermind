@@ -59,7 +59,7 @@ def main_text2():
 def carre(taille):
 	c = 0
 	down ()
-	while c<4:
+	while c < 4:
 		forward(taille)
 		left(90)
 		c = c + 1
@@ -95,40 +95,43 @@ def generateur_couleurs (tableau): # C'est lui
 		left (90)
 		fd (-20)
 		yield 
-def carre_facile():
+
+def couleurs_possibles ():
 	li = couleurs.liste_couleurs ()
 	
-	li = li[0:8]
-
+	try:
+		li = li[0:moteur.get_nombre_couleurs ()]
+	except:
+		li = li[0:moteur.get_nombre_couleurs_next ()]
+	
 	g = generateur_couleurs (li)
 
 	colonnes (4,25,120,g)
 
-
-def carre_normal (): # C'est le bon exemple !
-	li = couleurs.liste_couleurs ()
-	
-	li = li[0:12] # en normal il y a 12 couleurs
-	
-	g = generateur_couleurs (li) # generateur_couleurs ()
-
-	# Un tableau, 4 lignes, epacées de 25px, avec 120px entre les colonnes :-)
-	colonnes (4,25,120,g)
-
-def carre_difficile():
-	li = couleurs.liste_couleurs ()
-	
-	g = generateur_couleurs (li)
-	colonnes (4,25,120,g)
-
-def regles_facile(couleur):
+def regles ():
 	"""Affiche les règles ainsi que les aides du jeu. En mode facile.
 	(un fond y est inséré)"""
+	mode = ""
+	
+	try:
+		mode = moteur.get_mode ()
+	except:
+		mode = moteur.get_next_mode ()
+	
+	raz ()
 	screensize(600,600,"white")
-	bgpic("Images/Regles/ff.gif")
+	
+	if mode == "facile":
+		bgpic("Images/Regles/ff.gif")
+	elif mode == "moyen":
+		bgpic ("Images/Regles/fn.gif")
+	else:
+		bgpic ("Images/Regles/fd.gif")
+	
+	
 	up()
 	goto(30,220)
-	color(couleur)
+	color("black")
 	niveau('facile')
 	main_text()
 	goto(-133,50)
@@ -136,57 +139,8 @@ def regles_facile(couleur):
 	goto(-133,20)
 	main_text2()
 	goto (-245,-160)
-	carre_facile()
-
-
-def regles_normal(couleur):
-	"""Affiche les règles ainsi que les aides du jeu. En mode normal.
-	(un fond y est inséré)"""
-	screensize(600,600,"white")
-	th = persistance.get_propriete ("backgrounds", "theme:courant")
-	bgpic("Images/Regles/fn.gif")
-	up()
-	goto(30,220)
-	color(couleur)
-	niveau('normal')
-	main_text()
-	goto(-133,50)
-	nombre_coup('12')
-	goto(-133,20)
-	main_text2()
-	goto (-245,-160)
-	carre_normal()
-
-def regles_difficile(couleur):
-	"""Affiche les règles ainsi que les aides du jeu. En mode difficile.
-	(un fond y est inséré)"""
-	screensize(600,600,"white")
-	th = persistance.get_propriete ("backgrounds", "theme:courant")
-		
-
-	bgpic ("Images/Regles/fd.gif")
-	up()
-	goto(30,220)
-	color(couleur)
-	niveau('difficile')
-	main_text()
-	goto(-133,50)
-	nombre_coup('16')
-	goto(-133,20)
-	main_text2()
-	goto (-245,-160)
-	carre_difficile()
-
-def regles_mode (mode):
 	
-	raz () # efface l'écran 
-
-	if mode == "facile":
-		regles_facile ("#AAA")
-	elif mode == "normal":
-		regles_normal ("#AAA")
-	else:
-		regles_difficile ("#AAA")
+	couleurs_possibles ()
 
 # Cette partie de code ne s'exécute que
 # quand le programme est lancé directement 
