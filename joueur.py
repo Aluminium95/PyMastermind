@@ -45,9 +45,12 @@ def choisir_code ():
 	
 	while c == False:
 		t = iconsole.demander_tableau ()
-		c = moteur.definir_code (t)
-		if c == False:
-			iconsole.afficher ("Joueur","Le moteur a refusé votre proposition ...")
+		try:
+			c = moteur.definir_code (t)
+		except moteur.PasEnCoursDePartie:
+			iconsole.afficher ("Mastermind", "Erreur critique ...")
+		except moteur.TableauInvalide as exception:
+			iconsole.afficher ("Mastermind", "Une erreur est survenue : {0}".format (exception.message))
 
 
 # C'est un gros paquet d'aide !
