@@ -22,8 +22,8 @@ def init (theme = ""):
 	
 	# Crée la fenêtre :-)
 	setup (width=600,height=600,startx=400,starty=300)
-
-	# reset () # Reset () -> met l'affichage de « jeu »
+	up ()
+	reset () # Reset () -> met l'affichage de « jeu »
 	
 
 def dessiner_carre (taille,couleur):
