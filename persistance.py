@@ -228,7 +228,44 @@ def set_default_value (chemin,variable,valeur):
 				p.append ([variable,valeur]) # S'il n'exsiste pas, on crée le couple [clé,valeur]
 				return 
 	except:
-		raise FichierInvalide  
+		raise FichierInvalide
+	
+def to_graphviz ():
+	""" Crée une représentation dans le format graphviz
+		de la configuration actuelle
+		et la sauve dans un fichier nommé 
+		«~config_graph.dot~»
+		
+		@return : None
+		
+		@throw : EcritureImpossible
+	"""
+	
+	try:
+		f = open ("config_graph.dot","w")
+		f.write ("Digraph G { \n")
+		fi = 0
+		for p in persistant: # Pour chaque fichier 
+			f.write ("f{0} [label=\"{1}\"]\n".format (fi,p[0]))
+			
+			vi = 0
+			
+			for prop in p[1:]: # Pour chaque propriété 
+				
+				variable = prop[0].replace ("\"", "\\\"")
+				valeur   = prop[1].replace ("\"", "\\\"")
+				
+				f.write ("var{0}f{1} [label=\"{2}\"]\n".format (vi, fi, variable))
+				f.write ("val{0}f{1} [label=\"{2}\"]\n".format (vi, fi, valeur))
+				
+				f.write ("f{0} -> var{1}f{0} -> val{1}f{0}\n".format (fi,vi))
+				
+				vi += 1
+			fi += 1
+		f.write ("\n}")
+		f.close ()
+	except:
+		raise EcritureImpossible
 
 def init ():
 	""" fonction d'initialisation du module
@@ -250,3 +287,7 @@ def init ():
 	
 	# fichier des phrases
 	charger_fichier ("phrases")
+
+if __name__ == '__main__':
+	init ()
+	to_graphviz ()
