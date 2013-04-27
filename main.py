@@ -16,252 +16,361 @@ import chargement
 
 from random import randint
 
-def afficher_aide (etat):
-	# Commandes : un gros dictionnaire avec l'aide :-)  
-	aide = {
-		"global" : {
-			"quit" : "Quitte le programme ...",
-			"regles" : "Affiche les règles du jeu ...",
-			"scores" : "Affiche les meilleurs scores du jeu ...",
-			"fortune" : "Affiche une petite phrase aléatoire sympa ...",
-			"score" : "Affiche le score actuel ..."
-		},
-		"Menu" : {
-			"ia-code" : "Fait décider un code à trouver par une IA",
-			"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
-			"humain-code" : "Fait rentrer un code à l'utilisateur",
-			"humain-joue" : "Fait trouver le code à l'utilisateur",
-			"theme" : "Permet à l'utilisateur de chosir un thème",
-			"niveau" : "Permet à l'utilisateur de changer de niveau de difficulté"
-		},
-		"Niveau" : {
-			"list" : "Fait la liste des niveaux disponibles",
-			"actuel" : "Affiche le niveau actuel de difficulté",
-			"fin" : "Enregistre le niveau sélectionné et revient au menu",
-			"@" : "Une autre chaine de caractère est prise comme un niveau"
-		},
-		"Theme" : {
-			"list" : "Fait la liste des thèmes disponibles",
-			"actuel" : "Affiche le thème actuel ...",
-			"fin" : "Engeristre le thème sélectionné et revient au menu",
-			"@" : "Sélectionne le texte rentré comme un thème"
-		},
-		"Humain-Joue" : {
-			"proposer" : "Permet de faire une proposition, si et seulement si le plateau est affiché",
-			"plateau" : "Permet de réafficher le plateau de jeu",
-			"score" : "Permet de savoir le score actuel", # Pour l'instant c'est faux
-			"abandon" : "Permet de revenir au menu, et abandonner la partie"
-		}
+# C'est un gros paquet d'aide !
+aide = {
+	"global" : {
+		"quit" : "Quitte le programme ...",
+		"regles" : "Affiche les règles du jeu ...",
+		"scores" : "Affiche les meilleurs scores du jeu ...",
+		"fortune" : "Affiche une petite phrase aléatoire sympa ...",
+		"score" : "Affiche le score actuel ..."
+	},
+	"Menu" : {
+		"ia-code" : "Fait décider un code à trouver par une IA",
+		"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
+		"humain-code" : "Fait rentrer un code à l'utilisateur",
+		"humain-joue" : "Fait trouver le code à l'utilisateur",
+		"theme" : "Permet à l'utilisateur de chosir un thème",
+		"niveau" : "Permet à l'utilisateur de changer de niveau de difficulté"
+	},
+	"Niveau" : {
+		"list" : "Fait la liste des niveaux disponibles",
+		"actuel" : "Affiche le niveau actuel de difficulté",
+		"fin" : "Enregistre le niveau sélectionné et revient au menu",
+		"@" : "Une autre chaine de caractère est prise comme un niveau"
+	},
+	"Theme" : {
+		"list" : "Fait la liste des thèmes disponibles",
+		"actuel" : "Affiche le thème actuel ...",
+		"fin" : "Engeristre le thème sélectionné et revient au menu",
+		"@" : "Sélectionne le texte rentré comme un thème"
+	},
+	"Humain-Joue" : {
+		"proposer" : "Permet de faire une proposition, si et seulement si le plateau est affiché",
+		"plateau" : "Permet de réafficher le plateau de jeu",
+		"score" : "Permet de savoir le score actuel", # Pour l'instant c'est faux
+		"abandon" : "Permet de revenir au menu, et abandonner la partie"
 	}
-	
-	# On affiche manuellement des trucs ... c'est MAAAAAL
-	def gen_help ():
-		yield "Commandes globales ..."
-		for i,j in aide["global"].items ():
-			yield ("\t" + i,j)
-		
-		yield "Commandes d'état"
-		for i,j in aide[etat].items ():
-			yield ("\t" + i,j)
-	iconsole.afficher_liste (etat, "Aide : ", gen_help ())
-	
+}
 
-def gen_main_fsm ():
-	""" Retourne le générateur de la boucle principale !
-		
-		@return : generator
+class Mastermind:
+	""" La classe princpale du mastermind : c'est le jeu en lui même !
 	"""
-	
-	class State: # Une petite classe qui permet d'avoir une fonction de transition 
-		def __init__ (self,initial):
-			self.etat = initial
+	def __init__ (self,initial):
+		""" Constructeur 
 			
-		def get (self):
-			return self.etat
-
-		def set (self,valeur):
-			self.etat = valeur
+			@initial : str = l'état de départ 
 			
-			iconsole.separateur ()
-			iconsole.afficher (valeur, "Vous êtes maintenant dans un nouveau mode")
-			afficher_aide (valeur)
-
-	objet_etat = State ("Menu")
-	# etat = "Menu" # Etat = Menu | Niveau | Theme | Humain-Joue
-
-	# Variables Humain-Joue
-	plateau_affiche = True
-
-	# On commence la boucle infinie !
-	while True:
-		etat = objet_etat.get ()
-		r = (yield etat) # Récupère le message (et retourne l'état)
+			@return : Mastermind 
+		"""
+		self.etat = initial
+		self.ecran = "plateau" # Quel est l'écran actuel ?
 		
-		# Magnifique ÉNORME switch ... 
-		# le principe est de récupérer la commande, et 
-		# de regarder l'état actuel ... et faire des actions 
-		# en fonction :)
+	def afficher (self, quelquechose, t = 0):
+		""" Une surcouche de iconsole.afficher 
+			qui met automatiquement l'état courant 
+			en « acteur »
+			
+			@quelquechose : str = un truc à afficher 
+			@t : int = nombre de tabulations 
+			
+			@return : None
+		"""
+		iconsole.afficher (self.get (), quelquechose, t)
+	
+	def afficher_liste (self, quelquechose, generateur, t = 0):
+		""" Encore une surcouche qui englobe iconsole.afficher_liste
+			
+			@quelquechose : str = texte
+			@generateur : generator = générateur de liste
+			@t : int = tabulations 
+			
+			@return : None
+		"""
+		iconsole.afficher_liste (self.get (), quelquechose, generateur, t)
+	
+	def demander (self, quelquechose, t = 0):
+		""" Une surcouche de iconsole.demander 
+			qui met l'état actuel en « acteur »
+			
+			@quelquechose : str = un truc à afficher 
+			@t : int = nombre de tabulations 
+			
+			@return : str
+		"""
+		return iconsole.demander (self.get (), quelquechose, t)
+		
+	def get (self):
+		""" Retourne l'état courant 
+			
+			@return : str 
+		"""
+		return self.etat
+	
+	def set (self, state):
+		""" Définit l'état courant 
+			
+			@state : str = le nouvel état 
+			
+			@return : None
+		"""
+		self.etat = state 
+		# petits trucs ici pour les transitions 
+		iconsole.separateur ()
+		self.afficher ("Vous êtes maintenant dans un nouveau mode")
+		self.aide () # Affiche l'aide du nouvel état 
+	
+	def aide (self):
+		""" Affiche l'aide globale ainsi que celle de l'état courant 
+			
+			@return : None
+		"""
+		# On Crée un générateur de l'aide actuelle
+		# pour personnaliser un peu l'affichage de la liste 
+		def gen_help ():
+			yield "Commandes globales ..."
+			for i,j in aide["global"].items ():
+				yield ("\t" + i,j)
+			
+			yield "Commandes d'état"
+			for i,j in aide[self.get ()].items ():
+				yield ("\t" + i,j)
+		# On l'affiche avec le magnifique module iconsole
+		self.afficher_liste ("Aide : ", gen_help ())
+	
+	def send (self,rep):
+		""" Envoie une requête utilisateur au Mastermind
+			qui va gérer la redirection et les actions 
+			nécessaires
+			
+			@rep : str = la requête
+			
+			@return : str = l'état actuel 
+		"""
 		if rep == "help": # Commande indépendante de l'état courant !
-			afficher_aide (etat)
+			self.aide ()
 		elif rep == "regles": # Commande indépendante de l'état courant !
-			iconsole.afficher (etat, "Affichage des règles sur la fenêtre graphique ...")
+			self.afficher ( "Affichage des règles sur la fenêtre graphique ...")
 			chargement.run (2,"ligne")
 			regles.regles ()
-			plateau_affiche = False
+			self.ecran = "regles"
 		elif rep == "scores": # Commande indépendante de l'état courant !
-			iconsole.afficher (etat, "Affichage des scores sur la fenêtre graphique ...")
+			self.afficher ("Affichage des scores sur la fenêtre graphique ...")
 			# primitives.raz ()
 			affichage.high_score ()
+			self.ecran = "scores"
 		elif rep == "fortune":
 			try:
 				maximum = persistance.get_propriete ("phrases", "max")
 				maximum = int (maximum)
 				aleatoire = randint (0,maximum - 1)
-				iconsole.afficher (etat, persistance.get_propriete ("phrases", str (aleatoire)))
+				self.afficher (persistance.get_propriete ("phrases", str (aleatoire)))
 			except persistance.CleInvalide:
-				iconsole.afficher (etat, "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
+				self.afficher ( "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
 			except persistanec.FichierInvalide:
-				iconsole.afficher (etat, "Le fichier est introuvable ... Cela implique un problème dans le CODE SOURCE ... revenez plus tard ...")
+				self.afficher ( "Le fichier est introuvable ... Cela implique un problème dans le CODE SOURCE ... revenez plus tard ...")
 			except ValueError:
-				iconsole.afficher (etat, "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
+				self.afficher ( "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
 			except:
-				iconsole.afficher (etat, "Une erreur inconnue est survenue ... ")
-		elif rep == "score": # Euh ... elle est censée être disponible uniquement localement ... 
-			iconsole.afficher (etat, moteur.calcul_score ())
-		elif etat == "Menu": # MENU
-			if rep == "ia-code":
-				moteur.nouvelle_partie ()
-				iconsole.afficher (etat, "L'IA va choisir un code, on commence une nouvelle partie")
-				chargement.run (5,"ligne")
-				primitives.raz ()
-				ia.choisir_code ()
-				code_defini = True
-				iconsole.afficher (etat, "L'IA a déterminé un code")
-			elif rep == "humain-code":
-				moteur.nouvelle_partie ()
-				iconsole.afficher (etat, "L'humain va choisir un code, on commence une nouvelle partie")
-				iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
-				iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-				joueur.choisir_code ()
-				code_defini = True
-				iconsole.afficher (etat, "L'humain a déterminé un code")
-			elif rep == "humain-joue":
-				try:
-					iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
-					iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-						
-					chargement.run (10,"arc")
-					affichage.reset ()
-					
-					objet_etat.set ("Humain-Joue")
-					
-					plateau_affiche = True
-				except moteur.PasEnCoursDePartie:
-					iconsole.afficher (etat, "Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
-				except:
-					iconsole.afficher (etat, "Une erreur inconnue est survenue ... ")
-			elif rep == "ia-joue":
-				iconsole.afficher (etat, "L'IA va jouer une partie")
-				try:
-					iconsole.afficher (etat, "Le niveau actuel est : " + moteur.get_mode ())
-					iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-					chargement.run (5,"cercle")
-					affichage.reset ()
-					ia.jouer ("knuth")
-				except moteur.PasEnCoursDePartie:
-					iconsole.afficher (etat, "Vous n'êtes pas en cours de partie ... il faut définir un code !")
-				except:
-					iconsole.afficher (etat, "Une erreur inconnue est survenue dans l'IA ...")
-			elif rep == "theme":
-				objet_etat.set ("Theme")
-			elif rep == "niveau":
-				objet_etat.set ("Niveau")
-			else:
-				iconsole.afficher (etat,"Cette requête est invalide ...")
-		elif etat == "Theme": # THÈME ......
-			if rep == "list":
-				def gen_liste_theme ():
-					for i in affichage.liste_themes ():
-						desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
-						yield (i,desc)
-
-				iconsole.afficher_liste (etat,"Themes",gen_liste_theme ())
-			elif rep == "fin":
-				iconsole.afficher (etat,"Theme modifié ... ")
-				objet_etat.set ("Menu")
-			else:
-				try:
-					
-					affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
-					iconsole.afficher (etat,"Selection theme : " + rep)
-					primitives.raz ()
-					path = "Images/Theme" + rep + "/fond.gif"
-					primitives.bgpic (path)
-				except ValueError:
-					iconsole.afficher (etat, "Il faut entrer le numéro du thème ...")
-				except persistance.CleInvalide:
-					iconsole.afficher (etat, "Euh ... ce thème ne peut être chargé ...")
-				except persistance.FichierInvalide:
-					iconsole.afficher (etat,"Priez pauvres fous, le fichier de configuration est introuvable !")
-		elif etat == "Niveau": # NIVEAU ....
-			if rep == "list":
-				iconsole.afficher (etat, str (moteur.get_liste_modes ()))
-			elif rep == "actuel":
-				iconsole.afficher (etat, "Le mode de la prochaine partie est " + moteur.get_next_mode ())
-			elif rep == "fin":
-				iconsole.afficher (etat,"Niveau modifié pour la prochaine partie")
-				objet_etat.set ("Menu")
-			else:
-				if rep in (moteur.get_liste_modes ()):
-					iconsole.afficher (etat,"Vous avez sélectionné le niveau : " + rep)
-					moteur.set_mode (rep)
-					regles.regles () # affiche les règles 
-				else:
-					iconsole.afficher (etat,"Ce niveau est invalide ...")
-		elif etat == "Humain-Joue": # HUMAIN-JOUE
-			if rep == "abandon": # Abandon de la partie -> retour au menu
-				iconsole.afficher (etat,"Vous avez abandonné la partie ...")
-				objet_etat.set ("Menu")
-			if rep == "plateau":
-				iconsole.afficher (etat,"Le plateau est affiché, vous pouvez proposer des solutions")
-				moteur.reprendre_partie ()
-			elif rep == "proposer" and plateau_affiche == True:
-				Li = iconsole.demander_tableau ()
-				try:
-					r = moteur.verification_solution (Li)
-					if r == "gagne":
-						iconsole.afficher (etat, "Vous avez gagné !!!")
-						objet_etat.set ("Menu")
-					elif r == "perdu":
-						iconsole.afficher (etat,"Vous avez perdu !!!")
-						objet_etat.set ("Menu")
-					elif r == False:
-						iconsole.afficher (etat, "Votre proposition n'a pas de sens ...")
-					else:
-						a,b = r
-				
-						# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
-						sa = ""
-						sb = ""
-
-						if a > 1:
-							sa = "s"
-
-						if b > 1:
-							sb = "s"
-				
-						messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
-						messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
-
-						iconsole.afficher(etat, messaga)
-						iconsole.afficher(etat, messagb)
-				except moteur.TableauInvalide as exception:
-					iconsole.afficher (etat, "Le tableau est invalide : {0}".format (exception.message))
-			else:
-				iconsole.afficher (etat, "Requête invalide ...")
-		else:
-			break # Erreur fatale !
+				self.afficher ( "Une erreur inconnue est survenue ... ")
+		elif self.get () == "Humain-Joue":
+			self.humain_joue (event)
+		elif self.get () == "Menu":
+			self.menu (event)
 		
+		else:
+			raise ValueError
+		
+		return self.get ()
+	
+	def humain_joue (self,rep):
+		""" Une fonction qui permet de faire jouer 
+			l'humain quand on est dans l'état 
+			« Humain-Joue »
+			
+			@rep : str = l'évènement à gérer
+			
+			@return : None
+		"""
+		if self.get () != "Humain-Joue":
+			raise ValueError
+		
+		if rep == "abandon": # Abandon de la partie -> retour au menu
+			self.afficher ("Vous avez abandonné la partie ...")
+			self.set ("Menu")
+		if rep == "plateau":
+			self.afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
+			moteur.reprendre_partie ()
+		elif rep == "proposer":
+			if self.ecran != "plateau":
+				affichage.reset ()
+			
+			Li = iconsole.demander_tableau ()
+			try:
+				r = moteur.verification_solution (Li)
+				if r == "gagne":
+					self.afficher ("Vous avez gagné !!!")
+					self.set ("Menu")
+				elif r == "perdu":
+					self.afficher ("Vous avez perdu !!!")
+					self.set ("Menu")
+				elif r == False:
+					self.afficher ("Votre proposition n'a pas de sens ...")
+				else:
+					a,b = r
+			
+					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+					sa = ""
+					sb = ""
+
+					if a > 1:
+						sa = "s"
+
+					if b > 1:
+						sb = "s"
+			
+					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+
+					self.afficher(messaga)
+					self.afficher(messagb)
+			except moteur.TableauInvalide as exception:
+				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
+			except:
+				self.afficher ("Une erreur inconnue est survenue ...")
+		else:
+			self.afficher ("Requête invalide ...")
+				
+	
+	def theme (self,rep):
+		""" Fonction qui premet de faire réagir le menu Theme
+			
+			@rep : str = l'évènement
+			
+			@reutrn : None
+		"""
+		if self.get () != "Theme":
+			raise ValueError
+		
+		if rep == "list":
+			def gen_liste_theme ():
+				for i in affichage.liste_themes ():
+					desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
+					yield (i,desc)
+
+			self.afficher_liste ("Themes",gen_liste_theme ())
+		elif rep == "fin":
+			self.afficher ("Theme modifié ... ")
+			self.set ("Menu")
+		else:
+			try:
+				
+				affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
+				self.afficher ("Selection theme : " + rep)
+				primitives.raz ()
+				path = "Images/Theme" + rep + "/fond.gif"
+				primitives.bgpic (path)
+			except ValueError:
+				self.afficher ("Il faut entrer le numéro du thème ...")
+			except persistance.CleInvalide:
+				self.afficher ("Euh ... ce thème ne peut être chargé ...")
+			except persistance.FichierInvalide:
+				self.afficher ("Priez pauvres fous, le fichier de configuration est introuvable !")
+	
+	def niveau (self, rep):
+		""" Fonction qui fait réagir le menu Niveau
+			
+			@rep : str = l'évènement
+			
+			@return : None
+		"""
+		if self.get () != "Niveau":
+			raise ValueError
+		
+		if rep == "list":
+			self.afficher (str (moteur.get_liste_modes ()))
+		elif rep == "actuel":
+			self.afficher ("Le mode de la prochaine partie est " + moteur.get_next_mode ())
+		elif rep == "fin":
+			self.afficher ("Niveau modifié pour la prochaine partie")
+			self.set ("Menu")
+		else:
+			if rep in (moteur.get_liste_modes ()):
+				self.afficher ("Vous avez sélectionné le niveau : " + rep)
+				moteur.set_mode (rep)
+				regles.regles () # affiche les règles 
+				self.ecran = "regles"
+			else:
+				self.afficher ("Ce niveau est invalide ...")
+
+	def menu (self, rep):
+		""" Fonction qui permet de faire réagir le menu 
+			à des actions 
+			
+			@rep : str = l'évènement
+			
+			@return : None
+		"""
+		if self.get () != "Menu":
+			raise ValueError
+		
+		if rep == "ia-code":
+			moteur.nouvelle_partie ()
+			self.afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
+			chargement.run (5,"ligne")
+			primitives.raz ()
+			ia.choisir_code ()
+			self.afficher ( "L'IA a déterminé un code")
+		elif rep == "humain-code":
+			moteur.nouvelle_partie ()
+			self.afficher ( "L'humain va choisir un code, on commence une nouvelle partie")
+			self.afficher ( "Le niveau actuel est : " + moteur.get_mode ())
+			iconsole.afficher_liste (etat, "Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+			joueur.choisir_code ()
+			self.afficher ( "L'humain a déterminé un code")
+		elif rep == "humain-joue":
+			try:
+				self.afficher ( "Le niveau actuel est : " + moteur.get_mode ())
+				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+					
+				chargement.run (10,"arc")
+				affichage.reset ()
+				
+				self.set ("Humain-Joue")
+				
+				
+			except moteur.PasEnCoursDePartie:
+				self.afficher ( "Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
+			except:
+				self.afficher ( "Une erreur inconnue est survenue ... ")
+		elif rep == "ia-joue":
+			self.afficher ("L'IA va jouer une partie")
+			try:
+				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
+				self.afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !")])
+				
+				ia_mode = ""
+				demander_ia = True
+				while demander_ia == True:
+					ia_mode = self.demander ("Quelle IA")
+					if ia_mode in ["matrice", "aleatoire", "knuth"]:
+						demander_ia = False
+					else:
+						self.afficher ("Ce mode d'IA est invalide !")
+				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+				chargement.run (5,"cercle")
+				affichage.reset ()
+				ia.jouer (ia_mode)
+			except moteur.PasEnCoursDePartie:
+				self.afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
+			except:
+				self.afficher ("Une erreur inconnue est survenue dans l'IA ...")
+		elif rep == "theme":
+			self.set ("Theme")
+		elif rep == "niveau":
+			self.set ("Niveau")
+		else:
+			self.afficher ("Cette requête est invalide dans le menu ...")
 
 if __name__ == '__main__':
 	# Initialisations des modules dans le bon ordre !
@@ -272,11 +381,8 @@ if __name__ == '__main__':
 	
 	iconsole.afficher ("Programme", "Bienvenue dans le mastermind !")
 
-	machine = gen_main_fsm ()
-
-	# Code en python2
-	# e = machine.next () # récupère l'état 
-	e = next (machine) # Code en python3
+	e = "Menu"
+	machine = Mastermind (e)
 
 	iconsole.afficher (e, "Tapez « help » pour obtenir de l'aide ...")
 
@@ -290,7 +396,7 @@ if __name__ == '__main__':
 			continuer = False
 			iconsole.afficher ("Programme", "Quitte ...")
 		else:
-			e = machine.send (rep) 
+			e = machine.send (rep)
 	
 	try:
 		persistance.save ()
