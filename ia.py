@@ -302,8 +302,10 @@ def jouer (mode = "aleatoire"):
 				iconsole.afficher ("IA", "Erreur ... " + t.message)
 
 	if mode == "aleatoire":
-		ia_matrice ()
+		ia_alea ()
 	elif mode == "knuth":
 		ia_knuth ()
+	elif mode == "matrice":
+		ia_matrice ()
 	else:
 		raise ModeInvalide

@@ -2,6 +2,20 @@
 # 03/04/2013
 # Desmarais Yann 
 
+def afficheur (acteur,t=0):
+	""" Crée un afficheur avec des 
+		variables prédéfinies 
+		
+		@acteur : str = qui parle
+		@t : int = tabulations 
+		
+		@return : func = fonction qui affiche du texte 
+	"""
+	def my_aff (s):
+		afficher (acteur, s, t)
+	
+	return my_aff 
+
 def separateur ():
 	""" Affiche un énorme séparateur !
 
