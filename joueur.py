@@ -41,7 +41,6 @@ aide = {
 		"regles" : "Affiche les règles du jeu ...",
 		"scores" : "Affiche les meilleurs scores du jeu ...",
 		"fortune" : "Affiche une petite phrase aléatoire sympa ...",
-		"score" : "Affiche le score actuel ..."
 	},
 	"Menu" : {
 		"ia-code" : "Fait décider un code à trouver par une IA",
@@ -66,8 +65,20 @@ aide = {
 	"Humain-Joue" : {
 		"proposer" : "Permet de faire une proposition, si et seulement si le plateau est affiché",
 		"plateau" : "Permet de réafficher le plateau de jeu",
-		"score" : "Permet de savoir le score actuel", # Pour l'instant c'est faux
+		"score" : "Permet de savoir le score actuel",
 		"abandon" : "Permet de revenir au menu, et abandonner la partie"
+	},
+	"Definir-Code" : {
+		"abandon" : "Revient au menu en annulant la partie actuelle",
+		"fin" : "Valide le code et revient au menu, la partie est lancée !",
+		"annuler" : "Supprime du tableau la dernière entrée",
+		"@" : "Une autre chaine de caractères est prise comme une couleur à ajouter à la fin"
+	},
+	"Proposer-Code" : {
+		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
+		"fin" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
+		"annuler" : "Supprime le dernier item du tableau",
+		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
 	}
 }
 
@@ -81,7 +92,7 @@ class Mastermind:
 			
 			@return : Mastermind 
 		"""
-		self.etats = ["Menu","Humain-Joue","Theme","Niveau"]
+		self.etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
 		self.ecrans = ["plateau", "regles", "scores"]
 		self.etat = initial # euh ... pas de test ?
 		self.ecran = "plateau" # Quel est l'écran actuel ?
