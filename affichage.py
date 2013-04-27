@@ -22,7 +22,6 @@ def init (theme = ""):
 	
 	# Crée la fenêtre :-)
 	setup (width=600,height=600,startx=400,starty=300)
-	raz ()
 	plateau ()
 	
 
@@ -108,7 +107,7 @@ def plateau ():
 	"""
 	global y,x
 
-	clear()
+	raz ()
 	
 	th = persistance.get_propriete ("backgrounds","theme:courant")
 

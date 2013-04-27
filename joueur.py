@@ -97,6 +97,8 @@ class Mastermind:
 		self.etat = initial # euh ... pas de test ?
 		self.ecran = "plateau" # Quel est l'écran actuel ?
 		
+		self.tableau_tampon = [] # Un tableau tampon, pour les états Proposer-Code et Definir-Code
+		
 	def afficher (self, quelquechose, t = 0):
 		""" Une surcouche de iconsole.afficher 
 			qui met automatiquement l'état courant 
@@ -249,6 +251,10 @@ class Mastermind:
 			self.theme (rep)
 		elif self.get () == "Niveau":
 			self.niveau (rep)
+		elif self.get () == "Proposer-Code":
+			self.proposer_code (rep)
+		elif self.get () == "Definir-Code":
+			self.definir_code (rep)
 		else:
 			raise ErreurFatale
 		
@@ -276,41 +282,7 @@ class Mastermind:
 			moteur.reprendre_partie ()
 			self.set_ecran ("plateau")
 		elif rep == "proposer":
-			self.set_ecran ("plateau", False)
-			
-			Li = iconsole.demander_tableau ()
-			try:
-				r = moteur.verification_solution (Li)
-				if r == "gagne":
-					self.afficher ("Vous avez gagné !!!")
-					self.set ("Menu")
-				elif r == "perdu":
-					self.afficher ("Vous avez perdu !!!")
-					self.set ("Menu")
-				elif r == False:
-					self.afficher ("Votre proposition n'a pas de sens ...")
-				else:
-					a,b = r
-			
-					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
-					sa = ""
-					sb = ""
-
-					if a > 1:
-						sa = "s"
-
-					if b > 1:
-						sb = "s"
-			
-					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
-					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
-
-					self.afficher(messaga)
-					self.afficher(messagb)
-			except moteur.TableauInvalide as exception:
-				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
-			except:
-				self.afficher ("Une erreur inconnue est survenue ...")
+			self.set ("Proposer-Code")
 		else:
 			self.afficher ("Requête invalide ...")
 				
@@ -323,7 +295,7 @@ class Mastermind:
 			@reutrn : None
 		"""
 		if self.get () != "Theme":
-			raise ValueError
+			raise LeProgrammeurEstCon
 		
 		if rep == "list":
 			def gen_liste_theme ():
@@ -359,7 +331,7 @@ class Mastermind:
 			@return : None
 		"""
 		if self.get () != "Niveau":
-			raise ValueError
+			raise LeProgrammeurEstCon
 		
 		if rep == "list":
 			self.afficher (str (moteur.get_liste_modes ()))
@@ -375,7 +347,101 @@ class Mastermind:
 				self.set_ecran ("regles", 3)
 			else:
 				self.afficher ("Ce niveau est invalide ...")
+	
+	
+	def proposer_code (self, rep):
+		""" Fonction qui permet de fare réagir la proposition 
+			de code 
+			
+			@rep : str = l'évènement
+			
+			@return : None
+		"""
+		if self.get () != "Proposer-Code":
+			raise LeProgrammeurEstCon
+		
+		if rep == "abandon":
+			self.afficher ("Annule la propositon de code ... ")
+			self.tableau_tampon = [] 
+			self.set ("Humain-Joue")
+		elif rep == "fin":
+			self.afficher ("Valide le nouveau code ...")
+			try:
+				r = moteur.verification_solution ( self.tableau_tampon )
+			except moteur.TableauInvalide as exception:
+				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
+			else:
+				if r == "gagne":
+					self.afficher ("Vous avez gagné !!!")
+					self.set ("Menu")
+				elif r == "perdu":
+					self.afficher ("Vous avez perdu !!!")
+					self.set ("Menu")
+				else:
+					a,b = r
+			
+					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+					sa = ""
+					sb = ""
 
+					if a > 1:
+						sa = "s"
+
+					if b > 1:
+						sb = "s"
+			
+					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+
+					self.afficher(messaga)
+					self.afficher(messagb)
+					self.tableau_tampon = []
+					self.set ("Humain-Joue")
+					
+		elif rep == "annuler":
+			try:
+				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
+				self.afficher (self.tableau_tampon)
+			except:
+				self.afficher ("Plus rien à annuler ...")
+		else:
+			self.tableau_tampon.append (rep)
+			self.afficher (self.tableau_tampon)
+			
+	def definir_code (self, rep):
+		""" Fait réagir la définition de code 
+		
+			@rep : str = l'évènement
+			
+			@return : None
+		"""
+		if self.get () != "Definir-Code":
+			raise LeProgrammeurEstCon
+		
+		if rep == "abandon":
+			self.afficher ("Annule la propositon de code ... ")
+			self.tableau_tampon = [] 
+			self.set ("Menu")
+		elif rep == "fin":
+			self.afficher ("Valide le nouveau code ...")
+			try:
+				moteur.nouvelle_partie ()
+				r = moteur.definir_code ( self.tableau_tampon )
+			except moteur.TableauInvalide as exception:
+				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
+			else:
+				self.tableau_tampon = []
+				self.set ("Menu")
+		elif rep == "annuler":
+			try:
+				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
+				self.afficher (self.tableau_tampon)
+			except:
+				self.afficher ("Plus rien à annuler ...")
+		else:
+			self.tableau_tampon.append (rep)
+			self.afficher (self.tableau_tampon)
+	
 	def menu (self, rep):
 		""" Fonction qui permet de faire réagir le menu 
 			à des actions 
@@ -385,7 +451,7 @@ class Mastermind:
 			@return : None
 		"""
 		if self.get () != "Menu":
-			raise ValueError
+			raise LeProgrammeurEstCon
 		
 		if rep == "ia-code":
 			moteur.nouvelle_partie ()
@@ -394,25 +460,7 @@ class Mastermind:
 			ia.choisir_code ()
 			self.afficher ( "L'IA a déterminé un code")
 		elif rep == "humain-code":
-			moteur.nouvelle_partie ()
-			self.afficher ( "L'humain va choisir un code, on commence une nouvelle partie")
-			self.afficher ( "Le niveau actuel est : " + moteur.get_mode ())
-			self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-			
-			self.set_ecran ("plateau", 5)
-			
-			c = False
-			
-			while c == False:
-				t = iconsole.demander_tableau ()
-				try:
-					c = moteur.definir_code (t)
-				except moteur.PasEnCoursDePartie:
-					self.afficher ("Erreur critique ...")
-				except moteur.TableauInvalide as exception:
-					self.afficher ("Une erreur est survenue : {0}".format (exception.message))
-
-			self.afficher ( "L'humain a déterminé un code")
+			self.set ("Definir-Code")
 		elif rep == "humain-joue":
 			try:
 				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())

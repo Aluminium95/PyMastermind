@@ -104,7 +104,7 @@ def nouvelle_partie ():
 	except ValueError:
 		raise persistance.ValeurInvalide ("config", "coups:" + mode_partie)
 	
-	affichage.reset () # Remet l'affichage du plateau
+	affichage.plateau () # Remet l'affichage du plateau
 
 def reprendre_partie ():
 	""" Réaffiche le plateau et les coups joués précédement dans 
@@ -118,7 +118,7 @@ def reprendre_partie ():
 	
 	if est_en_partie () != True:
 		raise PasEnCoursDePartie
-	affichage.reset () # Remet l'affichage du plateau
+	affichage.plateau () # Remet l'affichage du plateau
 
 	for coup in historique:
 		couleurs_hexa = []
