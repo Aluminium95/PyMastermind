@@ -331,7 +331,7 @@ def definir_code (tableau):
 	if len (tableau) == int (persistance.get_propriete ("config", "nombre_cases")):
 		for i in tableau:
 			if couleurs.is_string (i) == False:
-				raise TableauInvalide ("Une couleur est invalide")
+				raise TableauInvalide ("La couleur {0} est invalide".format (i))
 		code_secret = tableau
 	else:
 		raise TableauInvalide ("Le tableau ne contient pas le bon nombre de cases")

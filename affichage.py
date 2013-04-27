@@ -22,8 +22,8 @@ def init (theme = ""):
 	
 	# Crée la fenêtre :-)
 	setup (width=600,height=600,startx=400,starty=300)
-	up ()
-	reset () # Reset () -> met l'affichage de « jeu »
+	raz ()
+	plateau ()
 	
 
 def dessiner_carre (taille,couleur):
@@ -99,8 +99,10 @@ def dessiner_answer(answer):
 	else:
 		return
     
-def reset ():
-	""" Remet à zéro : un nouveau jeu peut commencer 
+def plateau ():
+	""" Affiche un plateau vierge
+		et définit toutes les constantes 
+		pour afficher les coups sur le plateau
 		
 		@return : None
 	"""
@@ -121,7 +123,7 @@ def reset ():
 
 	speed (0)    
 
-def win(score):
+def win (score):
 	""" Affiche l'écran de victoire (fond choisi)
 		
 		@bg : str
@@ -139,7 +141,7 @@ def win(score):
 	aller_a (x + 4 * 50 + 25, y + 10 * 50 - 35)
 	texte (score)
 	
-def loose(code,score):
+def loose (code,score):
 	""" Affiche l'écran de défaite
 		
 		@bg : str

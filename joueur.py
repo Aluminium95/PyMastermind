@@ -34,25 +34,6 @@ class ErreurFatale (Exception):
 
 # FIN EXCEPTIONS
 
-def choisir_code ():
-	""" Fonciton qui fait choisir au joueur le code secret du 
-		mastermind et le définit pour la partie courante
-
-		@return : None
-	"""
-	iconsole.afficher ("Mastermind","Le joueur doit choisir le code ...")
-	c = False
-	
-	while c == False:
-		t = iconsole.demander_tableau ()
-		try:
-			c = moteur.definir_code (t)
-		except moteur.PasEnCoursDePartie:
-			iconsole.afficher ("Mastermind", "Erreur critique ...")
-		except moteur.TableauInvalide as exception:
-			iconsole.afficher ("Mastermind", "Une erreur est survenue : {0}".format (exception.message))
-
-
 # C'est un gros paquet d'aide !
 aide = {
 	"global" : {
@@ -177,7 +158,7 @@ class Mastermind:
 			if moteur.est_en_partie () == True:
 				moteur.reprendre_partie ()
 			else:
-				affichage.reset ()
+				affichage.plateau ()
 		elif new == "regles":
 			if t != False:
 				chargement.run (t, "cercle")
@@ -406,7 +387,20 @@ class Mastermind:
 			self.afficher ( "L'humain va choisir un code, on commence une nouvelle partie")
 			self.afficher ( "Le niveau actuel est : " + moteur.get_mode ())
 			self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-			joueur.choisir_code ()
+			
+			self.set_ecran ("plateau", 5)
+			
+			c = False
+			
+			while c == False:
+				t = iconsole.demander_tableau ()
+				try:
+					c = moteur.definir_code (t)
+				except moteur.PasEnCoursDePartie:
+					self.afficher ("Erreur critique ...")
+				except moteur.TableauInvalide as exception:
+					self.afficher ("Une erreur est survenue : {0}".format (exception.message))
+
 			self.afficher ( "L'humain a déterminé un code")
 		elif rep == "humain-joue":
 			try:
@@ -415,7 +409,7 @@ class Mastermind:
 					
 				self.set_ecran ("plateau", 5)
 				
-				self.set ("Humain-Joue")
+				self.set ("Humain-Joue") # Change d'état
 				
 				
 			except moteur.PasEnCoursDePartie:

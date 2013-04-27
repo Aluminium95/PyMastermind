@@ -38,9 +38,25 @@ if __name__ == '__main__':
 			continuer = False
 			iconsole.afficher ("Programme", "Quitte ...")
 		else:
-			e = machine.send (rep)
-	
+			try:
+				e = machine.send (rep)
+			except joueur.ErreurFatale:
+				iconsole.afficher ("Programme", "Une erreur fatale est survenue ...")
+				continuer = False
+			except joueur.LeProgrammeurEstCon:
+				iconsole.afficher ("Programme", "Une des fonctions dans `joueur.py` est mal utilisée ... quitte")
+				continuer = False
+			except joueur.EcranInvalide:
+				iconsole.afficher ("Programme", "Le programmeur a fait une erreur dans la définition des écrans .. quitte")
+				continuer = False
+			except joueur.EtatInvalide:
+				iconsole.afficher ("Programme", "Le programmeur s'est trompé dans les États ... erreur fatale quitte")
+				continuer = False
+			# Les autres erreurs tuent le programme avec un message, qui permet le debug, mais aussi
+			# de montrer que oulala, c'est un gros programme 
+
 	try:
 		persistance.save ()
 	except persistance.EcritureImpossible:
 		iconsole.afficher ("Erreur", "Il est impossible de sauvgarder les modifications de paramètres ...")
+	# peut-il y avoir d'autres erreurs ?
