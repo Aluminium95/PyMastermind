@@ -493,7 +493,10 @@ class Mastermind:
 				
 				self.set_ecran ("plateau", 3)
 				
-				ia.jouer (ia_mode)
+				generateur_ia = ia.jouer (ia_mode)
+				for i in generateur_ia:
+					primitives.aller_a (200,-200)
+					chargement.animation (3,"cercle",20)
 			except moteur.PasEnCoursDePartie:
 				self.afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
 			except:

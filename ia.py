@@ -49,7 +49,7 @@ def generer_couleurs_aleatoires (c = False):
 	return sortie
 	
 def create_list(S):
-	"""Créé une liste de toutes les combinaison possibles des objets dans S (une même couleur peux se retrouver plusieurs fois)
+	"""Créé une liste de toutes les arrangements possibles des objets dans S (une même couleur peux se retrouver plusieurs fois)
 		len(li) = n^(4) à l'issue de cette fonction (où n est len(S))
 		
 		@S : list = L'univers, l'ensemble des possibilités, pour le mastermind, le nombre de couleurs
@@ -138,12 +138,13 @@ def jouer (mode = "aleatoire"):
 			prop = generer_couleurs_aleatoires ()
 			try:
 				r = moteur.verification_solution (prop)
-				
-				if r == "perdu" or "gagne":
-					return
-
 			except moteur.TableauInvalide as t:
 				iconsole.afficher ("IA", "Erreur ... " + t.message)
+			else:
+				if r == "gagne" or r == "perdu":
+					break
+				else:
+					yield
 	
 	def ia_matrice ():
 		""" Une ia qui fait une matrice probabiliste
@@ -224,7 +225,7 @@ def jouer (mode = "aleatoire"):
 			reponse = moteur.verification_solution (coup)
 
 			if reponse == "gagne" or reponse == "perdu":
-				return reponse # là c'est génial 
+				break
 			else:
 				a,b = reponse # là c'est le couple (a,b) !
 				# ce code tente de remplir la matrice d'informations 
@@ -269,6 +270,7 @@ def jouer (mode = "aleatoire"):
 							matrice.set (m,i,univers.index (j), old + sc)
 				
 				matrice.display (m,univers) # Affiche la matrice résultante !
+				yield
 
 
 	def ia_knuth ():
@@ -282,15 +284,13 @@ def jouer (mode = "aleatoire"):
 				li.remove (proposition) # Retire la proposition de la liste 
 			except:
 				iconsole.afficher ("IA","Le code utilise FORCÉMENT des couleurs qui ne sont pas disonibles ...")
-			goto (200,-200)
-			chargement.animation (3,"cercle",20)
 
 			try:
 				reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
 				iconsole.afficher ("IA","Joue {0} -> {1}".format (proposition,reponse))
 				
 				if reponse == "gagne" or reponse == "perdu":
-					return reponse
+					break
 				else:
 					nli = []
 					for i in li:
@@ -298,14 +298,15 @@ def jouer (mode = "aleatoire"):
 						if reponse_tmp == reponse:
 							nli.append (i)
 					li = nli
+					yield
 			except moteur.TableauInvalide as t:
 				iconsole.afficher ("IA", "Erreur ... " + t.message)
 
 	if mode == "aleatoire":
-		ia_alea ()
+		return ia_alea ()
 	elif mode == "knuth":
-		ia_knuth ()
+		return ia_knuth ()
 	elif mode == "matrice":
-		ia_matrice ()
+		return ia_matrice ()
 	else:
 		raise ModeInvalide
