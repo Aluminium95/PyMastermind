@@ -37,7 +37,15 @@ def afficher(acteur,dialogue,t=0):
 	indentation = "\t" * t
 	formattage = "- ({0}) : « {1} »"
 	
-	formattage = formattage.format (acteur,dialogue).replace ("\n", "\n" + indentation + "\t")
+	formattage = formattage.format (acteur,dialogue)
+	
+	i = 80
+	while i < len (formattage):
+		# On insère un retour à la ligne au ième caractère
+		formattage = formattage[:i] + "\n" + formattage[i:]
+		i += 80 # la console fait 80 caractères ?
+	
+	formattage = formattage.replace ("\n", "\n" + indentation + "\t")
 	
 	print (indentation + formattage)
 
