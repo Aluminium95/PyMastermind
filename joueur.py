@@ -435,8 +435,8 @@ class Mastermind:
 			self.set ("Menu")
 		elif rep == "fin":
 			self.afficher ("Valide le nouveau code ...")
+			moteur.nouvelle_partie ()
 			try:
-				moteur.nouvelle_partie ()
 				r = moteur.definir_code ( self.tableau_tampon )
 			except moteur.TableauInvalide as exception:
 				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
@@ -446,9 +446,10 @@ class Mastermind:
 		elif rep == "annuler":
 			try:
 				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
-				self.afficher (self.tableau_tampon)
 			except:
 				self.afficher ("Plus rien à annuler ...")
+			else:
+				self.afficher (self.tableau_tampon)
 		else:
 			self.tableau_tampon.append (rep)
 			self.afficher (self.tableau_tampon)
@@ -476,20 +477,20 @@ class Mastermind:
 		elif rep == "humain-joue":
 			try:
 				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
-				
+			except moteur.PasEnCoursDePartie:
+				self.afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
+			else:
 				self.set_ecran ("plateau", 5)
 				
 				self.set ("Humain-Joue") # Change d'état
 				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-				
-			except moteur.PasEnCoursDePartie:
-				self.afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
-			except:
-				self.afficher ("Une erreur inconnue est survenue ... ")
 		elif rep == "ia-joue":
 			self.afficher ("L'IA va jouer une partie")
 			try:
 				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
+			except moteur.PasEnCoursDePartie:
+				self.afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
+			else:
 				self.afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
 				
 				ia_mode = ""
@@ -508,10 +509,6 @@ class Mastermind:
 				for i in generateur_ia:
 					primitives.aller_a (200,-200)
 					chargement.animation (3,"cercle",20)
-			except moteur.PasEnCoursDePartie:
-				self.afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
-			except:
-				self.afficher ("Une erreur inconnue est survenue dans l'IA ...")
 		elif rep == "theme":
 			self.set ("Theme")
 		elif rep == "niveau":
