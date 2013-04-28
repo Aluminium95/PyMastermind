@@ -41,6 +41,7 @@ aide = {
 		"regles" : "Affiche les règles du jeu ...",
 		"scores" : "Affiche les meilleurs scores du jeu ...",
 		"fortune" : "Affiche une petite phrase aléatoire sympa ...",
+		"couleurs" : "Affiche la liste des couleurs disponibles"
 	},
 	"Menu" : {
 		"ia-code" : "Fait décider un code à trouver par une IA",
@@ -243,6 +244,13 @@ class Mastermind:
 				self.afficher ( "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
 			except:
 				self.afficher ( "Une erreur inconnue est survenue ... ")
+				
+		elif rep == "couleurs":
+			try:
+				self.afficher_liste ("Couleurs disponibles", couleurs.liste_couleurs()[0:moteur.get_nombre_couleurs()])
+			except moteur.PasEnCoursDePartie:
+				self.afficher_liste ("Couleurs futurement disponibles", couleurs.liste_couleurs()[0:moteur.get_nombre_couleurs_next ()])
+			
 		elif self.get () == "Humain-Joue":
 			self.humain_joue (rep)
 		elif self.get () == "Menu":
@@ -461,15 +469,15 @@ class Mastermind:
 			self.afficher ( "L'IA a déterminé un code")
 		elif rep == "humain-code":
 			self.set ("Definir-Code")
+			self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs_next ()])
 		elif rep == "humain-joue":
 			try:
 				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
-				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
-					
+				
 				self.set_ecran ("plateau", 5)
 				
 				self.set ("Humain-Joue") # Change d'état
-				
+				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
 				
 			except moteur.PasEnCoursDePartie:
 				self.afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
