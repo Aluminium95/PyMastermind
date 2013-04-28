@@ -137,7 +137,19 @@ def win (score):
 	path = "Images/Theme" + th + "/gagne.gif"
 	bgpic(path)
 	
-	aller_a (x + 4 * 50 + 25, y + 10 * 50 - 35)
+	aller_a (-125, -70) # On centre la réponse
+	
+	color ("white")
+	begin_fill ()
+	rectangle (250,110)
+	end_fill ()
+	
+	aller_a (-110,0)
+	color ("black")
+	texte ("Votre score final","important")
+	
+	aller_a (-9 * len (str (score)),-50)
+	color ("black")
 	texte (score)
 	
 def loose (code):
@@ -297,6 +309,5 @@ if __name__ == "__main__":
 	persistance.init ()
 	couleurs.init ()
 	
-	loose (["rouge","vert","bleu","orange"])
-	
+	win (8)
 	mainloop ()
