@@ -21,7 +21,7 @@ def separateur ():
 
 		@return : None
 	"""
-	print (100 * "-")
+	print (80 * "-")
 
 def afficher(acteur,dialogue,t=0):
 	""" Affiche une information à l'utilisateur 
