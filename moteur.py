@@ -193,11 +193,11 @@ def calcul_score ():
 	coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
 	mode = get_mode()
 	if mode == "facile":
-		score = coups
+		score = 100 - ((10*(coups-1)))/2
 	elif mode == "moyen":
-		score = coups + 2
+		score = 100 - ((10*(coups-1)))/1.5
 	else:
-		score = coups + 5
+		score = 100 - (10*(coups-1))
 	
 	return score
 
