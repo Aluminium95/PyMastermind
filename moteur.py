@@ -385,8 +385,7 @@ def verification_solution (proposition):
 		en_cours_de_partie = False
 		return "gagne"
 	elif restant <= 0: #si le nombre de coups restants est de 0
-		score = calcul_score()
-		affichage.loose (list(code_secret),score)
+		affichage.loose (list(code_secret))
 		
 		en_cours_de_partie = False
 		return "perdu"

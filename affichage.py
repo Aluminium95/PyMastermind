@@ -140,7 +140,7 @@ def win (score):
 	aller_a (x + 4 * 50 + 25, y + 10 * 50 - 35)
 	texte (score)
 	
-def loose (code,score):
+def loose (code):
 	""" Affiche l'écran de défaite
 		
 		@bg : str
@@ -155,16 +155,26 @@ def loose (code,score):
 	path = "Images/Theme" + th + "/perdu.gif"
 	bgpic(path)
 	
-	aller_a (x, y + 10 * 50) # On se met pour faire le dernier coup
 	
+			
+	aller_a (-125, -70) # On centre la réponse
+	
+	color ("white")
+	begin_fill ()
+	rectangle (250,110)
+	end_fill ()
+
+	aller_a (-95, -25) # On centre la réponse
 
 	for i in code:
 		dessiner_carre (40, couleurs.couleur_to_hexa (i))
 		fd(50)
-	
 
-	aller_a (x + 4 * 50 + 25, y + 10 * 50 - 35)
-	texte (score)
+	
+	aller_a (-110,0)
+	color ("black")
+	texte ("La solution était","important")
+
 
 def choix_theme(nbr_theme = 1):
 	""" Sélectionne un thème (modifie le fichier de configuration)
@@ -282,3 +292,11 @@ def high_score ():
 	texte ("Meilleurs scores","important")
 	aller_a (-200,150)
 	colonnes(5, 50, 100, generer_score () )
+	
+if __name__ == "__main__":
+	persistance.init ()
+	couleurs.init ()
+	
+	loose (["rouge","vert","bleu","orange"])
+	
+	mainloop ()

@@ -479,7 +479,7 @@ class Mastermind:
 			self.afficher ("L'IA va jouer une partie")
 			try:
 				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
-				self.afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !")])
+				self.afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
 				
 				ia_mode = ""
 				demander_ia = True

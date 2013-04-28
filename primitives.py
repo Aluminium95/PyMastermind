@@ -69,10 +69,10 @@ def carre (w,c = False):
 	""" Crée un carré de longueur w et de couleur c
 	
 		Le carré est crée à partir du point actuel de turtle 
-		en allant vers la droite.
+		en allant vers la gauche.
 		
 		@w : int = la taille du côté
-		@c : int = la couleur du carré
+		@c : TurtleColor = la couleur du carré
 		
 		@return : None
 		
@@ -80,6 +80,34 @@ def carre (w,c = False):
 			sa direction initiale 
 	"""
 	polygone (4, w, c)
+	
+def rectangle (w,l, c = False):
+	""" Crée un recangle de largeur w de longueur l et 
+		de couleur c (si définie)
+		
+		Le rectangle se fait en allant vers la Gauche
+		
+		@w : int = largeur
+		@l : int = longueur
+		@c : TurtleColor = la couleur du carré 
+		
+		@return : None
+		
+		@avance : le pointeur revient à la position initiale avec sa 
+			direction initiale
+	"""
+	if c != False:
+		color (c)
+	
+	down ()
+	for i in range (0,4):
+		if i % 2 == 0:
+			forward (w - 1)
+		else:
+			forward (l - 1)
+		left (90)
+	up ()
+		
 	
 def texte (text, t = "normal"):
 	""" Écrit du texte sur l'écran, de manière jolie ...
