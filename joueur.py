@@ -95,10 +95,12 @@ class Mastermind:
 		"""
 		self.etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
 		self.ecrans = ["plateau", "regles", "scores"]
-		self.etat = initial # euh ... pas de test ?
+		self.etat = ""
 		self.ecran = "plateau" # Quel est l'écran actuel ?
 		
 		self.tableau_tampon = [] # Un tableau tampon, pour les états Proposer-Code et Definir-Code
+		
+		self.set (initial)
 		
 	def afficher (self, quelquechose, t = 0):
 		""" Une surcouche de iconsole.afficher 
@@ -153,7 +155,8 @@ class Mastermind:
 		
 		self.etat = state 
 		# petits trucs ici pour les transitions 
-		iconsole.separateur ()
+		# iconsole.separateur ()
+		iconsole.clear ()
 		self.afficher ("Vous êtes maintenant dans un nouveau mode")
 		self.aide () # Affiche l'aide du nouvel état 
 		

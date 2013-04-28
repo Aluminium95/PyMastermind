@@ -2,6 +2,8 @@
 # 03/04/2013
 # Desmarais Yann 
 
+import os
+
 def afficheur (acteur,t=0):
 	""" Crée un afficheur avec des 
 		variables prédéfinies 
@@ -101,3 +103,18 @@ def demander_tableau (n = 4):
 	
 	afficher ("Entrée tableau","Fin du tableau...",1)
 	return Li 
+
+if os.name == 'nt':
+	def clear ():
+		""" Clear l'écran de la console,
+		
+			@return : None
+		"""
+		os.system ("cls")
+else:
+	def clear ():
+		""" Clear l'écran de la console
+			
+			@return : None
+		"""
+		os.system ("clear")
