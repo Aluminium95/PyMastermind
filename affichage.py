@@ -22,6 +22,8 @@ def init (theme = ""):
 	
 	# Crée la fenêtre :-)
 	setup (width=600,height=600,startx=400,starty=300)
+	sc = getscreen ()
+	sc.title ("PyMastermind")
 	plateau ()
 	
 
