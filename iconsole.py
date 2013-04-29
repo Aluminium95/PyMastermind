@@ -25,6 +25,27 @@ def separateur ():
 	"""
 	print (80 * "-")
 
+
+def resize (string):
+	""" Une fonction qui fait les sauts 
+		de ligne automatique pour une phrase 
+		trop longue en console 
+
+		@string : str = chaine à découper
+
+		@return : str = la chaine découpée (avec des \n)
+	"""
+	
+	newstring = string # copie ?!
+	
+	i = 80
+	while i < len (string):
+		# On insère un retour à la ligne au ième caractère
+		newstring = newstring[:i] + "\n" + newstring[i:]
+		i += 80 # la console fait 80 caractères ?
+	
+	return newstring
+
 def afficher(acteur,dialogue,t=0):
 	""" Affiche une information à l'utilisateur 
 	
@@ -37,17 +58,13 @@ def afficher(acteur,dialogue,t=0):
 	indentation = "\t" * t
 	formattage = "- ({0}) : « {1} »"
 	
-	formattage = formattage.format (acteur,dialogue)
+	formattage = indentation + formattage.format (acteur,dialogue)
 	
-	i = 80
-	while i < len (formattage):
-		# On insère un retour à la ligne au ième caractère
-		formattage = formattage[:i] + "\n" + formattage[i:]
-		i += 80 # la console fait 80 caractères ?
-	
+	formattage = resize (formattage)
+
 	formattage = formattage.replace ("\n", "\n" + indentation + "\t")
 	
-	print (indentation + formattage)
+	print (formattage)
 
 def demander(acteur,dialogue,t=0):
 	""" Demande une information à l'utilisateur 
@@ -62,9 +79,15 @@ def demander(acteur,dialogue,t=0):
 	
 	formattage = "# [{0}] ? {1} : "
 	
-	formattage = formattage.format (acteur, dialogue).replace ("\n", "\n" + indentation + "\t")
+	formattage = indentation + formattage.format (acteur, dialogue)
+	
+	formattage = resize (formattage)
+
+	formattage = formattage.replace ("\n", "\n" + indentation + "\t")
+	
+	
 	# return raw_input (formattage.format (acteur,dialogue))
-	return input (indentation + formattage)
+	return input (formattage)
 
 def afficher_liste (acteur,message,generateur, t = 0):
 	""" Affiche un générateur de descriptions à l'utilisateur 
@@ -86,11 +109,11 @@ def afficher_liste (acteur,message,generateur, t = 0):
 	
 	for i in generateur:
 		if isinstance (i,tuple):
-			s = indentation + "{0} - {1}".format (i[0],i[1])
+			s = resize (indentation + "{0} - {1}".format (i[0],i[1]))
 		else:
-			s = indentation + "- {0}".format (i)
+			s = resize (indentation + "- {0}".format (i))
 			
-		print (s.replace ("\n","\n" + indentation + "\t"))
+		print (s.replace ("\n","\n" + indentation + "\t" * 2))
 
 def demander_tableau (n = 4):
 	""" Demande un tableau
