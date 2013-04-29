@@ -97,7 +97,11 @@ def demander(acteur,dialogue,t=0):
 	
 	
 	# return raw_input (formattage.format (acteur,dialogue))
-	return input (formattage)
+	try:
+		return input (formattage)
+	except:
+		afficher (acteur, "Vous voulez quitter ? Il y a des moyens moins ... brutaux")
+		return "quit" # Ou pas ... 
 
 def afficher_liste (acteur,message,generateur, t = 0):
 	""" Affiche un générateur de descriptions à l'utilisateur 
