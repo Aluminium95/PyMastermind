@@ -52,6 +52,15 @@ if __name__ == '__main__':
 			except joueur.EtatInvalide:
 				iconsole.afficher ("Programme", "Le programmeur s'est trompé dans les États ... erreur fatale quitte")
 				continuer = False
+			except persistance.CleInvalide:
+				iconsole.afficher ("Programme", "Une clé est invalide ... il y a une erreur grave ... quitte")
+				continuer = False
+			except persistance.FichierInvalide:
+				iconsole.afficher ("Programme", "Un fichier est manquant ... c'est impossible : quitte")
+				continuer = False
+			except persistance.ValeurInvalide:
+				iconsole.afficher ("Programme", "Valeur invalide ... la configuration est corompue : quitte")
+				continuer = False
 			# Les autres erreurs tuent le programme avec un message, qui permet le debug, mais aussi
 			# de montrer que oulala, c'est un gros programme 
 
