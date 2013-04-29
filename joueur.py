@@ -18,18 +18,18 @@ from random import randint
 
 # DEB EXCEPTIONS
 
-class EcranInvalide (Exception):
+class EcranInvalide (Exception): # Un problème d'écran 
 	def __init__ (self, ecran):
 		self.ecran = ecran 
 
-class EtatInvalide (Exception):
+class EtatInvalide (Exception): # Un problème d'état
 	def __init__ (self, etat):
 		self.etat = etat
 		
-class LeProgrammeurEstCon (Exception):
+class LeProgrammeurEstCon (Exception): # Ah, c'est une mauvaise utilisation d'une fonction
 	pass
 
-class ErreurFatale (Exception):
+class ErreurFatale (Exception): # Pas la peine de continuer ...
 	pass 
 
 # FIN EXCEPTIONS

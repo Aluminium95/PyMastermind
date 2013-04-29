@@ -12,16 +12,35 @@ import misc
 import regles
 
 import primitives 
-import chargement
+import chargement 
+
+from time import sleep
 
 if __name__ == '__main__':
-	# Initialisations des modules dans le bon ordre !
-	persistance.init ()
-	couleurs.init ()
-	affichage.init ()
-	moteur.init ()
 	
 	iconsole.afficher ("Programme", "Bienvenue dans le mastermind !")
+	sleep (1)
+	
+	# Initialisations des modules dans le bon ordre !
+	persistance.init ()
+	iconsole.afficher ("Chargement", "Charge la persistance ...")
+	sleep (0.5)
+	
+	couleurs.init ()
+	iconsole.afficher ("Chargement", "Charge les couleurs ...")
+	sleep (0.5)
+	
+	affichage.init ()
+	iconsole.afficher ("Chargement", "Initialise l'affichage ...")
+	sleep (0.5)
+	
+	moteur.init ()
+	iconsole.afficher ("Chargement", "Initialise le moteur ...")
+	sleep (0.5)
+	
+	
+	iconsole.afficher ("Chargement", "Interface console principale ...")
+	sleep (2)
 
 	e = "Menu"
 	machine = joueur.Mastermind (e)
