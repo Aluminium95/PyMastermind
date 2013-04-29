@@ -36,14 +36,24 @@ def resize (string):
 		@return : str = la chaine découpée (avec des \n)
 	"""
 	
-	newstring = string # copie ?!
+	newstring = ""
 	
-	i = 80
-	while i < len (string):
-		# On insère un retour à la ligne au ième caractère
-		newstring = newstring[:i] + "\n" + newstring[i:]
-		i += 80 # la console fait 80 caractères ?
-	
+	lastn = 0
+	i = 0
+	for lettre in string:
+		newstring += lettre
+		
+		i += 1
+		
+		if lettre == "\n":
+			lastn = i
+		elif lettre == "\t":
+			i += 7 # Une tabulation prend 7 caractères de plus (8 carac au total)
+		
+		if i - lastn >= 80:
+			newstring += "\n"
+			lastn = i
+		
 	return newstring
 
 def afficher(acteur,dialogue,t=0):
