@@ -505,10 +505,10 @@ class Mastermind:
 				
 				self.set_ecran ("plateau", 3)
 				
-				generateur_ia = ia.jouer (ia_mode)
-				for i in generateur_ia:
+				for i in ia.jouer (ia_mode):
 					primitives.aller_a (200,-200)
 					chargement.animation (3,"cercle",20)
+				
 		elif rep == "theme":
 			self.set ("Theme")
 		elif rep == "niveau":

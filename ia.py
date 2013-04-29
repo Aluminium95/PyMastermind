@@ -121,6 +121,184 @@ def choisir_code (mode="aleatoire"):
 	else:
 		raise ModeInvalide
 
+def ia_knuth ():
+	univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
+
+	li = create_list (univers) # Crée la liste de toutes les possibilités 
+	
+
+	while True: # On boucle ! Youhou ...
+		yield
+		try:
+			proposition = choice (li) # On propose un truc de la liste 
+			li.remove (proposition) # Retire la proposition de la liste 
+		except:
+			iconsole.afficher ("IA","Le code utilise FORCÉMENT des couleurs qui ne sont pas disonibles ...")
+
+		try:
+			reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
+			iconsole.afficher ("IA","Joue {0} -> {1}".format (proposition,reponse))
+			
+			if reponse == "gagne" or reponse == "perdu":
+				raise StopIteration
+			else:
+				nli = []
+				for i in li:
+					reponse_tmp = moteur.proposition_solution (proposition, i)
+					if reponse_tmp == reponse:
+						nli.append (i)
+				li = nli
+		except moteur.TableauInvalide as t:
+			iconsole.afficher ("IA", "Erreur ... " + t.message)
+
+
+def ia_alea ():
+	# On fait pas dans la finesse ici 
+	# Il faut plus de rafinement --"
+	
+	while True:
+		prop = generer_couleurs_aleatoires ()
+		try:
+			r = moteur.verification_solution (prop)
+		except moteur.TableauInvalide as t:
+			iconsole.afficher ("IA", "Erreur ... " + t.message)
+		else:
+			if r == "gagne" or r == "perdu":
+				raise StopIteration
+			else:
+				yield
+			
+
+
+def ia_matrice ():
+	""" Une ia qui fait une matrice probabiliste
+		qui permet d'étudier quelle doit être 
+		la combinaison couleurs/cases qui
+		correspond au code
+	"""
+	# Il est pratique d'avoir l'univers sous la main 
+	# (l'ensemble des couleurs disponibles dans l'ordre)
+	univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
+	
+	# On crée la matrice pondérée des coefs case/couleur (affichée en sortie !)
+	m = matrice.make (4, len (univers), lambda x,y: 0) # une matrice couleur/case
+
+	def coup_alea ():
+		""" Crée un coup totalement aléatoire, tout en 
+			vérifiant qu'il n'est pas dans l'historique
+			et vérifiant qu'il n'utilise pas des combinaisons
+			cases/couleurs qui sont impossibles 
+		"""
+		coup = []
+		while coup == []:
+			# On génère un coup aléatoire (totalement) à partir de l'univers
+			coup = generer_couleurs_aleatoires (univers)
+			valide = True # On présuppose que le coup est valide
+			for i,j in enumerate (coup):
+				if matrice.get (m,i, univers.index (j)) == "F":
+					valide = False # Mais s'il utilise une valeur interdite ... il ne l'est pas
+			
+			hi = moteur.get_historique () # On récupère les coups déjà joués 
+			for h in hi:
+				if h[0] == coup: # h[0] représente le coup et h[1] la réponse
+					valide = False # S'il y est ... on ne le rejoue pas !
+
+			if valide == False: # Si c'est invalide (historique ou valeur interdite)
+				coup = [] # On met à [] (donc on continue à boucler)
+		return coup # On retourne le coup une fois généré !
+
+	def coup_tentative ():
+		""" Fait une tentative d'interprétation des 
+			résultats !
+		"""
+		coup = [] # Un coup
+		
+		# Pour chaque numéro de ligne est une case
+		# et les colonnes sont les couleurs, donc 
+		# Pour chaque ligne, on trouve la colonne avec 
+		# le meilleur coef, et on prend la couleur qui
+		# correspond à cette colonne :-)
+		for i in matrice.parcourir_lignes (m):
+			maximum = 0
+			maximum_pos = 0
+			for j,k in enumerate (i):
+				if k != "F" and k >= maximum:
+					maximum = k
+					maximum_pos = j
+			coup.append (univers[maximum_pos])
+		
+		# On vérifie que le coup n'est pas déjà joué
+		for h in moteur.get_historique ():
+			if h[0] == coup:
+				return coup_alea () # Auquel cas on retourne un coup aléatoire
+	
+		return coup # Sinon on retourne le coup géneré
+	
+
+	while True:
+		coup = []
+		
+		# En fonction du nombre de coups restant
+		# On a une approche différente ...
+
+		if moteur.get_restant () < 5:
+			coup = coup_tentative ()
+		else:
+			coup = coup_alea ()
+		
+		# On récupère la réponse 
+		reponse = moteur.verification_solution (coup)
+
+		if reponse == "gagne" or reponse == "perdu":
+			raise StopIteration
+		else:
+			yield
+			a,b = reponse # là c'est le couple (a,b) !
+			# ce code tente de remplir la matrice d'informations 
+			# les plus pertinentes possibles à partir de ce couple
+			# et des couleurs jouées ... Mais c'est dur !
+			
+			if a + b == 4:
+				def une_petite_lambda (i,j,v):
+					if univers[j] not in coup:
+						return "F"
+					else:
+						return v
+				matrice.apply (m, une_petite_lambda)
+			elif a == 0:
+				for i,j in enumerate (coup):
+					matrice.set (m,i,univers.index (j), "F") # Met faux dans les cases 
+					if b > 0:
+						k = 0
+						for element in matrice.parcourir_colonne (m, univers.index (j)):
+							if element != "F":
+								matrice.set (m, k, univers.index (j), element + b)
+							k += 1
+					elif b == 0:
+						k = 0
+						for element in matrice.parcourir_colonne (m, univers.index (j)):
+							matrice.set (m, k, univers.index (j), "F")
+							k += 1
+			else: # A ≠ 0
+				sc = 20 * a + b
+				
+				def my_little_lambda (i,j,v):
+					if v == "F":
+						return "F"
+					else:
+						return v - 5 * a
+
+				matrice.apply (m, my_little_lambda)
+
+				for i,j in enumerate (coup):
+					old = matrice.get (m,i,univers.index (j))
+					if old != "F":
+						matrice.set (m,i,univers.index (j), old + sc)
+			
+			matrice.display (m,univers) # Affiche la matrice résultante !
+
+
+
 # L'IA joue, avec un mode 
 def jouer (mode = "aleatoire"):
 	""" Fait jouer l'IA pour deviner le code 
@@ -130,183 +308,31 @@ def jouer (mode = "aleatoire"):
 
 		@return : None
 	"""
-
-	def ia_alea ():
-		# On fait pas dans la finesse ici 
-		# Il faut plus de rafinement --"
-		while True:
-			prop = generer_couleurs_aleatoires ()
-			try:
-				r = moteur.verification_solution (prop)
-			except moteur.TableauInvalide as t:
-				iconsole.afficher ("IA", "Erreur ... " + t.message)
-			else:
-				if r == "gagne" or r == "perdu":
-					break
-				else:
-					yield
 	
-	def ia_matrice ():
-		""" Une ia qui fait une matrice probabiliste
-			qui permet d'étudier quelle doit être 
-			la combinaison couleurs/cases qui
-			correspond au code
-		"""
-		# Il est pratique d'avoir l'univers sous la main 
-		# (l'ensemble des couleurs disponibles dans l'ordre)
-		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
-		
-		# On crée la matrice pondérée des coefs case/couleur (affichée en sortie !)
-		m = matrice.make (4, len (univers), lambda x,y: 0) # une matrice couleur/case
-
-		def coup_alea ():
-			""" Crée un coup totalement aléatoire, tout en 
-				vérifiant qu'il n'est pas dans l'historique
-				et vérifiant qu'il n'utilise pas des combinaisons
-				cases/couleurs qui sont impossibles 
-			"""
-			coup = []
-			while coup == []:
-				# On génère un coup aléatoire (totalement) à partir de l'univers
-				coup = generer_couleurs_aleatoires (univers)
-				valide = True # On présuppose que le coup est valide
-				for i,j in enumerate (coup):
-					if matrice.get (m,i, univers.index (j)) == "F":
-						valide = False # Mais s'il utilise une valeur interdite ... il ne l'est pas
-				
-				hi = moteur.get_historique () # On récupère les coups déjà joués 
-				for h in hi:
-					if h[0] == coup: # h[0] représente le coup et h[1] la réponse
-						valide = False # S'il y est ... on ne le rejoue pas !
-
-				if valide == False: # Si c'est invalide (historique ou valeur interdite)
-					coup = [] # On met à [] (donc on continue à boucler)
-			return coup # On retourne le coup une fois généré !
-
-		def coup_tentative ():
-			""" Fait une tentative d'interprétation des 
-				résultats !
-			"""
-			coup = [] # Un coup
-			
-			# Pour chaque numéro de ligne est une case
-			# et les colonnes sont les couleurs, donc 
-			# Pour chaque ligne, on trouve la colonne avec 
-			# le meilleur coef, et on prend la couleur qui
-			# correspond à cette colonne :-)
-			for i in matrice.parcourir_lignes (m):
-				maximum = 0
-				maximum_pos = 0
-				for j,k in enumerate (i):
-					if k != "F" and k >= maximum:
-						maximum = k
-						maximum_pos = j
-				coup.append (univers[maximum_pos])
-			
-			# On vérifie que le coup n'est pas déjà joué
-			for h in moteur.get_historique ():
-				if h[0] == coup:
-					return coup_alea () # Auquel cas on retourne un coup aléatoire
-		
-			return coup # Sinon on retourne le coup géneré
-	
-		while True:
-			coup = []
-			
-			# En fonction du nombre de coups restant
-			# On a une approche différente ...
-
-			if moteur.get_restant () < 5:
-				coup = coup_tentative ()
-			else:
-				coup = coup_alea ()
-			
-			# On récupère la réponse 
-			reponse = moteur.verification_solution (coup)
-
-			if reponse == "gagne" or reponse == "perdu":
-				break
-			else:
-				a,b = reponse # là c'est le couple (a,b) !
-				# ce code tente de remplir la matrice d'informations 
-			 	# les plus pertinentes possibles à partir de ce couple
-				# et des couleurs jouées ... Mais c'est dur !
-				
-				if a + b == 4:
-					def une_petite_lambda (i,j,v):
-						if univers[j] not in coup:
-							return "F"
-						else:
-							return v
-					matrice.apply (m, une_petite_lambda)
-				elif a == 0:
-					for i,j in enumerate (coup):
-						matrice.set (m,i,univers.index (j), "F") # Met faux dans les cases 
-						if b > 0:
-							k = 0
-							for element in matrice.parcourir_colonne (m, univers.index (j)):
-								if element != "F":
-									matrice.set (m, k, univers.index (j), element + b)
-								k += 1
-						elif b == 0:
-							k = 0
-							for element in matrice.parcourir_colonne (m, univers.index (j)):
-								matrice.set (m, k, univers.index (j), "F")
-								k += 1
-				else: # A ≠ 0
-					sc = 20 * a + b
-					
-					def my_little_lambda (i,j,v):
-						if v == "F":
-							return "F"
-						else:
-							return v - 5 * a
-
-					matrice.apply (m, my_little_lambda)
-	
-					for i,j in enumerate (coup):
-						old = matrice.get (m,i,univers.index (j))
-						if old != "F":
-							matrice.set (m,i,univers.index (j), old + sc)
-				
-				matrice.display (m,univers) # Affiche la matrice résultante !
-				yield
-
-
-	def ia_knuth ():
-		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
-
-		li = create_list (univers) # Crée la liste de toutes les possibilités 
-		
-		while True: # On boucle ! Youhou ...
-			try:
-				proposition = choice (li) # On propose un truc de la liste 
-				li.remove (proposition) # Retire la proposition de la liste 
-			except:
-				iconsole.afficher ("IA","Le code utilise FORCÉMENT des couleurs qui ne sont pas disonibles ...")
-
-			try:
-				reponse = moteur.verification_solution (proposition) # Et récupère la réponse du moteur 
-				iconsole.afficher ("IA","Joue {0} -> {1}".format (proposition,reponse))
-				
-				if reponse == "gagne" or reponse == "perdu":
-					break
-				else:
-					nli = []
-					for i in li:
-						reponse_tmp = moteur.proposition_solution (proposition, i)
-						if reponse_tmp == reponse:
-							nli.append (i)
-					li = nli
-					yield
-			except moteur.TableauInvalide as t:
-				iconsole.afficher ("IA", "Erreur ... " + t.message)
-
+	generator = ""
 	if mode == "aleatoire":
-		return ia_alea ()
+		generator = ia_alea ()
 	elif mode == "knuth":
-		return ia_knuth ()
+		generator = ia_knuth ()
 	elif mode == "matrice":
-		return ia_matrice ()
+		generator = ia_matrice ()
 	else:
 		raise ModeInvalide
+	
+	return generator
+
+if __name__ == '__main__':
+	persistance.init ()
+	couleurs.init ()
+	moteur.init ()
+	
+	moteur.nouvelle_partie ()
+	
+	choisir_code ()
+	
+	a = jouer ("matrice")
+	
+	print (a)
+	
+	for i in a:
+		print( "caca")
