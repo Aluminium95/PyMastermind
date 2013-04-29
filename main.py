@@ -15,6 +15,7 @@ import primitives
 import chargement 
 
 from time import sleep
+from random import random
 
 if __name__ == '__main__':
 	
@@ -24,23 +25,28 @@ if __name__ == '__main__':
 	# Initialisations des modules dans le bon ordre !
 	persistance.init ()
 	iconsole.afficher ("Chargement", "Charge la persistance ...")
-	sleep (0.5)
+	sleep (random ())
 	
 	couleurs.init ()
 	iconsole.afficher ("Chargement", "Charge les couleurs ...")
-	sleep (0.5)
+	sleep (random ())
 	
 	affichage.init ()
 	iconsole.afficher ("Chargement", "Initialise l'affichage ...")
-	sleep (0.5)
+	sleep (random ())
 	
 	moteur.init ()
 	iconsole.afficher ("Chargement", "Initialise le moteur ...")
-	sleep (0.5)
+	sleep (random ())
 	
+	iconsole.afficher ("Chargement", "Création des modes de l'IA ...")
+	sleep (random ())
 	
 	iconsole.afficher ("Chargement", "Interface console principale ...")
-	sleep (2)
+	sleep (random ())
+	
+	iconsole.afficher ("Chargement", "Lancement ...")
+	sleep (1)
 
 	e = "Menu"
 	machine = joueur.Mastermind (e)
