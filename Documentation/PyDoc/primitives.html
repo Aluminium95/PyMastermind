@@ -128,13 +128,13 @@ Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;
 &nbsp;<br>
 Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;y/x.<br>
 Unlike&nbsp;<a href="#-atan">atan</a>(y/x),&nbsp;the&nbsp;signs&nbsp;of&nbsp;both&nbsp;x&nbsp;and&nbsp;y&nbsp;are&nbsp;considered.</tt></dd></dl>
- <dl><dt><a name="-carre"><strong>carre</strong></a>(w, c)</dt><dd><tt>Crée&nbsp;un&nbsp;carré&nbsp;de&nbsp;longueur&nbsp;w&nbsp;et&nbsp;de&nbsp;couleur&nbsp;c<br>
+ <dl><dt><a name="-carre"><strong>carre</strong></a>(w, c<font color="#909090">=False</font>)</dt><dd><tt>Crée&nbsp;un&nbsp;carré&nbsp;de&nbsp;longueur&nbsp;w&nbsp;et&nbsp;de&nbsp;couleur&nbsp;c<br>
 &nbsp;<br>
 Le&nbsp;carré&nbsp;est&nbsp;crée&nbsp;à&nbsp;partir&nbsp;du&nbsp;point&nbsp;actuel&nbsp;de&nbsp;turtle&nbsp;<br>
-en&nbsp;allant&nbsp;vers&nbsp;la&nbsp;droite.<br>
+en&nbsp;allant&nbsp;vers&nbsp;la&nbsp;gauche.<br>
 &nbsp;<br>
 @w&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;taille&nbsp;du&nbsp;côté<br>
-@c&nbsp;:&nbsp;int&nbsp;=&nbsp;la&nbsp;couleur&nbsp;du&nbsp;carré<br>
+@c&nbsp;:&nbsp;TurtleColor&nbsp;=&nbsp;la&nbsp;couleur&nbsp;du&nbsp;carré<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None<br>
 &nbsp;<br>
@@ -224,7 +224,7 @@ Return&nbsp;the&nbsp;base&nbsp;10&nbsp;logarithm&nbsp;of&nbsp;x.</tt></dd></dl>
 &nbsp;<br>
 Return&nbsp;the&nbsp;fractional&nbsp;and&nbsp;integer&nbsp;parts&nbsp;of&nbsp;x.&nbsp;&nbsp;Both&nbsp;results&nbsp;carry&nbsp;the&nbsp;sign<br>
 of&nbsp;x&nbsp;and&nbsp;are&nbsp;floats.</tt></dd></dl>
- <dl><dt><a name="-polygone"><strong>polygone</strong></a>(n, w, c)</dt><dd><tt>Crée&nbsp;un&nbsp;polygone&nbsp;régulier&nbsp;de&nbsp;n&nbsp;côtés&nbsp;de&nbsp;longueur&nbsp;w<br>
+ <dl><dt><a name="-polygone"><strong>polygone</strong></a>(n, w, c<font color="#909090">=False</font>)</dt><dd><tt>Crée&nbsp;un&nbsp;polygone&nbsp;régulier&nbsp;de&nbsp;n&nbsp;côtés&nbsp;de&nbsp;longueur&nbsp;w<br>
 et&nbsp;de&nbsp;couleur&nbsp;c<br>
 &nbsp;<br>
 Le&nbsp;polygone&nbsp;est&nbsp;crée&nbsp;en&nbsp;partant&nbsp;du&nbsp;point&nbsp;actuel&nbsp;<br>
@@ -245,6 +245,19 @@ Return&nbsp;x**y&nbsp;(x&nbsp;to&nbsp;the&nbsp;power&nbsp;of&nbsp;y).</tt></dd><
 et&nbsp;efface&nbsp;tout&nbsp;ce&nbsp;qu'il&nbsp;y&nbsp;avait,&nbsp;y&nbsp;compris&nbsp;le&nbsp;fond<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-rectangle"><strong>rectangle</strong></a>(w, l, c<font color="#909090">=False</font>)</dt><dd><tt>Crée&nbsp;un&nbsp;recangle&nbsp;de&nbsp;largeur&nbsp;w&nbsp;de&nbsp;longueur&nbsp;l&nbsp;et&nbsp;<br>
+de&nbsp;couleur&nbsp;c&nbsp;(si&nbsp;définie)<br>
+&nbsp;<br>
+Le&nbsp;rectangle&nbsp;se&nbsp;fait&nbsp;en&nbsp;allant&nbsp;vers&nbsp;la&nbsp;Gauche<br>
+&nbsp;<br>
+@w&nbsp;:&nbsp;int&nbsp;=&nbsp;largeur<br>
+@l&nbsp;:&nbsp;int&nbsp;=&nbsp;longueur<br>
+@c&nbsp;:&nbsp;TurtleColor&nbsp;=&nbsp;la&nbsp;couleur&nbsp;du&nbsp;carré&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@avance&nbsp;:&nbsp;le&nbsp;pointeur&nbsp;revient&nbsp;à&nbsp;la&nbsp;position&nbsp;initiale&nbsp;avec&nbsp;sa&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;direction&nbsp;initiale</tt></dd></dl>
  <dl><dt><a name="-sin"><strong>sin</strong></a>(...)</dt><dd><tt><a href="#-sin">sin</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;sine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).</tt></dd></dl>

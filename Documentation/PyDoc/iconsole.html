@@ -14,6 +14,14 @@
 #&nbsp;Desmarais&nbsp;Yann</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#eeaa77">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
@@ -37,6 +45,16 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d'éléments&nbsp;a,&nbsp;quelconques<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-afficheur"><strong>afficheur</strong></a>(acteur, t<font color="#909090">=0</font>)</dt><dd><tt>Crée&nbsp;un&nbsp;afficheur&nbsp;avec&nbsp;des&nbsp;<br>
+variables&nbsp;prédéfinies&nbsp;<br>
+&nbsp;<br>
+@acteur&nbsp;:&nbsp;str&nbsp;=&nbsp;qui&nbsp;parle<br>
+@t&nbsp;:&nbsp;int&nbsp;=&nbsp;tabulations&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;func&nbsp;=&nbsp;fonction&nbsp;qui&nbsp;affiche&nbsp;du&nbsp;texte</tt></dd></dl>
+ <dl><dt><a name="-clear"><strong>clear</strong></a>()</dt><dd><tt>Clear&nbsp;l'écran&nbsp;de&nbsp;la&nbsp;console<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
  <dl><dt><a name="-demander"><strong>demander</strong></a>(acteur, dialogue, t<font color="#909090">=0</font>)</dt><dd><tt>Demande&nbsp;une&nbsp;information&nbsp;à&nbsp;l'utilisateur&nbsp;<br>
 &nbsp;<br>
 @acteur&nbsp;:&nbsp;string&nbsp;=&nbsp;qui&nbsp;demande<br>
@@ -48,6 +66,14 @@
 @n&nbsp;:&nbsp;int&nbsp;=&nbsp;nombre&nbsp;de&nbsp;cases&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;[str&nbsp;...]&nbsp;=&nbsp;le&nbsp;tableau&nbsp;rentré&nbsp;par&nbsp;l'utilisateur</tt></dd></dl>
+ <dl><dt><a name="-resize"><strong>resize</strong></a>(string)</dt><dd><tt>Une&nbsp;fonction&nbsp;qui&nbsp;fait&nbsp;les&nbsp;sauts&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;de&nbsp;ligne&nbsp;automatique&nbsp;pour&nbsp;une&nbsp;phrase&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trop&nbsp;longue&nbsp;en&nbsp;console&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@string&nbsp;:&nbsp;str&nbsp;=&nbsp;chaine&nbsp;à&nbsp;découper<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;: str&nbsp;=&nbsp;la&nbsp;chaine&nbsp;découpée&nbsp;(avec&nbsp;des&nbsp;<br>
+)</tt></dd></dl>
  <dl><dt><a name="-separateur"><strong>separateur</strong></a>()</dt><dd><tt>Affiche&nbsp;un&nbsp;énorme&nbsp;séparateur&nbsp;!<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>

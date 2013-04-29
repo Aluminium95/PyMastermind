@@ -109,7 +109,7 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 de&nbsp;mastermind,&nbsp;de&nbsp;manière&nbsp;aléatoire&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
- <dl><dt><a name="-create_list"><strong>create_list</strong></a>(S)</dt><dd><tt>Créé&nbsp;une&nbsp;liste&nbsp;de&nbsp;toutes&nbsp;les&nbsp;combinaison&nbsp;possibles&nbsp;des&nbsp;objets&nbsp;dans&nbsp;S&nbsp;(une&nbsp;même&nbsp;couleur&nbsp;peux&nbsp;se&nbsp;retrouver&nbsp;plusieurs&nbsp;fois)<br>
+ <dl><dt><a name="-create_list"><strong>create_list</strong></a>(S)</dt><dd><tt>Créé&nbsp;une&nbsp;liste&nbsp;de&nbsp;toutes&nbsp;les&nbsp;arrangements&nbsp;possibles&nbsp;des&nbsp;objets&nbsp;dans&nbsp;S&nbsp;(une&nbsp;même&nbsp;couleur&nbsp;peux&nbsp;se&nbsp;retrouver&nbsp;plusieurs&nbsp;fois)<br>
 len(li)&nbsp;=&nbsp;n^(4)&nbsp;à&nbsp;l'issue&nbsp;de&nbsp;cette&nbsp;fonction&nbsp;(où&nbsp;n&nbsp;est&nbsp;len(S))<br>
 &nbsp;<br>
 @S&nbsp;:&nbsp;list&nbsp;=&nbsp;L'univers,&nbsp;l'ensemble&nbsp;des&nbsp;possibilités,&nbsp;pour&nbsp;le&nbsp;mastermind,&nbsp;le&nbsp;nombre&nbsp;de&nbsp;couleurs<br>
@@ -119,6 +119,12 @@ len(li)&nbsp;=&nbsp;n^(4)&nbsp;à&nbsp;l'issue&nbsp;de&nbsp;cette&nbsp;fonction&
 @c&nbsp;:&nbsp;[couleurs&nbsp;(fr)&nbsp;...]&nbsp;|&nbsp;False&nbsp;=&nbsp;si&nbsp;on&nbsp;a&nbsp;un&nbsp;univers&nbsp;prédéfini&nbsp;!<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;list&nbsp;of&nbsp;couleurs&nbsp;(Français)</tt></dd></dl>
+ <dl><dt><a name="-ia_alea"><strong>ia_alea</strong></a>()</dt></dl>
+ <dl><dt><a name="-ia_knuth"><strong>ia_knuth</strong></a>()</dt></dl>
+ <dl><dt><a name="-ia_matrice"><strong>ia_matrice</strong></a>()</dt><dd><tt>Une&nbsp;ia&nbsp;qui&nbsp;fait&nbsp;une&nbsp;matrice&nbsp;probabiliste<br>
+qui&nbsp;permet&nbsp;d'étudier&nbsp;quelle&nbsp;doit&nbsp;être&nbsp;<br>
+la&nbsp;combinaison&nbsp;couleurs/cases&nbsp;qui<br>
+correspond&nbsp;au&nbsp;code</tt></dd></dl>
  <dl><dt><a name="-jouer"><strong>jouer</strong></a>(mode<font color="#909090">='aleatoire'</font>)</dt><dd><tt>Fait&nbsp;jouer&nbsp;l'IA&nbsp;pour&nbsp;deviner&nbsp;le&nbsp;code&nbsp;<br>
 &nbsp;<br>
 @mode&nbsp;:&nbsp;string&nbsp;(aleatoire&nbsp;|&nbsp;knuth&nbsp;|&nbsp;matrice)&nbsp;=&nbsp;<br>

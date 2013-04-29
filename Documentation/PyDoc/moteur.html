@@ -309,7 +309,7 @@ de&nbsp;bien&nbsp;savoir&nbsp;ce&nbsp;qui&nbsp;se&nbsp;passe&nbsp;<br>
 @throw&nbsp;:&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide&nbsp;#&nbsp;pour&nbsp;le&nbsp;nombre&nbsp;de&nbsp;coups<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide&nbsp;#&nbsp;«&nbsp;config&nbsp;»<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.ValeurInvalide&nbsp;(message)&nbsp;#&nbsp;nombre&nbsp;de&nbsp;coups</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.ValeurInvalide&nbsp;(fichier,clé)&nbsp;#&nbsp;nombre&nbsp;de&nbsp;coups</tt></dd></dl>
  <dl><dt><a name="-proposition_solution"><strong>proposition_solution</strong></a>(proposition, code)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
 comme&nbsp;la&nbsp;fontion&nbsp;proposer_solution,&nbsp;sans&nbsp;s'occuper&nbsp;des&nbsp;autres&nbsp;paramètres,&nbsp;tel&nbsp;que&nbsp;le&nbsp;score,<br>
 les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br>
@@ -347,9 +347,7 @@ la&nbsp;partie&nbsp;sur&nbsp;l'écran&nbsp;Turtle&nbsp;<br>
 &nbsp;<br>
 @throw&nbsp;:&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ModeInvalide">ModeInvalide</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ValueError</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide</tt></dd></dl>
  <dl><dt><a name="-verification_solution"><strong>verification_solution</strong></a>(proposition)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
 Si&nbsp;le&nbsp;coup&nbsp;est&nbsp;invalide,&nbsp;on&nbsp;n'enlève&nbsp;pas&nbsp;de&nbsp;vie&nbsp;ni&nbsp;ne&nbsp;diminue&nbsp;<br>
 le&nbsp;score&nbsp;!<br>

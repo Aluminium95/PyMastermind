@@ -23,7 +23,7 @@ def separateur ():
 
 		@return : None
 	"""
-	print (80 * "-")
+	print (80 * "-") # Devenu ... inutile ?!
 
 
 def resize (string):
