@@ -64,7 +64,7 @@ def dessiner_answer(answer):
 		dot(10,"red")
 	elif b>0:
 		b=b-1
-		dot(10,"grey")
+		dot(10,"white")
 	else:
 		return
 	up()
@@ -75,7 +75,7 @@ def dessiner_answer(answer):
 		dot(10,"red")
 	elif b>0:
 		b=b-1
-		dot(10,"grey")
+		dot(10,"white")
 	else:
 		return
 	up()
@@ -86,7 +86,7 @@ def dessiner_answer(answer):
 		dot(10,"red")
 	elif b>0:
 		b=b-1
-		dot(10,"grey")
+		dot(10,"white")
 	else:
 		return
 	right(90)
@@ -96,7 +96,7 @@ def dessiner_answer(answer):
 		dot(10,"red")
 	elif b>0:
 		b=b-1
-		dot(10,"grey")
+		dot(10,"white")
 	else:
 		return
     
