@@ -63,7 +63,7 @@ def liste_variables (fichier):
 		@throw : FichierInvalide
 	"""
 	
-	if not isinstance (chemin, str):
+	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
 	l = False
@@ -142,6 +142,13 @@ def get_by_value (chemin,val):
 
 		@throw : FichierInvalide et CleInvalide 
 	"""
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	elif not isinstance (val, str):
+		raise CleInvalide
+	
+	
 	for p in persistant: # Pour chaque fichier 
 		if p[0] == chemin: # si le chemin correspond 
 			for i in p[1:]: # On regarde chaque élément
