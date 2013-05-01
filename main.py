@@ -87,7 +87,7 @@ if __name__ == '__main__':
 				iconsole.afficher ("Programme", "Valeur invalide ... la configuration est corompue : quitte")
 				continuer = False
 			# Les autres erreurs tuent le programme avec un message, qui permet le debug, mais aussi
-			# de montrer que oulala, c'est un gros programme 
+			# de montrer que oulala, c'est un gros programme
 
 	try:
 		persistance.save ()
