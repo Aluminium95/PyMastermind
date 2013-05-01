@@ -68,7 +68,8 @@ aide = {
 		"proposer" : "Permet de faire une proposition, si et seulement si le plateau est affiché",
 		"plateau" : "Permet de réafficher le plateau de jeu",
 		"score" : "Permet de savoir le score actuel",
-		"abandon" : "Permet de revenir au menu, et abandonner la partie"
+		"abandon" : "Permet de revenir au menu, et abandonner la partie",
+		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses"
 	},
 	"Definir-Code" : {
 		"abandon" : "Revient au menu en annulant la partie actuelle",
@@ -80,6 +81,7 @@ aide = {
 		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
 		"fin" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
 		"annuler" : "Supprime le dernier item du tableau",
+		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
 		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
 	}
 }
@@ -296,6 +298,9 @@ class Mastermind:
 			self.set_ecran ("plateau")
 		elif rep == "proposer":
 			self.set ("Proposer-Code")
+		elif rep == "historique":
+			h = moteur.get_historique ()
+			self.afficher_liste ("Historique", h)
 		else:
 			self.afficher ("Requête invalide ...")
 				
