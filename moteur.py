@@ -355,6 +355,9 @@ def verification_solution (proposition):
 	if est_en_partie () != True:
 		raise PasEnCoursDePartie
 	
+	if len (proposition) != 4:
+		raise TableauInvalide ("Pas le bon nombre de couleurs")
+	
 	i = 0
 	reponse = proposition_solution(proposition, code_secret)
 	
@@ -401,16 +404,16 @@ def proposition_solution (proposition, code):
 
 		@return : (a,b)
 			- (a,b) : a couleurs justes et bien placées, b couleurs justes et mal placées 
+			
+		@throw : TableauInvalide
 	"""
 	
-	
+	if len (proposition) != len (code):
+		raise TableauInvalide ("Tailles différentes")
 
-	# couleurs.is_string (c) 
-	# il faut verifier que la couleur est valide 
-
-	a = 0
-	b = 0
-	i = 0
+	a = 0 # Le nombre de couleurs bonnes et à la bonne place
+	b = 0 # Le nombre de couleurs bonnes et à la mauvaise place
+	i = 0 # Un itérateur simple 
 	
 	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
 	
@@ -422,6 +425,7 @@ def proposition_solution (proposition, code):
 			solution[i] = "*"
 			proposition_copie[i] = "*"
 		i = i+1
+		
 	i = 0
 
 	while i < len (code):

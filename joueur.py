@@ -69,20 +69,18 @@ aide = {
 		"plateau" : "Permet de réafficher le plateau de jeu",
 		"score" : "Permet de savoir le score actuel",
 		"abandon" : "Permet de revenir au menu, et abandonner la partie",
-		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses"
+		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
+		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
+		"fin" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
+		"annuler" : "Supprime le dernier item du tableau",
+		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
+		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
 	},
 	"Definir-Code" : {
 		"abandon" : "Revient au menu en annulant la partie actuelle",
 		"fin" : "Valide le code et revient au menu, la partie est lancée !",
 		"annuler" : "Supprime du tableau la dernière entrée",
 		"@" : "Une autre chaine de caractères est prise comme une couleur à ajouter à la fin"
-	},
-	"Proposer-Code" : {
-		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
-		"fin" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
-		"annuler" : "Supprime le dernier item du tableau",
-		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
-		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
 	}
 }
 
@@ -183,7 +181,7 @@ class Mastermind:
 			if t != False:
 				chargement.run (t, "cercle")
 				
-			regles.regles ()
+			regles.regles (moteur.get_next_mode ())
 		elif new == "scores":
 			if t != False:
 				chargement.run (t, "ligne")
@@ -209,7 +207,7 @@ class Mastermind:
 			for i,j in aide["global"].items ():
 				yield ("\t" + i,j)
 			
-			yield "Commandes d'état"
+			yield "Commandes du mode " + self.get ()
 			for i,j in aide[self.get ()].items ():
 				yield ("\t" + i,j)
 		# On l'affiche avec le magnifique module iconsole
@@ -296,14 +294,60 @@ class Mastermind:
 			self.afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
 			moteur.reprendre_partie ()
 			self.set_ecran ("plateau")
-		elif rep == "proposer":
-			self.set ("Proposer-Code")
+		#elif rep == "proposer":
+		#	self.set ("Proposer-Code")
 		elif rep == "historique":
 			h = moteur.get_historique ()
 			self.afficher_liste ("Historique", h)
+		elif rep == "fin":
+			self.afficher ("Valide le nouveau code ...")
+			try:
+				r = moteur.verification_solution ( self.tableau_tampon )
+			except moteur.TableauInvalide as exception:
+				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
+			else:
+				if r == "gagne":
+					self.afficher ("Vous avez gagné !!!")
+					
+					nom = self.demander ("Nom du joueur")
+					
+					moteur.enregistre_score (nom)
+					
+					self.set ("Menu")
+				elif r == "perdu":
+					self.afficher ("Vous avez perdu !!!")
+					self.set ("Menu")
+				else:
+					a,b = r
+			
+					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+					sa = ""
+					sb = ""
+
+					if a > 1:
+						sa = "s"
+
+					if b > 1:
+						sb = "s"
+			
+					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+
+					self.tableau_tampon = []
+					
+					iconsole.separateur ()
+					self.afficher(messaga)
+					self.afficher(messagb)
+					
+		elif rep == "annuler":
+			try:
+				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
+				self.afficher (self.tableau_tampon)
+			except:
+				self.afficher ("Plus rien à annuler ...")
 		else:
-			self.afficher ("Requête invalide ...")
-				
+			self.tableau_tampon.append (rep)
+			self.afficher (self.tableau_tampon)
 	
 	def theme (self,rep):
 		""" Fonction qui premet de faire réagir le menu Theme
@@ -365,72 +409,6 @@ class Mastermind:
 				self.set_ecran ("regles", 3)
 			else:
 				self.afficher ("Ce niveau est invalide ...")
-	
-	
-	def proposer_code (self, rep):
-		""" Fonction qui permet de fare réagir la proposition 
-			de code 
-			
-			@rep : str = l'évènement
-			
-			@return : None
-		"""
-		if self.get () != "Proposer-Code":
-			raise LeProgrammeurEstCon
-		
-		if rep == "abandon":
-			self.afficher ("Annule la propositon de code ... ")
-			self.tableau_tampon = [] 
-			self.set ("Humain-Joue")
-		elif rep == "fin":
-			self.afficher ("Valide le nouveau code ...")
-			try:
-				r = moteur.verification_solution ( self.tableau_tampon )
-			except moteur.TableauInvalide as exception:
-				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
-			else:
-				if r == "gagne":
-					self.afficher ("Vous avez gagné !!!")
-					
-					nom = self.demander ("Nom du joueur")
-					
-					moteur.enregistre_score (nom)
-					
-					self.set ("Menu")
-				elif r == "perdu":
-					self.afficher ("Vous avez perdu !!!")
-					self.set ("Menu")
-				else:
-					a,b = r
-			
-					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
-					sa = ""
-					sb = ""
-
-					if a > 1:
-						sa = "s"
-
-					if b > 1:
-						sb = "s"
-			
-					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
-					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
-
-					self.tableau_tampon = []
-					self.set ("Humain-Joue")
-					# Ici il y a un clear ! Il faut afficher APRÈS le changement d'état
-					self.afficher(messaga)
-					self.afficher(messagb)
-					
-		elif rep == "annuler":
-			try:
-				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
-				self.afficher (self.tableau_tampon)
-			except:
-				self.afficher ("Plus rien à annuler ...")
-		else:
-			self.tableau_tampon.append (rep)
-			self.afficher (self.tableau_tampon)
 			
 	def definir_code (self, rep):
 		""" Fait réagir la définition de code 

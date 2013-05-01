@@ -294,12 +294,17 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 &nbsp;<br>
 @return&nbsp;:&nbsp;None<br>
 &nbsp;<br>
-@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a></tt></dd></dl>
+@throw&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#FichierInvalide">FichierInvalide</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#CleInvalide">CleInvalide</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ValeurInvalide">ValeurInvalide</a></tt></dd></dl>
  <dl><dt><a name="-charger_fichier"><strong>charger_fichier</strong></a>(chemin)</dt><dd><tt>Charge&nbsp;un&nbsp;fichier&nbsp;de&nbsp;configuration<br>
 &nbsp;<br>
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;à&nbsp;charger<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;"chargement"&nbsp;|&nbsp;"creation"</tt></dd></dl>
+@return&nbsp;:&nbsp;"chargement"&nbsp;|&nbsp;"creation"<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a></tt></dd></dl>
  <dl><dt><a name="-get_by_value"><strong>get_by_value</strong></a>(chemin, val)</dt><dd><tt>Récupère&nbsp;le&nbsp;nom&nbsp;de&nbsp;la&nbsp;propriété&nbsp;contenant&nbsp;la&nbsp;valeur&nbsp;@val<br>
 &nbsp;<br>
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
@@ -348,7 +353,7 @@ qui&nbsp;sera&nbsp;utilisée&nbsp;si&nbsp;elle&nbsp;n'est&nbsp;pas&nbsp;encore&n
 &nbsp;<br>
 @return&nbsp;:&nbsp;None<br>
 &nbsp;<br>
-@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a></tt></dd></dl>
+@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a>&nbsp;|&nbsp;<a href="#ValeurInvalide">ValeurInvalide</a>&nbsp;|&nbsp;<a href="#CleInvalide">CleInvalide</a></tt></dd></dl>
  <dl><dt><a name="-set_propriete"><strong>set_propriete</strong></a>(chemin, nom, val)</dt><dd><tt>Définit&nbsp;une&nbsp;propriété,&nbsp;et&nbsp;la&nbsp;crée&nbsp;si&nbsp;elle&nbsp;n'existe&nbsp;pas&nbsp;<br>
 &nbsp;<br>
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;se&nbsp;trouve&nbsp;la&nbsp;propriété<br>
@@ -357,7 +362,10 @@ qui&nbsp;sera&nbsp;utilisée&nbsp;si&nbsp;elle&nbsp;n'est&nbsp;pas&nbsp;encore&n
 &nbsp;<br>
 @return&nbsp;:&nbsp;None<br>
 &nbsp;<br>
-@throw&nbsp;:&nbsp;Fichier&nbsp;Invalide</tt></dd></dl>
+@throw&nbsp;:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#FichierInvalide">FichierInvalide</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#CleInvalide">CleInvalide</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ValeurInvalide">ValeurInvalide</a></tt></dd></dl>
  <dl><dt><a name="-to_graphviz"><strong>to_graphviz</strong></a>()</dt><dd><tt>Crée&nbsp;une&nbsp;représentation&nbsp;dans&nbsp;le&nbsp;format&nbsp;graphviz<br>
 de&nbsp;la&nbsp;configuration&nbsp;actuelle<br>
 et&nbsp;la&nbsp;sauve&nbsp;dans&nbsp;un&nbsp;fichier&nbsp;nommé&nbsp;<br>

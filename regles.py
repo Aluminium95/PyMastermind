@@ -108,16 +108,18 @@ def couleurs_possibles ():
 
 	colonnes (4,25,120,g)
 
-def regles ():
+def regles (mode = False):
 	"""Affiche les règles ainsi que les aides du jeu. En mode facile.
 	(un fond y est inséré)"""
-	mode = ""
 	
-	try:
-		mode = moteur.get_mode ()
-	except:
-		mode = moteur.get_next_mode ()
-	
+	if mode == False:
+		mode = ""
+		
+		try:
+			mode = moteur.get_mode ()
+		except:
+			mode = moteur.get_next_mode ()
+		
 	raz ()
 	screensize(600,600,"white")
 	
@@ -132,10 +134,10 @@ def regles ():
 	up()
 	goto(30,220)
 	color("black")
-	niveau('facile')
+	niveau(mode)
 	main_text()
 	goto(-133,50)
-	nombre_coup('8')
+	nombre_coup(persistance.get_propriete ("config","coups:" + mode))
 	goto(-133,20)
 	main_text2()
 	goto (-245,-160)

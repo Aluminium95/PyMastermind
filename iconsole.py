@@ -23,7 +23,7 @@ def separateur ():
 
 		@return : None
 	"""
-	print (80 * "-") # Devenu ... inutile ?!
+	print (80 * "-")
 
 
 def resize (string):
@@ -36,10 +36,10 @@ def resize (string):
 		@return : str = la chaine découpée (avec des \n)
 	"""
 	
-	newstring = ""
+	newstring = "" # La chaine de sortie 
 	
-	lastn = 0
-	i = 0
+	lastn = 0 # La position du dernier "\n" rencontré 
+	i = 0 # Le nombre de caractères (affichés)
 	for lettre in string:
 		newstring += lettre
 		

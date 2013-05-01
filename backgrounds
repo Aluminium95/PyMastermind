@@ -1,4 +1,4 @@
-theme:courant |=> 5
+theme:courant |=> 2
 theme:max |=> 5
 theme:1:x:plateau |=> -125
 theme:1:y:plateau |=> -205
