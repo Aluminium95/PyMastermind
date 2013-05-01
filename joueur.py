@@ -41,7 +41,8 @@ aide = {
 		"regles" : "Affiche les règles du jeu ...",
 		"scores" : "Affiche les meilleurs scores du jeu ...",
 		"fortune" : "Affiche une petite phrase aléatoire sympa ...",
-		"couleurs" : "Affiche la liste des couleurs disponibles"
+		"couleurs" : "Affiche la liste des couleurs disponibles",
+		"clear" : "Efface l'écran de la console ..."
 	},
 	"Menu" : {
 		"ia-code" : "Fait décider un code à trouver par une IA",
@@ -227,7 +228,8 @@ class Mastermind:
 			self.afficher ( "Affichage des règles sur la fenêtre graphique ...")
 			
 			self.set_ecran ("regles", 2)
-			
+		elif rep == "clear":
+			iconsole.clear ()
 		elif rep == "scores": # Commande indépendante de l'état courant !
 			self.afficher ("Affichage des scores sur la fenêtre graphique ...")
 			
