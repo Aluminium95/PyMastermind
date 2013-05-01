@@ -62,6 +62,10 @@ def liste_variables (fichier):
 		
 		@throw : FichierInvalide
 	"""
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	
 	l = False
 	for i in persistant: # Pour chaque fichier 
 		if i[0] == fichier: # Si le nom du fichier correspond
@@ -80,8 +84,14 @@ def charger_fichier (chemin):
 		@chemin : string = chemin du fichier à charger
 		
 		@return : "chargement" | "creation"
+		
+		@throw : FichierInvalide
 	"""
 	global persistant 
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	
 	try: # Cette partie est suceptible de planter 
 		f = open (chemin,"r") # On ouvre le fichier en lecture seule
 		newlist = [chemin] # On crée la liste du fichier 
@@ -108,6 +118,12 @@ def get_propriete (chemin,nom):
 	
 		@throw : FichierInvalide et CleInvalide
 	"""
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	elif not isinstance (nom, str):
+		raise CleInvalide
+	
 	for p in persistant: # Pour chaque fichier 
 		if p[0] == chemin: # Si le nom correspond 
 			for i in p[1:]: # On regarde les éléments du fichier 
@@ -156,9 +172,20 @@ def add_propriete (chemin,nom,val):
 		
 		@return : None
 
-		@throw : FichierInvalide
+		@throw :
+			FichierInvalide
+			CleInvalide
+			ValeurInvalide
 	"""
 	global persistant 
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	elif not isinstance (nom, str):
+		raise CleInvalide
+	elif not isinstance (val, str):
+		raise ValeurInvalide (chemin, nom)
+	
 	
 	for p in persistant: # Pour chaque fichier 
 		if p[0] == chemin: # Si le nom correspond
@@ -175,9 +202,20 @@ def set_propriete (chemin,nom,val):
 		
 		@return : None
 
-		@throw : Fichier Invalide
+		@throw : 
+			FichierInvalide
+			CleInvalide
+			ValeurInvalide
 	"""
 	global persistant
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	elif not isinstance (nom, str):
+		raise CleInvalide
+	elif not isinstance (val, str):
+		raise ValeurInvalide (chemin, nom)
+	
 	
 	for p in persistant: # Pour chaque fichier 
 		if p[0] == chemin: # Si le nom correspond 
@@ -217,8 +255,17 @@ def set_default_value (chemin,variable,valeur):
 
 		@return : None
 
-		@throw : FichierInvalide
+		@throw : FichierInvalide | ValeurInvalide | CleInvalide
 	"""
+	
+	if not isinstance (chemin, str):
+		raise FichierInvalide
+	elif not isinstance (nom, str):
+		raise CleInvalide
+	elif not isinstance (val, str):
+		raise ValeurInvalide (chemin, nom)
+	
+	
 	try: # Cette fonction peut échouer ...
 		for p in persistant: # Pour chaque fichier 
 			if p[0] == chemin: # Si le nom correspond
