@@ -411,10 +411,11 @@ class Mastermind:
 					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
 					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
 
-					self.afficher(messaga)
-					self.afficher(messagb)
 					self.tableau_tampon = []
 					self.set ("Humain-Joue")
+					# Ici il y a un clear ! Il faut afficher APRÈS le changement d'état
+					self.afficher(messaga)
+					self.afficher(messagb)
 					
 		elif rep == "annuler":
 			try:
