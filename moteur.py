@@ -231,7 +231,7 @@ def recup_nom(): #recupere les noms des joueurs des 5 meilleurs scores
 	nom = []
 	i = 0
 	while i < 5:
-		score.append(persistance.get_propriete ("scores",str(i)+":nom"))
+		nom.append(persistance.get_propriete ("scores",str(i)+":nom"))
 		i = i+1
 	return nom
 

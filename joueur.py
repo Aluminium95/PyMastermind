@@ -384,6 +384,11 @@ class Mastermind:
 			else:
 				if r == "gagne":
 					self.afficher ("Vous avez gagné !!!")
+					
+					nom = self.demander ("Nom du joueur")
+					
+					moteur.enregistre_score (nom)
+					
 					self.set ("Menu")
 				elif r == "perdu":
 					self.afficher ("Vous avez perdu !!!")
@@ -508,6 +513,8 @@ class Mastermind:
 				for i in ia.jouer (ia_mode):
 					primitives.aller_a (200,-200)
 					chargement.animation (3,"cercle",20)
+				
+				moteur.enregistre_score (ia_mode)
 				
 		elif rep == "theme":
 			self.set ("Theme")
