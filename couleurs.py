@@ -80,8 +80,8 @@ def abrv_to_string (abrv):
 		return persistance.get_propriete ("couleurs", "$" + abrv) # Les abréviations commencent par un $
 	else:
 		raise CouleurInvalide
-
-def string_to abrv (string):
+	
+def string_to_abrv (string):
 	""" Retourne l'abbréviation d'une couleur 
 		
 		@string : couleur(fr) = la couleur à convertir
@@ -93,6 +93,7 @@ def string_to abrv (string):
 				 persistance.CleInvalide
 	"""
 	if is_string (string):
+		print ("Conversion !")
 		return persistance.get_by_value ("couleurs",string)[1:] # Retire le $ devant la clé
 	else:
 		raise CouleurInvalide
@@ -190,9 +191,16 @@ def init ():
 		# des couleurs !
 		if i[0] != "$": # Les abréviations commencent par $, on n'en veut pas !
 			lcouleurs.append (i) # Et on l'ajoute au bon tableau
-			labrvs.append (string_to_abrv (i))
-
-	couleurs = lcouleurs # Sauvegarde
+	
+	
+	couleurs = lcouleurs # Sauvegarde les couleurs string
+	# Parce que string_to_abrv utilise is_string ... or il lui faut la liste des couleurs !
+	
+	for i in couleurs:
+		labrvs.append (string_to_abrv (i))
+	
+	print (labrvs)
+	
 	abreviations = labrvs
 
 def couleur_to_hexa(couleur):
@@ -225,12 +233,15 @@ def couleur_to_string (couleur):
 				 persistance.FichierInvalide
 				 persistance.CleInvalide
 	"""
-	if is_string (couleur):
-		return couleur
+	
+	if is_abrv (couleur):
+		return abrv_to_string (couleur)
 	elif is_hexa (couleur):
 		return hexa_to_string (couleur)
+	elif is_string (couleur):
+		return couleur
 	else:
-		return abrv_to_string (couleur)
+		raise CouleurInvalide
 
 def eclaircir (couleur, pts):
 	""" Permet d'éclaircir une couleur passée en argument d'une 

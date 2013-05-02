@@ -214,6 +214,28 @@ class Mastermind:
 		# On l'affiche avec le magnifique module iconsole
 		self.afficher_liste ("Aide : ", gen_help ())
 	
+	def afficher_couleurs (self):
+		""" Affiche la liste des couleurs disponibles 
+			actuellement si possible, ou 
+			future si on n'est pas en cours de partie
+			
+			@return : None
+		"""
+		nombre_couleurs = False
+		try:
+			nombre_couleurs = moteur.get_nombre_couleurs ()
+		except moteur.PasEnCoursDePartie:
+			self.afficher ("Vous n'êtes pas en cours de partie, on affiche les couleurs futurement disponibles")
+			nombre_couleurs = moteur.get_nombre_couleurs_next ()
+		
+		def generateur_liste_couleurs (nbr):
+			abvrs = couleurs.liste_abreviations ()
+			for i in abvrs[0:nbr]:
+				a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
+				yield a
+			
+		self.afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))s
+	
 	def send (self,rep):
 		""" Envoie une requête utilisateur au Mastermind
 			qui va gérer la redirection et les actions 
@@ -252,20 +274,7 @@ class Mastermind:
 				self.afficher ( "Une erreur inconnue est survenue ... ")
 				
 		elif rep == "couleurs":
-			nombre_couleurs = False
-			try:
-				nombre_couleurs = moteur.get_nombre_couleurs ()
-			except moteur.PasEnCoursDePartie:
-				self.afficher ("Vous n'êtes pas en cours de partie, on affiche les couleurs futurement disponibles")
-				nombre_couleurs = moteur.get_nombre_couleurs_next ()
-			
-			def generateur_liste_couleurs (nbr):
-				abvrs = couleurs.liste_abreviations ()
-				for i in abvrs[0:nbr]:
-					a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
-					yield a
-				
-			self.afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))
+			self.afficher_couleurs ()
 				
 		elif self.get () == "Humain-Joue":
 			self.humain_joue (rep)
@@ -376,9 +385,13 @@ class Mastermind:
 			except:
 				self.afficher ("Plus rien à annuler ...")
 		else:
-			self.tableau_tampon.append (rep)
-			self.afficher (self.tableau_tampon)
-	
+			try:
+				self.tableau_tampon.append (couleurs.couleur_to_string (rep))
+			except couleurs.CouleurInvalide:
+				self.afficher ("Cette couleur n'existe pas ...")
+			else:
+				self.afficher (self.tableau_tampon)
+				
 	def theme (self,rep):
 		""" Fonction qui premet de faire réagir le menu Theme
 			
@@ -494,7 +507,7 @@ class Mastermind:
 			self.afficher ( "L'IA a déterminé un code")
 		elif rep == "humain-code":
 			self.set ("Definir-Code")
-			self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs_next ()])
+			self.afficher_couleurs ()
 		elif rep == "humain-joue":
 			try:
 				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
@@ -504,7 +517,7 @@ class Mastermind:
 				self.set_ecran ("plateau", 5)
 				
 				self.set ("Humain-Joue") # Change d'état
-				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+				self.afficher_couleurs ()
 		elif rep == "ia-joue":
 			self.afficher ("L'IA va jouer une partie")
 			try:
@@ -522,7 +535,7 @@ class Mastermind:
 						demander_ia = False
 					else:
 						self.afficher ("Ce mode d'IA est invalide !")
-				self.afficher_liste ("Les couleurs disponibles sont : ", couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()])
+				self.afficher_couleurs ()
 				
 				self.set_ecran ("plateau", 3)
 				
