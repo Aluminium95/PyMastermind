@@ -93,7 +93,6 @@ def string_to_abrv (string):
 				 persistance.CleInvalide
 	"""
 	if is_string (string):
-		print ("Conversion !")
 		return persistance.get_by_value ("couleurs",string)[1:] # Retire le $ devant la clé
 	else:
 		raise CouleurInvalide
@@ -198,9 +197,7 @@ def init ():
 	
 	for i in couleurs:
 		labrvs.append (string_to_abrv (i))
-	
-	print (labrvs)
-	
+		
 	abreviations = labrvs
 
 def couleur_to_hexa(couleur):
