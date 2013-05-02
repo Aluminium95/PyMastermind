@@ -39,11 +39,11 @@ def resize (string):
 	newstring = "" # La chaine de sortie 
 	
 	lastn = 0 # La position du dernier "\n" rencontré 
-	i = 0 # Le nombre de caractères (affichés)
+	i = 0 # Le nombre de caractères (affichés à l'écran)
 	for lettre in string:
 		newstring += lettre
 		
-		i += 1
+		i += 1 # Les caractères prennent une place
 		
 		if lettre == "\n":
 			lastn = i

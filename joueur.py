@@ -71,7 +71,7 @@ aide = {
 		"abandon" : "Permet de revenir au menu, et abandonner la partie",
 		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
 		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
-		"fin" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
+		"valider" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
 		"annuler" : "Supprime le dernier item du tableau",
 		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
 		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
@@ -177,6 +177,7 @@ class Mastermind:
 				moteur.reprendre_partie ()
 			else:
 				affichage.plateau ()
+				
 		elif new == "regles":
 			if t != False:
 				chargement.run (t, "cercle")
@@ -315,13 +316,15 @@ class Mastermind:
 					yield (coup,string) 
 					
 			self.afficher_liste ("Historique", generateur_historique (h))
-		elif rep == "fin":
+		elif rep == "valider":
 			self.afficher ("Valide le nouveau code ...")
+			self.set_ecran ("plateau")
 			try:
 				r = moteur.verification_solution ( self.tableau_tampon )
 			except moteur.TableauInvalide as exception:
 				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
 			else:
+				
 				if r == "gagne":
 					self.afficher ("Vous avez gagné !!!")
 					
@@ -332,6 +335,7 @@ class Mastermind:
 					self.set ("Menu")
 				elif r == "perdu":
 					self.afficher ("Vous avez perdu !!!")
+					
 					self.set ("Menu")
 				else:
 					a,b = r

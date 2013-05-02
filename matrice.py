@@ -14,8 +14,8 @@ def make (n,m,func):
 		@return : matrice
 	"""
 	matrice = {}
-	matrice["n"] = n
-	matrice["m"] = m
+	matrice["n"] = n # Le nombre de lignes
+	matrice["m"] = m # le nombre de colonnes
 	for i in range (0,n):
 		for j in range (0,m):
 			matrice[(i,j)] = func (i,j)

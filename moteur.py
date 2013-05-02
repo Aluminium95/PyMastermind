@@ -118,6 +118,7 @@ def reprendre_partie ():
 	
 	if est_en_partie () != True:
 		raise PasEnCoursDePartie
+	
 	affichage.plateau () # Remet l'affichage du plateau
 
 	for coup in historique:
