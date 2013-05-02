@@ -252,11 +252,22 @@ class Mastermind:
 				self.afficher ( "Une erreur inconnue est survenue ... ")
 				
 		elif rep == "couleurs":
+			nombre_couleurs = False
 			try:
-				self.afficher_liste ("Couleurs disponibles", couleurs.liste_couleurs()[0:moteur.get_nombre_couleurs()])
+				nombre_couleurs = moteur.get_nombre_couleurs ()
 			except moteur.PasEnCoursDePartie:
-				self.afficher_liste ("Couleurs futurement disponibles", couleurs.liste_couleurs()[0:moteur.get_nombre_couleurs_next ()])
-			
+				self.afficher ("Vous n'êtes pas en cours de partie, on affiche les couleurs futurement disponibles")
+				nombre_couleurs = moteur.get_nombre_couleurs_next ()
+			else:
+				def generateur_liste_couleurs (nbr):
+					abvrs = couleurs.get_abreviations ()
+					for i in abvrs[0:nbr]:
+						a = "({0}) {1}".format (i, couleurs.abvr_to_string (i))
+						b = couleurs.string_to_hexa (couleurs.abvr_to_string (i))
+						yield (a,b)
+				
+				self.afficher_liste ("Couleurs futurement disponibles",genrateur_liste_couleurs (nombre_couleurs))
+				
 		elif self.get () == "Humain-Joue":
 			self.humain_joue (rep)
 		elif self.get () == "Menu":

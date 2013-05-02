@@ -102,11 +102,18 @@ def hexa_to_string (hexa):
 
 
 def liste_couleurs ():
-	""" Retourne la liste des couleurs (en hexa)
+	""" Retourne la liste des couleurs (en string)
 		
 		@return : [string ...]
 	"""
 	return list (couleurs) # retourne une COPIE de la liste de couleurs
+
+def liste_abreviations ():
+	""" Retourne la liste des abréviations
+		
+		@return : [abvr ...]
+	"""
+	return list (abreviations)
 	
 def is_hexa (couleur):
 	""" Dit si la couleur est sous forme hexadécimale
