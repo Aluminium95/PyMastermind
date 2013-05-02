@@ -30,6 +30,12 @@
 # peu efficace ... mais ça ne devrait pas 
 # poser de problèmes :-)
 #
+# La base est de la sorte : 
+# couleur(fr) -> couleur(hexa)
+# $couleur(abvr) -> couleur(fr) 
+#
+# On a un $ devant les abréviations pour les 
+# différencier des couleurs !
 
 import persistance
 
@@ -41,6 +47,7 @@ class CouleurInvalide (Exception):
 # Fin définition des exceptions
 
 couleurs = [] # liste des couleurs possibles 
+abreviations = [] # Liste des abréviations possibles
 
 def string_to_hexa (couleur):
 	""" Retourne la valeur Hexa de la couleur
@@ -70,7 +77,7 @@ def abrv_to_string (abrv):
 				 persistance.CleInvalide
 	"""
 	if is_abvr (abvr): # vérifie que c'est une chaine valide
-		return persistance.get_propriete ("couleurs",abvr)
+		return persistance.get_propriete ("couleurs", "$" + abvr) # Les abréviations commencent par un $
 	else:
 		raise CouleurInvalide
 
@@ -135,13 +142,18 @@ def init ():
 		
 		@return : None
 	"""
-	global couleurs
+	global couleurs, abreviations
 	# Génère la liste des couleurs ... 
-	l = []
+	lcouleurs = [] # Liste des couleurs
+	labvrs = [] # Liste des abrvéviations
 	n = persistance.liste_variables ("couleurs")
 	for i in n:
-		l.append (i)
-	couleurs = l # Sauvegarde
+		if i[0] == "$": # Les abréviations commencent par $
+			labvrs.append (i[1:0]) # Mais une fois trouvées, on le retire !
+		else: # Sinon c'est une couleur
+			lcouleurs.append (i) # Et on l'ajoute au bon tableau
+	couleurs = lcouleurs # Sauvegarde
+	abreviations = labvrs
 
 def couleur_to_hexa(couleur):
 	""" Permet de tester une variable pour savoir si elle est une couleur hexa ou en français et convertir en hexa
