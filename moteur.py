@@ -200,7 +200,7 @@ def calcul_score ():
 	else:
 		score = 100 - (10*(coups-1))
 	
-	return score
+	return int (score) # On retourne un entier
 
 def recup_score():
 	""" Recupere la liste des 5 meilleurs scores
