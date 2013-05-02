@@ -93,7 +93,7 @@ def string_to abrv (string):
 				 persistance.CleInvalide
 	"""
 	if is_string (string):
-		return persistance.get_by_value ("couleurs",string)
+		return persistance.get_by_value ("couleurs",string)[1:] # Retire le $ devant la clé
 	else:
 		raise CouleurInvalide
 	
@@ -183,10 +183,15 @@ def init ():
 	labrvs = [] # Liste des abrvéviations
 	n = persistance.liste_variables ("couleurs")
 	for i in n:
-		if i[0] == "$": # Les abréviations commencent par $
-			labrvs.append (i[1:]) # Mais une fois trouvées, on le retire !
-		else: # Sinon c'est une couleur
+		# On ne prend que les couleurs,
+		# et après on convertit en abréviation
+		# De cette manière on a un ordre UNIQUE
+		# et identique pour les deux listes au niveau
+		# des couleurs !
+		if i[0] != "$": # Les abréviations commencent par $, on n'en veut pas !
 			lcouleurs.append (i) # Et on l'ajoute au bon tableau
+			labrvs.append (string_to_abrv (i))
+
 	couleurs = lcouleurs # Sauvegarde
 	abreviations = labrvs
 
