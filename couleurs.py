@@ -58,6 +58,22 @@ def string_to_hexa (couleur):
 	else:
 		raise CouleurInvalide
 
+def abrv_to_string (abrv):
+	""" Retourne la valeur Hexa de l'abréviation
+		
+		@abréviation : string = abréviation à convertir
+		
+		@return : string 
+
+		@throw : CouleurInvalide 
+				 persistance.FichierInvalide
+				 persistance.CleInvalide
+	"""
+	if is_string (abvr): # vérifie que c'est une chaine valide
+		return persistance.get_propriete ("couleurs",abvr)
+	else:
+		raise CouleurInvalide
+
 def hexa_to_string (hexa):
 	""" Retourne la valeur String de la couleur en Hexa
 		
