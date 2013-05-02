@@ -122,6 +122,18 @@ def is_hexa (couleur):
 		return True
 	else:
 		return False
+	
+def is_abvr (couleur):
+	""" Dit si la couleur estsous forme d'abréviation
+		
+		@couleur : ? = élément à tester
+		
+		@return : bool
+	"""
+	if isinstance (couleur,str) and couleur in abreviations:
+		return True
+	else:
+		return False
 
 def is_string (couleur):
 	""" Dit si la couleur est sous forme de chaine
