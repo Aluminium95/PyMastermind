@@ -32,7 +32,7 @@
 #
 # La base est de la sorte : 
 # couleur(fr) -> couleur(hexa)
-# $couleur(abvr) -> couleur(fr) 
+# $couleur(abrv) -> couleur(fr) 
 #
 # On a un $ devant les abréviations pour les 
 # différencier des couleurs !
@@ -66,7 +66,7 @@ def string_to_hexa (couleur):
 		raise CouleurInvalide
 
 def abrv_to_string (abrv):
-	""" Retourne la valeur Hexa de l'abréviation
+	""" Retourne la valeur String de l'abréviation
 		
 		@abréviation : string = abréviation à convertir
 		
@@ -76,11 +76,27 @@ def abrv_to_string (abrv):
 				 persistance.FichierInvalide
 				 persistance.CleInvalide
 	"""
-	if is_abvr (abvr): # vérifie que c'est une chaine valide
-		return persistance.get_propriete ("couleurs", "$" + abvr) # Les abréviations commencent par un $
+	if is_abrv (abrv): # vérifie que c'est une chaine valide
+		return persistance.get_propriete ("couleurs", "$" + abrv) # Les abréviations commencent par un $
 	else:
 		raise CouleurInvalide
 
+def string_to abrv (string):
+	""" Retourne l'abbréviation d'une couleur 
+		
+		@string : couleur(fr) = la couleur à convertir
+		
+		@return : couleur(abrv)
+		
+		@throw : CouleurInvalide
+				 persistance.FichierInvalide
+				 persistance.CleInvalide
+	"""
+	if is_string (string):
+		return persistance.get_by_value ("couleurs",string)
+	else:
+		raise CouleurInvalide
+	
 def hexa_to_string (hexa):
 	""" Retourne la valeur String de la couleur en Hexa
 		
@@ -111,7 +127,7 @@ def liste_couleurs ():
 def liste_abreviations ():
 	""" Retourne la liste des abréviations
 		
-		@return : [abvr ...]
+		@return : [abrv ...]
 	"""
 	return list (abreviations)
 	
@@ -130,8 +146,8 @@ def is_hexa (couleur):
 	else:
 		return False
 	
-def is_abvr (couleur):
-	""" Dit si la couleur estsous forme d'abréviation
+def is_abrv (couleur):
+	""" Dit si la couleur est sous forme d'abréviation
 		
 		@couleur : ? = élément à tester
 		
@@ -164,15 +180,15 @@ def init ():
 	global couleurs, abreviations
 	# Génère la liste des couleurs ... 
 	lcouleurs = [] # Liste des couleurs
-	labvrs = [] # Liste des abrvéviations
+	labrvs = [] # Liste des abrvéviations
 	n = persistance.liste_variables ("couleurs")
 	for i in n:
 		if i[0] == "$": # Les abréviations commencent par $
-			labvrs.append (i[1:0]) # Mais une fois trouvées, on le retire !
+			labrvs.append (i[1:]) # Mais une fois trouvées, on le retire !
 		else: # Sinon c'est une couleur
 			lcouleurs.append (i) # Et on l'ajoute au bon tableau
 	couleurs = lcouleurs # Sauvegarde
-	abreviations = labvrs
+	abreviations = labrvs
 
 def couleur_to_hexa(couleur):
 	""" Permet de tester une variable pour savoir si elle est une couleur hexa ou en français et convertir en hexa
@@ -187,8 +203,10 @@ def couleur_to_hexa(couleur):
 	"""
 	if is_hexa (couleur):
 		return couleur
-	else:
+	elif is_string (couleur):
 		return string_to_hexa (couleur)
+	else:
+		return abrv_to_string (string_to_hexa (couleur))
 
 def couleur_to_string (couleur):
 	""" Permet de tester une variable pour savoir si elle est une couleur 
@@ -204,8 +222,10 @@ def couleur_to_string (couleur):
 	"""
 	if is_string (couleur):
 		return couleur
-	else:
+	elif is_hexa (couleur):
 		return hexa_to_string (couleur)
+	else:
+		return abrv_to_string (couleur)
 
 def eclaircir (couleur, pts):
 	""" Permet d'éclaircir une couleur passée en argument d'une 
