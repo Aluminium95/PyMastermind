@@ -234,7 +234,7 @@ class Mastermind:
 				a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
 				yield a
 			
-		self.afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))s
+		self.afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))
 	
 	def send (self,rep):
 		""" Envoie une requête utilisateur au Mastermind
