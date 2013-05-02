@@ -67,7 +67,7 @@ def animation (t,mode = "cercle",taille = 40):
 	# speed (0) est déjà activé normalement 
 	for i in range (t):
 		# Définit la couleur de ce tour de boucle 
-		current_color = couleurs.string_to_hexa (liste[t % len (liste)])
+		current_color = couleurs.string_to_hexa (liste[i % len (liste)])
 
 		if mode == "cercle":
 			# Fait un cercle ... mouhaha
