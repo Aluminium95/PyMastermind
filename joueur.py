@@ -294,11 +294,27 @@ class Mastermind:
 			self.afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
 			moteur.reprendre_partie ()
 			self.set_ecran ("plateau")
-		#elif rep == "proposer":
-		#	self.set ("Proposer-Code")
 		elif rep == "historique":
 			h = moteur.get_historique ()
-			self.afficher_liste ("Historique", h)
+			def generateur_historique (hist):
+				for i in hist:
+					# i = [[a,b,c,d], (e,f)]
+					coup = i[0]
+					resultat = i[1]
+					
+					sa = ""
+					if resultat[0] > 1:
+						sa = "s"
+					
+					sb = ""
+					if resultat[1] > 1:
+						sb = "s"
+					
+					string = "{0} rouge{1}, {2} blanche{3}".format (resultat[0],sa,resultat[1],sb)
+					
+					yield (coup,string) 
+					
+			self.afficher_liste ("Historique", generateur_historique (h))
 		elif rep == "fin":
 			self.afficher ("Valide le nouveau code ...")
 			try:
