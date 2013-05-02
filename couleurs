@@ -1,16 +1,16 @@
-rouge |=> #FF0000
-bleu |=> #0000FF
-vert |=> #568203
-jaune |=> #FFFF00
-indigo |=> #791CF8
-orange |=> #FF6700
-turquoise |=> #25FDE9
-bitume |=> #4E3D28
-carmin |=> #960018
-marine |=> #03224C
-chartreuse |=> #7FFF00
+r |=> rouge |=> #FF0000
+b |=> bleu |=> #0000FF
+v |=> vert |=> #568203
+j|=> jaune |=> #FFFF00
+i |=> indigo |=> #791CF8
+o |=> orange |=> #FF6700
+t |=> turquoise |=> #25FDE9
+bi |=> bitume |=> #4E3D28
+ca |=> carmin |=> #960018
+m |=> marine |=> #03224C
+ch |=> chartreuse |=> #7FFF00
 or |=> #C5A712
-zinzolin |=> #6C0277
-abricot |=> #E67E30
-paon |=> #067790
-acajou |=> #88421D
+z |=> zinzolin |=> #6C0277
+ab |=> abricot |=> #E67E30
+p |=> paon |=> #067790
+ac |=> acajou |=> #88421D
