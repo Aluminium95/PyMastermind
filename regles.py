@@ -154,6 +154,6 @@ if __name__ == '__main__':
 	couleurs.init ()
 	moteur.init ()
 	
-	regles_difficile ("#000")
+	regles ()
 	
 	mainloop ()

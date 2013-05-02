@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
 # Module qui fait des matrices !
@@ -114,11 +114,11 @@ def display (matrice,univers):
 		
 		@return : None
 	"""
-	print (" |" + "|".join (univers))
+	print (" |" + "|".join (univers))  # Noms des colonnes
 	
-	tailles = [len (k) for k in univers]
+	tailles = [len (k) for k in univers] # Taille des colonnes 
 
-	k = 0
+	k = 1 # Numéro de ligne
 	for i in parcourir_lignes (matrice):
 		s = str (k)
 		for p,j in enumerate (i):

@@ -53,6 +53,7 @@ def create_list(S):
 		len(li) = n^(4) à l'issue de cette fonction (où n est len(S))
 		
 		@S : list = L'univers, l'ensemble des possibilités, pour le mastermind, le nombre de couleurs
+		
 		@return : list = li la liste de toutes les combinaison
 	"""
 	L = []

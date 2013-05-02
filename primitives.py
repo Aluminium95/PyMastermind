@@ -158,9 +158,8 @@ def colonnes (n,c,l,generateur):
 		if k == n:
 			k = 0
 			p += 1
-			#aller_a (x + p * l, y, False)
-			#seth (a)
-			
+		
+		# on se place sur la bonne ligne, bonne colonne
 		aller_a (x + p * l, y - k * c, False)
 
 	seth (a)
@@ -181,8 +180,8 @@ def lignes (n,l,c,generateur):
 	a = heading ()
 	x,y = position ()
 	
-	k = 0
-	p = 0
+	k = 0 # La ligne actuelle
+	p = 0 # La colonne actuelle
 
 	for i in generateur:
 		p += 1
@@ -215,6 +214,7 @@ def arc (an,dist, generateur):
 		right (an)
 		up ()
 		fd (dist)
+	
 	seth (a)
 	aller_a (x,y, False)
 
@@ -261,8 +261,8 @@ def raz ():
 			
 		@return : None
 	"""
-	clear ()
-	reset () # C'est juste un wrapper de turtle en fait ... mais quand même !
-	hideturtle ()
-	speed (0) # C'est officiel ? Et bien oui !
-	up ()
+	clear () # Efface l'écran
+	reset () # Réinitialise tout (position,angle etc ...)
+	hideturtle () # Cache la tortue
+	speed (0) # On va très vite !
+	up () # On lève le crayon

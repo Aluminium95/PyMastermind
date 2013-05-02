@@ -69,7 +69,7 @@ def abrv_to_string (abrv):
 				 persistance.FichierInvalide
 				 persistance.CleInvalide
 	"""
-	if is_string (abvr): # vérifie que c'est une chaine valide
+	if is_abvr (abvr): # vérifie que c'est une chaine valide
 		return persistance.get_propriete ("couleurs",abvr)
 	else:
 		raise CouleurInvalide

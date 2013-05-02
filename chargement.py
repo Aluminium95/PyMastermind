@@ -30,6 +30,10 @@ def generer_couleurs (col,n, t = 40):
 	current_color = col
 	for i in range (0,n):
 		try:
+			# Pour le moment la fonction éclaircir 
+			# n'est pas fonctionnelle, mais elle le 
+			# sera bientôt, et la couleur 
+			# princpale sera dégradée !!!
 			current_color = couleurs.eclaircir (current_color, "11")
 		except:
 			pass # un erreur ...
@@ -47,21 +51,23 @@ def animation (t,mode = "cercle",taille = 40):
 		@return : None
 	"""
 	x,y = primitives.get_position ()
-
+	
+	# En fonction du nombre de « cycles » 
+	# on peut définir des couleurs différentes
+	# qui sont représentatives d'une progression
 	if t % 5 == 0:
 		liste = ["rouge","carmin","or","vert","chartreuse"]
 	elif t % 3 == 0:
 		liste = ["carmin","or","chartreuse"]
 	elif t % 2 == 0:
 		liste = ["carmin","chartreuse"]
-	else:
+	else: # Un nombre indéterminé 
 		liste = ["zinzolin","indigo"]
 
-	k = 0
-	# speed (0)
+	# speed (0) est déjà activé normalement 
 	for i in range (t):
 		# Définit la couleur de ce tour de boucle 
-		current_color = couleurs.string_to_hexa (liste[k % len (liste)])
+		current_color = couleurs.string_to_hexa (liste[t % len (liste)])
 
 		if mode == "cercle":
 			# Fait un cercle ... mouhaha
@@ -70,7 +76,6 @@ def animation (t,mode = "cercle",taille = 40):
 			primitives.arc (20,taille + 10,generer_couleurs (current_color,5, taille))
 		else: # mode == "ligne"
 			primitives.colonnes (1,taille + 10, taille + 10,generer_couleurs (current_color,4,taille))
-		k += 1
 
 def try_load_int (fichier,variable):
 	""" Tente de charger un nombre dans un fichier 
