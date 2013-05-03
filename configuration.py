@@ -1,8 +1,7 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 #
 # Lopez Aliaume
-# 06/04/2013
 #
 # Un utilitaire de modification
 # des fichiers de configuration

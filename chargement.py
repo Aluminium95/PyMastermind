@@ -1,7 +1,10 @@
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 # 
 # Affiche un écran qui fait une barre
 # de chargement !
+# Permet aussi de faire des chargements
+# plus petits sur une portion de l'écran
 
 # Nos modules à nous 
 import persistance

@@ -1,6 +1,10 @@
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
-# Les fonctions de l'ia
-# ...
+#
+# Définit des fonctions qui
+# permettent de faire jouer
+# l'ordinateur contre l'être humain
+# dans le mastermind (IA = Intelligence Artificielle)
 
 import couleurs
 import moteur

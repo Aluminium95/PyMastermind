@@ -1,5 +1,11 @@
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
-# 03/04/2013
+#
+#
+# Lanceur du mastermind 
+# Initialise les modules 
+# et fait la boucle 
+# principale du jeu
 
 import persistance
 import affichage

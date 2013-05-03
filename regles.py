@@ -1,6 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#règles du jeu (mode facile, normal et difficile)
-#24/04/2013
+#
+# Module qui gère l'affichage
+# d'un écran de règles
+
 
 import persistance
 import couleurs

@@ -1,6 +1,11 @@
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
-# 29/03/13
-#derniere maj 3/4
+#
+# Moteur du mastermind
+# gère tout ce qui est en rapport
+# avec le jeu en lui même, 
+# le  code secret, les propositions,
+# l'affichage (il le lance)
 
 import persistance
 import couleurs

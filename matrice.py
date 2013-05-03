@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
-
+#
 # Module qui fait des matrices !
+# Pas d'addition, soustraction ...
+# Juste des tableaux à deux dimensions
+# que l'on peut parcourir
 
 def make (n,m,func):
 	""" Crée une matrice (n,m)

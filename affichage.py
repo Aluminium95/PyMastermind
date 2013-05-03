@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
-# 03/04/2013
+#
 # Desmarais Yann
 #
 # Description:
