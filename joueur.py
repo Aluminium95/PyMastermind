@@ -303,6 +303,8 @@ def humain_joue (rep):
 		
 		@return : None
 	"""
+	global tableau_tampon
+	
 	if get_etat () != "Humain-Joue":
 		raise LeProgrammeurEstCon
 	
@@ -455,6 +457,7 @@ def gestion_tableau (rep):
 		
 		@return : None
 	"""
+	global tableau_tampon
 	if rep == "annuler":
 		try:
 			tableau_tampon = tableau_tampon[:-1] # Retire la dernière valeur ...
@@ -478,6 +481,8 @@ def definir_code (rep):
 		
 		@return : None
 	"""
+	global tableau_tampon 
+	
 	if get_etat () != "Definir-Code":
 		raise LeProgrammeurEstCon
 	
