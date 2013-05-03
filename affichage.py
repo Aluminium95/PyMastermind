@@ -26,22 +26,6 @@ def init (theme = ""):
 	sc.title ("PyMastermind")
 	plateau ()
 	
-
-def dessiner_carre (taille,couleur):
-	up ()
-	if couleur != False:
-		down()
-		color(couleur)
-		begin_fill()
-	for i in range (0,4):
-		forward(taille - 1)
-		right(90)
-	if couleur != False:
-		end_fill()
-		up()
-
-
-
 def dessiner_answer(answer):
 	""" Affiche le score de la proposition du joueur, 
 		answer étant un tuple (a,b)
@@ -181,7 +165,9 @@ def loose (code):
 	aller_a (-95, -25) # On centre la réponse
 
 	for i in code:
-		dessiner_carre (40, couleurs.couleur_to_hexa (i))
+		color (couleurs.couleur_to_hexa (i))
+		begin_fill ()
+		carre (40)
 		fd(50)
 
 	
@@ -234,42 +220,24 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		
         	@return : None
     """
-	global y,x
+	global y, x
 	up ()
-	goto(x,y)
-	i=0
-	while i<nbr_case:
-		dessiner_carre(40,couleurs[i])
-		fd(50)
-		i=i+1
-	dessiner_answer(answer)
+	goto (x, y)
+	i = 0
+	while i < nbr_case:
+		color (couleurs[i])
+		begin_fill ()
+		carre (40)
+		end_fill ()
+		fd (50)
+		i = i + 1
+	dessiner_answer (answer)
 	up ()
 	
 	seth (0) # remet la tortue à un angle absolu de zéro !
 
 	y = y + 50
 
-def creer_bouton (x,y,l,couleur,texte):
-	""" Crée un bouton de couleur avec du texte à côté
-		
-		@x : int = position x
-		@y : int = position y
-		@l : int = taille du côté
-		@couleur : string = la couleur en hexa ou en français
-		@texte : string = le texte descriptif 
-
-		@return : None
-	"""
-	up ()
-	goto (x,y)
-	down ()
-	dessiner_carre (l,couleur)
-	up ()
-	goto ( x + l + 20, y - (l / 2))
-	down ()
-	write (texte)
-	up ()
-	
 def generer_score():
 	
 	for i in range (1,6):
@@ -288,23 +256,23 @@ def generer_score():
 	
 	for i in range(0,5):
 		down()
-		score = persistance.get_propriete("scores",str (i) + ":score")
-		texte(score)
-		up()
+		score = persistance.get_propriete ("scores", str (i) + ":score")
+		texte (score)
+		up ()
 		yield
 
 	for i in range(0,5):
-		down()
-		nom = persistance.get_propriete("scores",str (i) + ":nom")
-		texte(nom)
-		up()
+		down ()
+		nom = persistance.get_propriete ("scores", str (i) + ":nom")
+		texte (nom)
+		up ()
 		yield
         
 def high_score ():
 	raz ()
-	aller_a (-200,200)
-	texte ("Meilleurs scores","important")
-	aller_a (-200,150)
+	aller_a (-200, 200)
+	texte ("Meilleurs scores", "important")
+	aller_a (-200, 150)
 	colonnes(5, 50, 100, generer_score () )
 	
 if __name__ == "__main__":
