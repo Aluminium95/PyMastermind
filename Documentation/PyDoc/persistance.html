@@ -339,6 +339,38 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 @chemin&nbsp;:&nbsp;string&nbsp;=&nbsp;chemin&nbsp;du&nbsp;fichier&nbsp;à&nbsp;créer&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-parcourir"><strong>parcourir</strong></a>()</dt><dd><tt>Retourne&nbsp;un&nbsp;générateur&nbsp;qui&nbsp;<br>
+retourne&nbsp;successivement&nbsp;<br>
+des&nbsp;tuples&nbsp;(fichier,clef,valeur)<br>
+pour&nbsp;chaque&nbsp;clef&nbsp;dans&nbsp;tous&nbsp;les&nbsp;<br>
+fichiers&nbsp;de&nbsp;configuration&nbsp;connus&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;generator</tt></dd></dl>
+ <dl><dt><a name="-parcourir_cles"><strong>parcourir_cles</strong></a>(fichier)</dt><dd><tt>Retourne&nbsp;un&nbsp;générateur&nbsp;qui&nbsp;<br>
+retourne&nbsp;les&nbsp;clés&nbsp;d'un&nbsp;fichier<br>
+&nbsp;<br>
+@fichier&nbsp;:&nbsp;str&nbsp;=&nbsp;nom&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;chercher<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;generator<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a></tt></dd></dl>
+ <dl><dt><a name="-parcourir_fichier"><strong>parcourir_fichier</strong></a>(fichier)</dt><dd><tt>Retourne&nbsp;un&nbsp;générateur&nbsp;qui&nbsp;<br>
+retourne&nbsp;les&nbsp;tuples&nbsp;<br>
+clé/valeur&nbsp;d'un&nbsp;fichier<br>
+&nbsp;<br>
+@fichier&nbsp;:&nbsp;str&nbsp;=&nbsp;nom&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;chercher<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;generator<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a></tt></dd></dl>
+ <dl><dt><a name="-parcourir_valeurs"><strong>parcourir_valeurs</strong></a>(fichier)</dt><dd><tt>Retourne&nbsp;un&nbsp;générateur&nbsp;qui&nbsp;<br>
+retourne&nbsp;les&nbsp;valeurs&nbsp;d'un&nbsp;fichier<br>
+&nbsp;<br>
+@fichier&nbsp;:&nbsp;str&nbsp;=&nbsp;nom&nbsp;du&nbsp;fichier&nbsp;dans&nbsp;lequel&nbsp;chercher<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;generator<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#FichierInvalide">FichierInvalide</a></tt></dd></dl>
  <dl><dt><a name="-save"><strong>save</strong></a>()</dt><dd><tt>Enregistre&nbsp;les&nbsp;modifications&nbsp;dans&nbsp;les&nbsp;fichiers<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None<br>

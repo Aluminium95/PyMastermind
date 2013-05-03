@@ -39,7 +39,13 @@
 #&nbsp;Ce&nbsp;code&nbsp;est&nbsp;fonctionnel&nbsp;!&nbsp;Bien&nbsp;que&nbsp;parfois&nbsp;<br>
 #&nbsp;peu&nbsp;efficace&nbsp;...&nbsp;mais&nbsp;ça&nbsp;ne&nbsp;devrait&nbsp;pas&nbsp;<br>
 #&nbsp;poser&nbsp;de&nbsp;problèmes&nbsp;:-)<br>
-#</tt></p>
+#<br>
+#&nbsp;La&nbsp;base&nbsp;est&nbsp;de&nbsp;la&nbsp;sorte&nbsp;:&nbsp;<br>
+#&nbsp;couleur(fr)&nbsp;-&gt;&nbsp;couleur(hexa)<br>
+#&nbsp;$couleur(abrv)&nbsp;-&gt;&nbsp;couleur(fr)&nbsp;<br>
+#<br>
+#&nbsp;On&nbsp;a&nbsp;un&nbsp;$&nbsp;devant&nbsp;les&nbsp;abréviations&nbsp;pour&nbsp;les&nbsp;<br>
+#&nbsp;différencier&nbsp;des&nbsp;couleurs&nbsp;!</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -128,7 +134,16 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-couleur_to_hexa"><strong>couleur_to_hexa</strong></a>(couleur)</dt><dd><tt>Permet&nbsp;de&nbsp;tester&nbsp;une&nbsp;variable&nbsp;pour&nbsp;savoir&nbsp;si&nbsp;elle&nbsp;est&nbsp;une&nbsp;couleur&nbsp;hexa&nbsp;ou&nbsp;en&nbsp;français&nbsp;et&nbsp;convertir&nbsp;en&nbsp;hexa<br>
+<td width="100%"><dl><dt><a name="-abrv_to_string"><strong>abrv_to_string</strong></a>(abrv)</dt><dd><tt>Retourne&nbsp;la&nbsp;valeur&nbsp;String&nbsp;de&nbsp;l'abréviation<br>
+&nbsp;<br>
+@abréviation&nbsp;:&nbsp;string&nbsp;=&nbsp;abréviation&nbsp;à&nbsp;convertir<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;string&nbsp;<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#CouleurInvalide">CouleurInvalide</a>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide</tt></dd></dl>
+ <dl><dt><a name="-couleur_to_hexa"><strong>couleur_to_hexa</strong></a>(couleur)</dt><dd><tt>Permet&nbsp;de&nbsp;tester&nbsp;une&nbsp;variable&nbsp;pour&nbsp;savoir&nbsp;si&nbsp;elle&nbsp;est&nbsp;une&nbsp;couleur&nbsp;hexa&nbsp;ou&nbsp;en&nbsp;français&nbsp;et&nbsp;convertir&nbsp;en&nbsp;hexa<br>
 &nbsp;<br>
 @couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;le&nbsp;truc&nbsp;<br>
 &nbsp;<br>
@@ -172,6 +187,11 @@ c'est&nbsp;terminé&nbsp;:-).<br>
  <dl><dt><a name="-init"><strong>init</strong></a>()</dt><dd><tt>Initialise&nbsp;le&nbsp;module&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-is_abrv"><strong>is_abrv</strong></a>(couleur)</dt><dd><tt>Dit&nbsp;si&nbsp;la&nbsp;couleur&nbsp;est&nbsp;sous&nbsp;forme&nbsp;d'abréviation<br>
+&nbsp;<br>
+@couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;élément&nbsp;à&nbsp;tester<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;bool</tt></dd></dl>
  <dl><dt><a name="-is_hexa"><strong>is_hexa</strong></a>(couleur)</dt><dd><tt>Dit&nbsp;si&nbsp;la&nbsp;couleur&nbsp;est&nbsp;sous&nbsp;forme&nbsp;hexadécimale<br>
 &nbsp;<br>
 @couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;élément&nbsp;à&nbsp;tester<br>
@@ -182,9 +202,21 @@ c'est&nbsp;terminé&nbsp;:-).<br>
 @couleur&nbsp;:&nbsp;?&nbsp;=&nbsp;élément&nbsp;à&nbsp;tester<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;bool</tt></dd></dl>
- <dl><dt><a name="-liste_couleurs"><strong>liste_couleurs</strong></a>()</dt><dd><tt>Retourne&nbsp;la&nbsp;liste&nbsp;des&nbsp;couleurs&nbsp;(en&nbsp;hexa)<br>
+ <dl><dt><a name="-liste_abreviations"><strong>liste_abreviations</strong></a>()</dt><dd><tt>Retourne&nbsp;la&nbsp;liste&nbsp;des&nbsp;abréviations<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;[abrv&nbsp;...]</tt></dd></dl>
+ <dl><dt><a name="-liste_couleurs"><strong>liste_couleurs</strong></a>()</dt><dd><tt>Retourne&nbsp;la&nbsp;liste&nbsp;des&nbsp;couleurs&nbsp;(en&nbsp;string)<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;[string&nbsp;...]</tt></dd></dl>
+ <dl><dt><a name="-string_to_abrv"><strong>string_to_abrv</strong></a>(string)</dt><dd><tt>Retourne&nbsp;l'abbréviation&nbsp;d'une&nbsp;couleur&nbsp;<br>
+&nbsp;<br>
+@string&nbsp;:&nbsp;couleur(fr)&nbsp;=&nbsp;la&nbsp;couleur&nbsp;à&nbsp;convertir<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;couleur(abrv)<br>
+&nbsp;<br>
+@throw&nbsp;:&nbsp;<a href="#CouleurInvalide">CouleurInvalide</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide</tt></dd></dl>
  <dl><dt><a name="-string_to_hexa"><strong>string_to_hexa</strong></a>(couleur)</dt><dd><tt>Retourne&nbsp;la&nbsp;valeur&nbsp;Hexa&nbsp;de&nbsp;la&nbsp;couleur<br>
 &nbsp;<br>
 @couleur&nbsp;:&nbsp;string&nbsp;=&nbsp;couleur&nbsp;à&nbsp;convertir<br>
@@ -201,5 +233,6 @@ c'est&nbsp;terminé&nbsp;:-).<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>couleurs</strong> = []</td></tr></table>
+<td width="100%"><strong>abreviations</strong> = []<br>
+<strong>couleurs</strong> = []</td></tr></table>
 </body></html>

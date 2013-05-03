@@ -46,8 +46,7 @@
 </font></dt><dt><font face="helvetica, arial"><a href="joueur.html#LeProgrammeurEstCon">LeProgrammeurEstCon</a>
 </font></dt></dl>
 </dd>
-<dt><font face="helvetica, arial"><a href="joueur.html#Mastermind">Mastermind</a>
-</font></dt></dl>
+</dl>
  <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
@@ -280,23 +279,14 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 </dl>
 <dl><dt><strong>message</strong></dt>
 </dl>
-</td></tr></table> <p>
+</td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
-<tr bgcolor="#ffc8d8">
+<tr bgcolor="#eeaa77">
 <td colspan=3 valign=bottom>&nbsp;<br>
-<font color="#000000" face="helvetica, arial"><a name="Mastermind">class <strong>Mastermind</strong></a></font></td></tr>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
-<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
-<td colspan=2><tt>La&nbsp;classe&nbsp;princpale&nbsp;du&nbsp;mastermind&nbsp;:&nbsp;c'est&nbsp;le&nbsp;jeu&nbsp;en&nbsp;lui&nbsp;même&nbsp;!<br>&nbsp;</tt></td></tr>
-<tr><td>&nbsp;</td>
-<td width="100%">Methods defined here:<br>
-<dl><dt><a name="Mastermind-__init__"><strong>__init__</strong></a>(self, initial)</dt><dd><tt>Constructeur&nbsp;<br>
-&nbsp;<br>
-@initial&nbsp;:&nbsp;str&nbsp;=&nbsp;l'état&nbsp;de&nbsp;départ&nbsp;<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;<a href="#Mastermind">Mastermind</a></tt></dd></dl>
-
-<dl><dt><a name="Mastermind-afficher"><strong>afficher</strong></a>(self, quelquechose, t<font color="#909090">=0</font>)</dt><dd><tt>Une&nbsp;surcouche&nbsp;de&nbsp;iconsole.afficher&nbsp;<br>
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-afficher"><strong>afficher</strong></a>(quelquechose, t<font color="#909090">=0</font>)</dt><dd><tt>Une&nbsp;surcouche&nbsp;de&nbsp;iconsole.afficher&nbsp;<br>
 qui&nbsp;met&nbsp;automatiquement&nbsp;l'état&nbsp;courant&nbsp;<br>
 en&nbsp;«&nbsp;acteur&nbsp;»<br>
 &nbsp;<br>
@@ -304,91 +294,109 @@ en&nbsp;«&nbsp;acteur&nbsp;»<br>
 @t&nbsp;:&nbsp;int&nbsp;=&nbsp;nombre&nbsp;de&nbsp;tabulations&nbsp;[opts]<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-afficher_liste"><strong>afficher_liste</strong></a>(self, quelquechose, generateur, t<font color="#909090">=0</font>)</dt><dd><tt>Encore&nbsp;une&nbsp;surcouche&nbsp;qui&nbsp;englobe&nbsp;iconsole.afficher_liste<br>
+ <dl><dt><a name="-afficher_aide"><strong>afficher_aide</strong></a>()</dt><dd><tt>Affiche&nbsp;l'aide&nbsp;globale&nbsp;ainsi&nbsp;que&nbsp;celle&nbsp;de&nbsp;l'état&nbsp;courant&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-afficher_couleurs"><strong>afficher_couleurs</strong></a>()</dt><dd><tt>Affiche&nbsp;la&nbsp;liste&nbsp;des&nbsp;couleurs&nbsp;disponibles&nbsp;<br>
+actuellement&nbsp;si&nbsp;possible,&nbsp;ou&nbsp;<br>
+future&nbsp;si&nbsp;on&nbsp;n'est&nbsp;pas&nbsp;en&nbsp;cours&nbsp;de&nbsp;partie<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-afficher_liste"><strong>afficher_liste</strong></a>(quelquechose, generateur, t<font color="#909090">=0</font>)</dt><dd><tt>Encore&nbsp;une&nbsp;surcouche&nbsp;qui&nbsp;englobe&nbsp;iconsole.afficher_liste<br>
 &nbsp;<br>
 @quelquechose&nbsp;:&nbsp;str&nbsp;=&nbsp;texte<br>
 @generateur&nbsp;:&nbsp;generator&nbsp;=&nbsp;générateur&nbsp;de&nbsp;liste<br>
 @t&nbsp;:&nbsp;int&nbsp;=&nbsp;tabulations&nbsp;[opts]<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-aide"><strong>aide</strong></a>(self)</dt><dd><tt>Affiche&nbsp;l'aide&nbsp;globale&nbsp;ainsi&nbsp;que&nbsp;celle&nbsp;de&nbsp;l'état&nbsp;courant&nbsp;<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-definir_code"><strong>definir_code</strong></a>(self, rep)</dt><dd><tt>Fait&nbsp;réagir&nbsp;la&nbsp;définition&nbsp;de&nbsp;code&nbsp;<br>
+ <dl><dt><a name="-definir_code"><strong>definir_code</strong></a>(rep)</dt><dd><tt>Fait&nbsp;réagir&nbsp;la&nbsp;définition&nbsp;de&nbsp;code&nbsp;<br>
 &nbsp;<br>
 @rep&nbsp;:&nbsp;str&nbsp;=&nbsp;l'évènement<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-demander"><strong>demander</strong></a>(self, quelquechose, t<font color="#909090">=0</font>)</dt><dd><tt>Une&nbsp;surcouche&nbsp;de&nbsp;iconsole.demander&nbsp;<br>
+ <dl><dt><a name="-demander"><strong>demander</strong></a>(quelquechose, t<font color="#909090">=0</font>)</dt><dd><tt>Une&nbsp;surcouche&nbsp;de&nbsp;iconsole.demander&nbsp;<br>
 qui&nbsp;met&nbsp;l'état&nbsp;actuel&nbsp;en&nbsp;«&nbsp;acteur&nbsp;»<br>
 &nbsp;<br>
 @quelquechose&nbsp;:&nbsp;str&nbsp;=&nbsp;un&nbsp;truc&nbsp;à&nbsp;afficher&nbsp;<br>
 @t&nbsp;:&nbsp;int&nbsp;=&nbsp;nombre&nbsp;de&nbsp;tabulations&nbsp;[opts]<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;str</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-get"><strong>get</strong></a>(self)</dt><dd><tt>Retourne&nbsp;l'état&nbsp;courant&nbsp;<br>
+ <dl><dt><a name="-gestion_tableau"><strong>gestion_tableau</strong></a>(rep)</dt><dd><tt>Fait&nbsp;réagir&nbsp;une&nbsp;gestion&nbsp;des&nbsp;entrées&nbsp;de&nbsp;<br>
+tableaux&nbsp;en&nbsp;console,&nbsp;ce&nbsp;n'est&nbsp;pas&nbsp;un&nbsp;état<br>
+mais&nbsp;une&nbsp;suite&nbsp;d'actions&nbsp;possibles<br>
+&nbsp;<br>
+@rep&nbsp;:&nbsp;str&nbsp;=&nbsp;l'entrée&nbsp;utilisateur<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-get_etat"><strong>get_etat</strong></a>()</dt><dd><tt>Retourne&nbsp;l'état&nbsp;courant&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;str</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-humain_joue"><strong>humain_joue</strong></a>(self, rep)</dt><dd><tt>Une&nbsp;fonction&nbsp;qui&nbsp;permet&nbsp;de&nbsp;faire&nbsp;jouer&nbsp;<br>
+ <dl><dt><a name="-humain_joue"><strong>humain_joue</strong></a>(rep)</dt><dd><tt>Une&nbsp;fonction&nbsp;qui&nbsp;permet&nbsp;de&nbsp;faire&nbsp;jouer&nbsp;<br>
 l'humain&nbsp;quand&nbsp;on&nbsp;est&nbsp;dans&nbsp;l'état&nbsp;<br>
 «&nbsp;Humain-Joue&nbsp;»<br>
 &nbsp;<br>
 @rep&nbsp;:&nbsp;str&nbsp;=&nbsp;l'évènement&nbsp;à&nbsp;gérer<br>
 &nbsp;<br>
-@return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-menu"><strong>menu</strong></a>(self, rep)</dt><dd><tt>Fonction&nbsp;qui&nbsp;permet&nbsp;de&nbsp;faire&nbsp;réagir&nbsp;le&nbsp;menu&nbsp;<br>
+@return&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@throw&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#LeProgrammeurEstCon">LeProgrammeurEstCon</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ErreurFatale">ErreurFatale</a></tt></dd></dl>
+ <dl><dt><a name="-init"><strong>init</strong></a>()</dt><dd><tt>Constructeur&nbsp;<br>
+&nbsp;<br>
+@initial&nbsp;:&nbsp;str&nbsp;=&nbsp;l'état&nbsp;de&nbsp;départ&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;Mastermind</tt></dd></dl>
+ <dl><dt><a name="-menu"><strong>menu</strong></a>(rep)</dt><dd><tt>Fonction&nbsp;qui&nbsp;permet&nbsp;de&nbsp;faire&nbsp;réagir&nbsp;le&nbsp;menu&nbsp;<br>
 à&nbsp;des&nbsp;actions&nbsp;<br>
 &nbsp;<br>
 @rep&nbsp;:&nbsp;str&nbsp;=&nbsp;l'évènement<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-niveau"><strong>niveau</strong></a>(self, rep)</dt><dd><tt>Fonction&nbsp;qui&nbsp;fait&nbsp;réagir&nbsp;le&nbsp;menu&nbsp;Niveau<br>
+ <dl><dt><a name="-niveau"><strong>niveau</strong></a>(rep)</dt><dd><tt>Fonction&nbsp;qui&nbsp;fait&nbsp;réagir&nbsp;le&nbsp;menu&nbsp;Niveau<br>
 &nbsp;<br>
 @rep&nbsp;:&nbsp;str&nbsp;=&nbsp;l'évènement<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-send"><strong>send</strong></a>(self, rep)</dt><dd><tt>Envoie&nbsp;une&nbsp;requête&nbsp;utilisateur&nbsp;au&nbsp;<a href="#Mastermind">Mastermind</a><br>
+ <dl><dt><a name="-send"><strong>send</strong></a>(rep)</dt><dd><tt>Envoie&nbsp;une&nbsp;requête&nbsp;utilisateur&nbsp;au&nbsp;Mastermind<br>
 qui&nbsp;va&nbsp;gérer&nbsp;la&nbsp;redirection&nbsp;et&nbsp;les&nbsp;actions&nbsp;<br>
 nécessaires<br>
 &nbsp;<br>
 @rep&nbsp;:&nbsp;str&nbsp;=&nbsp;la&nbsp;requête<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;str&nbsp;=&nbsp;l'état&nbsp;actuel</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-set"><strong>set</strong></a>(self, state)</dt><dd><tt>Définit&nbsp;l'état&nbsp;courant&nbsp;<br>
-&nbsp;<br>
-@state&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;nouvel&nbsp;état&nbsp;<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-set_ecran"><strong>set_ecran</strong></a>(self, new, t<font color="#909090">=False</font>)</dt><dd><tt>Change&nbsp;d'écran&nbsp;sur&nbsp;la&nbsp;fenêtre&nbsp;turtle&nbsp;<br>
+ <dl><dt><a name="-set_ecran"><strong>set_ecran</strong></a>(new, t<font color="#909090">=False</font>)</dt><dd><tt>Change&nbsp;d'écran&nbsp;sur&nbsp;la&nbsp;fenêtre&nbsp;turtle&nbsp;<br>
 &nbsp;<br>
 @new&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;nouvel&nbsp;écran<br>
 @t&nbsp;:&nbsp;int&nbsp;=&nbsp;temps&nbsp;de&nbsp;chargement&nbsp;[opts]<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;None</tt></dd></dl>
-
-<dl><dt><a name="Mastermind-theme"><strong>theme</strong></a>(self, rep)</dt><dd><tt>Fonction&nbsp;qui&nbsp;premet&nbsp;de&nbsp;faire&nbsp;réagir&nbsp;le&nbsp;menu&nbsp;Theme<br>
+ <dl><dt><a name="-set_etat"><strong>set_etat</strong></a>(state)</dt><dd><tt>Définit&nbsp;l'état&nbsp;courant&nbsp;<br>
+&nbsp;<br>
+@state&nbsp;:&nbsp;str&nbsp;=&nbsp;le&nbsp;nouvel&nbsp;état&nbsp;<br>
+&nbsp;<br>
+@return&nbsp;:&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-theme"><strong>theme</strong></a>(rep)</dt><dd><tt>Fonction&nbsp;qui&nbsp;premet&nbsp;de&nbsp;faire&nbsp;réagir&nbsp;le&nbsp;menu&nbsp;Theme<br>
 &nbsp;<br>
 @rep&nbsp;:&nbsp;str&nbsp;=&nbsp;l'évènement<br>
 &nbsp;<br>
-@reutrn&nbsp;:&nbsp;None</tt></dd></dl>
-
-</td></tr></table></td></tr></table><p>
+@reutrn&nbsp;:&nbsp;None<br>
+&nbsp;<br>
+@throw&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#LeProgrammeurEstCon">LeProgrammeurEstCon</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide</tt></dd></dl>
+</td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#55aa55">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>aide</strong> = {'Definir-Code': {'@': 'Une autre chaine de caract<font color="#c040c0">\xc3\xa8</font>res est prise comme une couleur <font color="#c040c0">\xc3\xa0</font> ajouter <font color="#c040c0">\xc3\xa0</font> la fin', 'abandon': 'Revient au menu en annulant la partie actuelle', 'annuler': 'Supprime du tableau la derni<font color="#c040c0">\xc3\xa8</font>re entr<font color="#c040c0">\xc3\xa9</font>e', 'fin': 'Valide le code et revient au menu, la partie est lanc<font color="#c040c0">\xc3\xa9</font>e !'}, 'Humain-Joue': {'@': 'Une autre chaine est prise comme une couleur <font color="#c040c0">\xc3\xa0</font> ajouter en fin de tableau', 'abandon': 'Revient au mode <font color="#c040c0">\xc2\xab</font> Humain-Joue <font color="#c040c0">\xc2\xbb</font> en ne proposant pas ce code', 'annuler': 'Supprime le dernier item du tableau', 'fin': "Propose le tableau au mastermind et affiche la r<font color="#c040c0">\xc3\xa9</font>ponse, revient <font color="#c040c0">\xc3\xa0</font> l'<font color="#c040c0">\xc3\xa9</font>tat <font color="#c040c0">\xc2\xab</font> Humain-Joue <font color="#c040c0">\xc2\xbb</font>", 'historique': "Permet d'afficher l'historique des coups d<font color="#c040c0">\xc3\xa9</font>j<font color="#c040c0">\xc3\xa0</font> jou<font color="#c040c0">\xc3\xa9</font>s et leur r<font color="#c040c0">\xc3\xa9</font>ponses", 'plateau': 'Permet de r<font color="#c040c0">\xc3\xa9</font>afficher le plateau de jeu', 'proposer': 'Permet de faire une proposition, si et seulement si le plateau est affich<font color="#c040c0">\xc3\xa9</font>', 'score': 'Permet de savoir le score actuel'}, 'Menu': {'humain-code': "Fait rentrer un code <font color="#c040c0">\xc3\xa0</font> l'utilisateur", 'humain-joue': "Fait trouver le code <font color="#c040c0">\xc3\xa0</font> l'utilisateur", 'ia-code': 'Fait d<font color="#c040c0">\xc3\xa9</font>cider un code <font color="#c040c0">\xc3\xa0</font> trouver par une IA', 'ia-joue': "Fait trouver le code par une IA (n<font color="#c040c0">\xc3\xa9</font>cessite qu'un code ai <font color="#c040c0">\xc3\xa9</font>t<font color="#c040c0">\xc3\xa9</font> d<font color="#c040c0">\xc3\xa9</font>fini avant)", 'niveau': "Permet <font color="#c040c0">\xc3\xa0</font> l'utilisateur de changer de niveau de difficult<font color="#c040c0">\xc3\xa9</font>", 'theme': "Permet <font color="#c040c0">\xc3\xa0</font> l'utilisateur de chosir un th<font color="#c040c0">\xc3\xa8</font>me"}, 'Niveau': {'@': 'Une autre chaine de caract<font color="#c040c0">\xc3\xa8</font>re est prise comme un niveau', 'actuel': 'Affiche le niveau actuel de difficult<font color="#c040c0">\xc3\xa9</font>', 'fin': 'Enregistre le niveau s<font color="#c040c0">\xc3\xa9</font>lectionn<font color="#c040c0">\xc3\xa9</font> et revient au menu', 'list': 'Fait la liste des niveaux disponibles'}, 'Theme': {'@': 'S<font color="#c040c0">\xc3\xa9</font>lectionne le texte rentr<font color="#c040c0">\xc3\xa9</font> comme un th<font color="#c040c0">\xc3\xa8</font>me', 'actuel': 'Affiche le th<font color="#c040c0">\xc3\xa8</font>me actuel ...', 'fin': 'Engeristre le th<font color="#c040c0">\xc3\xa8</font>me s<font color="#c040c0">\xc3\xa9</font>lectionn<font color="#c040c0">\xc3\xa9</font> et revient au menu', 'list': 'Fait la liste des th<font color="#c040c0">\xc3\xa8</font>mes disponibles'}, 'global': {'clear': "Efface l'<font color="#c040c0">\xc3\xa9</font>cran de la console ...", 'couleurs': 'Affiche la liste des couleurs disponibles', 'fortune': 'Affiche une petite phrase al<font color="#c040c0">\xc3\xa9</font>atoire sympa ...', 'quit': 'Quitte le programme ...', 'regles': 'Affiche les r<font color="#c040c0">\xc3\xa8</font>gles du jeu ...', 'scores': 'Affiche les meilleurs scores du jeu ...'}}</td></tr></table>
+<td width="100%"><strong>aide</strong> = {'Definir-Code': {'@': 'Une autre chaine de caract<font color="#c040c0">\xc3\xa8</font>res est prise comme une couleur <font color="#c040c0">\xc3\xa0</font> ajouter <font color="#c040c0">\xc3\xa0</font> la fin', 'abandon': 'Revient au menu en annulant la partie actuelle', 'annuler': 'Supprime du tableau la derni<font color="#c040c0">\xc3\xa8</font>re entr<font color="#c040c0">\xc3\xa9</font>e', 'valider': 'Valide le code et revient au menu, la partie est lanc<font color="#c040c0">\xc3\xa9</font>e !'}, 'Humain-Joue': {'@': 'Une autre chaine est prise comme une couleur <font color="#c040c0">\xc3\xa0</font> ajouter en fin de tableau', 'abandon': 'Revient au mode <font color="#c040c0">\xc2\xab</font> Humain-Joue <font color="#c040c0">\xc2\xbb</font> en ne proposant pas ce code', 'annuler': 'Supprime le dernier item du tableau', 'historique': "Permet d'afficher l'historique des coups d<font color="#c040c0">\xc3\xa9</font>j<font color="#c040c0">\xc3\xa0</font> jou<font color="#c040c0">\xc3\xa9</font>s et leur r<font color="#c040c0">\xc3\xa9</font>ponses", 'plateau': 'Permet de r<font color="#c040c0">\xc3\xa9</font>afficher le plateau de jeu', 'score': 'Permet de savoir le score actuel', 'valider': "Propose le tableau au mastermind et affiche la r<font color="#c040c0">\xc3\xa9</font>ponse, revient <font color="#c040c0">\xc3\xa0</font> l'<font color="#c040c0">\xc3\xa9</font>tat <font color="#c040c0">\xc2\xab</font> Humain-Joue <font color="#c040c0">\xc2\xbb</font>"}, 'Menu': {'humain-code': "Fait rentrer un code <font color="#c040c0">\xc3\xa0</font> l'utilisateur", 'humain-joue': "Fait trouver le code <font color="#c040c0">\xc3\xa0</font> l'utilisateur", 'ia-code': 'Fait d<font color="#c040c0">\xc3\xa9</font>cider un code <font color="#c040c0">\xc3\xa0</font> trouver par une IA', 'ia-joue': "Fait trouver le code par une IA (n<font color="#c040c0">\xc3\xa9</font>cessite qu'un code ai <font color="#c040c0">\xc3\xa9</font>t<font color="#c040c0">\xc3\xa9</font> d<font color="#c040c0">\xc3\xa9</font>fini avant)", 'niveau': "Permet <font color="#c040c0">\xc3\xa0</font> l'utilisateur de changer de niveau de difficult<font color="#c040c0">\xc3\xa9</font>", 'theme': "Permet <font color="#c040c0">\xc3\xa0</font> l'utilisateur de chosir un th<font color="#c040c0">\xc3\xa8</font>me"}, 'Niveau': {'@': 'Une autre chaine de caract<font color="#c040c0">\xc3\xa8</font>re est prise comme un niveau', 'actuel': 'Affiche le niveau actuel de difficult<font color="#c040c0">\xc3\xa9</font>', 'list': 'Fait la liste des niveaux disponibles', 'valider': 'Enregistre le niveau s<font color="#c040c0">\xc3\xa9</font>lectionn<font color="#c040c0">\xc3\xa9</font> et revient au menu'}, 'Theme': {'@': 'S<font color="#c040c0">\xc3\xa9</font>lectionne le texte rentr<font color="#c040c0">\xc3\xa9</font> comme un th<font color="#c040c0">\xc3\xa8</font>me', 'actuel': 'Affiche le th<font color="#c040c0">\xc3\xa8</font>me actuel ...', 'list': 'Fait la liste des th<font color="#c040c0">\xc3\xa8</font>mes disponibles', 'valider': 'Engeristre le th<font color="#c040c0">\xc3\xa8</font>me s<font color="#c040c0">\xc3\xa9</font>lectionn<font color="#c040c0">\xc3\xa9</font> et revient au menu'}, 'global': {'clear': "Efface l'<font color="#c040c0">\xc3\xa9</font>cran de la console ...", 'couleurs': 'Affiche la liste des couleurs disponibles', 'fortune': 'Affiche une petite phrase al<font color="#c040c0">\xc3\xa9</font>atoire sympa ...', 'quit': 'Quitte le programme ...', 'regles': 'Affiche les r<font color="#c040c0">\xc3\xa8</font>gles du jeu ...', 'scores': 'Affiche les meilleurs scores du jeu ...'}}<br>
+<strong>ecran</strong> = 'plateau'<br>
+<strong>ecrans</strong> = ['plateau', 'regles', 'scores']<br>
+<strong>etat</strong> = ''<br>
+<strong>etats</strong> = ['Menu', 'Humain-Joue', 'Theme', 'Niveau', 'Proposer-Code', 'Definir-Code']<br>
+<strong>tableau_tampon</strong> = []</td></tr></table>
 </body></html>
