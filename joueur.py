@@ -485,8 +485,12 @@ class Mastermind:
 			else:
 				self.afficher (self.tableau_tampon)
 		else:
-			self.tableau_tampon.append (rep)
-			self.afficher (self.tableau_tampon)
+			try:
+				self.tableau_tampon.append (couleurs.couleur_to_string (rep))
+			except couleurs.CouleurInvalide:
+				self.afficher ("Cette couleur n'existe pas ...")
+			else:
+				self.afficher (self.tableau_tampon)
 	
 	def menu (self, rep):
 		""" Fonction qui permet de faire réagir le menu 
