@@ -77,6 +77,91 @@ def liste_variables (fichier):
 		raise FichierInvalide
 	else:
 		return l
+	
+def parcourir_cles (fichier):
+	""" Retourne un générateur qui 
+		retourne les clés d'un fichier
+		
+		@fichier : str = nom du fichier dans lequel chercher
+		
+		@return : generator
+		
+		@throw : FichierInvalide
+	"""
+	if not isinstance (fichier, str):
+		raise FichierInvalide
+	
+	found = False
+	for i in persistant:
+		if i[0] == fichier:
+			found = True
+			for j in i[1:]:
+				yield j[0]
+		break
+	if found == False:
+		raise FichierInvalide
+
+def parcourir_valeurs (fichier):
+	""" Retourne un générateur qui 
+		retourne les valeurs d'un fichier
+		
+		@fichier : str = nom du fichier dans lequel chercher
+		
+		@return : generator
+		
+		@throw : FichierInvalide
+	"""
+	if not isinstance (fichier, str):
+		raise FichierInvalide
+	
+	found = False
+	for i in persistant:
+		if i[0] == fichier:
+			found = True
+			for j in i[1:]:
+				yield j[1]
+		break
+	if found == False:
+		raise FichierInvalide
+	
+def parcourir_fichier (fichier):
+	""" Retourne un générateur qui 
+		retourne les tuples 
+		clé/valeur d'un fichier
+		
+		@fichier : str = nom du fichier dans lequel chercher
+		
+		@return : generator
+		
+		@throw : FichierInvalide
+	"""
+	if not isinstance (fichier, str):
+		raise FichierInvalide
+	
+	found = False
+	for i in persistant:
+		if i[0] == fichier:
+			found = True
+			for j in i[1:]:
+				yield (j[0],j[1])
+		break
+	if found == False:
+		raise FichierInvalide
+	
+def parcourir ():
+	""" Retourne un générateur qui 
+		retourne successivement 
+		des tuples (fichier,clef,valeur)
+		pour chaque clef dans tous les 
+		fichiers de configuration connus 
+		
+		@return : generator
+	"""
+	
+	for i in persistance:
+		for j in i[1:]:
+			yield (i[0],j[0],j[1])
+	
 
 def charger_fichier (chemin):
 	""" Charge un fichier de configuration
