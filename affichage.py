@@ -26,7 +26,21 @@ def init (theme = ""):
 	sc = getscreen ()
 	sc.title ("PyMastermind")
 	plateau ()
+
+def generateur_reponse (answer):
+	a,b = answer
 	
+	while a + b > 0:
+		if a > 0:
+			dot (10, "red")
+			a -= 1
+		elif b > 0:
+			dot (10, "black")
+			b -= 1
+		
+		yield
+		
+
 def dessiner_answer(answer):
 	""" Affiche le score de la proposition du joueur, 
 		answer étant un tuple (a,b)
@@ -212,6 +226,7 @@ def liste_themes ():
 		i += 1
 	return l
 
+
 def afficher_couleurs(nbr_case,couleurs,answer):
 	""" dessine une ligne du plateau du mastermind avec en argument les donnée envoyé par les autres modules:
     	les couleurs saisies par l'utilisateur et la réponse de l'ordinateur à partir du code secret. Composée de la fonction carré et de la fonction answer
@@ -233,7 +248,18 @@ def afficher_couleurs(nbr_case,couleurs,answer):
 		end_fill ()
 		fd (50)
 		i = i + 1
-	dessiner_answer (answer)
+	
+	# Se positionne pour 
+	# permettre de faire les 
+	# points rouge et noir de réponse
+	up ()
+	fd (20)
+	left (90)
+	fd (30)
+	right (90)
+	
+	lignes (2, 20, 20, generateur_reponse (answer))
+	# dessiner_answer (answer)
 	up ()
 	
 	seth (0) # remet la tortue à un angle absolu de zéro !
