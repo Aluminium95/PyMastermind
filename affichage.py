@@ -28,76 +28,23 @@ def init (theme = ""):
 	plateau ()
 
 def generateur_reponse (answer):
+	""" Retourne un générateur
+		qui permet de faire à chaque 
+		étape le dessin d'un point 
+		d'une couleur, le tout correspondant 
+		au nombres (a,b) de la réponse !
+	"""
 	a,b = answer
 	
-	while a + b > 0:
-		if a > 0:
-			dot (10, "red")
-			a -= 1
-		elif b > 0:
-			dot (10, "black")
-			b -= 1
+	while a + b > 0: # On s'arrête après
+		if a > 0: # Si a > 0, on enlève du a
+			dot (10, "red") # Affiche un point rouge
+			a -= 1 # Enlève du a
+		elif b > 0: # Si b > 0 on enlève du b
+			dot (10, "black") # Affiche un point noir
+			b -= 1 # Retire du b
 		
-		yield
-		
-
-def dessiner_answer(answer):
-	""" Affiche le score de la proposition du joueur, 
-		answer étant un tuple (a,b)
-		
-		@answer : (a,b) int × int = 
-			a - le nombre de couleurs bonne et à la bonne place
-			b - le nombre de couleurs bonne et à la mauvaise place
-	
-		@return : None
-	"""
-	up ()
-	fd(10)
-	a,b=answer
-	fd(10)
-	right(90)
-	fd(10)
-	down()
-	if a>0:
-		a=a-1
-		dot(10,"red")
-	elif b>0:
-		b=b-1
-		dot(10,"black")
-	else:
-		return
-	up()
-	left(90)
-	fd(20)
-	if a>0:
-		a=a-1
-		dot(10,"red")
-	elif b>0:
-		b=b-1
-		dot(10,"black")
-	else:
-		return
-	up()
-	right(90)
-	fd(20)
-	if a>0:
-		a=a-1
-		dot(10,"red")
-	elif b>0:
-		b=b-1
-		dot(10,"black")
-	else:
-		return
-	right(90)
-	fd(20)
-	if a>0:
-		a=a-1
-		dot(10,"red")
-	elif b>0:
-		b=b-1
-		dot(10,"black")
-	else:
-		return
+		yield # Yield à chaque point !
     
 def plateau ():
 	""" Affiche un plateau vierge
@@ -274,11 +221,15 @@ def generer_score():
 		
 		up ()
 		forward (40)
+		color ("red")
+		begin_fill ()
 		polygone (6,20)
+		end_fill ()
 		up ()
 		forward (3)
 		left (90)
 		forward (5)
+		color ("black")
 		texte (str (i))
 		yield
 	
@@ -297,6 +248,9 @@ def generer_score():
 		yield
         
 def high_score ():
+	""" Fonction qui affiche l'écran des meilleurs 
+		scores 
+	"""
 	raz ()
 	aller_a (-200, 200)
 	texte ("Meilleurs scores", "important")

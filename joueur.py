@@ -187,7 +187,7 @@ def set_ecran (new, t = False):
 	elif new == "scores":
 		if t != False:
 			chargement.run (t, "ligne")
-			
+
 		affichage.high_score ()
 	elif new == "fond":
 		if t != False:

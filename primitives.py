@@ -262,8 +262,9 @@ def raz ():
 			
 		@return : None
 	"""
-	clear () # Efface l'écran
 	reset () # Réinitialise tout (position,angle etc ...)
+	clear () # Efface l'écran
+	bgpic ("") # Efface le fond d'écran
 	hideturtle () # Cache la tortue
 	speed (0) # On va très vite !
 	up () # On lève le crayon
