@@ -14,34 +14,53 @@ def niveau(niveau):
 	text="Voici les regles du mastermind mode " + niveau + ":"
 	write(text, False, "center", ("calibri",16,"underline"))
 
-def main_text():
-	goto(-133,150)
+
+def generateur_texte (coups):
 	text2="- Vous devez deviner le code couleur du jeu."
 	texte (text2)
-	goto(-132,120)
-	dot(10,"red")
-	goto(-127,110)
+	yield 
+	
+	up ()
+	left (90)
+	forward (10)
+	dot (10,"red")
+	forward (-10)
+	right (90)
+	up ()
+	forward (20)
 	text3=" : Signifie que la couleur est juste et bien placée."
 	texte (text3)
-	goto(-132,90)
+	yield
+	
+	up ()
+	left (90)
+	forward (10)
 	dot(10,"black")
-	goto(-127,80)
+	forward (-10)
+	right (90)
+	up ()
+	forward (20)
 	text4=" : Signifie que la couleur est juste mais mal placée."
 	texte (text4)
-	goto(-133,50)
-    
-
-def nombre_coup(coups):
-	text5="- Il y a " + coups + " couleurs selectionnables." 
+	yield
+	
+	text5="- Il y a " + coups + " couleurs sélectionnables." 
 	texte (text5)
-
-def main_text2():
+	yield
+	
+	
 	text6="- Le code à trouver est composé de 4 couleurs."
 	texte (text6)
-	goto(-133,-10)
+	yield
+	
+	
 	text7="- Vous avez 10 essais maximum pour le deviner."
 	texte (text7)
-	goto(20,-40)
+	yield
+
+def main_text2():
+	
+	goto (20, -40)
 	color("red")
 	begin_fill()
 	text8="Attention,"
@@ -135,9 +154,14 @@ def regles (mode = False):
 	goto(30,220)
 	color("black")
 	niveau(mode)
-	main_text()
-	goto(-133,50)
-	nombre_coup(persistance.get_propriete ("config","coups:" + mode))
+	
+	nombre_coups = persistance.get_propriete ("config","coups:" + mode)
+	
+	generateur = generateur_texte (nombre_coups)
+	
+	goto (-133,150)
+	lignes (1, 0, 30, generateur)
+	
 	goto(-133,20)
 	main_text2()
 	goto (-245,-160)
