@@ -84,479 +84,480 @@ aide = {
 	}
 }
 
-class Mastermind:
-	""" La classe princpale du mastermind : c'est le jeu en lui même !
+
+etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
+ecrans = ["plateau", "regles", "scores"]
+etat = ""
+ecran = "plateau" # Quel est l'écran actuel ?
+tableau_tampon = []
+
+def init ():
+	""" Constructeur 
+		
+		@initial : str = l'état de départ 
+		
+		@return : Mastermind 
 	"""
-	def __init__ (self,initial):
-		""" Constructeur 
-			
-			@initial : str = l'état de départ 
-			
-			@return : Mastermind 
-		"""
-		self.etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
-		self.ecrans = ["plateau", "regles", "scores"]
-		self.etat = ""
-		self.ecran = "plateau" # Quel est l'écran actuel ?
+	set_etat ("Menu")
+
+def afficher (quelquechose, t = 0):
+	""" Une surcouche de iconsole.afficher 
+		qui met automatiquement l'état courant 
+		en « acteur »
 		
-		self.tableau_tampon = [] # Un tableau tampon, pour les états Proposer-Code et Definir-Code
+		@quelquechose : str = un truc à afficher 
+		@t : int = nombre de tabulations [opts]
 		
-		self.set (initial)
+		@return : None
+	"""
+	iconsole.afficher (get_etat (), quelquechose, t)
+
+def afficher_liste (quelquechose, generateur, t = 0):
+	""" Encore une surcouche qui englobe iconsole.afficher_liste
 		
-	def afficher (self, quelquechose, t = 0):
-		""" Une surcouche de iconsole.afficher 
-			qui met automatiquement l'état courant 
-			en « acteur »
-			
-			@quelquechose : str = un truc à afficher 
-			@t : int = nombre de tabulations [opts]
-			
-			@return : None
-		"""
-		iconsole.afficher (self.get (), quelquechose, t)
+		@quelquechose : str = texte
+		@generateur : generator = générateur de liste
+		@t : int = tabulations [opts]
+		
+		@return : None
+	"""
+	iconsole.afficher_liste (get_etat (), quelquechose, generateur, t)
+
+def demander (quelquechose, t = 0):
+	""" Une surcouche de iconsole.demander 
+		qui met l'état actuel en « acteur »
+		
+		@quelquechose : str = un truc à afficher 
+		@t : int = nombre de tabulations [opts]
+		
+		@return : str
+	"""
+	return iconsole.demander (get_etat (), quelquechose, t)
 	
-	def afficher_liste (self, quelquechose, generateur, t = 0):
-		""" Encore une surcouche qui englobe iconsole.afficher_liste
-			
-			@quelquechose : str = texte
-			@generateur : generator = générateur de liste
-			@t : int = tabulations [opts]
-			
-			@return : None
-		"""
-		iconsole.afficher_liste (self.get (), quelquechose, generateur, t)
+def get_etat ():
+	""" Retourne l'état courant 
+		
+		@return : str 
+	"""
+	global etat
+	return etat
+
+def set_etat (state):
+	""" Définit l'état courant 
+		
+		@state : str = le nouvel état 
+		
+		@return : None
+	"""
+	global etat
 	
-	def demander (self, quelquechose, t = 0):
-		""" Une surcouche de iconsole.demander 
-			qui met l'état actuel en « acteur »
-			
-			@quelquechose : str = un truc à afficher 
-			@t : int = nombre de tabulations [opts]
-			
-			@return : str
-		"""
-		return iconsole.demander (self.get (), quelquechose, t)
-		
-	def get (self):
-		""" Retourne l'état courant 
-			
-			@return : str 
-		"""
-		return self.etat
+	if state not in etats:
+		raise EtatInvalide (state)
 	
-	def set (self, state):
-		""" Définit l'état courant 
-			
-			@state : str = le nouvel état 
-			
-			@return : None
-		"""
-		if state not in self.etats:
-			raise EtatInvalide (state)
-		
-		self.etat = state 
-		# petits trucs ici pour les transitions 
-		# iconsole.separateur ()
-		iconsole.clear ()
-		self.afficher ("Vous êtes maintenant dans un nouveau mode")
-		self.aide () # Affiche l'aide du nouvel état 
-		
-	def set_ecran (self, new, t = False):
-		""" Change d'écran sur la fenêtre turtle 
-			
-			@new : str = le nouvel écran
-			@t : int = temps de chargement [opts]
-			
-			@return : None
-		"""
-		if new == "plateau":
-			if t != False:
-				chargement.run (t, "arc")
-			
-			if moteur.est_en_partie () == True:
-				moteur.reprendre_partie ()
-			else:
-				affichage.plateau ()
-				
-		elif new == "regles":
-			if t != False:
-				chargement.run (t, "cercle")
-				
-			regles.regles (moteur.get_next_mode ())
-		elif new == "scores":
-			if t != False:
-				chargement.run (t, "ligne")
-				
-			affichage.high_score ()
-		elif new == "fond":
-			if t != False:
-				chargement.run (t, "ligne") 
-		else:
-			raise EcranInvalide
-		
-		self.ecran = new
+	etat = state 
+	# petits trucs ici pour les transitions 
+	# iconsole.separateur ()
+	iconsole.clear ()
+	afficher ("Vous êtes maintenant dans un nouveau mode")
+	afficher_aide () # Affiche l'aide du nouvel état 
 	
-	def aide (self):
-		""" Affiche l'aide globale ainsi que celle de l'état courant 
-			
-			@return : None
-		"""
-		# On Crée un générateur de l'aide actuelle
-		# pour personnaliser un peu l'affichage de la liste 
-		def gen_help ():
-			yield "Commandes globales ..."
-			for i,j in aide["global"].items ():
-				yield ("\t" + i,j)
-			
-			yield "Commandes du mode " + self.get ()
-			for i,j in aide[self.get ()].items ():
-				yield ("\t" + i,j)
-		# On l'affiche avec le magnifique module iconsole
-		self.afficher_liste ("Aide : ", gen_help ())
-	
-	def afficher_couleurs (self):
-		""" Affiche la liste des couleurs disponibles 
-			actuellement si possible, ou 
-			future si on n'est pas en cours de partie
-			
-			@return : None
-		"""
-		nombre_couleurs = False
-		try:
-			nombre_couleurs = moteur.get_nombre_couleurs ()
-		except moteur.PasEnCoursDePartie:
-			self.afficher ("Vous n'êtes pas en cours de partie, on affiche les couleurs futurement disponibles")
-			nombre_couleurs = moteur.get_nombre_couleurs_next ()
+def set_ecran (new, t = False):
+	""" Change d'écran sur la fenêtre turtle 
 		
-		def generateur_liste_couleurs (nbr):
-			abvrs = couleurs.liste_abreviations ()
-			for i in abvrs[0:nbr]:
-				a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
-				yield a
-			
-		self.afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))
-	
-	def send (self,rep):
-		""" Envoie une requête utilisateur au Mastermind
-			qui va gérer la redirection et les actions 
-			nécessaires
-			
-			@rep : str = la requête
-			
-			@return : str = l'état actuel 
-		"""
-		if rep == "help": # Commande indépendante de l'état courant !
-			self.aide ()
-		elif rep == "regles": # Commande indépendante de l'état courant !
-			self.afficher ( "Affichage des règles sur la fenêtre graphique ...")
-			
-			self.set_ecran ("regles", 2)
-		elif rep == "clear":
-			iconsole.clear ()
-		elif rep == "scores": # Commande indépendante de l'état courant !
-			self.afficher ("Affichage des scores sur la fenêtre graphique ...")
-			
-			self.set_ecran ("scores", 1)
-			
-		elif rep == "fortune":
-			try:
-				maximum = persistance.get_propriete ("phrases", "max")
-				maximum = int (maximum)
-				aleatoire = randint (0,maximum - 1)
-				self.afficher (persistance.get_propriete ("phrases", str (aleatoire)))
-			except persistance.CleInvalide:
-				self.afficher ( "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
-			except persistanec.FichierInvalide:
-				self.afficher ( "Le fichier est introuvable ... Cela implique un problème dans le CODE SOURCE ... revenez plus tard ...")
-			except ValueError:
-				self.afficher ( "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
-			except:
-				self.afficher ( "Une erreur inconnue est survenue ... ")
-				
-		elif rep == "couleurs":
-			self.afficher_couleurs ()
-				
-		elif self.get () == "Humain-Joue":
-			self.humain_joue (rep)
-		elif self.get () == "Menu":
-			self.menu (rep)
-		elif self.get () == "Theme":
-			self.theme (rep)
-		elif self.get () == "Niveau":
-			self.niveau (rep)
-		elif self.get () == "Proposer-Code":
-			self.proposer_code (rep)
-		elif self.get () == "Definir-Code":
-			self.definir_code (rep)
-		else:
-			raise ErreurFatale
+		@new : str = le nouvel écran
+		@t : int = temps de chargement [opts]
 		
-		return self.get ()
-	
-	def humain_joue (self,rep):
-		""" Une fonction qui permet de faire jouer 
-			l'humain quand on est dans l'état 
-			« Humain-Joue »
-			
-			@rep : str = l'évènement à gérer
-			
-			@return : None
-		"""
-		if self.get () != "Humain-Joue":
-			raise LeProgrammeurEstCon
+		@return : None
+	"""
+	global ecran 
+	if new == "plateau":
+		if t != False:
+			chargement.run (t, "arc")
 		
-		if rep == "abandon": # Abandon de la partie -> retour au menu
-			self.afficher ("Vous avez abandonné la partie ...")
-			self.set ("Menu")
-		elif rep == "score":
-			self.afficher (moteur.calcul_score ())
-		elif rep == "plateau":
-			self.afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
+		if moteur.est_en_partie () == True:
 			moteur.reprendre_partie ()
-			self.set_ecran ("plateau")
-		elif rep == "historique":
-			h = moteur.get_historique ()
-			def generateur_historique (hist):
-				for i in hist:
-					# i = [[a,b,c,d], (e,f)]
-					coup = i[0]
-					resultat = i[1]
-					
-					sa = ""
-					if resultat[0] > 1:
-						sa = "s"
-					
-					sb = ""
-					if resultat[1] > 1:
-						sb = "s"
-					
-					string = "{0} rouge{1}, {2} blanche{3}".format (resultat[0],sa,resultat[1],sb)
-					
-					yield (coup,string) 
-					
-			self.afficher_liste ("Historique", generateur_historique (h))
-		elif rep == "valider":
-			self.afficher ("Valide le nouveau code ...")
-			if self.ecran != "plateau":
-				self.set_ecran ("plateau")
+		else:
+			affichage.plateau ()
 			
-			try:
-				r = moteur.verification_solution ( self.tableau_tampon )
-			except moteur.TableauInvalide as exception:
-				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
-			else:
+	elif new == "regles":
+		if t != False:
+			chargement.run (t, "cercle")
+			
+		regles.regles (moteur.get_next_mode ())
+	elif new == "scores":
+		if t != False:
+			chargement.run (t, "ligne")
+			
+		affichage.high_score ()
+	elif new == "fond":
+		if t != False:
+			chargement.run (t, "ligne") 
+	else:
+		raise EcranInvalide
+	
+	ecran = new
+
+def afficher_aide ():
+	""" Affiche l'aide globale ainsi que celle de l'état courant 
+		
+		@return : None
+	"""
+	# On Crée un générateur de l'aide actuelle
+	# pour personnaliser un peu l'affichage de la liste 
+	def gen_help ():
+		yield "Commandes globales ..."
+		for i,j in aide["global"].items ():
+			yield ("\t" + i,j)
+		
+		yield "Commandes du mode " + get_etat ()
+		for i,j in aide[get_etat ()].items ():
+			yield ("\t" + i,j)
+	# On l'affiche avec le magnifique module iconsole
+	afficher_liste ("Aide : ", gen_help ())
+
+def afficher_couleurs ():
+	""" Affiche la liste des couleurs disponibles 
+		actuellement si possible, ou 
+		future si on n'est pas en cours de partie
+		
+		@return : None
+	"""
+	nombre_couleurs = False
+	try:
+		nombre_couleurs = moteur.get_nombre_couleurs ()
+	except moteur.PasEnCoursDePartie:
+		afficher ("Vous n'êtes pas en cours de partie, on affiche les couleurs futurement disponibles")
+		nombre_couleurs = moteur.get_nombre_couleurs_next ()
+	
+	def generateur_liste_couleurs (nbr):
+		abvrs = couleurs.liste_abreviations ()
+		for i in abvrs[0:nbr]:
+			a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
+			yield a
+		
+	afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))
+
+def send (rep):
+	""" Envoie une requête utilisateur au Mastermind
+		qui va gérer la redirection et les actions 
+		nécessaires
+		
+		@rep : str = la requête
+		
+		@return : str = l'état actuel 
+	"""
+	if rep == "help": # Commande indépendante de l'état courant !
+		afficher_aide ()
+	elif rep == "regles": # Commande indépendante de l'état courant !
+		afficher ( "Affichage des règles sur la fenêtre graphique ...")
+		
+		set_ecran ("regles", 2)
+	elif rep == "clear":
+		iconsole.clear ()
+	elif rep == "scores": # Commande indépendante de l'état courant !
+		afficher ("Affichage des scores sur la fenêtre graphique ...")
+		
+		set_ecran ("scores", 1)
+		
+	elif rep == "fortune":
+		try:
+			maximum = persistance.get_propriete ("phrases", "max")
+			maximum = int (maximum)
+			aleatoire = randint (0,maximum - 1)
+			afficher (persistance.get_propriete ("phrases", str (aleatoire)))
+		except persistance.CleInvalide:
+			afficher ( "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
+		except persistanec.FichierInvalide:
+			afficher ( "Le fichier est introuvable ... Cela implique un problème dans le CODE SOURCE ... revenez plus tard ...")
+		except ValueError:
+			afficher ( "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
+		except:
+			afficher ( "Une erreur inconnue est survenue ... ")
+			
+	elif rep == "couleurs":
+		afficher_couleurs ()
+			
+	elif get_etat () == "Humain-Joue":
+		humain_joue (rep)
+	elif get_etat () == "Menu":
+		menu (rep)
+	elif get_etat () == "Theme":
+		theme (rep)
+	elif get_etat () == "Niveau":
+		niveau (rep)
+	elif get_etat () == "Proposer-Code":
+		proposer_code (rep)
+	elif get_etat () == "Definir-Code":
+		definir_code (rep)
+	else:
+		raise ErreurFatale
+	
+	return get_etat ()
+
+def humain_joue (rep):
+	""" Une fonction qui permet de faire jouer 
+		l'humain quand on est dans l'état 
+		« Humain-Joue »
+		
+		@rep : str = l'évènement à gérer
+		
+		@return : None
+	"""
+	if get_etat () != "Humain-Joue":
+		raise LeProgrammeurEstCon
+	
+	if rep == "abandon": # Abandon de la partie -> retour au menu
+		afficher ("Vous avez abandonné la partie ...")
+		set_etat ("Menu")
+	elif rep == "score":
+		afficher (moteur.calcul_score ())
+	elif rep == "plateau":
+		afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
+		moteur.reprendre_partie ()
+		set_ecran ("plateau")
+	elif rep == "historique":
+		h = moteur.get_historique ()
+		def generateur_historique (hist):
+			for i in hist:
+				# i = [[a,b,c,d], (e,f)]
+				coup = i[0]
+				resultat = i[1]
 				
-				if r == "gagne":
-					self.afficher ("Vous avez gagné !!!")
-					
-					nom = self.demander ("Nom du joueur")
-					
-					moteur.enregistre_score (nom)
-					
-					self.set ("Menu")
-				elif r == "perdu":
-					self.afficher ("Vous avez perdu !!!")
-					
-					self.set ("Menu")
+				sa = ""
+				if resultat[0] > 1:
+					sa = "s"
+				
+				sb = ""
+				if resultat[1] > 1:
+					sb = "s"
+				
+				string = "{0} rouge{1}, {2} blanche{3}".format (resultat[0],sa,resultat[1],sb)
+				
+				yield (coup,string) 
+				
+		afficher_liste ("Historique", generateur_historique (h))
+	elif rep == "valider":
+		afficher ("Valide le nouveau code ...")
+		if ecran != "plateau":
+			set_ecran ("plateau")
+		
+		try:
+			r = moteur.verification_solution ( tableau_tampon )
+		except moteur.TableauInvalide as exception:
+			afficher ("Le tableau est invalide : {0}".format (exception.message))
+		else:
+			
+			if r == "gagne":
+				afficher ("Vous avez gagné !!!")
+				
+				nom = demander ("Nom du joueur")
+				
+				moteur.enregistre_score (nom)
+				
+				set_etat ("Menu")
+			elif r == "perdu":
+				afficher ("Vous avez perdu !!!")
+				
+				set_etat ("Menu")
+			else:
+				a,b = r
+		
+				# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
+				sa = ""
+				sb = ""
+
+				if a > 1:
+					sa = "s"
+
+				if b > 1:
+					sb = "s"
+		
+				messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
+				messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
+
+				tableau_tampon = []
+				
+				iconsole.separateur ()
+				afficher(messaga)
+				afficher(messagb)
+				
+	else:
+		gestion_tableau (rep) # Gère l'ajout/suppression dans le tableau
+			
+def theme (rep):
+	""" Fonction qui premet de faire réagir le menu Theme
+		
+		@rep : str = l'évènement
+		
+		@reutrn : None
+	"""
+	if get_etat () != "Theme":
+		raise LeProgrammeurEstCon
+	
+	if rep == "list":
+		def gen_liste_theme ():
+			for i in affichage.liste_themes ():
+				desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
+				yield (i,desc)
+
+		afficher_liste ("Themes",gen_liste_theme ())
+	elif rep == "fin":
+		afficher ("Theme modifié ... ")
+		set_etat ("Menu")
+	else:
+		try:
+			
+			affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
+			afficher ("Selection theme : " + rep)
+			primitives.raz ()
+			path = "Images/Theme" + rep + "/fond.gif"
+			primitives.bgpic (path)
+			set_ecran ("fond")
+		except ValueError:
+			afficher ("Il faut entrer le numéro du thème ...")
+		except persistance.CleInvalide:
+			afficher ("Euh ... ce thème ne peut être chargé ...")
+		except persistance.FichierInvalide:
+			afficher ("Priez pauvres fous, le fichier de configuration est introuvable !")
+
+def niveau (rep):
+	""" Fonction qui fait réagir le menu Niveau
+		
+		@rep : str = l'évènement
+		
+		@return : None
+	"""
+	if get_etat () != "Niveau":
+		raise LeProgrammeurEstCon
+	
+	if rep == "list":
+		afficher (str (moteur.get_liste_modes ()))
+	elif rep == "actuel":
+		afficher ("Le mode de la prochaine partie est " + moteur.get_next_mode ())
+	elif rep == "fin":
+		afficher ("Niveau modifié pour la prochaine partie")
+		set_etat ("Menu")
+	else:
+		if rep in (moteur.get_liste_modes ()):
+			afficher ("Vous avez sélectionné le niveau : " + rep)
+			moteur.set_mode (rep)
+			set_ecran ("regles", 3)
+		else:
+			afficher ("Ce niveau est invalide ...")
+	
+
+def gestion_tableau (rep):
+	""" Fait réagir une gestion des entrées de 
+		tableaux en console, ce n'est pas un état
+		mais une suite d'actions possibles
+		
+		@rep : str = l'entrée utilisateur
+		
+		@return : None
+	"""
+	if rep == "annuler":
+		try:
+			tableau_tampon = tableau_tampon[:-1] # Retire la dernière valeur ...
+		except:
+			afficher ("Plus rien à annuler ...")
+		else:
+			afficher (tableau_tampon)
+	else:
+		try:
+			tableau_tampon.append (couleurs.couleur_to_string (rep))
+		except couleurs.CouleurInvalide:
+			afficher ("Cette couleur n'existe pas ...")
+		else:
+			afficher (tableau_tampon)
+	
+
+def definir_code (rep):
+	""" Fait réagir la définition de code 
+	
+		@rep : str = l'évènement
+		
+		@return : None
+	"""
+	if get_etat () != "Definir-Code":
+		raise LeProgrammeurEstCon
+	
+	if rep == "abandon":
+		afficher ("Annule la propositon de code ... ")
+		tableau_tampon = [] 
+		set_etat ("Menu")
+	elif rep == "valider":
+		afficher ("Valide le nouveau code ...")
+		moteur.nouvelle_partie ()
+		try:
+			r = moteur.definir_code ( tableau_tampon )
+		except moteur.TableauInvalide as exception:
+			afficher ("Le tableau est invalide : {0}".format (exception.message))
+		else:
+			tableau_tampon = []
+			set_etat ("Menu")
+	else:
+		gestion_tableau (rep)
+
+def menu (rep):
+	""" Fonction qui permet de faire réagir le menu 
+		à des actions 
+		
+		@rep : str = l'évènement
+		
+		@return : None
+	"""
+	if get_etat () != "Menu":
+		raise LeProgrammeurEstCon
+	
+	if rep == "ia-code":
+		moteur.nouvelle_partie ()
+		afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
+		set_ecran ("plateau", 5)
+		ia.choisir_code ()
+		afficher ( "L'IA a déterminé un code")
+	elif rep == "humain-code":
+		set_etat ("Definir-Code")
+		afficher_couleurs ()
+	elif rep == "humain-joue":
+		try:
+			afficher ("Le niveau actuel est : " + moteur.get_mode ())
+		except moteur.PasEnCoursDePartie:
+			afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
+		else:
+			set_ecran ("plateau", 5)
+			
+			set_etat ("Humain-Joue") # Change d'état
+			afficher_couleurs ()
+	elif rep == "ia-joue":
+		afficher ("L'IA va jouer une partie")
+		try:
+			afficher ("Le niveau actuel est : " + moteur.get_mode ())
+		except moteur.PasEnCoursDePartie:
+			afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
+		else:
+			afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
+			
+			ia_mode = ""
+			demander_ia = True
+			while demander_ia == True:
+				ia_mode = demander ("Quelle IA")
+				if ia_mode in ["matrice", "aleatoire", "knuth"]:
+					demander_ia = False
 				else:
-					a,b = r
+					afficher ("Ce mode d'IA est invalide !")
+			afficher_couleurs ()
 			
-					# On fait un joli affichage qui dit si on doit mettre un S ou pas ...
-					sa = ""
-					sb = ""
-
-					if a > 1:
-						sa = "s"
-
-					if b > 1:
-						sb = "s"
+			set_ecran ("plateau", 3)
 			
-					messaga = "Il y a {0} bonne{1} couleur{1} bien placée{1}".format (a,sa)
-					messagb = "Il y a {0} bonne{1} couleur{1} mal placée{1}".format (b,sb)
-
-					self.tableau_tampon = []
-					
-					iconsole.separateur ()
-					self.afficher(messaga)
-					self.afficher(messagb)
-					
-		else:
-			self.gestion_tableau (rep) # Gère l'ajout/suppression dans le tableau
-				
-	def theme (self,rep):
-		""" Fonction qui premet de faire réagir le menu Theme
+			for i in ia.jouer (ia_mode):
+				primitives.aller_a (200,-200)
+				chargement.animation (3,"cercle",20)
 			
-			@rep : str = l'évènement
+			moteur.enregistre_score (ia_mode)
 			
-			@reutrn : None
-		"""
-		if self.get () != "Theme":
-			raise LeProgrammeurEstCon
-		
-		if rep == "list":
-			def gen_liste_theme ():
-				for i in affichage.liste_themes ():
-					desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
-					yield (i,desc)
-
-			self.afficher_liste ("Themes",gen_liste_theme ())
-		elif rep == "fin":
-			self.afficher ("Theme modifié ... ")
-			self.set ("Menu")
-		else:
-			try:
-				
-				affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
-				self.afficher ("Selection theme : " + rep)
-				primitives.raz ()
-				path = "Images/Theme" + rep + "/fond.gif"
-				primitives.bgpic (path)
-				self.set_ecran ("fond")
-			except ValueError:
-				self.afficher ("Il faut entrer le numéro du thème ...")
-			except persistance.CleInvalide:
-				self.afficher ("Euh ... ce thème ne peut être chargé ...")
-			except persistance.FichierInvalide:
-				self.afficher ("Priez pauvres fous, le fichier de configuration est introuvable !")
-	
-	def niveau (self, rep):
-		""" Fonction qui fait réagir le menu Niveau
-			
-			@rep : str = l'évènement
-			
-			@return : None
-		"""
-		if self.get () != "Niveau":
-			raise LeProgrammeurEstCon
-		
-		if rep == "list":
-			self.afficher (str (moteur.get_liste_modes ()))
-		elif rep == "actuel":
-			self.afficher ("Le mode de la prochaine partie est " + moteur.get_next_mode ())
-		elif rep == "fin":
-			self.afficher ("Niveau modifié pour la prochaine partie")
-			self.set ("Menu")
-		else:
-			if rep in (moteur.get_liste_modes ()):
-				self.afficher ("Vous avez sélectionné le niveau : " + rep)
-				moteur.set_mode (rep)
-				self.set_ecran ("regles", 3)
-			else:
-				self.afficher ("Ce niveau est invalide ...")
-		
-	
-	def gestion_tableau (self, rep):
-		""" Fait réagir une gestion des entrées de 
-			tableaux en console, ce n'est pas un état
-			mais une suite d'actions possibles
-			
-			@rep : str = l'entrée utilisateur
-			
-			@return : None
-		"""
-		if rep == "annuler":
-			try:
-				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
-			except:
-				self.afficher ("Plus rien à annuler ...")
-			else:
-				self.afficher (self.tableau_tampon)
-		else:
-			try:
-				self.tableau_tampon.append (couleurs.couleur_to_string (rep))
-			except couleurs.CouleurInvalide:
-				self.afficher ("Cette couleur n'existe pas ...")
-			else:
-				self.afficher (self.tableau_tampon)
-		
-	
-	def definir_code (self, rep):
-		""" Fait réagir la définition de code 
-		
-			@rep : str = l'évènement
-			
-			@return : None
-		"""
-		if self.get () != "Definir-Code":
-			raise LeProgrammeurEstCon
-		
-		if rep == "abandon":
-			self.afficher ("Annule la propositon de code ... ")
-			self.tableau_tampon = [] 
-			self.set ("Menu")
-		elif rep == "valider":
-			self.afficher ("Valide le nouveau code ...")
-			moteur.nouvelle_partie ()
-			try:
-				r = moteur.definir_code ( self.tableau_tampon )
-			except moteur.TableauInvalide as exception:
-				self.afficher ("Le tableau est invalide : {0}".format (exception.message))
-			else:
-				self.tableau_tampon = []
-				self.set ("Menu")
-		else:
-			self.gestion_tableau (rep)
-	
-	def menu (self, rep):
-		""" Fonction qui permet de faire réagir le menu 
-			à des actions 
-			
-			@rep : str = l'évènement
-			
-			@return : None
-		"""
-		if self.get () != "Menu":
-			raise LeProgrammeurEstCon
-		
-		if rep == "ia-code":
-			moteur.nouvelle_partie ()
-			self.afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
-			self.set_ecran ("plateau", 5)
-			ia.choisir_code ()
-			self.afficher ( "L'IA a déterminé un code")
-		elif rep == "humain-code":
-			self.set ("Definir-Code")
-			self.afficher_couleurs ()
-		elif rep == "humain-joue":
-			try:
-				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
-			except moteur.PasEnCoursDePartie:
-				self.afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
-			else:
-				self.set_ecran ("plateau", 5)
-				
-				self.set ("Humain-Joue") # Change d'état
-				self.afficher_couleurs ()
-		elif rep == "ia-joue":
-			self.afficher ("L'IA va jouer une partie")
-			try:
-				self.afficher ("Le niveau actuel est : " + moteur.get_mode ())
-			except moteur.PasEnCoursDePartie:
-				self.afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
-			else:
-				self.afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
-				
-				ia_mode = ""
-				demander_ia = True
-				while demander_ia == True:
-					ia_mode = self.demander ("Quelle IA")
-					if ia_mode in ["matrice", "aleatoire", "knuth"]:
-						demander_ia = False
-					else:
-						self.afficher ("Ce mode d'IA est invalide !")
-				self.afficher_couleurs ()
-				
-				self.set_ecran ("plateau", 3)
-				
-				for i in ia.jouer (ia_mode):
-					primitives.aller_a (200,-200)
-					chargement.animation (3,"cercle",20)
-				
-				moteur.enregistre_score (ia_mode)
-				
-		elif rep == "theme":
-			self.set ("Theme")
-		elif rep == "niveau":
-			self.set ("Niveau")
-		else:
-			self.afficher ("Cette requête est invalide dans le menu ...")
+	elif rep == "theme":
+		set_etat ("Theme")
+	elif rep == "niveau":
+		set_etat ("Niveau")
+	else:
+		afficher ("Cette requête est invalide dans le menu ...")

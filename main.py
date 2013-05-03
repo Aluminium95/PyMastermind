@@ -48,8 +48,8 @@ if __name__ == '__main__':
 	iconsole.afficher ("Chargement", "Lancement ...")
 	sleep (1)
 
-	e = "Menu"
-	machine = joueur.Mastermind (e)
+	e = "Menu" # L'état de base est le "Menu"
+	joueur.init () # Initialise le joueur 
 
 	iconsole.afficher (e, "Tapez « help » pour obtenir de l'aide ...")
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 			iconsole.afficher ("Programme", "Quitte ...")
 		else:
 			try:
-				e = machine.send (rep)
+				e = joueur.send (rep)
 			except joueur.ErreurFatale:
 				iconsole.afficher ("Programme", "Une erreur fatale est survenue ...")
 				continuer = False
