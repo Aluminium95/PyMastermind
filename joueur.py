@@ -78,7 +78,7 @@ aide = {
 	},
 	"Definir-Code" : {
 		"abandon" : "Revient au menu en annulant la partie actuelle",
-		"fin" : "Valide le code et revient au menu, la partie est lancée !",
+		"valider" : "Valide le code et revient au menu, la partie est lancée !",
 		"annuler" : "Supprime du tableau la dernière entrée",
 		"@" : "Une autre chaine de caractères est prise comme une couleur à ajouter à la fin"
 	}
@@ -378,19 +378,8 @@ class Mastermind:
 					self.afficher(messaga)
 					self.afficher(messagb)
 					
-		elif rep == "annuler":
-			try:
-				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
-				self.afficher (self.tableau_tampon)
-			except:
-				self.afficher ("Plus rien à annuler ...")
 		else:
-			try:
-				self.tableau_tampon.append (couleurs.couleur_to_string (rep))
-			except couleurs.CouleurInvalide:
-				self.afficher ("Cette couleur n'existe pas ...")
-			else:
-				self.afficher (self.tableau_tampon)
+			self.gestion_tableau (rep) # Gère l'ajout/suppression dans le tableau
 				
 	def theme (self,rep):
 		""" Fonction qui premet de faire réagir le menu Theme
@@ -452,7 +441,33 @@ class Mastermind:
 				self.set_ecran ("regles", 3)
 			else:
 				self.afficher ("Ce niveau est invalide ...")
+		
+	
+	def gestion_tableau (self, rep):
+		""" Fait réagir une gestion des entrées de 
+			tableaux en console, ce n'est pas un état
+			mais une suite d'actions possibles
 			
+			@rep : str = l'entrée utilisateur
+			
+			@return : None
+		"""
+		if rep == "annuler":
+			try:
+				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
+			except:
+				self.afficher ("Plus rien à annuler ...")
+			else:
+				self.afficher (self.tableau_tampon)
+		else:
+			try:
+				self.tableau_tampon.append (couleurs.couleur_to_string (rep))
+			except couleurs.CouleurInvalide:
+				self.afficher ("Cette couleur n'existe pas ...")
+			else:
+				self.afficher (self.tableau_tampon)
+		
+	
 	def definir_code (self, rep):
 		""" Fait réagir la définition de code 
 		
@@ -467,7 +482,7 @@ class Mastermind:
 			self.afficher ("Annule la propositon de code ... ")
 			self.tableau_tampon = [] 
 			self.set ("Menu")
-		elif rep == "fin":
+		elif rep == "valider":
 			self.afficher ("Valide le nouveau code ...")
 			moteur.nouvelle_partie ()
 			try:
@@ -477,20 +492,8 @@ class Mastermind:
 			else:
 				self.tableau_tampon = []
 				self.set ("Menu")
-		elif rep == "annuler":
-			try:
-				self.tableau_tampon = self.tableau_tampon[:-1] # Retire la dernière valeur ...
-			except:
-				self.afficher ("Plus rien à annuler ...")
-			else:
-				self.afficher (self.tableau_tampon)
 		else:
-			try:
-				self.tableau_tampon.append (couleurs.couleur_to_string (rep))
-			except couleurs.CouleurInvalide:
-				self.afficher ("Cette couleur n'existe pas ...")
-			else:
-				self.afficher (self.tableau_tampon)
+			self.gestion_tableau (rep)
 	
 	def menu (self, rep):
 		""" Fonction qui permet de faire réagir le menu 
