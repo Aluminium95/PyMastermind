@@ -163,12 +163,13 @@ def loose (code):
 	rectangle (250,110)
 	end_fill ()
 
-	aller_a (-95, -25) # On centre la réponse
+	aller_a (-95, -65) # On centre la réponse
 
 	for i in code:
 		color (couleurs.couleur_to_hexa (i))
 		begin_fill ()
 		carre (40)
+		end_fill ()
 		fd(50)
 
 	
