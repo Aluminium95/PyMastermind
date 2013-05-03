@@ -10,7 +10,6 @@ import iconsole
 import joueur
 import ia
 import couleurs
-import misc
 import regles
 
 import primitives 
