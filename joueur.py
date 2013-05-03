@@ -337,7 +337,9 @@ class Mastermind:
 			self.afficher_liste ("Historique", generateur_historique (h))
 		elif rep == "valider":
 			self.afficher ("Valide le nouveau code ...")
-			self.set_ecran ("plateau")
+			if self.ecran != "plateau":
+				self.set_ecran ("plateau")
+			
 			try:
 				r = moteur.verification_solution ( self.tableau_tampon )
 			except moteur.TableauInvalide as exception:
