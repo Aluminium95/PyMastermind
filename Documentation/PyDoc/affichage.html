@@ -10,7 +10,7 @@
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/aluminium95/Documents/Scolaire/Lycée/Terminale/ISN/Code/Devoirs/Projet BAC/PyMastermind/affichage.py">/home/aluminium95/Documents/Scolaire/Lycée/Terminale/ISN/Code/Devoirs/Projet BAC/PyMastermind/affichage.py</a></font></td></tr></table>
     <p><tt>#-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
-#&nbsp;03/04/2013<br>
+#<br>
 #&nbsp;Desmarais&nbsp;Yann<br>
 #<br>
 #&nbsp;Description:<br>
@@ -73,24 +73,6 @@ Return&nbsp;the&nbsp;cosine&nbsp;of&nbsp;x&nbsp;(measured&nbsp;in&nbsp;radians).
  <dl><dt><a name="-cosh"><strong>cosh</strong></a>(...)</dt><dd><tt><a href="#-cosh">cosh</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;hyperbolic&nbsp;cosine&nbsp;of&nbsp;x.</tt></dd></dl>
- <dl><dt><a name="-creer_bouton"><strong>creer_bouton</strong></a>(x, y, l, couleur, texte)</dt><dd><tt>Crée&nbsp;un&nbsp;bouton&nbsp;de&nbsp;couleur&nbsp;avec&nbsp;du&nbsp;texte&nbsp;à&nbsp;côté<br>
-&nbsp;<br>
-@x&nbsp;:&nbsp;int&nbsp;=&nbsp;position&nbsp;x<br>
-@y&nbsp;:&nbsp;int&nbsp;=&nbsp;position&nbsp;y<br>
-@l&nbsp;:&nbsp;int&nbsp;=&nbsp;taille&nbsp;du&nbsp;côté<br>
-@couleur&nbsp;:&nbsp;string&nbsp;=&nbsp;la&nbsp;couleur&nbsp;en&nbsp;hexa&nbsp;ou&nbsp;en&nbsp;français<br>
-@texte&nbsp;: string&nbsp;=&nbsp;le&nbsp;texte&nbsp;descriptif&nbsp;<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;None</tt></dd></dl>
- <dl><dt><a name="-dessiner_answer"><strong>dessiner_answer</strong></a>(answer)</dt><dd><tt>Affiche&nbsp;le&nbsp;score&nbsp;de&nbsp;la&nbsp;proposition&nbsp;du&nbsp;joueur,&nbsp;<br>
-answer&nbsp;étant&nbsp;un&nbsp;tuple&nbsp;(a,b)<br>
-&nbsp;<br>
-@answer&nbsp;:&nbsp;(a,b)&nbsp;int&nbsp;×&nbsp;int&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;-&nbsp;le&nbsp;nombre&nbsp;de&nbsp;couleurs&nbsp;bonne&nbsp;et&nbsp;à&nbsp;la&nbsp;bonne&nbsp;place<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;-&nbsp;le&nbsp;nombre&nbsp;de&nbsp;couleurs&nbsp;bonne&nbsp;et&nbsp;à&nbsp;la&nbsp;mauvaise&nbsp;place<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;None</tt></dd></dl>
- <dl><dt><a name="-dessiner_carre"><strong>dessiner_carre</strong></a>(taille, couleur)</dt></dl>
  <dl><dt><a name="-exp"><strong>exp</strong></a>(...)</dt><dd><tt><a href="#-exp">exp</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;e&nbsp;raised&nbsp;to&nbsp;the&nbsp;power&nbsp;of&nbsp;x.</tt></dd></dl>
@@ -109,8 +91,14 @@ Return&nbsp;<a href="#-fmod">fmod</a>(x,&nbsp;y),&nbsp;according&nbsp;to&nbsp;pl
 Return&nbsp;the&nbsp;mantissa&nbsp;and&nbsp;exponent&nbsp;of&nbsp;x,&nbsp;as&nbsp;pair&nbsp;(m,&nbsp;e).<br>
 m&nbsp;is&nbsp;a&nbsp;float&nbsp;and&nbsp;e&nbsp;is&nbsp;an&nbsp;int,&nbsp;such&nbsp;that&nbsp;x&nbsp;=&nbsp;m&nbsp;*&nbsp;2.**e.<br>
 If&nbsp;x&nbsp;is&nbsp;0,&nbsp;m&nbsp;and&nbsp;e&nbsp;are&nbsp;both&nbsp;0.&nbsp;&nbsp;Else&nbsp;0.5&nbsp;&lt;=&nbsp;abs(m)&nbsp;&lt;&nbsp;1.0.</tt></dd></dl>
+ <dl><dt><a name="-generateur_reponse"><strong>generateur_reponse</strong></a>(answer)</dt><dd><tt>Retourne&nbsp;un&nbsp;générateur<br>
+qui&nbsp;permet&nbsp;de&nbsp;faire&nbsp;à&nbsp;chaque&nbsp;<br>
+étape&nbsp;le&nbsp;dessin&nbsp;d'un&nbsp;point&nbsp;<br>
+d'une&nbsp;couleur,&nbsp;le&nbsp;tout&nbsp;correspondant&nbsp;<br>
+au&nbsp;nombres&nbsp;(a,b)&nbsp;de&nbsp;la&nbsp;réponse&nbsp;!</tt></dd></dl>
  <dl><dt><a name="-generer_score"><strong>generer_score</strong></a>()</dt></dl>
- <dl><dt><a name="-high_score"><strong>high_score</strong></a>()</dt></dl>
+ <dl><dt><a name="-high_score"><strong>high_score</strong></a>()</dt><dd><tt>Fonction&nbsp;qui&nbsp;affiche&nbsp;l'écran&nbsp;des&nbsp;meilleurs&nbsp;<br>
+scores</tt></dd></dl>
  <dl><dt><a name="-hypot"><strong>hypot</strong></a>(...)</dt><dd><tt><a href="#-hypot">hypot</a>(x,&nbsp;y)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;Euclidean&nbsp;distance,&nbsp;<a href="#-sqrt">sqrt</a>(x*x&nbsp;+&nbsp;y*y).</tt></dd></dl>

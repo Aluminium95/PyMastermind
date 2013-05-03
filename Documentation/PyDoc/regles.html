@@ -10,8 +10,9 @@
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/aluminium95/Documents/Scolaire/Lycée/Terminale/ISN/Code/Devoirs/Projet BAC/PyMastermind/regles.py">/home/aluminium95/Documents/Scolaire/Lycée/Terminale/ISN/Code/Devoirs/Projet BAC/PyMastermind/regles.py</a></font></td></tr></table>
     <p><tt>#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-<br>
-#règles&nbsp;du&nbsp;jeu&nbsp;(mode&nbsp;facile,&nbsp;normal&nbsp;et&nbsp;difficile)<br>
-#24/04/2013</tt></p>
+#<br>
+#&nbsp;Module&nbsp;qui&nbsp;gère&nbsp;l'affichage<br>
+#&nbsp;d'un&nbsp;écran&nbsp;de&nbsp;règles</tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -42,7 +43,6 @@ Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;
 &nbsp;<br>
 Return&nbsp;the&nbsp;arc&nbsp;tangent&nbsp;(measured&nbsp;in&nbsp;radians)&nbsp;of&nbsp;y/x.<br>
 Unlike&nbsp;<a href="#-atan">atan</a>(y/x),&nbsp;the&nbsp;signs&nbsp;of&nbsp;both&nbsp;x&nbsp;and&nbsp;y&nbsp;are&nbsp;considered.</tt></dd></dl>
- <dl><dt><a name="-carre"><strong>carre</strong></a>(taille)</dt></dl>
  <dl><dt><a name="-ceil"><strong>ceil</strong></a>(...)</dt><dd><tt><a href="#-ceil">ceil</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;ceiling&nbsp;of&nbsp;x&nbsp;as&nbsp;a&nbsp;float.<br>
@@ -81,6 +81,7 @@ couleur<br>
 @tableau&nbsp;:&nbsp;[couleur&nbsp;(fr)&nbsp;...]&nbsp;=&nbsp;tableau&nbsp;des&nbsp;couleurs<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;generator</tt></dd></dl>
+ <dl><dt><a name="-generateur_texte"><strong>generateur_texte</strong></a>(coups)</dt></dl>
  <dl><dt><a name="-hypot"><strong>hypot</strong></a>(...)</dt><dd><tt><a href="#-hypot">hypot</a>(x,&nbsp;y)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;Euclidean&nbsp;distance,&nbsp;<a href="#-sqrt">sqrt</a>(x*x&nbsp;+&nbsp;y*y).</tt></dd></dl>
@@ -94,18 +95,16 @@ If&nbsp;the&nbsp;base&nbsp;not&nbsp;specified,&nbsp;returns&nbsp;the&nbsp;natura
  <dl><dt><a name="-log10"><strong>log10</strong></a>(...)</dt><dd><tt><a href="#-log10">log10</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;base&nbsp;10&nbsp;logarithm&nbsp;of&nbsp;x.</tt></dd></dl>
- <dl><dt><a name="-main_text"><strong>main_text</strong></a>()</dt></dl>
  <dl><dt><a name="-main_text2"><strong>main_text2</strong></a>()</dt></dl>
  <dl><dt><a name="-modf"><strong>modf</strong></a>(...)</dt><dd><tt><a href="#-modf">modf</a>(x)<br>
 &nbsp;<br>
 Return&nbsp;the&nbsp;fractional&nbsp;and&nbsp;integer&nbsp;parts&nbsp;of&nbsp;x.&nbsp;&nbsp;Both&nbsp;results&nbsp;carry&nbsp;the&nbsp;sign<br>
 of&nbsp;x&nbsp;and&nbsp;are&nbsp;floats.</tt></dd></dl>
  <dl><dt><a name="-niveau"><strong>niveau</strong></a>(niveau)</dt></dl>
- <dl><dt><a name="-nombre_coup"><strong>nombre_coup</strong></a>(coups)</dt></dl>
  <dl><dt><a name="-pow"><strong>pow</strong></a>(...)</dt><dd><tt><a href="#-pow">pow</a>(x,&nbsp;y)<br>
 &nbsp;<br>
 Return&nbsp;x**y&nbsp;(x&nbsp;to&nbsp;the&nbsp;power&nbsp;of&nbsp;y).</tt></dd></dl>
- <dl><dt><a name="-regles"><strong>regles</strong></a>(mode<font color="#909090">=False</font>)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;En&nbsp;mode&nbsp;facile.<br>
+ <dl><dt><a name="-regles"><strong>regles</strong></a>(mode<font color="#909090">=False</font>)</dt><dd><tt>Affiche&nbsp;les&nbsp;règles&nbsp;ainsi&nbsp;que&nbsp;les&nbsp;aides&nbsp;du&nbsp;jeu.&nbsp;Selon&nbsp;le&nbsp;niveau&nbsp;sélectionné.<br>
 (un&nbsp;fond&nbsp;y&nbsp;est&nbsp;inséré)</tt></dd></dl>
  <dl><dt><a name="-sin"><strong>sin</strong></a>(...)</dt><dd><tt><a href="#-sin">sin</a>(x)<br>
 &nbsp;<br>
