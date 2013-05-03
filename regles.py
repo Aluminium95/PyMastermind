@@ -10,12 +10,12 @@ import moteur
 from primitives import *
 
 
-def niveau(niveau):
+def niveau(niveau): #Renvoie le niveau à l'utilisateur
 	text="Voici les regles du mastermind mode " + niveau + ":"
 	write(text, False, "center", ("calibri",16,"underline"))
 
 
-def generateur_texte (coups):
+def generateur_texte (coups): #génère le texte qui s'affiche dans la fenêtre de Turtle grâce à des générateurs
 	text2="- Vous devez deviner le code couleur du jeu."
 	texte (text2)
 	yield 
@@ -58,7 +58,7 @@ def generateur_texte (coups):
 	texte (text7)
 	yield
 
-def main_text2():
+def main_text2(): # génère le texte qui s'affiche dans la fenêtre de Turtle sans générateur
 	
 	goto (20, -40)
 	color("red")
@@ -75,18 +75,8 @@ def main_text2():
 	write(text10, False, "center", ("calibri",15,"underline"))
 	goto(-285,-280)
 
-def carre(taille):
-	c = 0
-	down ()
-	while c < 4:
-		forward(taille)
-		left(90)
-		c = c + 1
-	up ()
-
-
 	
-def generateur_couleurs (tableau): # C'est lui 
+def generateur_couleurs (tableau): 
 	""" Générateur qui dessine 
 		une à une les couleurs 
 		du tableau, avec leur nom 
@@ -101,9 +91,9 @@ def generateur_couleurs (tableau): # C'est lui
 		try:
 			color (couleurs.string_to_hexa (i))
 		except:
-			pass # Une putain d'erreue survient ici !
+			pass 
 		begin_fill ()
-		polygone (4,10) # Un ... Carré
+		polygone (4,10) # Un Carré
 		end_fill ()
 		
 		fd (20)
@@ -115,7 +105,7 @@ def generateur_couleurs (tableau): # C'est lui
 		fd (-20)
 		yield 
 
-def couleurs_possibles ():
+def couleurs_possibles (): #répertorie les couleurs possibles selon les niveau
 	li = couleurs.liste_couleurs ()
 	
 	try:
@@ -128,7 +118,7 @@ def couleurs_possibles ():
 	colonnes (4,25,120,g)
 
 def regles (mode = False):
-	"""Affiche les règles ainsi que les aides du jeu. En mode facile.
+	"""Affiche les règles ainsi que les aides du jeu. Selon le niveau sélectionné.
 	(un fond y est inséré)"""
 	
 	if mode == False:
