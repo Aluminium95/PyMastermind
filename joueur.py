@@ -55,17 +55,16 @@ aide = {
 	"Niveau" : {
 		"list" : "Fait la liste des niveaux disponibles",
 		"actuel" : "Affiche le niveau actuel de difficulté",
-		"fin" : "Enregistre le niveau sélectionné et revient au menu",
+		"valider" : "Enregistre le niveau sélectionné et revient au menu",
 		"@" : "Une autre chaine de caractère est prise comme un niveau"
 	},
 	"Theme" : {
 		"list" : "Fait la liste des thèmes disponibles",
 		"actuel" : "Affiche le thème actuel ...",
-		"fin" : "Engeristre le thème sélectionné et revient au menu",
+		"valider" : "Engeristre le thème sélectionné et revient au menu",
 		"@" : "Sélectionne le texte rentré comme un thème"
 	},
 	"Humain-Joue" : {
-		"proposer" : "Permet de faire une proposition, si et seulement si le plateau est affiché",
 		"plateau" : "Permet de réafficher le plateau de jeu",
 		"score" : "Permet de savoir le score actuel",
 		"abandon" : "Permet de revenir au menu, et abandonner la partie",
@@ -302,6 +301,10 @@ def humain_joue (rep):
 		@rep : str = l'évènement à gérer
 		
 		@return : None
+		
+		@throw :
+			LeProgrammeurEstCon
+			ErreurFatale
 	"""
 	global tableau_tampon
 	
@@ -312,32 +315,42 @@ def humain_joue (rep):
 		afficher ("Vous avez abandonné la partie ...")
 		set_etat ("Menu")
 	elif rep == "score":
-		afficher (moteur.calcul_score ())
+		try:
+			afficher (moteur.calcul_score ())
+		except moteur.PasEnCoursDePartie:
+			raise ErreurFatale
 	elif rep == "plateau":
 		afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
-		moteur.reprendre_partie ()
+		try:
+			moteur.reprendre_partie ()
+		except moteur.PasEnCoursDePartie:
+			raise ErreurFatale
 		set_ecran ("plateau")
 	elif rep == "historique":
-		h = moteur.get_historique ()
-		def generateur_historique (hist):
-			for i in hist:
-				# i = [[a,b,c,d], (e,f)]
-				coup = i[0]
-				resultat = i[1]
-				
-				sa = ""
-				if resultat[0] > 1:
-					sa = "s"
-				
-				sb = ""
-				if resultat[1] > 1:
-					sb = "s"
-				
-				string = "{0} rouge{1}, {2} blanche{3}".format (resultat[0],sa,resultat[1],sb)
-				
-				yield (coup,string) 
-				
-		afficher_liste ("Historique", generateur_historique (h))
+		try:
+			h = moteur.get_historique ()
+		except moteur.PasEnCoursDePartie:
+			raise ErreurFatale
+		else:
+			def generateur_historique (hist):
+				for i in hist:
+					# i = [[a,b,c,d], (e,f)]
+					coup = i[0]
+					resultat = i[1]
+					
+					sa = ""
+					if resultat[0] > 1:
+						sa = "s"
+					
+					sb = ""
+					if resultat[1] > 1:
+						sb = "s"
+					
+					string = "{0} rouge{1}, {2} blanche{3}".format (resultat[0],sa,resultat[1],sb)
+					
+					yield (coup,string) 
+					
+			afficher_liste ("Historique", generateur_historique (h))
 	elif rep == "valider":
 		afficher ("Valide le nouveau code ...")
 		if ecran != "plateau":
@@ -354,7 +367,10 @@ def humain_joue (rep):
 				
 				nom = demander ("Nom du joueur")
 				
-				moteur.enregistre_score (nom)
+				try:
+					moteur.enregistre_score (nom)
+				except moteur.PasEnCoursDePartie:
+					raise ErreurFatale
 				
 				set_etat ("Menu")
 			elif r == "perdu":
@@ -392,6 +408,12 @@ def theme (rep):
 		@rep : str = l'évènement
 		
 		@reutrn : None
+		
+		@throw :
+			LeProgrammeurEstCon
+			persistance.FichierInvalide
+			persistance.CleInvalide
+			
 	"""
 	if get_etat () != "Theme":
 		raise LeProgrammeurEstCon
@@ -403,9 +425,14 @@ def theme (rep):
 				yield (i,desc)
 
 		afficher_liste ("Themes",gen_liste_theme ())
-	elif rep == "fin":
+	elif rep == "valider":
 		afficher ("Theme modifié ... ")
 		set_etat ("Menu")
+	elif rep == "actuel":
+		# Ce code peut planter ... mais on ne récupère pas l'exception
+		# si cela plante ... il faut que ça remonte, l'erreur est trop 
+		# grave ...
+		afficher ("Le theme actuel est le numero {0}".format (persistance.get_propriete ("backgrounds","theme:actuel")))
 	else:
 		try:
 			
@@ -436,7 +463,7 @@ def niveau (rep):
 		afficher (str (moteur.get_liste_modes ()))
 	elif rep == "actuel":
 		afficher ("Le mode de la prochaine partie est " + moteur.get_next_mode ())
-	elif rep == "fin":
+	elif rep == "valider":
 		afficher ("Niveau modifié pour la prochaine partie")
 		set_etat ("Menu")
 	else:
