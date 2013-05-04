@@ -44,6 +44,21 @@ tableau_tampon = []
 
 boutons = [] # Tableau des boutons
 
+def ajouter_bouton (nom,cote,position):
+	global boutons
+	boutons.append ([nom,cote,position])
+
+def click_to_bouton (x,y):
+	
+	for i in boutons:
+		w = i[1]
+		xb,yb = i[2]
+		if xb < x < xb + w and yb < y < yb + w:
+			return i[0] # le nom 
+		
+def callback (x,y):
+	print (click_to_bouton (x,y))
+	
 def init ():
 	""" Constructeur 
 		
@@ -53,6 +68,10 @@ def init ():
 	"""
 	set_etat ("Menu")
 	set_ecran ("plateau")
+	
+	sc = getscreen ()
+	sc.onclick (callback)
+	
 	
 def get_etat ():
 	""" Retourne l'état courant 
@@ -145,9 +164,10 @@ def afficher_couleurs ():
 			begin_fill ()
 			carre (40)
 			end_fill ()
+			ajouter_bouton (i,40,position ()) # Ajoute un bouton
 			yield
 		
-	aller_a (250,250)
+	aller_a (140,200)
 	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
 	
 def send (rep):
@@ -279,7 +299,7 @@ def humain_joue (rep):
 			if r == "gagne":
 				
 				
-				nom = demander ("Nom du joueur")
+				nom = "aaa"
 				
 				try:
 					moteur.enregistre_score (nom)
