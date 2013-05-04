@@ -639,7 +639,6 @@ def menu (rep):
 	else:
 		afficher ("Cette requête est invalide dans le menu ...")	
 			
->>>>>>> master
 def menu_partie (rep):
 	
 	if rep == "humain-joue":
