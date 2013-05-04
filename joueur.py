@@ -46,11 +46,14 @@ aide = {
 	},
 	"Menu" : {
 		"ia-code" : "Fait décider un code à trouver par une IA",
-		"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
 		"humain-code" : "Fait rentrer un code à l'utilisateur",
-		"humain-joue" : "Fait trouver le code à l'utilisateur",
 		"theme" : "Permet à l'utilisateur de chosir un thème",
 		"niveau" : "Permet à l'utilisateur de changer de niveau de difficulté"
+	},
+	"Menu-Partie" : {
+		"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
+		"humain-joue" : "Fait trouver le code à l'utilisateur",
+		"abandon" : "Revient au menu principal"
 	},
 	"Niveau" : {
 		"list" : "Fait la liste des niveaux disponibles",
@@ -84,7 +87,7 @@ aide = {
 }
 
 
-etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
+etats = ["Menu","Menu-Partie","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
 ecrans = ["plateau", "regles", "scores"]
 etat = ""
 ecran = "plateau" # Quel est l'écran actuel ?
@@ -280,6 +283,8 @@ def send (rep):
 		humain_joue (rep)
 	elif get_etat () == "Menu":
 		menu (rep)
+	elif get_etat () == "Menu-Partie":
+		menu_partie (rep)
 	elif get_etat () == "Theme":
 		theme (rep)
 	elif get_etat () == "Niveau":
@@ -526,7 +531,7 @@ def definir_code (rep):
 			afficher ("Le tableau est invalide : {0}".format (exception.message))
 		else:
 			tableau_tampon = []
-			set_etat ("Menu")
+			set_etat ("Menu-Partie")
 	else:
 		gestion_tableau (rep)
 
@@ -547,10 +552,21 @@ def menu (rep):
 		set_ecran ("plateau", 5)
 		ia.choisir_code ()
 		afficher ( "L'IA a déterminé un code")
+		set_etat ("Menu-Partie")
 	elif rep == "humain-code":
 		set_etat ("Definir-Code")
 		afficher_couleurs ()
-	elif rep == "humain-joue":
+	
+	elif rep == "theme":
+		set_etat ("Theme")
+	elif rep == "niveau":
+		set_etat ("Niveau")
+	else:
+		afficher ("Cette requête est invalide dans le menu ...")		
+			
+def menu_partie (rep):
+	
+	if rep == "humain-joue":
 		try:
 			afficher ("Le niveau actuel est : " + moteur.get_mode ())
 		except moteur.PasEnCoursDePartie:
@@ -560,6 +576,8 @@ def menu (rep):
 			
 			set_etat ("Humain-Joue") # Change d'état
 			afficher_couleurs ()
+	elif rep == "abandon":
+		set_etat ("Menu")
 	elif rep == "ia-joue":
 		afficher ("L'IA va jouer une partie")
 		try:
@@ -586,10 +604,7 @@ def menu (rep):
 				chargement.animation (3,"cercle",20)
 			
 			moteur.enregistre_score (ia_mode)
-			
-	elif rep == "theme":
-		set_etat ("Theme")
-	elif rep == "niveau":
-		set_etat ("Niveau")
 	else:
-		afficher ("Cette requête est invalide dans le menu ...")
+		afficher ("La requête n'est pas valide dans Menu-Partie ...")
+	
+	
