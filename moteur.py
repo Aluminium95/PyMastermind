@@ -220,11 +220,11 @@ def recup_score():
 	score = []
 	i = 0
 	while i < 5:
-		score.append(persistance.get_propriete ("scores",str(i)+":score"))
+		score.append (persistance.get_propriete ("scores",str(i)+":score"))
 		i = i+1
 	return score
 
-def recup_nom(): #recupere les noms des joueurs des 5 meilleurs scores
+def recup_nom (): #recupere les noms des joueurs des 5 meilleurs scores
 	""" Récupère les noms des joueurs des 5 meilleurs scores 
 		dans le fichier de scores
 		
@@ -258,17 +258,22 @@ def enregistre_score (nom_du_joueur = "AAA"):
 
 	i = 0
 	while i < 5:
-		if score_actuel > int(top_score[i]):
-			top_score.insert(i, str (score_actuel))
-			nom.insert(i, nom_du_joueur)
-			break
-		i = i+1
+		try:
+			sc = int (top_score[i])
+		except ValueError:
+			raise persistance.ValeurInvalide ("scores",str (i) + ":score")
+		else:
+			if score_actuel > int(top_score[i]):
+				top_score.insert(i, str (score_actuel))
+				nom.insert(i, nom_du_joueur)
+				break
+			 i = i + 1
 
 	i = 0
 	while i < 5:
 		persistance.set_propriete ("scores",str(i)+":score",top_score[i])
 		persistance.set_propriete ("scores",str(i)+":nom",nom[i])
-		i = i+1
+		i = i + 1
 
 def get_historique():
 	""" Retourne une copie de l'historique 
