@@ -166,8 +166,21 @@ def afficher_boutons_couleurs ():
 		fd (13)
 		left (90)
 		fd (5)
+		texte ("<")
+		right (90)
+		yield 
+		
+		
+		carre (40)
+		ajouter_bouton ("recommencer",40, position ())
+		up ()
+		fd (13)
+		left (90)
+		fd (5)
 		texte ("X")
 		right (90)
+		yield 
+		
 		
 	aller_a (140,200)
 	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
