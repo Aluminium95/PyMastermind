@@ -147,7 +147,9 @@ def afficher_couleurs ():
 			end_fill ()
 			yield
 		
-
+	aller_a (250,250)
+	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
+	
 def send (rep):
 	""" Envoie une requête utilisateur au Mastermind
 		qui va gérer la redirection et les actions 
@@ -179,11 +181,11 @@ def send (rep):
 		except persistance.CleInvalide:
 			afficher ( "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
 		except persistanec.FichierInvalide:
-			afficher ( "Le fichier est introuvable ... Cela implique un problème dans le CODE SOURCE ... revenez plus tard ...")
+			pass
 		except ValueError:
-			afficher ( "La valeur de « max » dans « phrases » est fausse et ne représente pas un nombre valide ...")
+			pass
 		except:
-			afficher ( "Une erreur inconnue est survenue ... ")
+			pass
 			
 	elif rep == "couleurs":
 		afficher_couleurs ()
@@ -224,15 +226,15 @@ def humain_joue (rep):
 		raise LeProgrammeurEstCon
 	
 	if rep == "abandon": # Abandon de la partie -> retour au menu
-		afficher ("Vous avez abandonné la partie ...")
+		
 		set_etat ("Menu")
 	elif rep == "score":
 		try:
-			afficher (moteur.calcul_score ())
+			score = moteur.calcul_score ()
 		except moteur.PasEnCoursDePartie:
 			raise ErreurFatale
 	elif rep == "plateau":
-		afficher ("Le plateau est affiché, vous pouvez proposer des solutions")
+		
 		try:
 			moteur.reprendre_partie ()
 		except moteur.PasEnCoursDePartie:
@@ -264,18 +266,18 @@ def humain_joue (rep):
 					
 			afficher_liste ("Historique", generateur_historique (h))
 	elif rep == "valider":
-		afficher ("Valide le nouveau code ...")
+		
 		if ecran != "plateau":
 			set_ecran ("plateau")
 		
 		try:
 			r = moteur.verification_solution ( tableau_tampon )
 		except moteur.TableauInvalide as exception:
-			afficher ("Le tableau est invalide : {0}".format (exception.message))
+			pass
 		else:
 			
 			if r == "gagne":
-				afficher ("Vous avez gagné !!!")
+				
 				
 				nom = demander ("Nom du joueur")
 				
@@ -286,7 +288,7 @@ def humain_joue (rep):
 				
 				set_etat ("Menu")
 			elif r == "perdu":
-				afficher ("Vous avez perdu !!!")
+				
 				
 				set_etat ("Menu")
 			else:
@@ -338,28 +340,28 @@ def theme (rep):
 
 		afficher_liste ("Themes",gen_liste_theme ())
 	elif rep == "valider":
-		afficher ("Theme modifié ... ")
+		pass
 		set_etat ("Menu")
 	elif rep == "actuel":
 		# Ce code peut planter ... mais on ne récupère pas l'exception
 		# si cela plante ... il faut que ça remonte, l'erreur est trop 
 		# grave ...
-		afficher ("Le theme actuel est le numero {0}".format (persistance.get_propriete ("backgrounds","theme:actuel")))
+		pass
 	else:
 		try:
 			
 			affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
-			afficher ("Selection theme : " + rep)
+			
 			primitives.raz ()
 			path = "Images/Theme" + rep + "/fond.gif"
 			primitives.bgpic (path)
 			set_ecran ("fond")
 		except ValueError:
-			afficher ("Il faut entrer le numéro du thème ...")
+			pass
 		except persistance.CleInvalide:
-			afficher ("Euh ... ce thème ne peut être chargé ...")
+			pass
 		except persistance.FichierInvalide:
-			afficher ("Priez pauvres fous, le fichier de configuration est introuvable !")
+			pass
 
 def niveau (rep):
 	""" Fonction qui fait réagir le menu Niveau
@@ -401,16 +403,16 @@ def gestion_tableau (rep):
 		try:
 			tableau_tampon = tableau_tampon[:-1] # Retire la dernière valeur ...
 		except:
-			afficher ("Plus rien à annuler ...")
+			pass
 		else:
-			afficher (tableau_tampon)
+			pass
 	else:
 		try:
 			tableau_tampon.append (couleurs.couleur_to_string (rep))
 		except couleurs.CouleurInvalide:
-			afficher ("Cette couleur n'existe pas ...")
+			pass
 		else:
-			afficher (tableau_tampon)
+			pass
 	
 
 def definir_code (rep):
@@ -426,16 +428,16 @@ def definir_code (rep):
 		raise LeProgrammeurEstCon
 	
 	if rep == "abandon":
-		afficher ("Annule la propositon de code ... ")
+		
 		tableau_tampon = [] 
 		set_etat ("Menu")
 	elif rep == "valider":
-		afficher ("Valide le nouveau code ...")
+		
 		moteur.nouvelle_partie ()
 		try:
 			r = moteur.definir_code ( tableau_tampon )
 		except moteur.TableauInvalide as exception:
-			afficher ("Le tableau est invalide : {0}".format (exception.message))
+			pass
 		else:
 			tableau_tampon = []
 			set_etat ("Menu")
@@ -455,10 +457,10 @@ def menu (rep):
 	
 	if rep == "ia-code":
 		moteur.nouvelle_partie ()
-		afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
+		
 		set_ecran ("plateau", 5)
 		ia.choisir_code ()
-		afficher ( "L'IA a déterminé un code")
+		
 	elif rep == "humain-code":
 		set_etat ("Definir-Code")
 		afficher_couleurs ()
