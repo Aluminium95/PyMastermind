@@ -12,7 +12,7 @@ import ia
 import couleurs
 import regles
 
-import primitives 
+from primitives import *
 import chargement
 from random import randint 
 
@@ -46,11 +46,14 @@ aide = {
 	},
 	"Menu" : {
 		"ia-code" : "Fait décider un code à trouver par une IA",
-		"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
 		"humain-code" : "Fait rentrer un code à l'utilisateur",
-		"humain-joue" : "Fait trouver le code à l'utilisateur",
 		"theme" : "Permet à l'utilisateur de chosir un thème",
 		"niveau" : "Permet à l'utilisateur de changer de niveau de difficulté"
+	},
+	"Menu-Partie" : {
+		"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
+		"humain-joue" : "Fait trouver le code à l'utilisateur",
+		"abandon" : "Fin de la partie ... retour au menu principal"
 	},
 	"Niveau" : {
 		"list" : "Fait la liste des niveaux disponibles",
@@ -69,7 +72,6 @@ aide = {
 		"score" : "Permet de savoir le score actuel",
 		"abandon" : "Permet de revenir au menu, et abandonner la partie",
 		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
-		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
 		"valider" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
 		"annuler" : "Supprime le dernier item du tableau",
 		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
@@ -79,12 +81,12 @@ aide = {
 		"abandon" : "Revient au menu en annulant la partie actuelle",
 		"valider" : "Valide le code et revient au menu, la partie est lancée !",
 		"annuler" : "Supprime du tableau la dernière entrée",
-		"@" : "Une autre chaine de caractères est prise comme une couleur à ajouter à la fin"
+		"@" : "Une autre chaîne de caractères est prise comme une couleur à ajouter à la fin"
 	}
 }
 
 
-etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
+etats = ["Menu", "Menu-Partie", "Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
 ecrans = ["plateau", "regles", "scores"]
 etat = ""
 ecran = "plateau" # Quel est l'écran actuel ?
@@ -578,7 +580,7 @@ def definir_code (rep):
 			afficher ("Le tableau est invalide : {0}".format (exception.message))
 		else:
 			tableau_tampon = []
-			set_etat ("Menu")
+			set_etat ("Menu-Partie")
 	else:
 		gestion_tableau (rep)
 
