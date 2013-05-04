@@ -141,7 +141,7 @@ def is_hexa (couleur):
 	# il faut que ce soit une str
 	# que son premier caractère soit un « # »
 	# et qu'il y ai 6 éléments après !
-	if isinstance (couleur,str) and couleur[0] == "#" and len (couleur) == 7:
+	if isinstance (couleur,str) and len (couleur) == 7 and couleur[0] == "#" :
 		return True
 	else:
 		return False
