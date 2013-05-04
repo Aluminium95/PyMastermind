@@ -12,9 +12,10 @@ import ia
 import couleurs
 import regles
 
-import primitives 
 import chargement
 from random import randint 
+
+from primitives import *
 
 # DEB EXCEPTIONS
 
@@ -34,61 +35,14 @@ class ErreurFatale (Exception): # Pas la peine de continuer ...
 
 # FIN EXCEPTIONS
 
-# C'est un gros paquet d'aide !
-aide = {
-	"global" : {
-		"quit" : "Quitte le programme ...",
-		"regles" : "Affiche les règles du jeu ...",
-		"scores" : "Affiche les meilleurs scores du jeu ...",
-		"fortune" : "Affiche une petite phrase aléatoire sympa ...",
-		"couleurs" : "Affiche la liste des couleurs disponibles",
-		"clear" : "Efface l'écran de la console ..."
-	},
-	"Menu" : {
-		"ia-code" : "Fait décider un code à trouver par une IA",
-		"ia-joue" : "Fait trouver le code par une IA (nécessite qu'un code ai été défini avant)",
-		"humain-code" : "Fait rentrer un code à l'utilisateur",
-		"humain-joue" : "Fait trouver le code à l'utilisateur",
-		"theme" : "Permet à l'utilisateur de chosir un thème",
-		"niveau" : "Permet à l'utilisateur de changer de niveau de difficulté"
-	},
-	"Niveau" : {
-		"list" : "Fait la liste des niveaux disponibles",
-		"actuel" : "Affiche le niveau actuel de difficulté",
-		"valider" : "Enregistre le niveau sélectionné et revient au menu",
-		"@" : "Une autre chaine de caractère est prise comme un niveau"
-	},
-	"Theme" : {
-		"list" : "Fait la liste des thèmes disponibles",
-		"actuel" : "Affiche le thème actuel ...",
-		"valider" : "Engeristre le thème sélectionné et revient au menu",
-		"@" : "Sélectionne le texte rentré comme un thème"
-	},
-	"Humain-Joue" : {
-		"plateau" : "Permet de réafficher le plateau de jeu",
-		"score" : "Permet de savoir le score actuel",
-		"abandon" : "Permet de revenir au menu, et abandonner la partie",
-		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
-		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
-		"valider" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
-		"annuler" : "Supprime le dernier item du tableau",
-		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
-		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
-	},
-	"Definir-Code" : {
-		"abandon" : "Revient au menu en annulant la partie actuelle",
-		"valider" : "Valide le code et revient au menu, la partie est lancée !",
-		"annuler" : "Supprime du tableau la dernière entrée",
-		"@" : "Une autre chaine de caractères est prise comme une couleur à ajouter à la fin"
-	}
-}
-
 
 etats = ["Menu","Humain-Joue","Theme","Niveau","Proposer-Code","Definir-Code"]
 ecrans = ["plateau", "regles", "scores"]
 etat = ""
 ecran = "plateau" # Quel est l'écran actuel ?
 tableau_tampon = []
+
+boutons = [] # Tableau des boutons
 
 def init ():
 	""" Constructeur 
@@ -98,40 +52,7 @@ def init ():
 		@return : Mastermind 
 	"""
 	set_etat ("Menu")
-
-def afficher (quelquechose, t = 0):
-	""" Une surcouche de iconsole.afficher 
-		qui met automatiquement l'état courant 
-		en « acteur »
-		
-		@quelquechose : str = un truc à afficher 
-		@t : int = nombre de tabulations [opts]
-		
-		@return : None
-	"""
-	iconsole.afficher (get_etat (), quelquechose, t)
-
-def afficher_liste (quelquechose, generateur, t = 0):
-	""" Encore une surcouche qui englobe iconsole.afficher_liste
-		
-		@quelquechose : str = texte
-		@generateur : generator = générateur de liste
-		@t : int = tabulations [opts]
-		
-		@return : None
-	"""
-	iconsole.afficher_liste (get_etat (), quelquechose, generateur, t)
-
-def demander (quelquechose, t = 0):
-	""" Une surcouche de iconsole.demander 
-		qui met l'état actuel en « acteur »
-		
-		@quelquechose : str = un truc à afficher 
-		@t : int = nombre de tabulations [opts]
-		
-		@return : str
-	"""
-	return iconsole.demander (get_etat (), quelquechose, t)
+	set_ecran ("plateau")
 	
 def get_etat ():
 	""" Retourne l'état courant 
@@ -201,18 +122,7 @@ def afficher_aide ():
 		
 		@return : None
 	"""
-	# On Crée un générateur de l'aide actuelle
-	# pour personnaliser un peu l'affichage de la liste 
-	def gen_help ():
-		yield "Commandes globales ..."
-		for i,j in aide["global"].items ():
-			yield ("\t" + i,j)
-		
-		yield "Commandes du mode " + get_etat ()
-		for i,j in aide[get_etat ()].items ():
-			yield ("\t" + i,j)
-	# On l'affiche avec le magnifique module iconsole
-	afficher_liste ("Aide : ", gen_help ())
+	pass
 
 def afficher_couleurs ():
 	""" Affiche la liste des couleurs disponibles 
@@ -225,16 +135,18 @@ def afficher_couleurs ():
 	try:
 		nombre_couleurs = moteur.get_nombre_couleurs ()
 	except moteur.PasEnCoursDePartie:
-		afficher ("Vous n'êtes pas en cours de partie, on affiche les couleurs futurement disponibles")
 		nombre_couleurs = moteur.get_nombre_couleurs_next ()
 	
 	def generateur_liste_couleurs (nbr):
-		abvrs = couleurs.liste_abreviations ()
-		for i in abvrs[0:nbr]:
-			a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
-			yield a
+		c = couleurs.liste_couleurs ()[0:nbr] # Prend le bon nombre de couleurs
 		
-	afficher_liste ("Couleurs futurement disponibles",generateur_liste_couleurs (nombre_couleurs))
+		for i in c:
+			color (couleurs.string_to_hexa (i))
+			begin_fill ()
+			carre (40)
+			end_fill ()
+			yield
+		
 
 def send (rep):
 	""" Envoie une requête utilisateur au Mastermind
