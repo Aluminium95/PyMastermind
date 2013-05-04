@@ -78,7 +78,7 @@ def set_etat (state):
 	# petits trucs ici pour les transitions 
 	# iconsole.separateur ()
 	iconsole.clear ()
-	afficher ("Vous êtes maintenant dans un nouveau mode")
+	
 	afficher_aide () # Affiche l'aide du nouvel état 
 	
 def set_ecran (new, t = False):
@@ -162,13 +162,13 @@ def send (rep):
 	if rep == "help": # Commande indépendante de l'état courant !
 		afficher_aide ()
 	elif rep == "regles": # Commande indépendante de l'état courant !
-		afficher ( "Affichage des règles sur la fenêtre graphique ...")
+		
 		
 		set_ecran ("regles", 2)
 	elif rep == "clear":
 		iconsole.clear ()
 	elif rep == "scores": # Commande indépendante de l'état courant !
-		afficher ("Affichage des scores sur la fenêtre graphique ...")
+		
 		
 		set_ecran ("scores", 1)
 		
@@ -177,9 +177,9 @@ def send (rep):
 			maximum = persistance.get_propriete ("phrases", "max")
 			maximum = int (maximum)
 			aleatoire = randint (0,maximum - 1)
-			afficher (persistance.get_propriete ("phrases", str (aleatoire)))
+			
 		except persistance.CleInvalide:
-			afficher ( "Il est impossible de récupérer la fortune ... le fichier « phrases » doit être corrompu »")
+			pass
 		except persistanec.FichierInvalide:
 			pass
 		except ValueError:
@@ -466,24 +466,24 @@ def menu (rep):
 		afficher_couleurs ()
 	elif rep == "humain-joue":
 		try:
-			afficher ("Le niveau actuel est : " + moteur.get_mode ())
+			mode = moteur.get_mode () 
 		except moteur.PasEnCoursDePartie:
-			afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
+			pass
 		else:
 			set_ecran ("plateau", 5)
 			
 			set_etat ("Humain-Joue") # Change d'état
 			afficher_couleurs ()
 	elif rep == "ia-joue":
-		afficher ("L'IA va jouer une partie")
 		try:
-			afficher ("Le niveau actuel est : " + moteur.get_mode ())
+			mode = moteur.get_mode ()
 		except moteur.PasEnCoursDePartie:
-			afficher ("Vous n'êtes pas en cours de partie ... il faut définir un code !")
+			pass
 		else:
-			afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
 			
-			ia_mode = ""
+			# afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
+			
+			"""ia_mode = ""
 			demander_ia = True
 			while demander_ia == True:
 				ia_mode = demander ("Quelle IA")
@@ -491,7 +491,9 @@ def menu (rep):
 					demander_ia = False
 				else:
 					afficher ("Ce mode d'IA est invalide !")
-			afficher_couleurs ()
+			afficher_couleurs ()"""
+			
+			ia_mode = "aleatoire" # Il faut changer ça plus tard 
 			
 			set_ecran ("plateau", 3)
 			
@@ -506,4 +508,4 @@ def menu (rep):
 	elif rep == "niveau":
 		set_etat ("Niveau")
 	else:
-		afficher ("Cette requête est invalide dans le menu ...")
+		pass
