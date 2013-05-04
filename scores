@@ -1,8 +1,8 @@
-1:score |=> ___
-2:score |=> ___ 
-3:score |=> ___
-4:score |=> ___
-0:score |=> ___
+1:score |=> 0
+2:score |=> 0
+3:score |=> 0
+4:score |=> 0
+0:score |=> 0
 0:nom |=> ___
 1:nom |=> ___
 2:nom |=> ___ 
