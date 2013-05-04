@@ -589,6 +589,7 @@ def gestion_tableau (rep):
 			afficher (tableau_tampon)
 	elif rep == "recommencer":
 		tableau_tampon = [] # Vide le tableau
+		afficher (tableau_tampon)
 	else:
 		try:
 			tableau_tampon.append (couleurs.couleur_to_string (rep))
