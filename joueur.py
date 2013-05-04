@@ -72,16 +72,17 @@ aide = {
 		"score" : "Permet de savoir le score actuel",
 		"abandon" : "Permet de revenir au menu, et abandonner la partie",
 		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
-		"abandon" : "Revient au mode « Humain-Joue » en ne proposant pas ce code",
 		"valider" : "Propose le tableau au mastermind et affiche la réponse, revient à l'état « Humain-Joue »",
 		"annuler" : "Supprime le dernier item du tableau",
 		"historique" : "Permet d'afficher l'historique des coups déjà joués et leur réponses",
+		"recommencer" : "Permet de vider le tableau, pour recommencer un coup à zéro",
 		"@" : "Une autre chaine est prise comme une couleur à ajouter en fin de tableau"
 	},
 	"Definir-Code" : {
 		"abandon" : "Revient au menu en annulant la partie actuelle",
 		"valider" : "Valide le code et revient au menu, la partie est lancée !",
 		"annuler" : "Supprime du tableau la dernière entrée",
+		"recommencer" : "Vide le tableau pour recommencer un nouveau code",
 		"@" : "Une autre chaine de caractères est prise comme une couleur à ajouter à la fin"
 	}
 }
@@ -497,6 +498,8 @@ def gestion_tableau (rep):
 			afficher ("Plus rien à annuler ...")
 		else:
 			afficher (tableau_tampon)
+	elif rep == "recommencer":
+		tableau_tampon = [] # Vide le tableau
 	else:
 		try:
 			tableau_tampon.append (couleurs.couleur_to_string (rep))
