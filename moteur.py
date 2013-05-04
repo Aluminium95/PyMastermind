@@ -267,7 +267,7 @@ def enregistre_score (nom_du_joueur = "AAA"):
 				top_score.insert(i, str (score_actuel))
 				nom.insert(i, nom_du_joueur)
 				break
-			 i = i + 1
+			i = i + 1
 
 	i = 0
 	while i < 5:
