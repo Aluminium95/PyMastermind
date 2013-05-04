@@ -106,7 +106,9 @@ def click_to_bouton (x,y):
 			return i[0] # le nom 
 		
 def callback (x,y):
-	print (click_to_bouton (x,y))
+	btn = click_to_bouton (x,y)
+	print ("") # Crée une ligne vide
+	send (btn) # Lol
 	
 def init ():
 	""" Constructeur 
@@ -145,6 +147,25 @@ def afficher_boutons_couleurs ():
 			end_fill ()
 			ajouter_bouton (i,40,position ()) # Ajoute un bouton
 			yield
+		
+		carre (40)
+		ajouter_bouton ("valider",40, position ())
+		up ()
+		fd (5)
+		left (90)
+		fd (5)
+		texte ("Ok")
+		right (90)
+		yield
+		
+		carre (40)
+		ajouter_bouton ("annuler",40, position ())
+		up ()
+		fd (13)
+		left (90)
+		fd (5)
+		texte ("X")
+		right (90)
 		
 	aller_a (140,200)
 	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
