@@ -256,7 +256,10 @@ def set_ecran (new, t = False):
 		
 		@return : None
 	"""
-	global ecran 
+	global ecran,boutons
+	
+	boutons = [] # Remet à zéro la liste des boutons
+	
 	if new == "plateau":
 		if t != False:
 			chargement.run (t, "arc")
