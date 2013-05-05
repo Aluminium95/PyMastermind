@@ -42,7 +42,8 @@ aide = {
 		"scores" : "Affiche les meilleurs scores du jeu ...",
 		"fortune" : "Affiche une petite phrase aléatoire sympa ...",
 		"couleurs" : "Affiche la liste des couleurs disponibles",
-		"clear" : "Efface l'écran de la console ..."
+		"clear" : "Efface l'écran de la console ...",
+		"help" : "Affiche l'aide"
 	},
 	"Menu" : {
 		"ia-code" : "Fait décider un code à trouver par une IA",
@@ -152,90 +153,36 @@ def afficher_boutons_couleurs ():
 			ajouter_bouton (i,40,position ()) # Ajoute un bouton
 			yield
 		
+		for commande in aide["global"]:
+			color ("black")
+			begin_fill ()
+			carre (40)
+			end_fill ()
+			ajouter_bouton (commande,40, position ())
+			up ()
+			fd (13)
+			left (90)
+			fd (5)
+			color ("white")
+			texte (commande[0].upper ())
+			right (90)
+			yield
 		
-		color ("white")
-		begin_fill ()
-		carre (40)
-		end_fill ()
-		ajouter_bouton ("valider",40, position ())
-		up ()
-		fd (5)
-		left (90)
-		fd (5)
-		color ("black")
-		texte ("Ok")
-		right (90)
-		yield
+		for commande in aide[get_etat ()]:
+			color ("white")
+			begin_fill ()
+			carre (40)
+			end_fill ()
+			ajouter_bouton (commande,40, position ())
+			up ()
+			fd (5)
+			left (90)
+			fd (5)
+			color ("black")
+			texte (commande[0].upper () + commande[1].lower ())
+			right (90)
+			yield
 		
-		color ("white")
-		begin_fill ()
-		carre (40)
-		end_fill ()
-		ajouter_bouton ("annuler",40, position ())
-		up ()
-		fd (13)
-		left (90)
-		fd (5)
-		color ("black")
-		texte ("<")
-		right (90)
-		yield 
-		
-		color ("white")
-		begin_fill ()
-		carre (40)
-		end_fill ()
-		ajouter_bouton ("recommencer",40, position ())
-		up ()
-		fd (13)
-		left (90)
-		fd (5)
-		color ("black")
-		texte ("X")
-		right (90)
-		yield 
-		
-		color ("white")
-		begin_fill ()
-		carre (40)
-		end_fill ()
-		ajouter_bouton ("abandon",40, position ())
-		up ()
-		fd (13)
-		left (90)
-		fd (5)
-		color ("black")
-		texte ("«")
-		right (90)
-		yield 
-		
-		color ("white")
-		begin_fill ()
-		carre (40)
-		end_fill ()
-		ajouter_bouton ("regles",40, position ())
-		up ()
-		fd (13)
-		left (90)
-		fd (5)
-		color ("black")
-		texte ("R")
-		right (90)
-		yield 
-		
-		color ("white")
-		begin_fill ()
-		carre (40)
-		end_fill ()
-		ajouter_bouton ("quit",40, position ())
-		up ()
-		fd (13)
-		left (90)
-		fd (5)
-		color ("black")
-		texte ("Q")
-		right (90)
-		yield 
 
 		
 	aller_a (140,200)
@@ -701,10 +648,10 @@ def menu (rep):
 	if rep == "ia-code":
 		moteur.nouvelle_partie ()
 		afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
-		set_ecran ("plateau", 5)
 		ia.choisir_code ()
 		afficher ( "L'IA a déterminé un code")
 		set_etat ("Menu-Partie")
+		set_ecran ("plateau", 5)
 	elif rep == "humain-code":
 		set_etat ("Definir-Code")
 		afficher_couleurs ()
@@ -723,9 +670,8 @@ def menu_partie (rep):
 		except moteur.PasEnCoursDePartie:
 			afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
 		else:
-			set_ecran ("plateau", 5)
-			
 			set_etat ("Humain-Joue") # Change d'état
+			set_ecran ("plateau", 5)
 			afficher_couleurs ()
 	elif rep == "abandon":
 		set_etat ("Menu")
