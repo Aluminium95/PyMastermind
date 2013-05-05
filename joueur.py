@@ -169,19 +169,20 @@ def afficher_boutons_couleurs ():
 			yield
 		
 		for commande in aide[get_etat ()]:
-			color ("white")
-			begin_fill ()
-			carre (40)
-			end_fill ()
-			ajouter_bouton (commande,40, position ())
-			up ()
-			fd (5)
-			left (90)
-			fd (5)
-			color ("black")
-			texte (commande[0].upper () + commande[1].lower ())
-			right (90)
-			yield
+			if commande != "@":
+				color ("white")
+				begin_fill ()
+				carre (40)
+				end_fill ()
+				ajouter_bouton (commande,40, position ())
+				up ()
+				fd (5)
+				left (90)
+				fd (5)
+				color ("black")
+				texte (commande[0].upper () + commande[1].lower ())
+				right (90)
+				yield
 		
 
 		
