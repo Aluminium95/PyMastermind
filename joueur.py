@@ -110,9 +110,9 @@ def click_to_bouton (x,y):
 def callback (x,y):
 	btn = click_to_bouton (x,y)
 	if btn != None:
-		print ("") # Crée une ligne vide
+		print (btn) # Affiche la commande
 		send (btn) # Lol
-		print ("{0}\n# [{1}] ? Commande : ".format (btn,get_etat ()),end ="")
+		print ("\n# [{0}] ? Commande : ".format (get_etat ()),end ="")
 	
 def init ():
 	""" Constructeur 
@@ -152,47 +152,88 @@ def afficher_boutons_couleurs ():
 			ajouter_bouton (i,40,position ()) # Ajoute un bouton
 			yield
 		
-		color ("black")
 		
+		color ("white")
+		begin_fill ()
 		carre (40)
+		end_fill ()
 		ajouter_bouton ("valider",40, position ())
 		up ()
 		fd (5)
 		left (90)
 		fd (5)
+		color ("black")
 		texte ("Ok")
 		right (90)
 		yield
 		
+		color ("white")
+		begin_fill ()
 		carre (40)
+		end_fill ()
 		ajouter_bouton ("annuler",40, position ())
 		up ()
 		fd (13)
 		left (90)
 		fd (5)
+		color ("black")
 		texte ("<")
 		right (90)
 		yield 
 		
-		
+		color ("white")
+		begin_fill ()
 		carre (40)
+		end_fill ()
 		ajouter_bouton ("recommencer",40, position ())
 		up ()
 		fd (13)
 		left (90)
 		fd (5)
+		color ("black")
 		texte ("X")
 		right (90)
 		yield 
 		
-		
+		color ("white")
+		begin_fill ()
 		carre (40)
+		end_fill ()
 		ajouter_bouton ("abandon",40, position ())
 		up ()
 		fd (13)
 		left (90)
 		fd (5)
+		color ("black")
 		texte ("«")
+		right (90)
+		yield 
+		
+		color ("white")
+		begin_fill ()
+		carre (40)
+		end_fill ()
+		ajouter_bouton ("regles",40, position ())
+		up ()
+		fd (13)
+		left (90)
+		fd (5)
+		color ("black")
+		texte ("R")
+		right (90)
+		yield 
+		
+		color ("white")
+		begin_fill ()
+		carre (40)
+		end_fill ()
+		ajouter_bouton ("quit",40, position ())
+		up ()
+		fd (13)
+		left (90)
+		fd (5)
+		color ("black")
+		texte ("Q")
 		right (90)
 		yield 
 
@@ -383,6 +424,9 @@ def send (rep):
 			
 	elif rep == "couleurs":
 		afficher_couleurs ()
+		
+	elif rep == "quit":
+		exit (0) # Quitte silencieusement : ce n'est pas une requête console, mais graphique !
 			
 	elif get_etat () == "Humain-Joue":
 		humain_joue (rep)
