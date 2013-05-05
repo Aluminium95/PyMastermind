@@ -111,6 +111,7 @@ def callback (x,y):
 	btn = click_to_bouton (x,y)
 	print ("") # Crée une ligne vide
 	send (btn) # Lol
+	print ("\n# [{0}] ? Commande : ".format (get_etat ()),end ="")
 	
 def init ():
 	""" Constructeur 
