@@ -5,7 +5,7 @@
 #
 # Description:
 #
-# Gère tout ce qui est plateau
+# Gère tout ce qui est affichage. Soit le fond courant correspondant au thème (gestion des thèmes) et les cases colorées.
 
 import couleurs
 import persistance
