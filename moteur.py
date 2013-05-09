@@ -11,6 +11,8 @@ import persistance
 import couleurs
 import affichage
 
+import utils
+
 # EXCEPTIONS 
 
 class TableauInvalide (Exception):
@@ -406,7 +408,7 @@ def verification_solution (proposition):
 	else:
 		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
-def proposition_solution (proposition, code): 
+def proposition_solution (proposition, code_s): 
 	""" Fonction qui effectue un coup du joueur !
 		comme la fontion proposer_solution, sans s'occuper des autres paramètres, tel que le score,
 		les coups restant ... ne renvoie que (a,b)
@@ -419,35 +421,41 @@ def proposition_solution (proposition, code):
 		@throw : TableauInvalide
 	"""
 	
+	code = list (code_s)
+
 	if len (proposition) != len (code):
 		raise TableauInvalide ("Tailles différentes")
-
-	a = 0 # Le nombre de couleurs bonnes et à la bonne place
-	b = 0 # Le nombre de couleurs bonnes et à la mauvaise place
-	i = 0 # Un itérateur simple 
 	
-	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
+	def incrementeur (a,b):
+		if b == True:
+			return a + 1
+		else:
+			return a
 	
-	solution = list (code) # Création d'une copie de la liste :-) 
+	def supresseur (a,b):
+		if b == True:
+			return "*"
+		else:
+			return a
+	
 
-	while i < len (code): # cherche les bonnes couleurs bien placées.
-		if solution[i] == proposition_copie[i]:
-			a = a+1
-			solution[i] = "*"
-			proposition_copie[i] = "*"
-		i = i+1
-		
-	i = 0
+	eq = utils.bi_map (utils.egal, proposition, code)
+	a  = utils.foldl (incrementeur, 0, eq)
 
-	while i < len (code):
-		j = 0
-		while j < len (solution): #cherche les bonnes couleurs mal placées
-			if solution[j] != "*" and solution[j] == proposition_copie[i]:
-				b = b+1
-				solution[j] = "*"
-				proposition_copie[i] = "*"
-				break
-			j = j + 1
-		i = i+1
+	reste_proposition = utils.bi_map (supresseur, proposition, eq)
+	
+	s = "Code {}\nProp {}\nPremière Passe {}\nReste {}".format (code,proposition,eq,reste_proposition)
+	print (s)
+
+	# Ce code aussi peut devenir plus fonctionnel !
+	b = 0
+	for i in reste_proposition:
+		k = 0
+		while k < len (code):
+			if i != "*" and code[k] != "*" and i == code[k]:
+				b += 1
+				code[k] = "*"
+			k += 1
+
 	return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
