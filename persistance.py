@@ -319,7 +319,7 @@ def save ():
 		for chemin,dico in persistant.items ():
 			f = open (chemin, "w")
 			for cle,valeur in dico.items ():
-				f.write (cle + " |=> " + valeur.replace ("\n","\\n"))
+				f.write (cle + " |=> " + valeur.replace ("\n","\\n") + "\n")
 			f.close ()
 	except:
 		raise EcritureImpossible
