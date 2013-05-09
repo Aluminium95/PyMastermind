@@ -13,12 +13,7 @@
 # de schémas prédéfinis d'utilisation !
 #
 #
-# BDD :
-# [ 
-#	["fichier1", ["variable1", "valeur1"], ... , ["variableN","valeurN"]],
-#	...
-#	["fichierN", ["variable1", "valeur1"], ... , ["variableN","valeurN"]]
-# ]
+# BDD : sous forme de dictionnaires
 	
 
 # EXCEPTIONS 
@@ -41,16 +36,16 @@ class ValeurInvalide (Exception):
 # FIN EXCEPTIONS	
 
 # ma variable globale : BDD
-persistant = []
+persistant = {} # un dictionnaire
 
 def liste_fichiers ():
 	""" Retourne les fichiers chargés
 		
 		@return : [string ...]
 	"""
-	l = [] # La liste de sortie 
-	for i in persistant: # pour chaque fichier chargé
-		l.append (i[0]) # On ajoute le nom du fichier 
+	l = []
+	for i in persistant:
+		l.append (i)
 	return l
 	
 def liste_variables (fichier):
@@ -66,18 +61,16 @@ def liste_variables (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	l = False
-	for i in persistant: # Pour chaque fichier 
-		if i[0] == fichier: # Si le nom du fichier correspond
-			l = [] # On crée une liste 
-			for j in i[1:]: # On prend tous les éléments du fichier 
-				l.append (j[0]) # On récupère seulement les noms de ceux-ci
-			break # On casse la boucle 
-	if l == False:
+	try:
+		f = persistant [fichier]
+	except:
 		raise FichierInvalide
 	else:
+		l = []
+		for i in f:
+			l.append (i)
 		return l
-	
+
 def parcourir_cles (fichier):
 	""" Retourne un générateur qui 
 		retourne les clés d'un fichier
