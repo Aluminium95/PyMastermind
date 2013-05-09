@@ -693,6 +693,9 @@ def menu_partie (rep):
 			afficher_liste ("Les IAs sont", [("knuth", "Une IA très forte"), ("aleatoire", "Une ia ... mauvaise !"), ("matrice","Une IA moyenne")])
 			
 			ia_mode = ""
+
+			# Il faut faire un nouvel état avec la sélection du mode !
+
 			demander_ia = True
 			while demander_ia == True:
 				ia_mode = demander ("Quelle IA")
