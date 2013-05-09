@@ -122,8 +122,8 @@ def init ():
 		
 		@return : Mastermind 
 	"""
-	set_etat ("Menu")
 	set_ecran ("plateau")
+	set_etat ("Menu")
 	
 	sc = getscreen ()
 	sc.onclick (callback)
@@ -660,8 +660,8 @@ def menu (rep):
 		afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
 		ia.choisir_code ()
 		afficher ( "L'IA a déterminé un code")
-		set_etat ("Menu-Partie")
 		set_ecran ("plateau", 5)
+		set_etat ("Menu-Partie")
 	elif rep == "humain-code":
 		set_etat ("Definir-Code")
 		afficher_couleurs ()
@@ -680,8 +680,8 @@ def menu_partie (rep):
 		except moteur.PasEnCoursDePartie:
 			afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
 		else:
-			set_etat ("Humain-Joue") # Change d'état
 			set_ecran ("plateau", 5)
+			set_etat ("Humain-Joue") # Change d'état
 			afficher_couleurs ()
 	elif rep == "abandon":
 		set_etat ("Menu")

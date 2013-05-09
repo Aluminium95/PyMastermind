@@ -2,7 +2,12 @@
 
 	* Faire correspondre états et écrans 
 		* Mettre les boutons sur tous les écrans 
+			-> Création des boutons faite 
+			
 		* Ajouter de nouveaux écrans
-
+			* Un écran par état ?
+			* Rechargement des écrans au changement
+				d'état ... mais pas quand ce n'est 
+				pas nécessaire ?!
 	* Faire une sélection des couleurs de manière visuelle
 
