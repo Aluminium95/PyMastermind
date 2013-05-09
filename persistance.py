@@ -166,14 +166,14 @@ def charger_fichier (chemin):
 	
 	try: # Cette partie est suceptible de planter 
 		f = open (chemin,"r") # On ouvre le fichier en lecture seule
-		newlist = [chemin] # On crée la liste du fichier 
+		
+		persistant[chemin] = {} # On crée le nouveau dico
+
 	
 		for line in f: # Pour chaque ligne du fichier 
 			if line != "\n" and line[0] != "#": # On vérifie que la ligne doit être prise en compte 
-				s = line[:-1].replace ("\\n","\n").split (" |=> ") # On découpe en deux
-				newlist.append (s) # On a le tableau [clé,valeur] d'un élément !
-		
-		persistant.append (newlist) # On ajoute le fichier 
+				cle,val = line[:-1].replace ("\\n","\n").split (" |=> ") # On découpe en deux
+				persistant[chemin][cle] = val # On ajoute !
 		return "chargement" 
 	except: # Si elle plante 
 		new_file (chemin) # On crée un fichier « virtuel » vide 
@@ -196,13 +196,15 @@ def get_propriete (chemin,nom):
 	elif not isinstance (nom, str):
 		raise CleInvalide
 	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # Si le nom correspond 
-			for i in p[1:]: # On regarde les éléments du fichier 
-				if i[0] == nom: # Si le nom correspond 
-					return i[1] # On retourne la valeur !
+	try:
+		f = persistant[chemin]
+	except:
+		raise FichierInvalide
+	else:
+		try:
+			return f[nom]
+		except:
 			raise CleInvalide
-	raise FichierInvalide
 
 def get_by_value (chemin,val):
 	""" Récupère le nom de la propriété contenant la valeur @val
@@ -220,14 +222,15 @@ def get_by_value (chemin,val):
 	elif not isinstance (val, str):
 		raise CleInvalide
 	
-	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # si le chemin correspond 
-			for i in p[1:]: # On regarde chaque élément
-				if i[1] == val: # Si la valeur correspond 
-					return i[0] # On retourne la clé 
-			raise CleInvalide	
-	return FichierInvalide
+	try:
+		f = persistant [chemin]
+	except:
+		raise FichierInvalide
+	else:
+		for i,j in f.items ():
+			if j == val:
+				return i
+		raise CleInvalide
 	
 def new_file (chemin):
 	""" Ajoute un fichier virtuel (enregistré plus tard)
@@ -240,7 +243,7 @@ def new_file (chemin):
 
 	l = liste_fichiers () # On récupère la liste des fichiers déjà chargés
 	if chemin not in l: # Si le fichier n'est pas dedans
-		persistant.append ([chemin]) # On le crée (virtuellement) 
+		persistant[chemin] = {}
 
 def add_propriete (chemin,nom,val):
 	""" Ajoute une propriété, même si elle existe déjà
@@ -266,11 +269,12 @@ def add_propriete (chemin,nom,val):
 		raise ValeurInvalide (chemin, nom)
 	
 	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # Si le nom correspond
-			p.append ([nom,val]) # On ajoute à la fin le coupe [clé,valeur]
-			return
-	raise FichierInvalide
+	try:
+		f = persistant[fichier]
+	except:
+		raise FichierInvalide
+	else
+		f[nom] = val
 
 def set_propriete (chemin,nom,val):
 	""" Définit une propriété, et la crée si elle n'existe pas 
@@ -296,15 +300,13 @@ def set_propriete (chemin,nom,val):
 		raise ValeurInvalide (chemin, nom)
 	
 	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # Si le nom correspond 
-			for i in p[1:]: # On regarde pour chaque élément
-				if i[0] == nom: # Si l'élément a le bon nom
-					i[1] = val # On définit sa valeur 
-					return
-			p.append ([nom,val]) # Sinon on ajoute à la fin [clé,valeur]
-			return 
-	raise FichierInvalide
+	try:
+		f = persistant [fichier]
+	except:
+		raise FichierInvalide
+	else:
+		f[nom] = val
+
 
 def save ():
 	""" Enregistre les modifications dans les fichiers
