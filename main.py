@@ -22,26 +22,26 @@ import chargement
 from time import sleep
 from random import random
 
-## Arguments en ligne de commande
-
-import argparse
-
-# TODO:
-# 	-c IA | Joueur # qui code
-#	-j IA | Joueur # qui joue
-# (j dépend de c, mais pas réciproquement)
-#   --console # entièrement en console
-#   --graphique # entièrement graphique
-
-parser = argparse.ArgumentParser ("pymastermind")
-parser.add_argument ("-d") # Mauvais ....
-args = parser.parse_args ()
-# print (args)
-
-## fin arguments en ligne de commande
-
-
 if __name__ == '__main__':
+	## Arguments en ligne de commande
+
+	import argparse
+
+	# TODO:
+	# 	-c IA | Joueur # qui code
+	#	-j IA | Joueur # qui joue
+	# (j dépend de c, mais pas réciproquement)
+	#   --console # entièrement en console
+	#   --graphique # entièrement graphique
+
+	parser = argparse.ArgumentParser ("pymastermind")
+	parser.add_argument ("-d") # Mauvais ....
+	args = parser.parse_args ()
+	# print (args)
+
+	## fin arguments en ligne de commande
+
+
 	
 	iconsole.afficher ("Programme", "Bienvenue dans le mastermind !")
 	sleep (1)
