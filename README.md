@@ -32,4 +32,7 @@ dans le répertoire du jeu.
 
 La liste des choses à faire est dans les « issues » github :-)
 
-
+# Branche :
+	
+	Cette branche sert au développement des fonctionnalités 
+	en réseau de PyMastermind
