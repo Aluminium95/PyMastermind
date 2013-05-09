@@ -26,10 +26,17 @@ from random import random
 
 import argparse
 
+# TODO:
+# 	-c IA | Joueur # qui code
+#	-j IA | Joueur # qui joue
+# (j dépend de c, mais pas réciproquement)
+#   --console # entièrement en console
+#   --graphique # entièrement graphique
+
 parser = argparse.ArgumentParser ("pymastermind")
-parser.add_argument ("-d")
+parser.add_argument ("-d") # Mauvais ....
 args = parser.parse_args ()
-print (args)
+# print (args)
 
 ## fin arguments en ligne de commande
 
