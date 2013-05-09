@@ -6,6 +6,13 @@
 # Juste des tableaux à deux dimensions
 # que l'on peut parcourir
 
+# DEB EXCEPTIONS
+
+class DimensionsInvalides (Exception):
+	pass
+
+# FIN EXCEPTIONS
+
 def make (n,m,func):
 	""" Crée une matrice (n,m)
 		remplie avec la fonction func
@@ -34,6 +41,39 @@ def apply (matrice, func):
 	for i in range (0, matrice["n"]):
 		for j in range (0, matrice ["m"]):
 			matrice[(i,j)] = func (i,j,matrice[(i,j)])
+
+def add (f,m1,m2):
+	""" Fait la somme de deux matrices 
+		
+		@f  : fonction = fonction qui fait la somme
+		@m1 : matrice = matrice une
+		@m2 : matrice = matrice deux
+
+		@return : matrice = la somme 
+		
+		@throw : DimensionsInvalides
+	"""
+	if m1["n"] != m2["n"] or m1["m"] != m2["m"]:
+		raise DimensionsInvalides
+	
+	def remplissage (i,j):
+		return f (get (m1,i,j) ,get (m2,i,j))
+
+	return make (m1["n"],m1["m"],remplissage) # Crée une nouvelle matrice 
+
+def mul (f,m1,m2):
+	""" Fait la multiplication de deux matrices
+		
+		@f  : fonction = fonction qui multiplie 
+		@m1 : matrice  = matrice une
+		@m2 : matrice = matrice deux
+
+		@return : matrice = la matrice produit
+
+		@throw : DimensionsInvalides
+	"""
+	pass # Il faut réfléchir là dessus plus amplement
+
 
 def parcourir_matrice (matrice):
 	""" Générateur qui parcours la matrice
