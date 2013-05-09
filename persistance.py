@@ -273,7 +273,7 @@ def add_propriete (chemin,nom,val):
 		f = persistant[fichier]
 	except:
 		raise FichierInvalide
-	else
+	else:
 		f[nom] = val
 
 def set_propriete (chemin,nom,val):
@@ -316,13 +316,11 @@ def save ():
 		@throw : EcritureImpossible
 	"""
 	try:
-		for p in persistant: # Pour chaque fichier 
-			f = open (p[0],"w") # On ouvre un fichier de son nom en écriture 
-			for prop in p[1:]: # Pour chaque propriété 
-				# on écrit la ligne correspondante 
-				f.write (prop[0] + " |=> " + prop[1].replace ("\n","\\n"))
-				f.write ("\n") # Avec un saut de ligne 
-			f.close () # Et on ferme le fichier 
+		for chemin,dico in persistant.items ():
+			f = open (chemin, "w")
+			for cle,valeur in dico.items ():
+				f.write (cle + " |=> " + valeur.replace ("\n","\\n"))
+			f.close ()
 	except:
 		raise EcritureImpossible
 
@@ -347,16 +345,12 @@ def set_default_value (chemin,variable,valeur):
 		raise ValeurInvalide (chemin, nom)
 	
 	
-	try: # Cette fonction peut échouer ...
-		for p in persistant: # Pour chaque fichier 
-			if p[0] == chemin: # Si le nom correspond
-				for prop in p[1:]: # On regarde chaque élément
-					if prop[0] == variable: # Si le nom correspond
-						return # On ne modifie pas !
-				p.append ([variable,valeur]) # S'il n'exsiste pas, on crée le couple [clé,valeur]
-				return 
+	try:
+		f = persistant [chemin]
 	except:
 		raise FichierInvalide
+	else:
+		f.setdefault (variable, valeur)
 	
 def to_graphviz ():
 	""" Crée une représentation dans le format graphviz
@@ -373,15 +367,15 @@ def to_graphviz ():
 		f = open ("config_graph.dot","w")
 		f.write ("Digraph G { \n")
 		fi = 0
-		for p in persistant: # Pour chaque fichier 
-			f.write ("f{0} [label=\"{1}\"]\n".format (fi,p[0]))
+		for p,dico in persistant.items(): # Pour chaque fichier 
+			f.write ("f{0} [label=\"{1}\"]\n".format (fi,p))
 			
 			vi = 0
 			
-			for prop in p[1:]: # Pour chaque propriété 
+			for c,v in dico.items ():
 				
-				variable = prop[0].replace ("\"", "\\\"")
-				valeur   = prop[1].replace ("\"", "\\\"")
+				variable = c.replace ("\"", "\\\"")
+				valeur   = v.replace ("\"", "\\\"")
 				
 				f.write ("var{0}f{1} [label=\"{2}\"]\n".format (vi, fi, variable))
 				f.write ("val{0}f{1} [label=\"{2}\"]\n".format (vi, fi, valeur))
