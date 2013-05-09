@@ -35,4 +35,6 @@ def foldl (f,n,l):
 	
 	return n
 
-
+def egal (a,b):
+	""" Un wrapper autour de l'égalité """
+	return a == b
