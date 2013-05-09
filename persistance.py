@@ -84,15 +84,14 @@ def parcourir_cles (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	found = False
-	for i in persistant:
-		if i[0] == fichier:
-			found = True
-			for j in i[1:]:
-				yield j[0]
-		break
-	if found == False:
+	
+	try:
+		f = persistant[fichier]
+	except:
 		raise FichierInvalide
+	else:
+		for i in f:
+			yield i
 
 def parcourir_valeurs (fichier):
 	""" Retourne un générateur qui 
@@ -107,16 +106,14 @@ def parcourir_valeurs (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	found = False
-	for i in persistant:
-		if i[0] == fichier:
-			found = True
-			for j in i[1:]:
-				yield j[1]
-		break
-	if found == False:
+	try:
+		f = persistant[fichier]
+	except:
 		raise FichierInvalide
-	
+	else:
+		for i in f.values ():
+			yield i
+
 def parcourir_fichier (fichier):
 	""" Retourne un générateur qui 
 		retourne les tuples 
@@ -131,16 +128,14 @@ def parcourir_fichier (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	found = False
-	for i in persistant:
-		if i[0] == fichier:
-			found = True
-			for j in i[1:]:
-				yield (j[0],j[1])
-		break
-	if found == False:
+	try:
+		f = persistant[fichier]
+	except:
 		raise FichierInvalide
-	
+	else:
+		for i,j in f.items ():
+			yield (i,j)
+
 def parcourir ():
 	""" Retourne un générateur qui 
 		retourne successivement 
@@ -151,10 +146,9 @@ def parcourir ():
 		@return : generator
 	"""
 	
-	for i in persistance:
-		for j in i[1:]:
-			yield (i[0],j[0],j[1])
-	
+	for nom,dico in persistance.items ():
+		for cle,valeur in dico.items ():
+			yield (nom,cle,valeur)
 
 def charger_fichier (chemin):
 	""" Charge un fichier de configuration
