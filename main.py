@@ -22,6 +22,18 @@ import chargement
 from time import sleep
 from random import random
 
+## Arguments en ligne de commande
+
+import argparse
+
+parser = argparse.ArgumentParser ("pymastermind")
+parser.add_argument ("-d")
+args = parser.parse_args ()
+print (args)
+
+## fin arguments en ligne de commande
+
+
 if __name__ == '__main__':
 	
 	iconsole.afficher ("Programme", "Bienvenue dans le mastermind !")
