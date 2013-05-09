@@ -96,16 +96,16 @@ ecran = "plateau" # Quel est l'écran actuel ?
 tableau_tampon = []
 boutons = [] # Tableau des boutons
 
-def ajouter_bouton (nom,cote,position):
+def ajouter_bouton (nom,w,l,position):
 	global boutons
-	boutons.append ([nom,cote,position])
+	boutons.append ([nom,(w,l),position])
 
 def click_to_bouton (x,y):
 	
 	for i in boutons:
-		w = i[1]
+		w,l = i[1]
 		xb,yb = i[2]
-		if xb < x < xb + w and yb < y < yb + w:
+		if xb < x < xb + w and yb < y < yb + l:
 			return i[0] # le nom 
 		
 def callback (x,y):
@@ -150,21 +150,27 @@ def afficher_boutons_couleurs ():
 			begin_fill ()
 			carre (40)
 			end_fill ()
-			ajouter_bouton (i,40,position ()) # Ajoute un bouton
+			ajouter_bouton (i,40,40,position ()) # Ajoute un bouton
 			yield
 		
+		
+	aller_a (140,200)
+	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
+
+def afficher_boutons_etat ():
+	def generateur_boutons_etat ():
 		for commande in aide["global"]:
 			color ("black")
 			begin_fill ()
-			carre (40)
+			rectangle (150,20)
 			end_fill ()
-			ajouter_bouton (commande,40, position ())
+			ajouter_bouton (commande,150,20, position ())
 			up ()
-			fd (13)
-			left (90)
 			fd (5)
+			left (90)
+			fd (1)
 			color ("white")
-			texte (commande[0].upper ())
+			texte (commande.upper (),"petit")
 			right (90)
 			yield
 		
@@ -172,23 +178,21 @@ def afficher_boutons_couleurs ():
 			if commande != "@":
 				color ("white")
 				begin_fill ()
-				carre (40)
+				rectangle (150,20)
 				end_fill ()
-				ajouter_bouton (commande,40, position ())
+				ajouter_bouton (commande,150,20, position ())
 				up ()
 				fd (5)
 				left (90)
-				fd (5)
+				fd (1)
 				color ("black")
-				texte (commande[0].upper () + commande[1].lower ())
+				texte (commande,"petit")
 				right (90)
 				yield
 		
+	aller_a (-290,200)
+	lignes (1, 30, 30, generateur_boutons_etat ())
 
-		
-	aller_a (140,200)
-	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
-	
 	
 
 def afficher (quelquechose, t = 0):
@@ -252,6 +256,8 @@ def set_etat (state):
 	afficher ("Vous êtes maintenant dans un nouveau mode")
 	afficher_aide () # Affiche l'aide du nouvel état 
 	
+	set_ecran (ecran)
+	
 def set_ecran (new, t = False):
 	""" Change d'écran sur la fenêtre turtle 
 		
@@ -274,20 +280,23 @@ def set_ecran (new, t = False):
 			affichage.plateau ()
 			
 		afficher_boutons_couleurs ()
-			
+		afficher_boutons_etat ()	
 	elif new == "regles":
 		if t != False:
 			chargement.run (t, "cercle")
 			
 		regles.regles (moteur.get_next_mode ())
+		afficher_boutons_etat ()
 	elif new == "scores":
 		if t != False:
 			chargement.run (t, "ligne")
 
 		affichage.high_score ()
+		afficher_boutons_etat ()
 	elif new == "fond":
 		if t != False:
-			chargement.run (t, "ligne") 
+			chargement.run (t, "ligne")
+		afficher_boutons_etat ()
 	else:
 		raise EcranInvalide
 	
