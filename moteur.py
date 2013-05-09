@@ -364,6 +364,7 @@ def verification_solution (proposition):
 		@throw : TableauInvalide (msg)
 				PasEnCoursDePartie
 	"""
+	global restant
 	
 	if est_en_partie () != True:
 		raise PasEnCoursDePartie
@@ -371,10 +372,6 @@ def verification_solution (proposition):
 	if len (proposition) != 4:
 		raise TableauInvalide ("Pas le bon nombre de couleurs")
 	
-	i = 0
-	reponse = proposition_solution(proposition, code_secret)
-	
-	global restant
 	
 
 	univers = couleurs.liste_couleurs()[0:get_nombre_couleurs ()]
@@ -388,6 +385,7 @@ def verification_solution (proposition):
 	
 	restant -= 1
 	l = []
+
 	for i in proposition: # alala, c'est trop con sinon 
 		l.append (couleurs.string_to_hexa (i))
 	
