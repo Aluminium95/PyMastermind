@@ -13,12 +13,7 @@
 # de schémas prédéfinis d'utilisation !
 #
 #
-# BDD :
-# [ 
-#	["fichier1", ["variable1", "valeur1"], ... , ["variableN","valeurN"]],
-#	...
-#	["fichierN", ["variable1", "valeur1"], ... , ["variableN","valeurN"]]
-# ]
+# BDD : sous forme de dictionnaires
 	
 
 # EXCEPTIONS 
@@ -41,16 +36,16 @@ class ValeurInvalide (Exception):
 # FIN EXCEPTIONS	
 
 # ma variable globale : BDD
-persistant = []
+persistant = {} # un dictionnaire
 
 def liste_fichiers ():
 	""" Retourne les fichiers chargés
 		
 		@return : [string ...]
 	"""
-	l = [] # La liste de sortie 
-	for i in persistant: # pour chaque fichier chargé
-		l.append (i[0]) # On ajoute le nom du fichier 
+	l = []
+	for i in persistant:
+		l.append (i)
 	return l
 	
 def liste_variables (fichier):
@@ -66,18 +61,16 @@ def liste_variables (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	l = False
-	for i in persistant: # Pour chaque fichier 
-		if i[0] == fichier: # Si le nom du fichier correspond
-			l = [] # On crée une liste 
-			for j in i[1:]: # On prend tous les éléments du fichier 
-				l.append (j[0]) # On récupère seulement les noms de ceux-ci
-			break # On casse la boucle 
-	if l == False:
+	try:
+		f = persistant [fichier]
+	except:
 		raise FichierInvalide
 	else:
+		l = []
+		for i in f:
+			l.append (i)
 		return l
-	
+
 def parcourir_cles (fichier):
 	""" Retourne un générateur qui 
 		retourne les clés d'un fichier
@@ -91,15 +84,14 @@ def parcourir_cles (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	found = False
-	for i in persistant:
-		if i[0] == fichier:
-			found = True
-			for j in i[1:]:
-				yield j[0]
-		break
-	if found == False:
+	
+	try:
+		f = persistant[fichier]
+	except:
 		raise FichierInvalide
+	else:
+		for i in f:
+			yield i
 
 def parcourir_valeurs (fichier):
 	""" Retourne un générateur qui 
@@ -114,16 +106,14 @@ def parcourir_valeurs (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	found = False
-	for i in persistant:
-		if i[0] == fichier:
-			found = True
-			for j in i[1:]:
-				yield j[1]
-		break
-	if found == False:
+	try:
+		f = persistant[fichier]
+	except:
 		raise FichierInvalide
-	
+	else:
+		for i in f.values ():
+			yield i
+
 def parcourir_fichier (fichier):
 	""" Retourne un générateur qui 
 		retourne les tuples 
@@ -138,16 +128,14 @@ def parcourir_fichier (fichier):
 	if not isinstance (fichier, str):
 		raise FichierInvalide
 	
-	found = False
-	for i in persistant:
-		if i[0] == fichier:
-			found = True
-			for j in i[1:]:
-				yield (j[0],j[1])
-		break
-	if found == False:
+	try:
+		f = persistant[fichier]
+	except:
 		raise FichierInvalide
-	
+	else:
+		for i,j in f.items ():
+			yield (i,j)
+
 def parcourir ():
 	""" Retourne un générateur qui 
 		retourne successivement 
@@ -158,10 +146,9 @@ def parcourir ():
 		@return : generator
 	"""
 	
-	for i in persistance:
-		for j in i[1:]:
-			yield (i[0],j[0],j[1])
-	
+	for nom,dico in persistance.items ():
+		for cle,valeur in dico.items ():
+			yield (nom,cle,valeur)
 
 def charger_fichier (chemin):
 	""" Charge un fichier de configuration
@@ -179,14 +166,14 @@ def charger_fichier (chemin):
 	
 	try: # Cette partie est suceptible de planter 
 		f = open (chemin,"r") # On ouvre le fichier en lecture seule
-		newlist = [chemin] # On crée la liste du fichier 
+		
+		persistant[chemin] = {} # On crée le nouveau dico
+
 	
 		for line in f: # Pour chaque ligne du fichier 
 			if line != "\n" and line[0] != "#": # On vérifie que la ligne doit être prise en compte 
-				s = line[:-1].replace ("\\n","\n").split (" |=> ") # On découpe en deux
-				newlist.append (s) # On a le tableau [clé,valeur] d'un élément !
-		
-		persistant.append (newlist) # On ajoute le fichier 
+				cle,val = line[:-1].replace ("\\n","\n").split (" |=> ") # On découpe en deux
+				persistant[chemin][cle] = val # On ajoute !
 		return "chargement" 
 	except: # Si elle plante 
 		new_file (chemin) # On crée un fichier « virtuel » vide 
@@ -209,13 +196,15 @@ def get_propriete (chemin,nom):
 	elif not isinstance (nom, str):
 		raise CleInvalide
 	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # Si le nom correspond 
-			for i in p[1:]: # On regarde les éléments du fichier 
-				if i[0] == nom: # Si le nom correspond 
-					return i[1] # On retourne la valeur !
+	try:
+		f = persistant[chemin]
+	except:
+		raise FichierInvalide
+	else:
+		try:
+			return f[nom]
+		except:
 			raise CleInvalide
-	raise FichierInvalide
 
 def get_by_value (chemin,val):
 	""" Récupère le nom de la propriété contenant la valeur @val
@@ -233,14 +222,15 @@ def get_by_value (chemin,val):
 	elif not isinstance (val, str):
 		raise CleInvalide
 	
-	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # si le chemin correspond 
-			for i in p[1:]: # On regarde chaque élément
-				if i[1] == val: # Si la valeur correspond 
-					return i[0] # On retourne la clé 
-			raise CleInvalide	
-	return FichierInvalide
+	try:
+		f = persistant [chemin]
+	except:
+		raise FichierInvalide
+	else:
+		for i,j in f.items ():
+			if j == val:
+				return i
+		raise CleInvalide
 	
 def new_file (chemin):
 	""" Ajoute un fichier virtuel (enregistré plus tard)
@@ -253,7 +243,7 @@ def new_file (chemin):
 
 	l = liste_fichiers () # On récupère la liste des fichiers déjà chargés
 	if chemin not in l: # Si le fichier n'est pas dedans
-		persistant.append ([chemin]) # On le crée (virtuellement) 
+		persistant[chemin] = {}
 
 def add_propriete (chemin,nom,val):
 	""" Ajoute une propriété, même si elle existe déjà
@@ -279,11 +269,12 @@ def add_propriete (chemin,nom,val):
 		raise ValeurInvalide (chemin, nom)
 	
 	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # Si le nom correspond
-			p.append ([nom,val]) # On ajoute à la fin le coupe [clé,valeur]
-			return
-	raise FichierInvalide
+	try:
+		f = persistant[fichier]
+	except:
+		raise FichierInvalide
+	else:
+		f[nom] = val
 
 def set_propriete (chemin,nom,val):
 	""" Définit une propriété, et la crée si elle n'existe pas 
@@ -309,15 +300,13 @@ def set_propriete (chemin,nom,val):
 		raise ValeurInvalide (chemin, nom)
 	
 	
-	for p in persistant: # Pour chaque fichier 
-		if p[0] == chemin: # Si le nom correspond 
-			for i in p[1:]: # On regarde pour chaque élément
-				if i[0] == nom: # Si l'élément a le bon nom
-					i[1] = val # On définit sa valeur 
-					return
-			p.append ([nom,val]) # Sinon on ajoute à la fin [clé,valeur]
-			return 
-	raise FichierInvalide
+	try:
+		f = persistant [fichier]
+	except:
+		raise FichierInvalide
+	else:
+		f[nom] = val
+
 
 def save ():
 	""" Enregistre les modifications dans les fichiers
@@ -327,13 +316,11 @@ def save ():
 		@throw : EcritureImpossible
 	"""
 	try:
-		for p in persistant: # Pour chaque fichier 
-			f = open (p[0],"w") # On ouvre un fichier de son nom en écriture 
-			for prop in p[1:]: # Pour chaque propriété 
-				# on écrit la ligne correspondante 
-				f.write (prop[0] + " |=> " + prop[1].replace ("\n","\\n"))
-				f.write ("\n") # Avec un saut de ligne 
-			f.close () # Et on ferme le fichier 
+		for chemin,dico in persistant.items ():
+			f = open (chemin, "w")
+			for cle,valeur in dico.items ():
+				f.write (cle + " |=> " + valeur.replace ("\n","\\n") + "\n")
+			f.close ()
 	except:
 		raise EcritureImpossible
 
@@ -358,16 +345,12 @@ def set_default_value (chemin,variable,valeur):
 		raise ValeurInvalide (chemin, nom)
 	
 	
-	try: # Cette fonction peut échouer ...
-		for p in persistant: # Pour chaque fichier 
-			if p[0] == chemin: # Si le nom correspond
-				for prop in p[1:]: # On regarde chaque élément
-					if prop[0] == variable: # Si le nom correspond
-						return # On ne modifie pas !
-				p.append ([variable,valeur]) # S'il n'exsiste pas, on crée le couple [clé,valeur]
-				return 
+	try:
+		f = persistant [chemin]
 	except:
 		raise FichierInvalide
+	else:
+		f.setdefault (variable, valeur)
 	
 def to_graphviz ():
 	""" Crée une représentation dans le format graphviz
@@ -384,15 +367,15 @@ def to_graphviz ():
 		f = open ("config_graph.dot","w")
 		f.write ("Digraph G { \n")
 		fi = 0
-		for p in persistant: # Pour chaque fichier 
-			f.write ("f{0} [label=\"{1}\"]\n".format (fi,p[0]))
+		for p,dico in persistant.items(): # Pour chaque fichier 
+			f.write ("f{0} [label=\"{1}\"]\n".format (fi,p))
 			
 			vi = 0
 			
-			for prop in p[1:]: # Pour chaque propriété 
+			for c,v in dico.items ():
 				
-				variable = prop[0].replace ("\"", "\\\"")
-				valeur   = prop[1].replace ("\"", "\\\"")
+				variable = c.replace ("\"", "\\\"")
+				valeur   = v.replace ("\"", "\\\"")
 				
 				f.write ("var{0}f{1} [label=\"{2}\"]\n".format (vi, fi, variable))
 				f.write ("val{0}f{1} [label=\"{2}\"]\n".format (vi, fi, valeur))
