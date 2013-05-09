@@ -74,6 +74,9 @@ def mul (f1,f2,m1,m2):
 		@throw : DimensionsInvalides
 	"""
 	
+	if m1["cols"] != m2["lignes"]:
+		raise DimensionsInvalides
+
 	def remplissage (i,j):
 		ligne = list (parcourir_ligne (m1,i))
 		col   = list (parcourir_colonne (m2,j))
