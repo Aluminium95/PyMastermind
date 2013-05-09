@@ -117,20 +117,26 @@ def hexa_to_string (hexa):
 		raise CouleurInvalide
 
 
-def liste_couleurs ():
+def liste_couleurs (n = False):
 	""" Retourne la liste des couleurs (en string)
-		
+			
+		@n : int = le nombre de couleurs à prendre [opts]
+
 		@return : [string ...]
 	"""
-	return list (couleurs) # retourne une COPIE de la liste de couleurs
-
-def liste_abreviations ():
+	if n == False:
+		return list (couleurs) # retourne une COPIE de la liste de couleurs
+	else:
+		return list (couleurs[0:n])
+def liste_abreviations (n = False):
 	""" Retourne la liste des abréviations
 		
 		@return : [abrv ...]
 	"""
-	return list (abreviations)
-	
+	if n == False:
+		return list (abreviations)
+	else:
+		return list (abreviations[0:n])
 def is_hexa (couleur):
 	""" Dit si la couleur est sous forme hexadécimale
 		
