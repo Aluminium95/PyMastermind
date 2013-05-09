@@ -233,8 +233,8 @@ def afficher_couleurs ():
 		nombre_couleurs = moteur.get_nombre_couleurs_next ()
 	
 	def generateur_liste_couleurs (nbr):
-		abvrs = couleurs.liste_abreviations ()
-		for i in abvrs[0:nbr]:
+		abvrs = couleurs.liste_abreviations (nbr)
+		for i in abvrs:
 			a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
 			yield a
 		
