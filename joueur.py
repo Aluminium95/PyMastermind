@@ -122,8 +122,7 @@ def init ():
 		
 		@return : Mastermind 
 	"""
-	set_ecran ("plateau")
-	set_etat ("Menu")
+	set_etat_ecran ("Menu","plateau")
 	
 	sc = getscreen ()
 	sc.onclick (callback)
@@ -256,7 +255,7 @@ def set_etat (state):
 	afficher ("Vous êtes maintenant dans un nouveau mode")
 	afficher_aide () # Affiche l'aide du nouvel état 
 	
-	set_ecran (ecran)
+	# set_ecran (ecran)
 	
 def set_ecran (new, t = False):
 	""" Change d'écran sur la fenêtre turtle 
@@ -280,27 +279,28 @@ def set_ecran (new, t = False):
 			affichage.plateau ()
 			
 		afficher_boutons_couleurs ()
-		afficher_boutons_etat ()	
 	elif new == "regles":
 		if t != False:
 			chargement.run (t, "cercle")
 			
 		regles.regles (moteur.get_next_mode ())
-		afficher_boutons_etat ()
 	elif new == "scores":
 		if t != False:
 			chargement.run (t, "ligne")
 
 		affichage.high_score ()
-		afficher_boutons_etat ()
 	elif new == "fond":
 		if t != False:
 			chargement.run (t, "ligne")
-		afficher_boutons_etat ()
 	else:
 		raise EcranInvalide
 	
 	ecran = new
+
+def set_etat_ecran (etat,ecran,t=False):
+	set_etat (etat)
+	set_ecran (ecran,t)
+	afficher_boutons_etat ()	
 
 def afficher_aide ():
 	""" Affiche l'aide globale ainsi que celle de l'état courant 
@@ -356,13 +356,13 @@ def send (rep):
 	elif rep == "regles": # Commande indépendante de l'état courant !
 		afficher ( "Affichage des règles sur la fenêtre graphique ...")
 		
-		set_ecran ("regles", 2)
+		set_etat_ecran (etat,"regles",2) # Ne change pas d'état mais d'écran
 	elif rep == "clear":
 		iconsole.clear ()
 	elif rep == "scores": # Commande indépendante de l'état courant !
 		afficher ("Affichage des scores sur la fenêtre graphique ...")
 		
-		set_ecran ("scores", 1)
+		set_etat_ecran (etat, "scores", 1)
 		
 	elif rep == "fortune":
 		try:
@@ -424,7 +424,7 @@ def humain_joue (rep):
 	
 	if rep == "abandon": # Abandon de la partie -> retour au menu
 		afficher ("Vous avez abandonné la partie ...")
-		set_etat ("Menu")
+		set_etat_ecran ("Menu",ecran)
 	elif rep == "score":
 		try:
 			afficher (moteur.calcul_score ())
@@ -436,7 +436,7 @@ def humain_joue (rep):
 			moteur.reprendre_partie ()
 		except moteur.PasEnCoursDePartie:
 			raise ErreurFatale
-		set_ecran ("plateau")
+		set_etat_ecran (etat,"plateau")
 	elif rep == "historique":
 		try:
 			h = moteur.get_historique ()
@@ -465,7 +465,7 @@ def humain_joue (rep):
 	elif rep == "valider":
 		afficher ("Valide le nouveau code ...")
 		if ecran != "plateau":
-			set_ecran ("plateau")
+			set_etat_ecran (etat,"plateau")
 		
 		try:
 			r = moteur.verification_solution ( tableau_tampon )
@@ -483,11 +483,11 @@ def humain_joue (rep):
 				except moteur.PasEnCoursDePartie:
 					raise ErreurFatale
 				
-				set_etat ("Menu")
+				set_etat_ecran ("Menu",ecran)
 			elif r == "perdu":
 				afficher ("Vous avez perdu !!!")
 				
-				set_etat ("Menu")
+				set_etat_ecran ("Menu",ecran)
 			else:
 				a,b = r
 		
@@ -538,7 +538,7 @@ def theme (rep):
 		afficher_liste ("Themes",gen_liste_theme ())
 	elif rep == "valider":
 		afficher ("Theme modifié ... ")
-		set_etat ("Menu")
+		set_etat_ecran ("Menu",ecran)
 	elif rep == "actuel":
 		# Ce code peut planter ... mais on ne récupère pas l'exception
 		# si cela plante ... il faut que ça remonte, l'erreur est trop 
@@ -552,7 +552,7 @@ def theme (rep):
 			primitives.raz ()
 			path = "Images/Theme" + rep + "/fond.gif"
 			primitives.bgpic (path)
-			set_ecran ("fond")
+			set_etat_ecran (etat,"fond")
 		except ValueError:
 			afficher ("Il faut entrer le numéro du thème ...")
 		except persistance.CleInvalide:
@@ -576,12 +576,12 @@ def niveau (rep):
 		afficher ("Le mode de la prochaine partie est " + moteur.get_next_mode ())
 	elif rep == "valider":
 		afficher ("Niveau modifié pour la prochaine partie")
-		set_etat ("Menu")
+		set_etat_ecran ("Menu",ecran)
 	else:
 		if rep in (moteur.get_liste_modes ()):
 			afficher ("Vous avez sélectionné le niveau : " + rep)
 			moteur.set_mode (rep)
-			set_ecran ("regles", 3)
+			set_etat_ecran (etat,"regles", 3)
 		else:
 			afficher ("Ce niveau est invalide ...")
 	
@@ -630,7 +630,7 @@ def definir_code (rep):
 	if rep == "abandon":
 		afficher ("Annule la propositon de code ... ")
 		tableau_tampon = [] 
-		set_etat ("Menu")
+		set_etat_ecran ("Menu",ecran)
 	elif rep == "valider":
 		afficher ("Valide le nouveau code ...")
 		moteur.nouvelle_partie ()
@@ -640,7 +640,7 @@ def definir_code (rep):
 			afficher ("Le tableau est invalide : {0}".format (exception.message))
 		else:
 			tableau_tampon = []
-			set_etat ("Menu-Partie")
+			set_etat_ecran ("Menu-Partie",ecran)
 	else:
 		gestion_tableau (rep)
 
@@ -660,15 +660,14 @@ def menu (rep):
 		afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
 		ia.choisir_code ()
 		afficher ( "L'IA a déterminé un code")
-		set_ecran ("plateau", 5)
-		set_etat ("Menu-Partie")
+		set_etat_ecran (etat,"plateau", 5)
 	elif rep == "humain-code":
-		set_etat ("Definir-Code")
+		set_etat_ecran ("Definir-Code","plateau")
 		afficher_couleurs ()
 	elif rep == "theme":
-		set_etat ("Theme")
+		set_etat_ecran ("Theme",ecran)
 	elif rep == "niveau":
-		set_etat ("Niveau")
+		set_etat_ecran ("Niveau",ecran)
 	else:
 		afficher ("Cette requête est invalide dans le menu ...")	
 			
@@ -680,11 +679,10 @@ def menu_partie (rep):
 		except moteur.PasEnCoursDePartie:
 			afficher ("Mmmh ... vous n'êtes pas en cours de partie ... il faut définir un code !")
 		else:
-			set_ecran ("plateau", 5)
-			set_etat ("Humain-Joue") # Change d'état
+			set_etat_ecran ("Humain-Joue","plateau", 5)
 			afficher_couleurs ()
 	elif rep == "abandon":
-		set_etat ("Menu")
+		set_etat_ecran ("Menu",ecran)
 	elif rep == "ia-joue":
 		afficher ("L'IA va jouer une partie")
 		try:
@@ -711,5 +709,7 @@ def menu_partie (rep):
 				chargement.animation (3,"cercle",20)
 			
 			moteur.enregistre_score (ia_mode)
+			
+			set_etat_ecran (etat,ecran)
 	else:
 		afficher ("Cette requête est invalide dans Menu-Partie ...")
