@@ -6,6 +6,7 @@
 import persistance
 import affichage
 import moteur
+import scores
 import iconsole
 import joueur
 import ia
@@ -324,7 +325,7 @@ def humain_joue (rep):
 		set_etat ("Menu")
 	elif rep == "score":
 		try:
-			afficher (moteur.calcul_score ())
+			afficher (scores.calcul_score ())
 		except moteur.PasEnCoursDePartie:
 			raise ErreurFatale
 	elif rep == "plateau":
@@ -376,7 +377,7 @@ def humain_joue (rep):
 				nom = demander ("Nom du joueur")
 				
 				try:
-					moteur.enregistre_score (nom)
+					scores.enregistre_score (nom)
 				except moteur.PasEnCoursDePartie:
 					raise ErreurFatale
 				
@@ -609,7 +610,7 @@ def menu_partie (rep):
 				primitives.aller_a (200,-200)
 				chargement.animation (3,"cercle",20)
 			
-			moteur.enregistre_score (ia_mode)
+			scores.enregistre_score (ia_mode)
 	else:
 		afficher ("La requête n'est pas valide dans Menu-Partie ...")
 	
