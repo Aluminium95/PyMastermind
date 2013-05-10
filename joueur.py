@@ -102,7 +102,7 @@ def init ():
 		@return : Mastermind 
 	"""
 
-	set__ecran ("plateau")
+	set_ecran ("plateau")
 	set_etat ("Menu")
 
 def afficher (quelquechose, t = 0):
