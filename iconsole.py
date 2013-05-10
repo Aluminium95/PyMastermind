@@ -4,6 +4,12 @@
 
 import os
 
+
+
+def init ():
+	""" Initialise le module """
+	pass
+
 def afficheur (acteur,t=0):
 	""" Crée un afficheur avec des 
 		variables prédéfinies 

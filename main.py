@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
 	## fin arguments en ligne de commande
 
-
+	iconsole.init () # Initialise le module iconsole
 	
 	iconsole.afficher ("Programme", "Bienvenue dans le mastermind !")
 	sleep (1)
@@ -55,6 +55,7 @@ if __name__ == '__main__':
 	iconsole.afficher ("Chargement", "Charge les couleurs ...")
 	sleep (random ())
 	
+	primitives.init ()
 	affichage.init ()
 	iconsole.afficher ("Chargement", "Initialise l'affichage ...")
 	sleep (random ())

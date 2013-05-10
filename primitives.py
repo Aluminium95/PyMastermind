@@ -20,6 +20,13 @@ class ModeTexteInvalide (Exception):
 
 # FIN EXCEPTIONS
 
+def init ():
+	""" Initialise le module 
+		
+		@return : None
+	"""
+	pass
+
 def get_position ():
 	""" Retourne la position du pointeur 
 		
