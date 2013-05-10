@@ -429,12 +429,7 @@ def theme (rep):
 		raise LeProgrammeurEstCon
 	
 	if rep == "list":
-		def gen_liste_theme ():
-			for i in themes.liste_themes ():
-				desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
-				yield (i,desc)
-
-		afficher_liste ("Themes",gen_liste_theme ())
+		afficher_liste ("Themes",themes.parcourir_themes_opts ("@self", "description"))
 	elif rep == "valider":
 		afficher ("Theme modifié ... ")
 		set_etat ("Menu")
@@ -442,7 +437,7 @@ def theme (rep):
 		# Ce code peut planter ... mais on ne récupère pas l'exception
 		# si cela plante ... il faut que ça remonte, l'erreur est trop 
 		# grave ...
-		afficher ("Le theme actuel est le numero {0}".format (persistance.get_propriete ("backgrounds","theme:actuel")))
+		afficher ("Le theme actuel est le numero {0}".format (themes.actuel))
 	else:
 		# TODO: changer cet enchainement de fonctions 
 		try:
