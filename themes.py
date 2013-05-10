@@ -20,6 +20,10 @@ class ThemeCorrompu (Exception):
 
 # FIN EXCEPTIONS
 
+def actuel ():
+	""" Retourne le thème actuel """
+	return persistance.get_propriete ("backgrounds", "theme:courant")
+
 def maximum ():
 	""" Retourne le thème maximal """
 	try:
@@ -70,7 +74,7 @@ def parcourir_themes_opts (*args):
 	""" Crée la liste des thèmes avec 
 		des options intéressantes 
 	"""
-	for i in range (0,maximum () + 1):
+	for i in range (1,maximum () + 1):
 		yield get_theme_opts (i,*args) # *args -> ré-expand 
 		
 def liste_themes_opts (*args):
@@ -87,3 +91,10 @@ def liste_themes ():
 		l.append (str (i))
 		i += 1
 	return l
+	
+if __name__ == '__main__':
+	persistance.init ()
+	
+	print (liste_themes ())
+	print (liste_themes_opts ("description","x:chargement","y:plateau"))
+	
