@@ -51,17 +51,29 @@ class ThreadClient (threading.Thread,ClientProtocol):
 
 		self.connection.close ()
 
-# Création de la SOCKET
-mySocket = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
-mySocket.bind ((HOST, PORT))
+class ThreadServeur (threading.Thread):
+	def __init__ (self):
+		threading.Thread.__init__ (self)
+		
+		self.mySocket = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
+		
+	def run (self):
 
-mySocket.listen(5)
-# Fin Création SOCKET
+		# Création de la SOCKET
+		self.mySocket.bind ((HOST, PORT))
+
+		self.mySocket.listen (5)
+		# Fin Création SOCKET
 
 
-while True: # Accepteur
-	connexion, adresse = mySocket.accept ()
-	th = ThreadClient (connexion)
-	th.start ()
-	
-	clients[th.getName ()] = connexion
+		while True: # Accepteur
+			connexion, adresse = self.mySocket.accept ()
+			th = ThreadClient (connexion)
+			th.start ()
+			
+			clients[th.getName ()] = connexion
+
+if __name__ == '__main__':
+	serveur = ThreadServeur ()
+	serveur.start ()
+
