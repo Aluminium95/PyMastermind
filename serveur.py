@@ -7,21 +7,37 @@
 # distant !
 #
 # Protocole :
-#	(>)(.*) : afficher du texte sur la console
-#   (<)(.*) : pose une question (attends une réponse)
-#   (h)     : retourne une liste de commandes disponibles
+#   Entrées :
+# 	  (t)(.*) : chatter (envoyer du texte)
+#     (>)(.*) : envoie une réponse au seveur
+# 	  (<)(.*) : pose une question au serveur
+#     (h)     : demande l'aide
+#   Sorties :
+#	  (>)(.*) : afficher du texte sur la console du client
+#     (t)(.*) : envoyer un message (chat) au client
+#	  (<)(.*) : pose une question (attends une réponse)
 
 HOST = 'localhost' # fonctionne ?
 PORT = 3500 
 
 import socket, sys, threading
 
+class ClientProtocol:
+	def __init__ (self):
+		pass
+	def parse (self,msg):
+		pass
+	def send (self,t,msg):
+		pass
+
 clients = {} # Tableau des clients
 
 # Thread qui gère un client
-class ThreadClient (threading.Thread):
+class ThreadClient (threading.Thread,ClientProtocol):
 	def __init__ (self, conn):
 		threading.Thread.__init__ (self)
+		ClientProtocol.__init__ (self)
+
 		self.connection = conn # Enregistre la connection client
 
 	def run (self):
@@ -29,7 +45,10 @@ class ThreadClient (threading.Thread):
 			m = self.connection.recv (1024)
 			print (m.decode ("utf-8"))
 			self.connection.send ("Message reçu !".encode ("utf-8"))
-		
+			
+			for i,j in clients.items ():
+				j.send (m)
+
 		self.connection.close ()
 
 # Création de la SOCKET
