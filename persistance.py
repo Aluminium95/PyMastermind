@@ -259,7 +259,7 @@ def add_propriete (chemin,nom,val):
 	
 	
 	try:
-		f = persistant[fichier]
+		f = persistant [chemin]
 	except:
 		raise FichierInvalide
 	else:
@@ -290,7 +290,7 @@ def set_propriete (chemin,nom,val):
 	
 	
 	try:
-		f = persistant [fichier]
+		f = persistant [chemin]
 	except:
 		raise FichierInvalide
 	else:
