@@ -444,9 +444,6 @@ def proposition_solution (proposition, code_s):
 
 	reste_proposition = utils.bi_map (supresseur, proposition, eq)
 	
-	s = "Code {}\nProp {}\nPremière Passe {}\nReste {}".format (code,proposition,eq,reste_proposition)
-	print (s)
-
 	# Ce code aussi peut devenir plus fonctionnel !
 	b = 0
 	for i in reste_proposition:
