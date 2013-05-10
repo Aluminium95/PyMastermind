@@ -27,8 +27,8 @@ class ThreadClient (threading.Thread):
 	def run (self):
 		while True:
 			m = self.connection.recv (1024)
-			print (m)
-			self.connection.send ("Message reçu !")
+			print (m.decode ("utf-8"))
+			self.connection.send ("Message reçu !".encode ("utf-8"))
 		
 		self.connection.close ()
 
