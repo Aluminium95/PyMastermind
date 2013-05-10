@@ -56,19 +56,22 @@ def choix_theme (nbr_theme = 1):
 	
 	persistance.set_propriete ("backgrounds","theme:courant",str (nbr_theme))
 
+def get_theme_opts (t,*args):
+	l = []
+	for j in args:
+		try:
+			s = "theme:{0}:{1}".format (t,j)
+			l.append (persistance.get_propriete ("backgrounds",s))
+		except:
+			pass # RàF
+	return l
+
 def parcourir_themes_opts (*args):
 	""" Crée la liste des thèmes avec 
 		des options intéressantes 
 	"""
 	for i in range (0,maximum () + 1):
-		l = []
-		for j in args:
-			try:
-				s = "theme:{0}:{1}".format (i,j)
-				l.append (persistance.get_propriete ("backgrounds",s))
-			except:
-				pass # RàF
-		yield l
+		yield get_theme_opts (i,*args) # *args -> ré-expand 
 		
 def liste_themes_opts (*args):
 	return list (parcourir_themes_opts (*args))
