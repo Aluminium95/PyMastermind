@@ -58,18 +58,7 @@ def liste_variables (fichier):
 		@throw : FichierInvalide
 	"""
 	
-	if not isinstance (fichier, str):
-		raise FichierInvalide
-	
-	try:
-		f = persistant [fichier]
-	except:
-		raise FichierInvalide
-	else:
-		l = []
-		for i in f:
-			l.append (i)
-		return l
+	return list (parcourir_cles (fichier))
 
 def parcourir_cles (fichier):
 	""" Retourne un générateur qui 

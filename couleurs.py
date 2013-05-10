@@ -184,11 +184,12 @@ def init ():
 		@return : None
 	"""
 	global couleurs, abreviations
+
 	# Génère la liste des couleurs ... 
 	lcouleurs = [] # Liste des couleurs
 	labrvs = [] # Liste des abrvéviations
-	n = persistance.liste_variables ("couleurs")
-	for i in n:
+	# n = persistance.liste_variables ("couleurs")
+	for i in persistance.parcourir_cles ("couleurs"):
 		# On ne prend que les couleurs,
 		# et après on convertit en abréviation
 		# De cette manière on a un ordre UNIQUE
@@ -201,8 +202,10 @@ def init ():
 	couleurs = lcouleurs # Sauvegarde les couleurs string
 	# Parce que string_to_abrv utilise is_string ... or il lui faut la liste des couleurs !
 	
-	for i in couleurs:
-		labrvs.append (string_to_abrv (i))
+	labrvs = list (map (string_to_abrv,couleurs))
+
+	#for i in couleurs:
+	#	labrvs.append (string_to_abrv (i))
 		
 	abreviations = labrvs
 
