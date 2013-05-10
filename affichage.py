@@ -25,7 +25,7 @@ def init (theme = ""):
 	setup (width=600,height=600,startx=400,starty=300)
 	sc = getscreen ()
 	sc.title ("PyMastermind")
-	plateau ()
+	# plateau () # Ce n'est pas à lui de le faire
 
 def generateur_reponse (answer):
 	""" Retourne un générateur
