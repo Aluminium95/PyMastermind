@@ -63,11 +63,14 @@ def choix_theme (nbr_theme = 1):
 def get_theme_opts (t,*args):
 	l = []
 	for j in args:
-		try:
-			s = "theme:{0}:{1}".format (t,j)
-			l.append (persistance.get_propriete ("backgrounds",s))
-		except:
-			pass # RàF
+		if j == "@self":
+			l.append (t)
+		else:
+			try:
+				s = "theme:{0}:{1}".format (t,j)
+				l.append (persistance.get_propriete ("backgrounds",s))
+			except:
+				pass # RàF
 	return l
 
 def parcourir_themes_opts (*args):
