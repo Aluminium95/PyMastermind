@@ -379,8 +379,10 @@ def verification_solution (proposition):
 		if i not in univers:
 			raise TableauInvalide ("La couleur {0} n'est pas bonne".format (i))
 
-	a,b = proposition_solution (proposition,code_secret)
+	reponse = proposition_solution (proposition,code_secret)
 	
+	a,b = reponse
+
 	historique.append([ list (proposition) , reponse])
 	
 	restant -= 1
