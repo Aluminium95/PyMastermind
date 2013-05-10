@@ -9,6 +9,7 @@
 # Nos modules à nous 
 import persistance
 import couleurs
+import themes
 import primitives 
 
 # Python standard
@@ -80,6 +81,7 @@ def animation (t,mode = "cercle",taille = 40):
 		else: # mode == "ligne"
 			primitives.colonnes (1,taille + 10, taille + 10,generer_couleurs (current_color,4,taille))
 
+# TODO: bouger cette fonction ailleurs 
 def try_load_int (fichier,variable):
 	""" Tente de charger un nombre dans un fichier 
 		de configuration ...
@@ -118,8 +120,9 @@ def run (t,mode = "cercle"):
 	primitives.speed (0)
 	
 	# Affiche le fond d'écran approprié
-	th = persistance.get_propriete ("backgrounds", "theme:courant")
-
+	th = themes.actuel () # le thème actuel 
+	
+	# TODO: gérer ça autrement ...
 	primitives.bgpic ("Images/Theme{0}/chargement.gif".format (th))
 	
 	# Affiche une astuce
@@ -134,10 +137,10 @@ def run (t,mode = "cercle"):
 	# vers l'appelant, en ajoutant la gestion du fait 
 	# que la variable peut être invalide, c'est à dire 
 	# qu'elle n'est pas convertible en int 
-	xa = try_load_int ("backgrounds","theme:" + th + ":x:astuce")
-	ya = try_load_int ("backgrounds","theme:" + th + ":y:astuce")
-	xc = try_load_int ("backgrounds","theme:" + th + ":x:chargement")
-	yc = try_load_int ("backgrounds","theme:" + th + ":y:chargement")
+	r = themes.get_theme_opts (th, "x:astuce", "y:astuce", "x:chargement", "y:chargement")
+	
+	r = list (map (int, r))
+	xa,ya,xc,yc = r
 
 	primitives.aller_a (xa,ya)
 	primitives.color ("red")
