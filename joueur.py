@@ -11,6 +11,7 @@ import iconsole
 import joueur
 import ia
 import couleurs
+import themes
 import regles
 
 import primitives 
@@ -429,7 +430,7 @@ def theme (rep):
 	
 	if rep == "list":
 		def gen_liste_theme ():
-			for i in affichage.liste_themes ():
+			for i in themes.liste_themes ():
 				desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
 				yield (i,desc)
 
@@ -443,9 +444,10 @@ def theme (rep):
 		# grave ...
 		afficher ("Le theme actuel est le numero {0}".format (persistance.get_propriete ("backgrounds","theme:actuel")))
 	else:
+		# TODO: changer cet enchainement de fonctions 
 		try:
 			
-			affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
+			themes.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
 			afficher ("Selection theme : " + rep)
 			primitives.raz ()
 			path = "Images/Theme" + rep + "/fond.gif"
