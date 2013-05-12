@@ -96,7 +96,7 @@ def parcourir_matrice (matrice):
 		for j in range (0, matrice["cols"]):
 			yield matrice[(i,j)]
 
-def parcourir_colonne (matrice,m):
+def parcourir_colonne (matrice,col):
 	""" Générateur qui parcour une colonne de la matrice
 		
 		@m : int = la colonne
@@ -104,9 +104,9 @@ def parcourir_colonne (matrice,m):
 		@return : generator
 	"""
 	for i in range (0,matrice["lignes"]):
-		yield matrice[(i,m)]
+		yield matrice[(i,col)]
 
-def parcourir_ligne (matrice,n):
+def parcourir_ligne (matrice,ligne):
 	""" Générateur qui parcour une ligne de la matrice
 		
 		@n : int = la ligne
@@ -114,7 +114,7 @@ def parcourir_ligne (matrice,n):
 		@return : generator
 	"""
 	for j in range (0,matrice["cols"]):
-		yield matrice[(n,j)]
+		yield matrice[(ligne,j)]
 
 def parcourir_lignes (matrice):
 	""" Générateur qui parcour les lignes une à une 
