@@ -23,10 +23,20 @@ PORT = 3500
 import socket, sys, threading
 
 class ClientProtocol:
-	def __init__ (self):
-		pass
+	messages = [] # Liste des messages
+	users = {} # Users ...
+	def __init__ (self,identifiant):
+		
+		self.identifiant = identifiant
+
 	def parse (self,msg):
 		pass
+	
+	def broadcast (self,msg):
+		for i,j in ClientProtocol.users:
+			if i != self.identifiant:
+				j.send (msg)
+
 	def send (self,t,msg):
 		pass
 
@@ -36,18 +46,22 @@ clients = {} # Tableau des clients
 class ThreadClient (threading.Thread,ClientProtocol):
 	def __init__ (self, conn):
 		threading.Thread.__init__ (self)
-		ClientProtocol.__init__ (self)
+
+		ClientProtocol.__init__ (self, self.getName ())
 
 		self.connection = conn # Enregistre la connection client
+		
+		ClientProtocol.users[self.getName ()] = conn
 
 	def run (self):
 		while True:
 			m = self.connection.recv (1024)
-			print (m.decode ("utf-8"))
-			self.connection.send ("Message reçu !".encode ("utf-8"))
+			m = m.decode ("utf-8")
+			# self.connection.send ("Message reçu !".encode ("utf-8"))
 			
-			for i,j in clients.items ():
-				j.send (m)
+			self.broadcast (m)
+			
+			self.connection.send ("Message envoyé !\n".encode ("utf-8"))
 
 		self.connection.close ()
 
