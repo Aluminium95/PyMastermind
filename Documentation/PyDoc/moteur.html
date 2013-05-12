@@ -26,7 +26,8 @@
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="affichage.html">affichage</a><br>
 </td><td width="25%" valign=top><a href="couleurs.html">couleurs</a><br>
 </td><td width="25%" valign=top><a href="persistance.html">persistance</a><br>
-</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+</td><td width="25%" valign=top><a href="utils.html">utils</a><br>
+</td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ee77aa">
 <td colspan=3 valign=bottom>&nbsp;<br>
@@ -224,10 +225,7 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-calcul_score"><strong>calcul_score</strong></a>()</dt><dd><tt>Calcul&nbsp;le&nbsp;score&nbsp;actuel&nbsp;a&nbsp;partir&nbsp;du&nbsp;nombre&nbsp;de&nbsp;coups&nbsp;et&nbsp;de&nbsp;la&nbsp;difficulté<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;int&nbsp;=&nbsp;le&nbsp;score&nbsp;calculé</tt></dd></dl>
- <dl><dt><a name="-definir_code"><strong>definir_code</strong></a>(tableau)</dt><dd><tt>Définit&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver&nbsp;pour&nbsp;la&nbsp;partie&nbsp;!<br>
+<td width="100%"><dl><dt><a name="-definir_code"><strong>definir_code</strong></a>(tableau)</dt><dd><tt>Définit&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver&nbsp;pour&nbsp;la&nbsp;partie&nbsp;!<br>
 &nbsp;<br>
 @tableau&nbsp;:&nbsp;[couleurs&nbsp;(français)&nbsp;...]&nbsp;=&nbsp;le&nbsp;code&nbsp;à&nbsp;trouver<br>
 &nbsp;<br>
@@ -240,14 +238,6 @@ Data descriptors inherited from <a href="exceptions.html#BaseException">exceptio
 @test&nbsp;:&nbsp;[?&nbsp;...]&nbsp;=&nbsp;la&nbsp;liste&nbsp;à&nbsp;tester<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;bool</tt></dd></dl>
- <dl><dt><a name="-enregistre_score"><strong>enregistre_score</strong></a>(nom_du_joueur<font color="#909090">='AAA'</font>)</dt><dd><tt>Enregistre&nbsp;le&nbsp;score&nbsp;actuel&nbsp;dans&nbsp;le&nbsp;top&nbsp;5&nbsp;des&nbsp;scores&nbsp;s'il&nbsp;est&nbsp;superieur&nbsp;a&nbsp;un&nbsp;de&nbsp;ces&nbsp;derniers<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;None<br>
-&nbsp;<br>
-@throw&nbsp;:&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#PasEnCoursDePartie">PasEnCoursDePartie</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide</tt></dd></dl>
  <dl><dt><a name="-est_en_partie"><strong>est_en_partie</strong></a>()</dt><dd><tt>Dit&nbsp;si&nbsp;on&nbsp;est&nbsp;en&nbsp;cours&nbsp;de&nbsp;partie&nbsp;ou&nbsp;non&nbsp;<br>
 &nbsp;<br>
 @return&nbsp;:&nbsp;bool</tt></dd></dl>
@@ -314,7 +304,7 @@ de&nbsp;bien&nbsp;savoir&nbsp;ce&nbsp;qui&nbsp;se&nbsp;passe&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide&nbsp;#&nbsp;pour&nbsp;le&nbsp;nombre&nbsp;de&nbsp;coups<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide&nbsp;#&nbsp;«&nbsp;config&nbsp;»<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.ValeurInvalide&nbsp;(fichier,clé)&nbsp;#&nbsp;nombre&nbsp;de&nbsp;coups</tt></dd></dl>
- <dl><dt><a name="-proposition_solution"><strong>proposition_solution</strong></a>(proposition, code)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
+ <dl><dt><a name="-proposition_solution"><strong>proposition_solution</strong></a>(proposition, code_s)</dt><dd><tt>Fonction&nbsp;qui&nbsp;effectue&nbsp;un&nbsp;coup&nbsp;du&nbsp;joueur&nbsp;!<br>
 comme&nbsp;la&nbsp;fontion&nbsp;proposer_solution,&nbsp;sans&nbsp;s'occuper&nbsp;des&nbsp;autres&nbsp;paramètres,&nbsp;tel&nbsp;que&nbsp;le&nbsp;score,<br>
 les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br>
 &nbsp;<br>
@@ -324,21 +314,6 @@ les&nbsp;coups&nbsp;restant&nbsp;...&nbsp;ne&nbsp;renvoie&nbsp;que&nbsp;(a,b)<br
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;(a,b)&nbsp;:&nbsp;a&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;bien&nbsp;placées,&nbsp;b&nbsp;couleurs&nbsp;justes&nbsp;et&nbsp;mal&nbsp;placées&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 @throw&nbsp;:&nbsp;<a href="#TableauInvalide">TableauInvalide</a></tt></dd></dl>
- <dl><dt><a name="-recup_nom"><strong>recup_nom</strong></a>()</dt><dd><tt>Récupère&nbsp;les&nbsp;noms&nbsp;des&nbsp;joueurs&nbsp;des&nbsp;5&nbsp;meilleurs&nbsp;scores&nbsp;<br>
-dans&nbsp;le&nbsp;fichier&nbsp;de&nbsp;scores<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;[str&nbsp;...&nbsp;]&nbsp;=&nbsp;les&nbsp;5&nbsp;meilleurs&nbsp;noms<br>
-&nbsp;<br>
-@throw&nbsp;:&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide</tt></dd></dl>
- <dl><dt><a name="-recup_score"><strong>recup_score</strong></a>()</dt><dd><tt>Recupere&nbsp;la&nbsp;liste&nbsp;des&nbsp;5&nbsp;meilleurs&nbsp;scores<br>
-&nbsp;<br>
-@return&nbsp;:&nbsp;[&nbsp;int&nbsp;...&nbsp;]&nbsp;=&nbsp;les&nbsp;5&nbsp;meilleurs&nbsp;scores&nbsp;<br>
-&nbsp;<br>
-@throw&nbsp;:&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.CleInvalide<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;persistance.FichierInvalide</tt></dd></dl>
  <dl><dt><a name="-reprendre_partie"><strong>reprendre_partie</strong></a>()</dt><dd><tt>Réaffiche&nbsp;le&nbsp;plateau&nbsp;et&nbsp;les&nbsp;coups&nbsp;joués&nbsp;précédement&nbsp;dans&nbsp;<br>
 la&nbsp;partie&nbsp;sur&nbsp;l'écran&nbsp;Turtle&nbsp;<br>
 &nbsp;<br>

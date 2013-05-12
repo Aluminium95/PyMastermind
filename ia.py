@@ -109,7 +109,7 @@ def choisir_code (mode="aleatoire"):
 		# le code secret proposé est valide 
 		# par rapport à la difficulté 
 		condition = True
-		univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs()]
+		univers = couleurs.liste_couleurs (moteur.get_nombre_couleurs())
 
 		while condition:
 			p = generer_couleurs_aleatoires (univers)
@@ -127,7 +127,7 @@ def choisir_code (mode="aleatoire"):
 		raise ModeInvalide
 
 def ia_knuth ():
-	univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
+	univers = couleurs.liste_couleurs (moteur.get_nombre_couleurs ())
 
 	li = create_list (univers) # Crée la liste de toutes les possibilités 
 	
@@ -183,7 +183,7 @@ def ia_matrice ():
 	"""
 	# Il est pratique d'avoir l'univers sous la main 
 	# (l'ensemble des couleurs disponibles dans l'ordre)
-	univers = couleurs.liste_couleurs ()[0:moteur.get_nombre_couleurs ()]
+	univers = couleurs.liste_couleurs (moteur.get_nombre_couleurs ())
 	
 	# On crée la matrice pondérée des coefs case/couleur (affichée en sortie !)
 	m = matrice.make (4, len (univers), lambda x,y: 0) # une matrice couleur/case

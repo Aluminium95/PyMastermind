@@ -6,11 +6,14 @@
 import persistance
 import affichage
 import moteur
+import scores
 import iconsole
 import joueur
 import ia
 import couleurs
+import themes
 import regles
+import utils
 
 from primitives import *
 import chargement
@@ -113,7 +116,7 @@ def callback (x,y):
 	if btn != None:
 		print (btn) # Affiche la commande
 		send (btn) # Lol
-		print ("\n# [{0}] ? Commande : ".format (get_etat ()),end ="")
+		print ("\n# [{0}] ? Commande : ".format (get_etat ()),end = $"")
 	
 def init ():
 	""" Constructeur 
@@ -161,11 +164,7 @@ def afficher_boutons_selection ():
 		if get_etat () == "Niveau":
 			li = moteur.get_liste_modes ()
 		elif get_etat () == "Theme":
-			def gen_liste_theme ():
-				for i in affichage.liste_themes ():
-					desc = persistance.get_propriete ("backgrounds","theme:" + i + ":description")
-					yield (i,desc)
-			li = list (gen_liste_theme())
+			li = list (themes.liste_themes_opts ("@self","description"))
 		else:
 			li = []
 
@@ -179,7 +178,7 @@ def afficher_boutons_selection ():
 			end_fill ()
 			
 			if get_etat () == "Theme":
-				ajouter_bouton (i[0],150,20,position ())
+				ajouter_bouton (str (i[0]),150,20,position ())
 			else:
 				ajouter_bouton (i,150,20,position ())
 
@@ -383,8 +382,8 @@ def afficher_couleurs ():
 		nombre_couleurs = moteur.get_nombre_couleurs_next ()
 	
 	def generateur_liste_couleurs (nbr):
-		abvrs = couleurs.liste_abreviations ()
-		for i in abvrs[0:nbr]:
+		abvrs = couleurs.liste_abreviations (nbr)
+		for i in abvrs:
 			a = "({0}) {1}".format (i, couleurs.abrv_to_string (i))
 			yield a
 		
@@ -412,6 +411,11 @@ def send (rep):
 		
 		set_etat_ecran (etat, "scores", 1)
 		
+		s,n = scores.recup_score (),scores.recup_nom ()
+
+		liste = utils.bi_map (lambda a,b: (a,b), s, n)
+		afficher_liste ("Scores",liste)
+
 	elif rep == "fortune":
 		try:
 			maximum = persistance.get_propriete ("phrases", "max")
@@ -475,7 +479,7 @@ def humain_joue (rep):
 		set_etat_ecran ("Menu",ecran)
 	elif rep == "score":
 		try:
-			afficher (moteur.calcul_score ())
+			afficher (scores.calcul_score ())
 		except moteur.PasEnCoursDePartie:
 			raise ErreurFatale
 	elif rep == "plateau":
@@ -527,7 +531,7 @@ def humain_joue (rep):
 				nom = demander ("Nom du joueur")
 				
 				try:
-					moteur.enregistre_score (nom)
+					scores.enregistre_score (nom)
 				except moteur.PasEnCoursDePartie:
 					raise ErreurFatale
 				
@@ -578,12 +582,7 @@ def theme (rep):
 		raise LeProgrammeurEstCon
 	
 	if rep == "list":
-		def gen_liste_theme ():
-			for i in affichage.liste_themes ():
-				desc = persistance.get_propriete ("backgrounds", "theme:" + i + ":description")
-				yield (i,desc)
-
-		afficher_liste ("Themes",gen_liste_theme ())
+		afficher_liste ("Themes",themes.parcourir_themes_opts ("@self", "description"))
 	elif rep == "valider":
 		afficher ("Theme modifié ... ")
 		set_etat_ecran ("Menu",ecran)
@@ -591,16 +590,17 @@ def theme (rep):
 		# Ce code peut planter ... mais on ne récupère pas l'exception
 		# si cela plante ... il faut que ça remonte, l'erreur est trop 
 		# grave ...
-		afficher ("Le theme actuel est le numero {0}".format (persistance.get_propriete ("backgrounds","theme:actuel")))
+		afficher ("Le theme actuel est le numero {0}".format (themes.actuel))
 	else:
+		# TODO: changer cet enchainement de fonctions 
 		try:
 			
-			affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
+			themes.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
 			afficher ("Selection theme : " + rep)
-			raz ()
+			# raz ()
 			path = "Images/Theme" + rep + "/fond.gif"
 			bgpic (path)
-			set_etat_ecran (etat,"fond")
+			# set_etat_ecran (etat,"fond")
 		except ValueError:
 			afficher ("Il faut entrer le numéro du thème ...")
 		except persistance.CleInvalide:
@@ -706,12 +706,14 @@ def menu (rep):
 	if rep == "ia-code":
 		moteur.nouvelle_partie ()
 		afficher ( "L'IA va choisir un code, on commence une nouvelle partie")
+		set_ecran ("plateau", 5)
 		ia.choisir_code ()
 		afficher ( "L'IA a déterminé un code")
 		set_etat_ecran (etat,"plateau", 5)
 	elif rep == "humain-code":
 		set_etat_ecran ("Definir-Code","plateau")
 		afficher_couleurs ()
+	
 	elif rep == "theme":
 		set_etat_ecran ("Theme",ecran)
 	elif rep == "niveau":
@@ -759,7 +761,7 @@ def menu_partie (rep):
 				primitives.aller_a (200,-200)
 				chargement.animation (3,"cercle",20)
 			
-			moteur.enregistre_score (ia_mode)
+			scores.enregistre_score (ia_mode)
 			
 			set_etat_ecran (etat,ecran)
 	else:

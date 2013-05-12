@@ -11,6 +11,8 @@ import persistance
 import couleurs
 import affichage
 
+import utils
+
 # EXCEPTIONS 
 
 class TableauInvalide (Exception):
@@ -185,95 +187,6 @@ def set_mode (m):
 		persistance.set_propriete ("config","niveau",m)
 	else:
 		raise ModeInvalide
-		
-def calcul_score ():
-	""" Calcul le score actuel a partir du nombre de coups et de la difficulté
-		
-		@return : int = le score calculé 
-	"""
-	global restant
-	
-	if est_en_partie () != True:
-		raise PasEnCoursDePartie
-	
-	coups = restant # Le nombre de coup qu'il reste à jouer ... donc plus il y en a mieux c'est !
-	mode = get_mode()
-	if mode == "facile":
-		score = 10 * (coups - 1) / 2
-	elif mode == "moyen":
-		score = 10 * (coups - 1) / 1.5
-	else:
-		score = 10 * (coups - 1)
-	
-	return int (score) # On retourne un entier
-
-def recup_score():
-	""" Recupere la liste des 5 meilleurs scores
-		
-		@return : [ int ... ] = les 5 meilleurs scores 
-		
-		@throw : 
-			persistance.CleInvalide
-			persistance.FichierInvalide
-	"""
-      
-	score = []
-	i = 0
-	while i < 5:
-		score.append (persistance.get_propriete ("scores",str(i)+":score"))
-		i = i+1
-	return score
-
-def recup_nom (): #recupere les noms des joueurs des 5 meilleurs scores
-	""" Récupère les noms des joueurs des 5 meilleurs scores 
-		dans le fichier de scores
-		
-		@return : [str ... ] = les 5 meilleurs noms
-		
-		@throw : 
-			persistance.CleInvalide
-			persistance.FichierInvalide
-	"""
-	nom = []
-	i = 0
-	while i < 5:
-		nom.append(persistance.get_propriete ("scores",str(i)+":nom"))
-		i = i+1
-	return nom
-
-def enregistre_score (nom_du_joueur = "AAA"):
-	""" Enregistre le score actuel dans le top 5 des scores s'il est superieur a un de ces derniers
-		
-		@return : None
-		
-		@throw : 
-			PasEnCoursDePartie
-			persistance.CleInvalide
-			persistance.FichierInvalide
-	"""
-	score_actuel = calcul_score () # Throw PasEnCoursDePartie si besoin ... 
-
-	top_score = recup_score ()
-	nom = recup_nom()
-
-	i = 0
-	while i < 5:
-		try:
-			sc = int (top_score[i])
-		except ValueError:
-			raise persistance.ValeurInvalide ("scores",str (i) + ":score")
-		else:
-			if score_actuel > int(top_score[i]):
-				top_score.insert(i, str (score_actuel))
-				nom.insert(i, nom_du_joueur)
-				break
-			i = i + 1
-
-	i = 0
-	while i < 5:
-		persistance.set_propriete ("scores",str(i)+":score",top_score[i])
-		persistance.set_propriete ("scores",str(i)+":nom",nom[i])
-		i = i + 1
 
 def get_historique():
 	""" Retourne une copie de l'historique 
@@ -362,6 +275,7 @@ def verification_solution (proposition):
 		@throw : TableauInvalide (msg)
 				PasEnCoursDePartie
 	"""
+	global restant
 	
 	if est_en_partie () != True:
 		raise PasEnCoursDePartie
@@ -369,10 +283,6 @@ def verification_solution (proposition):
 	if len (proposition) != 4:
 		raise TableauInvalide ("Pas le bon nombre de couleurs")
 	
-	i = 0
-	reponse = proposition_solution(proposition, code_secret)
-	
-	global restant
 	
 
 	univers = couleurs.liste_couleurs()[0:get_nombre_couleurs ()]
@@ -380,12 +290,15 @@ def verification_solution (proposition):
 		if i not in univers:
 			raise TableauInvalide ("La couleur {0} n'est pas bonne".format (i))
 
-	a,b = proposition_solution (proposition,code_secret)
+	reponse = proposition_solution (proposition,code_secret)
 	
+	a,b = reponse
+
 	historique.append([ list (proposition) , reponse])
 	
 	restant -= 1
 	l = []
+
 	for i in proposition: # alala, c'est trop con sinon 
 		l.append (couleurs.string_to_hexa (i))
 	
@@ -393,7 +306,7 @@ def verification_solution (proposition):
 	affichage.afficher_couleurs (4,l,reponse)
 	
 	if a == 4: #si proposition est identique à solution
-		score = calcul_score()
+		score = scores.calcul_score()
 		affichage.win (score)
 		
 		en_cours_de_partie = False
@@ -406,7 +319,7 @@ def verification_solution (proposition):
 	else:
 		return reponse #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
-def proposition_solution (proposition, code): 
+def proposition_solution (proposition, code_s): 
 	""" Fonction qui effectue un coup du joueur !
 		comme la fontion proposer_solution, sans s'occuper des autres paramètres, tel que le score,
 		les coups restant ... ne renvoie que (a,b)
@@ -419,35 +332,38 @@ def proposition_solution (proposition, code):
 		@throw : TableauInvalide
 	"""
 	
+	code = list (code_s)
+
 	if len (proposition) != len (code):
 		raise TableauInvalide ("Tailles différentes")
-
-	a = 0 # Le nombre de couleurs bonnes et à la bonne place
-	b = 0 # Le nombre de couleurs bonnes et à la mauvaise place
-	i = 0 # Un itérateur simple 
 	
-	proposition_copie = list (proposition) # Création d'une nouvelle liste par copie
+	def incrementeur (a,b):
+		if b == True:
+			return a + 1
+		else:
+			return a
 	
-	solution = list (code) # Création d'une copie de la liste :-) 
+	def supresseur (a,b):
+		if b == True:
+			return "*"
+		else:
+			return a
+	
 
-	while i < len (code): # cherche les bonnes couleurs bien placées.
-		if solution[i] == proposition_copie[i]:
-			a = a+1
-			solution[i] = "*"
-			proposition_copie[i] = "*"
-		i = i+1
-		
-	i = 0
+	eq = utils.bi_map (utils.egal, proposition, code)
+	a  = utils.foldl (incrementeur, 0, eq)
 
-	while i < len (code):
-		j = 0
-		while j < len (solution): #cherche les bonnes couleurs mal placées
-			if solution[j] != "*" and solution[j] == proposition_copie[i]:
-				b = b+1
-				solution[j] = "*"
-				proposition_copie[i] = "*"
-				break
-			j = j + 1
-		i = i+1
+	reste_proposition = utils.bi_map (supresseur, proposition, eq)
+	
+	# Ce code aussi peut devenir plus fonctionnel !
+	b = 0
+	for i in reste_proposition:
+		k = 0
+		while k < len (code):
+			if i != "*" and code[k] != "*" and i == code[k]:
+				b += 1
+				code[k] = "*"
+			k += 1
+
 	return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 

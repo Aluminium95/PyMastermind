@@ -109,13 +109,15 @@ def generateur_couleurs (tableau):
 		yield 
 
 def couleurs_possibles (): #répertorie les couleurs possibles selon les niveau
-	li = couleurs.liste_couleurs ()
-	
+	n = 0
+
 	try:
-		li = li[0:moteur.get_nombre_couleurs ()]
+		n = moteur.get_nombre_couleurs ()
 	except:
-		li = li[0:moteur.get_nombre_couleurs_next ()]
+		n = moteur.get_nombre_couleurs_next ()
 	
+	li = couleurs.liste_couleurs (n)
+
 	g = generateur_couleurs (li)
 
 	colonnes (4,25,120,g)

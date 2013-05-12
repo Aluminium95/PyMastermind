@@ -6,6 +6,13 @@
 # Juste des tableaux à deux dimensions
 # que l'on peut parcourir
 
+# DEB EXCEPTIONS
+
+class DimensionsInvalides (Exception):
+	pass
+
+# FIN EXCEPTIONS
+
 def make (n,m,func):
 	""" Crée une matrice (n,m)
 		remplie avec la fonction func
@@ -17,8 +24,8 @@ def make (n,m,func):
 		@return : matrice
 	"""
 	matrice = {}
-	matrice["n"] = n # Le nombre de lignes
-	matrice["m"] = m # le nombre de colonnes
+	matrice["lignes"] = n # Le nombre de lignes
+	matrice["cols"] = m # le nombre de colonnes
 	for i in range (0,n):
 		for j in range (0,m):
 			matrice[(i,j)] = func (i,j)
@@ -31,17 +38,62 @@ def apply (matrice, func):
 		
 		@return : None
 	"""
-	for i in range (0, matrice["n"]):
-		for j in range (0, matrice ["m"]):
+	for i in range (0, matrice["lignes"]):
+		for j in range (0, matrice ["cols"]):
 			matrice[(i,j)] = func (i,j,matrice[(i,j)])
+
+def add (f,m1,m2):
+	""" Fait la somme de deux matrices 
+		
+		@f  : fonction = fonction qui fait la somme
+		@m1 : matrice = matrice une
+		@m2 : matrice = matrice deux
+
+		@return : matrice = la somme 
+		
+		@throw : DimensionsInvalides
+	"""
+	if m1["lignes"] != m2["lignes"] or m1["cols"] != m2["cols"]:
+		raise DimensionsInvalides
+	
+	def remplissage (i,j):
+		return f (get (m1,i,j) ,get (m2,i,j))
+
+	return make (m1["lignes"],m1["cols"],remplissage) # Crée une nouvelle matrice 
+
+def mul (f1,f2,m1,m2):
+	""" Fait la multiplication de deux matrices
+		
+		@f1 : fonciton = fonction qui multiplie
+		@f2 : fonction = fonction qui fait la somme 
+		@m1 : matrice  = matrice une
+		@m2 : matrice = matrice deux
+
+		@return : matrice = la matrice produit
+
+		@throw : DimensionsInvalides
+	"""
+	
+	if m1["cols"] != m2["lignes"]:
+		raise DimensionsInvalides
+
+	def remplissage (i,j):
+		ligne = list (parcourir_ligne (m1,i))
+		col   = list (parcourir_colonne (m2,j))
+		
+		r = utils.bi_map (f1,ligne,col) # On fait la multiplication deux a deux
+
+		return utils.foldl (f2,r[0],r[1:]) # On fait la somme 
+	
+	return make (m1["lignes"],m2["cols"], remplissage)
 
 def parcourir_matrice (matrice):
 	""" Générateur qui parcours la matrice
 	
 		@return : generator
 	"""
-	for i in range (0,matrice["n"]):
-		for j in range (0, matrice["m"]):
+	for i in range (0,matrice["lignes"]):
+		for j in range (0, matrice["cols"]):
 			yield matrice[(i,j)]
 
 def parcourir_colonne (matrice,m):
@@ -51,7 +103,7 @@ def parcourir_colonne (matrice,m):
 		
 		@return : generator
 	"""
-	for i in range (0,matrice["n"]):
+	for i in range (0,matrice["lignes"]):
 		yield matrice[(i,m)]
 
 def parcourir_ligne (matrice,n):
@@ -61,7 +113,7 @@ def parcourir_ligne (matrice,n):
 		
 		@return : generator
 	"""
-	for j in range (0,matrice["m"]):
+	for j in range (0,matrice["cols"]):
 		yield matrice[(n,j)]
 
 def parcourir_lignes (matrice):
@@ -70,9 +122,9 @@ def parcourir_lignes (matrice):
 		
 		@return : generator
 	"""
-	for i in range (0,matrice["n"]):
+	for i in range (0,matrice["lignes"]):
 		l = []
-		for j in range (0,matrice["m"]):
+		for j in range (0,matrice["cols"]):
 			l.append (matrice[(i,j)])
 		yield l
 
@@ -82,9 +134,9 @@ def parcourir_colonnes (matrice):
 		
 		@return : generator
 	"""
-	for j in range (0, matrice["m"]):
+	for j in range (0, matrice["cols"]):
 		l = []
-		for i in range (0,matrice["n"]):
+		for i in range (0,matrice["lignes"]):
 			l.append (matrice[(i,j)])
 		yield l
 	

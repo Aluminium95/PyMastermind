@@ -117,20 +117,26 @@ def hexa_to_string (hexa):
 		raise CouleurInvalide
 
 
-def liste_couleurs ():
+def liste_couleurs (n = False):
 	""" Retourne la liste des couleurs (en string)
-		
+			
+		@n : int = le nombre de couleurs à prendre [opts]
+
 		@return : [string ...]
 	"""
-	return list (couleurs) # retourne une COPIE de la liste de couleurs
-
-def liste_abreviations ():
+	if n == False:
+		return list (couleurs) # retourne une COPIE de la liste de couleurs
+	else:
+		return list (couleurs[0:n])
+def liste_abreviations (n = False):
 	""" Retourne la liste des abréviations
 		
 		@return : [abrv ...]
 	"""
-	return list (abreviations)
-	
+	if n == False:
+		return list (abreviations)
+	else:
+		return list (abreviations[0:n])
 def is_hexa (couleur):
 	""" Dit si la couleur est sous forme hexadécimale
 		
@@ -178,11 +184,12 @@ def init ():
 		@return : None
 	"""
 	global couleurs, abreviations
+
 	# Génère la liste des couleurs ... 
 	lcouleurs = [] # Liste des couleurs
 	labrvs = [] # Liste des abrvéviations
-	n = persistance.liste_variables ("couleurs")
-	for i in n:
+	# n = persistance.liste_variables ("couleurs")
+	for i in persistance.parcourir_cles ("couleurs"):
 		# On ne prend que les couleurs,
 		# et après on convertit en abréviation
 		# De cette manière on a un ordre UNIQUE
@@ -195,8 +202,10 @@ def init ():
 	couleurs = lcouleurs # Sauvegarde les couleurs string
 	# Parce que string_to_abrv utilise is_string ... or il lui faut la liste des couleurs !
 	
-	for i in couleurs:
-		labrvs.append (string_to_abrv (i))
+	labrvs = list (map (string_to_abrv,couleurs))
+
+	#for i in couleurs:
+	#	labrvs.append (string_to_abrv (i))
 		
 	abreviations = labrvs
 

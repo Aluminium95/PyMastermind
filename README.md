@@ -32,4 +32,12 @@ dans le répertoire du jeu.
 
 La liste des choses à faire est dans les « issues » github :-)
 
+# BRANCHES:
 
+Pour le moment, quelques branches de développement sont 
+à dispositions :
+
+* clean-fonctionnel : la branche qui permet de refactoriser, éclaircir, et simplifier le code
+* graphique : la branche qui travaille sur l'intégration graphique
+* reseau : la branche qui gère la création de fonctions de jeu en réseau
+* master : la branche maître, qui intègle les fonctionnalités quand elles sont stables
