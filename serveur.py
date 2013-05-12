@@ -86,7 +86,7 @@ class ThreadClient (threading.Thread,ClientProtocol):
 			else:
 				print ("Mauvaise gestion des paquets ...")
 				break # Quitte la boucle, on suppose qu'une mauvaise gestion est fatale
-		self.connection.close ()
+		self.connexion.close ()
 
 class ThreadServeur (threading.Thread):
 	""" Thread du serveur .... C'est tout ce qui 
