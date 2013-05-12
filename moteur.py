@@ -351,19 +351,20 @@ def proposition_solution (proposition, code_s):
 	
 
 	eq = utils.bi_map (utils.egal, proposition, code)
-	a  = utils.foldl (incrementeur, 0, eq)
-
+	a  = utils.foldl (incrementeur, 0, eq) # Nombre de bonnes couleurs à la bonne place 
+	
+	# On fait un petit clean de la proposition, pour supprimer les couleurs déjà comptées 
 	reste_proposition = utils.bi_map (supresseur, proposition, eq)
 	
 	# Ce code aussi peut devenir plus fonctionnel !
-	b = 0
+	b = 0 # Nombre de bonne couleurs à la mauvaise place
 	for i in reste_proposition:
-		k = 0
+		k = 0 # Position dans la liste « code »
 		while k < len (code):
 			if i != "*" and code[k] != "*" and i == code[k]:
 				b += 1
 				code[k] = "*"
-			k += 1
+			k += 1 # On passe à la couleur suivante du code 
 
 	return (a,b) #retourne a, le nombre de justes bien placées, et b le nombre de justes mal placées.
 
