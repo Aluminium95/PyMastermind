@@ -13,6 +13,7 @@ import ia
 import couleurs
 import themes
 import regles
+import utils
 
 import primitives 
 import chargement
@@ -266,6 +267,11 @@ def send (rep):
 		
 		set_ecran ("scores", 1)
 		
+		s,n = scores.recup_score (),scores.recup_nom ()
+
+		liste = utils.bi_map (lambda a,b: (a,b), s, n)
+		afficher_liste ("Scores",liste)
+
 	elif rep == "fortune":
 		try:
 			maximum = persistance.get_propriete ("phrases", "max")
