@@ -12,6 +12,7 @@ import joueur
 import ia
 import couleurs
 import themes
+import scores
 import regles
 import utils
 
@@ -116,7 +117,7 @@ def callback (x,y):
 	if btn != None:
 		print (btn) # Affiche la commande
 		send (btn) # Lol
-		print ("\n# [{0}] ? Commande : ".format (get_etat ()),end = $"")
+		print ("\n# [{0}] ? Commande : ".format (get_etat ()),end = "")
 	
 def init ():
 	""" Constructeur 
