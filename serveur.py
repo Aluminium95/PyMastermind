@@ -18,7 +18,7 @@
 HOST = 'localhost' # fonctionne ?
 PORT = 3500 
 
-import socket, sys, threading
+import socket, sys, threading, json
 
 class ClientProtocol:
 	""" Protocole basique de comunication avec 
@@ -37,7 +37,11 @@ class ClientProtocol:
 		ClientProtocol.users[identifiant] = connexion
 
 	def receive (self):
-		return self.connexion.recv (1024).decode ("utf-8")
+		m = self.connexion.recv (1024).decode ("utf-8")
+		try:
+			return json.loads (m)
+		except:
+			return m
 
 	def broadcast (self,msg):
 		for i,j in ClientProtocol.users.items ():
@@ -45,15 +49,14 @@ class ClientProtocol:
 				self.send (j,msg)
 
 	def send (self,conn,msg):
-		if msg[-1] != "\n":
-			msg += "\n" # On termine par un \n
-		conn.send (msg.encode ("utf-8"))
+		try:
+			conn.send (json.dumps (msg).encode ("utf-8"))
+		except:
+			conn.send (msg.encode ("utf-8"))
 
 	def reply (self,msg):
 
 		self.send (self.connexion, msg)
-
-clients = {} # Tableau des clients
 
 # Thread qui gère un client
 class ThreadClient (threading.Thread,ClientProtocol):
@@ -70,14 +73,19 @@ class ThreadClient (threading.Thread,ClientProtocol):
 		while True:
 			m = self.receive () # Attends une reponse !
 			
-			context,message = m[0:3],m[3:]
+			try:
+				context,message = m
+			except:
+				break # Message invalide
 
-			if context == "(<)": # Le client fait une requête
-				self.send ("(>)[None]Votre réponse")
-			elif context == "(t)": # Le client veut chatter
-				self.broadcast ("(t)" + message) # Fait circuler le message (m)
+			if context == "request": # Le client fait une requête
+				# Insérer une state machine ici 
+				self.reply (["response","Etat","Message"])
+			elif context == "chat": # Le client veut chatter
+				self.broadcast (["chat",message])
 			else:
 				print ("Mauvaise gestion des paquets ...")
+				break # Quitte la boucle, on suppose qu'une mauvaise gestion est fatale
 		self.connection.close ()
 
 class ThreadServeur (threading.Thread):
@@ -107,7 +115,6 @@ class ThreadServeur (threading.Thread):
 			th = ThreadClient (connexion)
 			th.start ()
 			
-			clients[th.getName ()] = connexion
 
 if __name__ == '__main__':
 	serveur = ThreadServeur ()
