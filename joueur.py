@@ -156,6 +156,51 @@ def afficher_boutons_couleurs ():
 	aller_a (140,200)
 	lignes (3, 50, 50, generateur_liste_couleurs (nombre_couleurs))
 
+def afficher_boutons_selection ():
+	def generateur_selection ():
+		if get_etat () == "Niveau":
+			li = moteur.get_liste_modes ()
+		elif get_etat () == "Theme":
+			def gen_liste_theme ():
+				for i in affichage.liste_themes ():
+					desc = persistance.get_propriete ("backgrounds","theme:" + i + ":description")
+					yield (i,desc)
+			li = list (gen_liste_theme())
+		else:
+			li = []
+
+		for i in li:
+			
+			color ("white")
+			begin_fill ()
+			
+			rectangle (150,20)
+
+			end_fill ()
+			
+			if get_etat () == "Theme":
+				ajouter_bouton (i[0],150,20,position ())
+			else:
+				ajouter_bouton (i,150,20,position ())
+
+			color ("black")
+
+			up()
+			fd (5)
+			left (90)
+			fd (1)
+			if get_etat () == "Theme":
+				texte (i[1],"petit")
+			else:
+				texte (i,"petit")
+			right (90)
+
+			yield 
+
+
+	aller_a (140,200)
+	lignes (1, 30,30, generateur_selection ())
+
 def afficher_boutons_etat ():
 	def generateur_boutons_etat ():
 		for commande in aide["global"]:
@@ -255,8 +300,13 @@ def set_etat (state):
 	afficher ("Vous êtes maintenant dans un nouveau mode")
 	afficher_aide () # Affiche l'aide du nouvel état 
 	
-	# set_ecran (ecran)
+	afficher_boutons_etat ()	
 	
+	if state == "Definir-Code" or state == "Humain-Joue":
+		afficher_boutons_couleurs ()
+	elif state == "Niveau" or state == "Theme":
+		afficher_boutons_selection ()
+
 def set_ecran (new, t = False):
 	""" Change d'écran sur la fenêtre turtle 
 		
@@ -278,7 +328,6 @@ def set_ecran (new, t = False):
 		else:
 			affichage.plateau ()
 			
-		afficher_boutons_couleurs ()
 	elif new == "regles":
 		if t != False:
 			chargement.run (t, "cercle")
@@ -298,9 +347,8 @@ def set_ecran (new, t = False):
 	ecran = new
 
 def set_etat_ecran (etat,ecran,t=False):
-	set_etat (etat)
 	set_ecran (ecran,t)
-	afficher_boutons_etat ()	
+	set_etat (etat)
 
 def afficher_aide ():
 	""" Affiche l'aide globale ainsi que celle de l'état courant 
@@ -549,9 +597,9 @@ def theme (rep):
 			
 			affichage.choix_theme (int (rep)) # un truc qui peut facilement planter a cause du int
 			afficher ("Selection theme : " + rep)
-			primitives.raz ()
+			raz ()
 			path = "Images/Theme" + rep + "/fond.gif"
-			primitives.bgpic (path)
+			bgpic (path)
 			set_etat_ecran (etat,"fond")
 		except ValueError:
 			afficher ("Il faut entrer le numéro du thème ...")
