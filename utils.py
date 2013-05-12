@@ -20,7 +20,7 @@ def bi_map (f,a,b):
 	while k < len (a) and k < len (b):
 		S.append (f (a[k],b[k]))
 		k += 1
-
+                
 	return S
 
 def foldl (f,n,l):
