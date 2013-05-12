@@ -33,9 +33,9 @@ class ClientProtocol:
 		pass
 	
 	def broadcast (self,msg):
-		for i,j in ClientProtocol.users:
+		for i,j in ClientProtocol.users.items ():
 			if i != self.identifiant:
-				j.send (msg)
+				j.send (msg.encode ("utf-8"))
 
 	def send (self,t,msg):
 		pass
